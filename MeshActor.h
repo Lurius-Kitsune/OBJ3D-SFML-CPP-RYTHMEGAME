@@ -13,6 +13,14 @@ public:
 	{
 		return mesh;
 	}
+	FORCEINLINE void SetFillColor(const Color& _color)
+	{
+		mesh->GetShape()->GetDrawable()->setFillColor(_color);
+	}
+	FORCEINLINE void SetOutlineColor(const Color& _color)
+	{
+		mesh->GetShape()->GetDrawable()->setOutlineColor(_color);
+	}
 	FORCEINLINE void SetTextureRect(const Vector2i& _start, const Vector2i& _size)
 	{
 		SetTextureRect(IntRect(_start, _size));

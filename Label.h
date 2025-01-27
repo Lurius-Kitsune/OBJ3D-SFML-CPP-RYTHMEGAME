@@ -22,6 +22,10 @@ public:
 	{
 		text->GetDrawable()->setFillColor(_color);
 	}
+	FORCEINLINE void SetOutlineColor(const Color& _color)
+	{
+		text->GetDrawable()->setOutlineColor(_color);
+	}
 	FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
 	{
 		Super::SetPosition(_position);
