@@ -1,5 +1,11 @@
 #include "ActorManager.h"
 
+ActorManager::ActorManager()
+{
+	actorsID = multimap<string, Actor*>();
+	allActors = set<Actor*>();
+}
+
 ActorManager::~ActorManager()
 {
 	for (Actor* _actor : allActors)

@@ -23,10 +23,6 @@ public:
 	{
 		return text;
 	}
-	FORCEINLINE virtual void SetFillColor(const Color& _color) override
-	{
-		text->setFillColor(_color);
-	}
 	FORCEINLINE virtual void SetOrigin(const Vector2f& _origin) override
 	{
 		text->setOrigin(_origin);

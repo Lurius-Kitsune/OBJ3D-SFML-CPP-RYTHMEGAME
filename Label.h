@@ -4,12 +4,24 @@
 
 class Label : public Actor
 {
+protected:
 	TextObject* text;
 	u_int textMeshToken;
 
 public:
+	FORCEINLINE TextObject* GetText() const
+	{
+		return text;
+	}
 	#pragma region Modifier
-
+	FORCEINLINE void SetCharacterSize(const u_int& _size)
+	{
+		text->GetDrawable()->setCharacterSize(_size);
+	}
+	FORCEINLINE void SetFillColor(const Color& _color)
+	{
+		text->GetDrawable()->setFillColor(_color);
+	}
 	FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
 	{
 		Super::SetPosition(_position);

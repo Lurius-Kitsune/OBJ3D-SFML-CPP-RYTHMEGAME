@@ -4,6 +4,7 @@
 #include "TransformableViewer.h"
 #include "Component.h"
 #include "RootComponent.h"
+#include "TimerManager.h"
 
 class Actor : public Core, public ITransformableModifier, public ITransformableViewer
 {
@@ -47,6 +48,10 @@ public:
 	FORCEINLINE void SetLifeSpan(const float _lifeSpan)
 	{
 		lifeSpan = _lifeSpan;
+		if (lifeSpan > 0.0f)
+		{
+			new Timer(bind(&Actor::Destroy, this), seconds(lifeSpan), true);
+		}
 	}
 	FORCEINLINE void AddChild(Actor* _child, const AttachmentType& _type)
 	{

@@ -234,6 +234,15 @@
     <ClCompile Include="Level.cpp">
       <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreLabel.cpp">
+      <Filter>RythmeGame</Filter>
+    </ClCompile>
+    <ClCompile Include="BeatMapLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RythmGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -370,6 +379,15 @@
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>Scripts\Managers\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreLabel.h">
+      <Filter>RythmeGame</Filter>
+    </ClInclude>
+    <ClInclude Include="BeatMapLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RythmGame.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
