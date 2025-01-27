@@ -115,6 +115,9 @@
     <Filter Include="Scripts\Core\Actors\Spawner">
       <UniqueIdentifier>{b091efd0-aff1-4015-9200-761743303927}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MargeuRythme">
+      <UniqueIdentifier>{2c44e566-c4e2-4a6e-be95-f287b9a1c054}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextObject.cpp">
@@ -230,6 +233,12 @@
     </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Scripts\GameLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MargeurythmeGame.cpp">
+      <Filter>MargeuRythme</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +376,12 @@
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>Scripts\Managers\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MargeurythmeGame.h">
+      <Filter>MargeuRythme</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,5 @@
 #include "CameraActor.h"
 #include "GameManager.h"
-#include "Duck.h"
-#include "DuckHuntGame.h"
 
 CameraActor::CameraActor(const string& _name) : Actor(_name)
 {
