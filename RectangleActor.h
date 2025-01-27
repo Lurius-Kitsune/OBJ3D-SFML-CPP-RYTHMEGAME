@@ -5,5 +5,5 @@ class RectangleActor : public MeshActor
 {
 public:
 	RectangleActor(const RectangleShapeData& _data);
-	//RectangleActor(const RectangleActor& _other);
+	RectangleActor(const RectangleActor& _other);
 };

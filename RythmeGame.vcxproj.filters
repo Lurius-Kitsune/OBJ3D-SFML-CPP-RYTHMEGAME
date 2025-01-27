@@ -115,8 +115,8 @@
     <Filter Include="Scripts\Core\Actors\Spawner">
       <UniqueIdentifier>{b091efd0-aff1-4015-9200-761743303927}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RythmeGame">
-      <UniqueIdentifier>{ba163e8d-bbb8-4f6c-b21e-db0e494cdf79}</UniqueIdentifier>
+    <Filter Include="MargeuRythme">
+      <UniqueIdentifier>{2c44e566-c4e2-4a6e-be95-f287b9a1c054}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -234,26 +234,11 @@
     <ClCompile Include="Level.cpp">
       <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreLabel.cpp">
-      <Filter>RythmeGame</Filter>
-    </ClCompile>
-    <ClCompile Include="BeatMapLevel.cpp">
+    <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RythmGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Widget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="MargeurythmeGame.cpp">
+      <Filter>MargeuRythme</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,29 +377,11 @@
     <ClInclude Include="CameraManager.h">
       <Filter>Scripts\Managers\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreLabel.h">
-      <Filter>RythmeGame</Filter>
-    </ClInclude>
-    <ClInclude Include="BeatMapLevel.h">
+    <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RythmGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Widget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MargeurythmeGame.h">
+      <Filter>MargeuRythme</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
