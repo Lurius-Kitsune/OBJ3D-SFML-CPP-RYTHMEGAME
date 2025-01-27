@@ -115,6 +115,9 @@
     <Filter Include="Scripts\Core\Actors\Spawner">
       <UniqueIdentifier>{b091efd0-aff1-4015-9200-761743303927}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RythmeGame">
+      <UniqueIdentifier>{ba163e8d-bbb8-4f6c-b21e-db0e494cdf79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextObject.cpp">

@@ -50,8 +50,11 @@ public:
 
 public:
 	Label(const string& _text, const string& _path = "", const FontExtensionType& _fontType = OTF);
+	Label(const Label& _other);
 	~Label();
 
+public:
+	virtual void Construct() override;
 	virtual void Deconstruct() override;
 
 private:
