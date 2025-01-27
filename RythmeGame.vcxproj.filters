@@ -79,9 +79,6 @@
     <Filter Include="Scripts\Core\Actors\Texts">
       <UniqueIdentifier>{3a236a4d-3434-4099-898c-b9f32bc86ba4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DuckHunt">
-      <UniqueIdentifier>{39046391-69cf-469b-8bbf-9ebc75c183dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts\Core\Components\Animation">
       <UniqueIdentifier>{486f8b75-db00-4b39-9f9f-f217ee614670}</UniqueIdentifier>
     </Filter>
@@ -102,6 +99,21 @@
     </Filter>
     <Filter Include="Scripts\Managers\Audio\Samples\Music">
       <UniqueIdentifier>{85485f9e-767e-4a95-833d-840f8602da7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Actors\Camera">
+      <UniqueIdentifier>{5cc3f15c-39c0-4b83-98f4-a30fed6be792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Components\Camera">
+      <UniqueIdentifier>{76e88600-4b35-4c78-8a8b-9b3863bee03f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Managers\Camera">
+      <UniqueIdentifier>{ad246227-2594-4a00-ab58-6b357858850e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Managers\Game">
+      <UniqueIdentifier>{ce2385b3-d33a-47d0-95af-228399b36827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Actors\Spawner">
+      <UniqueIdentifier>{b091efd0-aff1-4015-9200-761743303927}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,9 +180,6 @@
     <ClCompile Include="Label.cpp">
       <Filter>Scripts\Core\Actors\Texts</Filter>
     </ClCompile>
-    <ClCompile Include="Spawner.cpp">
-      <Filter>DuckHunt</Filter>
-    </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>Scripts\Managers\Audio</Filter>
     </ClCompile>
@@ -179,18 +188,6 @@
     </ClCompile>
     <ClCompile Include="MusicSample.cpp">
       <Filter>Scripts\Managers\Audio\Samples\Music</Filter>
-    </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>DuckHunt</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>DuckHunt</Filter>
-    </ClCompile>
-    <ClCompile Include="Duck.cpp">
-      <Filter>DuckHunt</Filter>
-    </ClCompile>
-    <ClCompile Include="DuckHuntGame.cpp">
-      <Filter>DuckHunt</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Scripts\Core\Components\Animation</Filter>
@@ -210,23 +207,29 @@
     <ClCompile Include="TriangleActor.cpp">
       <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
     </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraActor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bird.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraActor.cpp">
+      <Filter>Scripts\Core\Actors\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Scripts\Core\Components\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>Scripts\Managers\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Scripts\Managers\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Scripts\Core\Actors\Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,9 +305,6 @@
     <ClInclude Include="Label.h">
       <Filter>Scripts\Core\Actors\Texts</Filter>
     </ClInclude>
-    <ClInclude Include="Spawner.h">
-      <Filter>DuckHunt</Filter>
-    </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>Scripts\Managers\Audio</Filter>
     </ClInclude>
@@ -313,15 +313,6 @@
     </ClInclude>
     <ClInclude Include="MusicSample.h">
       <Filter>Scripts\Managers\Audio\Samples\Music</Filter>
-    </ClInclude>
-    <ClInclude Include="Duck.h">
-      <Filter>DuckHunt</Filter>
-    </ClInclude>
-    <ClInclude Include="DuckHuntGame.h">
-      <Filter>DuckHunt</Filter>
-    </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>DuckHunt</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Scripts\Core\Components\Animation</Filter>
@@ -356,23 +347,26 @@
     <ClInclude Include="SubclassOf.h">
       <Filter>Scripts\Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="CameraComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bird.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraActor.h">
+      <Filter>Scripts\Core\Actors\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Scripts\Core\Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Scripts\Core\Actors\Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Scripts\Managers\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>Scripts\Managers\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
