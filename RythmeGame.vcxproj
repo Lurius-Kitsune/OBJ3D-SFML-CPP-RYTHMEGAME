@@ -146,6 +146,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorManager.cpp" />
+    <ClCompile Include="BeatMap.cpp" />
     <ClCompile Include="Bird.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
@@ -171,6 +172,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="MeshActor.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="MusicSample.cpp" />
+    <ClCompile Include="Note.cpp" />
     <ClCompile Include="NoteReceiver.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RectangleActor.cpp" />
@@ -189,6 +191,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorManager.h" />
+    <ClInclude Include="BeatMap.h" />
     <ClInclude Include="Bird.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationComponent.h" />
@@ -212,6 +215,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClInclude Include="Level.h" />
     <ClInclude Include="MargeurythmeGame.h" />
     <ClInclude Include="MusicSample.h" />
+    <ClInclude Include="Note.h" />
     <ClInclude Include="NoteReceiver.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Spawner.h" />
