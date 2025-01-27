@@ -1,0 +1,12 @@
+- Supprimer un acteur
+- Utilisation du temps
+- zOrder de rendu
+- Collision intersections
+- Collision par rapport à la souris
+
+- Calculs math pour le trou noir
+- GetComponent<>() de Actor
+- TextureManager => load texture déjà existante
+
+- Reserver le sound tant qu'il est pas terminé
+- AdjustAllVolums
