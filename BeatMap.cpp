@@ -1,5 +1,6 @@
 #include "BeatMap.h"
 #include <fstream>
+#include "Level.h"
 
 BeatMap::BeatMap(const string& _path)
 {
@@ -23,6 +24,22 @@ void BeatMap::Start()
 	}
 	timeStamp = new Clock();
 	timeStamp->restart();
+}
+
+void BeatMap::Update()
+{
+	if (isLoaded)
+	{
+		/*if(notes.contains(GetCurrentTime()))
+		{
+			Note _note = notes[GetCurrentTime()];
+			Level::SpawnActor(_note);
+		}*/
+	}
+	else
+	{
+		LOG(Error, "BeatMap not loaded !");
+	}
 }
 
 void BeatMap::LoadBeatMap()
