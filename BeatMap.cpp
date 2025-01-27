@@ -21,7 +21,8 @@ void BeatMap::Start()
 	{
 		LoadBeatMap();
 	}
-	timeStamp = new Time();
+	timeStamp = new Clock();
+	timeStamp->restart();
 }
 
 void BeatMap::LoadBeatMap()
@@ -34,16 +35,21 @@ void BeatMap::LoadBeatMap()
 			LOG(Error, "BeatMap file not found at " + path);
 			return;
 		}
+		const u_int& _totalLine = count(istreambuf_iterator<char>(_file), istreambuf_iterator<char>(), '\n');
+		_file.seekg(0, ios::beg);
+
 		string line;
 		getline(_file, line);
 		vector<string> _content = SplitString(line, '|');
 		missDamage = stoi(_content[1]);
 		difficulty = _content[0];
 
+		//Pourcentage de progressino de la map
 		while (getline(_file, line))
 		{
 			_content = SplitString(line, '|');
 			notes.insert(pair<float, Note>(stof(_content[0]), Note(NoteType(stoi(_content[1])))));
+			LOG(Display, "Progress : " + to_string((float)notes.size() / _totalLine * 100) + "%)");
 		}
 		_file.close();
 		LOG(Display, "BeatMap loaded ! Nb Note : " + to_string(notes.size()));

@@ -8,7 +8,7 @@ class BeatMap
 	bool isLoaded;
 	map<float, Note> notes;
 	int missDamage;
-	Time* timeStamp;
+	Clock* timeStamp;
 	string difficulty;
 
 public:
@@ -21,5 +21,10 @@ public:
 
 
 	void LoadBeatMap();
+
+	string GetCurrentTime()const
+	{
+		return to_string(timeStamp->getElapsedTime().asSeconds());
+	}
 };
 
