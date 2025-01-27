@@ -1,19 +1,25 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "Note.h"
 
 class BeatMap
 {
-	// map<float, Note> notes;
-	int MissDamage;
+	string path;
+	bool isLoaded;
+	map<float, Note> notes;
+	int missDamage;
 	Time* timeStamp;
+	string difficulty;
 
 public:
-	BeatMap(const int _missDamage, const float _timeStamp);
 	BeatMap(const string& _path);
 	~BeatMap();
 
 
 public:
 	void Start();
+
+
+	void LoadBeatMap();
 };
 

@@ -1,11 +1,10 @@
 #include "MargeurythmeGame.h"
-#include "Note.h"
+#include "BeatMap.h"
 #include "Level.h"
 
 void MargeurythmeGame::Start()
 {
 	Super::Start();
-	arrowLeft = Level::SpawnActor(NoteReceiver(RectangleShapeData(Vector2f(0, 100.0f))));
 	InitInput();
 
 	for(u_int _i = 0; _i < 4; _i++)
@@ -14,6 +13,10 @@ void MargeurythmeGame::Start()
 
 		_note->SetPosition(Vector2f(60*_i, 0));
 	}
+
+	BeatMap* _beatMap = new BeatMap("Assets/BeatMap/CrabRave.txt");
+	_beatMap->Start();
+	delete _beatMap;
 }
 
 bool MargeurythmeGame::Update()
@@ -33,5 +36,5 @@ void MargeurythmeGame::InitInput()
 	inputMap[Code::Up] = GameInput::Input::ARROW_UP;
 	inputMap[Code::Down] = GameInput::Input::ARROW_DOWN;
 
-	arrowLeft->InitInput();
+	//arrowLeft->InitInput();
 }
