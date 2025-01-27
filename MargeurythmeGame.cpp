@@ -21,7 +21,8 @@ void MargeurythmeGame::Start()
 
 bool MargeurythmeGame::Update()
 {
-	LOG(Display, beatMap->GetCurrentTime());
+	LOG(Display, beatMap->GetCurrentTimeAsString());
+	beatMap->Update();
 	return Super::Update();
 }
 

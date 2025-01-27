@@ -12,6 +12,17 @@ class BeatMap
 	string difficulty;
 
 public:
+	float GetCurrentTime()const
+	{
+		return timeStamp->getElapsedTime().asSeconds();
+	}
+
+	string GetCurrentTimeAsString()const
+	{
+		return to_string(timeStamp->getElapsedTime().asSeconds());
+	}
+
+public:
 	BeatMap(const string& _path);
 	~BeatMap();
 
@@ -19,12 +30,9 @@ public:
 public:
 	void Start();
 
+	void Update();
+
 
 	void LoadBeatMap();
-
-	string GetCurrentTime()const
-	{
-		return to_string(timeStamp->getElapsedTime().asSeconds());
-	}
 };
 

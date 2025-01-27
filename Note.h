@@ -20,6 +20,7 @@ class Note : public SquareActor
 	NoteType type;
 
 public:
+	Note() = default;
 	Note(const NoteType _type);
 	Note(const Note& _other);
 
