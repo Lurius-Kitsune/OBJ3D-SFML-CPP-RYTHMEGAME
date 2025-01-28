@@ -36,5 +36,5 @@ void NoteMouvementComponent::Move(const float _deltaTime)
 		}
 
 	}
-	owner->Move(direction* speed * _deltaTime * 500.0f);
+	owner->Move(direction* speed * _deltaTime * 400.0f);
 }
