@@ -1,6 +1,6 @@
 #include "MargeurythmeGame.h"
 
-#include "Level.h"
+#include "BeatMapLevel.h"
 
 void MargeurythmeGame::Start()
 {
@@ -14,7 +14,7 @@ void MargeurythmeGame::Start()
 		_note->SetPosition(Vector2f(60*_i, 0));
 	}
 
-	beatMap = new BeatMap("Assets/BeatMap/CrabRave.txt");
+	beatMap = (new BeatMapLevel())->GetBeatMap(0);
 	beatMap->Start();
 	//delete _beatMap;
 }

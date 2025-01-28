@@ -1,10 +1,15 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Actor.h"
+#include "BeatMap.h"
 
 class Level
 {
+	
+
 public:
+	
+	
 	template <typename T = Actor>
 	static T* SpawnActor()
 	{
