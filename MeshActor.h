@@ -5,6 +5,7 @@
 
 class MeshActor : public Actor
 {
+protected:
 	MeshComponent* mesh;
 	u_int renderMeshToken;
 

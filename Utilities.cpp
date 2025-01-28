@@ -45,6 +45,20 @@ float EaseOutQuart(const float _time)
     return 1 - powf(1 - _time, 4.0f);
 }
 
+vector<string> SplitString(const string& _string, const char _delimiter)
+{
+    vector<string> _result;
+	stringstream _ss(_string);
+	string _item;
+
+	while (getline(_ss, _item, _delimiter))
+	{
+		_result.push_back(_item);
+	}
+
+	return _result;
+}
+
 float EaseInQuart(const float _time)
 {
     return _time * _time * _time * _time;

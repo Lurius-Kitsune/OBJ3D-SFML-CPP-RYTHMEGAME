@@ -4,3 +4,9 @@ RectangleActor::RectangleActor(const RectangleShapeData& _data) : MeshActor(_dat
 {
 
 }
+
+RectangleActor::RectangleActor(const RectangleActor& _other)
+: MeshActor(_other)
+{
+
+}
