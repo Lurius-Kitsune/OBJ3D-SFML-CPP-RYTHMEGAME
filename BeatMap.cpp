@@ -6,10 +6,11 @@ BeatMap::BeatMap(const string& _path)
 {
 	path = _path;
 	isLoaded = false;
-	missDamage = 0;
-	timeStamp = Clock();
 	difficulty = "Easy";
+	missDamage = 0;
 	notes = map<Time, NoteType>();
+	timeStamp = Clock();
+	perfectScoreMin = 0;
 }
 
 BeatMap::~BeatMap()
@@ -71,6 +72,7 @@ void BeatMap::LoadBeatMap()
 			_content = SplitString(line, '|');
 			notes.insert(pair<Time, NoteType>(Time(seconds((stof(_content[0])))), NoteType(stoi(_content[1]))));
 			LOG(Display, "Progress : " + to_string((float)notes.size() / _totalLine * 100) + "%)");
+			perfectScoreMin += NR_PERFECT;
 		}
 		_file.close();
 		LOG(Display, "BeatMap loaded ! Nb Note : " + to_string(notes.size()));
