@@ -7,12 +7,12 @@ void MargeurythmeGame::Start()
 	Super::Start();
 	InitInput();
 
-	/*for(u_int _i = 0; _i < 4; _i++)
+	for(u_int _i = 0; _i < 4; _i++)
 	{
 		Note* _note = Level::SpawnActor(Note(NoteType(_i)));
 
 		_note->SetPosition(Vector2f(60*_i, 0));
-	}*/
+	}
 
 	beatMap = new BeatMap("Assets/BeatMap/CrabRave.txt");
 	beatMap->Start();

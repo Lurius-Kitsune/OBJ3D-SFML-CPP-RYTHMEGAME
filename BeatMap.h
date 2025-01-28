@@ -6,15 +6,15 @@ class BeatMap
 {
 	string path;
 	bool isLoaded;
-	map<float, Note> notes;
+	map<Time, NoteType> notes;
 	int missDamage;
 	Clock* timeStamp;
 	string difficulty;
 
 public:
-	float GetCurrentTime()const
+	Time GetCurrentTime()const
 	{
-		return timeStamp->getElapsedTime().asSeconds();
+		return timeStamp->getElapsedTime();
 	}
 
 	string GetCurrentTimeAsString()const
