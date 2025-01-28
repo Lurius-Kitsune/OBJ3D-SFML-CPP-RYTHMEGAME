@@ -20,10 +20,13 @@ class BeatMap
 {
 	string path;
 	bool isLoaded;
-	map<Time, NoteType> notes;
-	int missDamage;
-	Clock timeStamp;
+
 	string difficulty;
+	int missDamage;
+	map<Time, NoteType> notes;
+	Clock timeStamp;
+	int perfectScoreMin;
+
 
 public:
 	Time GetCurrentTime()const
