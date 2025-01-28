@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "SquareActor.h"
+#include "NoteMouvementComponent.h"
 
 enum NoteType
 {
@@ -18,6 +19,7 @@ enum NoteType
 class Note : public SquareActor
 {
 	NoteType type;
+	NoteMouvementComponent* mouvementComponent;
 
 public:
 	Note() = default;
