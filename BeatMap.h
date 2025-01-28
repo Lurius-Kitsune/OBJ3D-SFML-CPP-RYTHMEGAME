@@ -13,6 +13,7 @@ class BeatMap
 	Clock timeStamp;
 	int perfectScoreMin;
 
+	Actor* triggerNote;
 
 public:
 	Time GetCurrentTime()const

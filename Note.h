@@ -35,7 +35,7 @@ class Note : public SquareActor
 
 public:
 	Note() = default;
-	Note(const NoteType _type);
+	Note(const NoteType _type, Actor* _actor = nullptr);
 	Note(const Note& _other);
 
 };
