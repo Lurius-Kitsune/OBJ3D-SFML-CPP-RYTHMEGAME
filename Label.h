@@ -1,78 +1,77 @@
 #pragma once
-#include "Actor.h"
+#include "Widget.h"
 #include "TextObject.h"
 
-class Label : public Actor
+namespace UI
 {
-protected:
-	TextObject* text;
-	u_int textMeshToken;
 
-public:
-	FORCEINLINE TextObject* GetText() const
+	class Label : public Widget
 	{
-		return text;
-	}
-	#pragma region Modifier
-	FORCEINLINE void SetCharacterSize(const u_int& _size)
-	{
-		text->GetDrawable()->setCharacterSize(_size);
-	}
-	FORCEINLINE void SetFillColor(const Color& _color)
-	{
-		text->GetDrawable()->setFillColor(_color);
-	}
-	FORCEINLINE void SetOutlineColor(const Color& _color)
-	{
-		text->GetDrawable()->setOutlineColor(_color);
-	}
-	FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
-	{
-		Super::SetPosition(_position);
-		text->SetPosition(_position);
-	}
-	FORCEINLINE virtual void SetRotation(const Angle& _rotation) override
-	{
-		Super::SetRotation(_rotation);
-		text->SetRotation(_rotation);
-	}
-	FORCEINLINE virtual void SetScale(const Vector2f& _scale) override
-	{
-		Super::SetScale(_scale);
-		text->SetScale(_scale);
-	}
-	FORCEINLINE virtual void SetOrigin(const Vector2f& _origin) override
-	{
-		Super::SetOrigin(_origin);
-		text->SetOrigin(_origin);
-	}
-	FORCEINLINE virtual void Move(const Vector2f& _offset) override
-	{
-		Super::Move(_offset);
-		text->Move(_offset);
-	}
-	FORCEINLINE virtual void Rotate(const Angle& _angle) override
-	{
-		Super::Rotate(_angle);
-		text->Rotate(_angle);
-	}
-	FORCEINLINE virtual void Scale(const Vector2f& _factor) override
-	{
-		Super::Scale(_factor);
-		text->Scale(_factor);
-	}
+	protected:
+		TextObject* text;
+		u_int textMeshToken;
 
-	#pragma endregion
+	public:
+		FORCEINLINE TextObject* GetText() const
+		{
+			return text;
+		}
+#pragma region Modifier
+		FORCEINLINE void SetCharacterSize(const u_int& _size)
+		{
+			text->GetDrawable()->setCharacterSize(_size);
+		}
+		FORCEINLINE void SetFillColor(const Color& _color)
+		{
+			text->GetDrawable()->setFillColor(_color);
+		}
+		FORCEINLINE void SetOutlineColor(const Color& _color)
+		{
+			text->GetDrawable()->setOutlineColor(_color);
+		}
+		FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
+		{
+			Super::SetPosition(_position);
+			text->SetPosition(_position);
+		}
+		FORCEINLINE virtual void SetRotation(const Angle& _rotation) override
+		{
+			Super::SetRotation(_rotation);
+			text->SetRotation(_rotation);
+		}
+		FORCEINLINE virtual void SetScale(const Vector2f& _scale) override
+		{
+			Super::SetScale(_scale);
+			text->SetScale(_scale);
+		}
+		FORCEINLINE virtual void SetOrigin(const Vector2f& _origin) override
+		{
+			Super::SetOrigin(_origin);
+			text->SetOrigin(_origin);
+		}
+		FORCEINLINE virtual void Move(const Vector2f& _offset) override
+		{
+			Super::Move(_offset);
+			text->Move(_offset);
+		}
+		FORCEINLINE virtual void Rotate(const Angle& _angle) override
+		{
+			Super::Rotate(_angle);
+			text->Rotate(_angle);
+		}
+		FORCEINLINE virtual void Scale(const Vector2f& _factor) override
+		{
+			Super::Scale(_factor);
+			text->Scale(_factor);
+		}
 
-public:
-	Label(const string& _text, const string& _path = "", const FontExtensionType& _fontType = OTF);
-	Label(const Label& _other);
-	~Label();
+#pragma endregion
 
-public:
-	virtual void Construct() override;
-	virtual void Deconstruct() override;
+	public:
+		Label(const string& _text, const RenderType& _type = Screen, const string& _path = "", const FontExtensionType& _fontType = OTF);
+		~Label();
 
-private:
-	void RenderText(RenderWindow& _window);
-};
+	private:
+		virtual void Render(RenderWindow& _window) override;
+	};
+}

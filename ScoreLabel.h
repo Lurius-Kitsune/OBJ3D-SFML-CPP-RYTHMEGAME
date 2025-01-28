@@ -1,5 +1,8 @@
 #pragma once
 #include "Label.h"
+
+using namespace UI;
+
 class ScoreLabel : public Label
 {
 	int score;

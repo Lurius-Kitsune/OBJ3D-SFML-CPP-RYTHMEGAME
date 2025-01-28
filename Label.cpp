@@ -1,37 +1,21 @@
 #include "Label.h"
 #include "CameraManager.h"
 
-Label::Label(const string& _text, const string& _path, const FontExtensionType& _fontType) : Actor("Label")
+UI::Label::Label(const string& _text, const RenderType& _type, const string& _path,
+	const FontExtensionType& _fontType)
+	: Widget("Label", _type)
 {
 	text = new TextObject(_text, _path, _fontType);
 }
 
-Label::Label(const Label& _other) : Actor(_other)
-{
-	text = new TextObject(*_other.text);
-}
-
-Label::~Label()
+UI::Label::~Label()
 {
 	delete text;
 }
 
 
-void Label::Construct()
+void UI::Label::Render(RenderWindow& _window)
 {
-	Super::Construct();
-	textMeshToken = M_CAMERA.BindOnRenderWindow(bind(&Label::RenderText, this, placeholders::_1));
-
-}
-
-void Label::Deconstruct()
-{
-	Super::Deconstruct();
-	M_CAMERA.UnbindOnRenderWindow(textMeshToken);
-}
-
-
-void Label::RenderText(RenderWindow& _window)
-{
+	if (visibility == Hidden) return;
 	_window.draw(*text->GetDrawable());
 }

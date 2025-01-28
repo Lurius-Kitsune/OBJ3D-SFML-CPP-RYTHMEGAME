@@ -1,7 +1,7 @@
 #include "ScoreLabel.h"
 
 ScoreLabel::ScoreLabel(const string& _path, const FontExtensionType& _fontType)
-	: Label("0", _path, _fontType)
+	: Label("0", Screen, _path, _fontType)
 {
 	score = 0;
 	scoreMaxDigit = 7;

@@ -1,6 +1,8 @@
 #include "MeshActor.h"
 #include "CameraManager.h"
 
+using namespace Camera;
+
 MeshActor::MeshActor(const float _radius, const size_t& _pointCount, const string& _path,
 					 const IntRect& _rect, const string& _name) : Actor(_name)
 {
@@ -23,7 +25,9 @@ MeshActor::MeshActor(const MeshActor& _other) : Actor(_other)
 void MeshActor::Construct()
 {
 	Super::Construct();
-	renderMeshToken = M_CAMERA.BindOnRenderWindow(bind(&MeshActor::RenderMesh, this, placeholders::_1));
+
+	const RenderData& _data = RenderData(bind(&MeshActor::RenderMesh, this, placeholders::_1));
+	renderMeshToken = M_CAMERA.BindOnRenderWindow(_data);
 }
 
 void MeshActor::Deconstruct()
