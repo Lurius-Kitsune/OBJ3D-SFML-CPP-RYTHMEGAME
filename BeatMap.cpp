@@ -7,13 +7,14 @@ BeatMap::BeatMap(const string& _path)
 	path = _path;
 	isLoaded = false;
 	missDamage = 0;
-	timeStamp = nullptr;
+	timeStamp = Clock();
 	difficulty = "Easy";
 	notes = map<Time, NoteType>();
 }
 
 BeatMap::~BeatMap()
 {
+	
 }
 
 void BeatMap::Start()
@@ -22,8 +23,7 @@ void BeatMap::Start()
 	{
 		LoadBeatMap();
 	}
-	timeStamp = new Clock();
-	timeStamp->restart();
+	timeStamp.restart();
 }
 
 void BeatMap::Update()

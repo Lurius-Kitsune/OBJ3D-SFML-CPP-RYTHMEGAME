@@ -16,7 +16,7 @@ void MargeurythmeGame::Start()
 
 	beatMap = new BeatMap("Assets/BeatMap/CrabRave.txt");
 	beatMap->Start();
-	//delete _beatMap;
+	
 }
 
 bool MargeurythmeGame::Update()
@@ -29,6 +29,7 @@ bool MargeurythmeGame::Update()
 void MargeurythmeGame::Stop()
 {
 		Super::Stop();
+		delete beatMap;
 }
 
 void MargeurythmeGame::InitInput()
