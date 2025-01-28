@@ -1,16 +1,21 @@
 #include "NoteMouvementComponent.h"
+#include "Note.h"
 
 
-NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, float _speed)
+NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, Actor* _triggerNote, const float _speed)
 	: Component(_owner)
 {
 	speed = _speed;
+	triggerNote = _triggerNote;
+	direction = Vector2f(0, 1.0f);
 }
 
 NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, const NoteMouvementComponent& _other)
 	: Component(_owner)
 {
 	speed = _other.speed;
+	triggerNote = _other.triggerNote;
+	direction = _other.direction;
 }
 
 void NoteMouvementComponent::Tick(const float _deltaTime)
@@ -20,5 +25,16 @@ void NoteMouvementComponent::Tick(const float _deltaTime)
 
 void NoteMouvementComponent::Move(const float _deltaTime)
 {
-	owner->Move(Vector2f(0, 1.0f) * speed * _deltaTime * 500.0f);
+	if (triggerNote)
+	{
+		const Vector2f _direction = triggerNote->GetPosition() - owner->GetPosition();
+		direction = _direction.normalized();
+		const FloatRect& _ownerRect = Cast<Note>(owner)->GetMesh()->GetShape()->GetDrawable()->getGlobalBounds();
+		if (_ownerRect.contains(triggerNote->GetPosition()))
+		{
+			triggerNote = nullptr;
+		}
+
+	}
+	owner->Move(direction* speed * _deltaTime * 500.0f);
 }
