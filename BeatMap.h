@@ -22,18 +22,18 @@ class BeatMap
 	bool isLoaded;
 	map<Time, NoteType> notes;
 	int missDamage;
-	Clock* timeStamp;
+	Clock timeStamp;
 	string difficulty;
 
 public:
 	Time GetCurrentTime()const
 	{
-		return timeStamp->getElapsedTime();
+		return timeStamp.getElapsedTime();
 	}
 
 	string GetCurrentTimeAsString()const
 	{
-		return to_string(timeStamp->getElapsedTime().asSeconds());
+		return to_string(timeStamp.getElapsedTime().asSeconds());
 	}
 
 	FORCEINLINE string GetDifficulty()

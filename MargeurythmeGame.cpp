@@ -16,7 +16,7 @@ void MargeurythmeGame::Start()
 
 	beatMap = (new BeatMapLevel())->GetBeatMap(0);
 	beatMap->Start();
-	//delete _beatMap;
+	
 }
 
 bool MargeurythmeGame::Update()
@@ -29,6 +29,7 @@ bool MargeurythmeGame::Update()
 void MargeurythmeGame::Stop()
 {
 		Super::Stop();
+		delete beatMap;
 }
 
 void MargeurythmeGame::InitInput()
