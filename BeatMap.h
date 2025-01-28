@@ -2,6 +2,20 @@
 #include "CoreMinimal.h"
 #include "Note.h"
 
+struct BeatMapPathList
+{
+	string path;
+	vector<string> pathList;
+	BeatMapPathList()
+	{
+		path = "Assets/BeatMap/";
+		pathList =
+		{
+			path + "CrabRave.txt",
+		};
+	}
+};
+
 class BeatMap
 {
 	string path;
@@ -20,6 +34,11 @@ public:
 	string GetCurrentTimeAsString()const
 	{
 		return to_string(timeStamp->getElapsedTime().asSeconds());
+	}
+
+	FORCEINLINE string GetDifficulty()
+	{
+		return difficulty;
 	}
 
 public:

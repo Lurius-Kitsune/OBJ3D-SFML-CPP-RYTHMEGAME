@@ -37,7 +37,7 @@ void BeatMap::Update()
 		if(notes.contains(_time))
 		{
 			NoteType _noteType = notes[_time];
-			Level::SpawnActor(Note(_noteType))->SetPosition(Vector2f(50.0f* _noteType, 0));
+			Level::SpawnActor(Note(_noteType))->SetPosition(Vector2f(50.0f * static_cast<float>(_noteType), 0));
 			LOG(Warning, "Note spawned !");
 		}
 	}

@@ -1,22 +1,34 @@
 #pragma once
 #include "Level.h"
-#include "ScoreLabel.h"
+
 class BeatMapLevel : public Level
 {
-	ScoreLabel* score;
-	string name;
-	string difficulty;
-	Vector2u windowSize;
-	//float advancementPercent;
+	vector<BeatMap*> beatMapCollection;
+	BeatMapPathList listOfPaths;
 
 public:
-	BeatMapLevel(const string& _name, const string& _difficulty);
+	BeatMapLevel();
+	~BeatMapLevel();
 
-public:
-	void Display();
+	FORCEINLINE BeatMap* GetBeatMap(int _number)
+	{
+		return beatMapCollection.at(_number);
+	}
+
+	FORCEINLINE int GetBeatMapCollectionSize()
+	{
+		return static_cast<int>(beatMapCollection.size());
+	}
+
+	FORCEINLINE string GetBeatMapDifficulty(int _number)
+	{
+		return beatMapCollection.at(_number)->GetDifficulty();
+	}
 
 private:
-	void BaseDisplay();
-	void SpawnCombo(const u_int& _comboCout = 0, const Color& _color = Color(0, 0, 0));
+
 };
+
+
+
 
