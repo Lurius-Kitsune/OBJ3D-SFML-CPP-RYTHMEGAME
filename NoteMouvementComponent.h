@@ -4,9 +4,12 @@
 class NoteMouvementComponent : public Component
 {
 	float speed;
+	Actor* triggerNote;
+	Vector2f direction;
 
 public:
-	NoteMouvementComponent(Actor* _owner, float _speed = 1.0f);
+	NoteMouvementComponent(Actor* _owner, Actor* _triggerNote = nullptr,const float _speed = 1.0f);
+	NoteMouvementComponent(Actor* _owner, const NoteMouvementComponent& _other);
 
 	virtual ~NoteMouvementComponent() = default;
 

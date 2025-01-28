@@ -1,19 +1,23 @@
 #include "BeatMap.h"
 #include <fstream>
 #include "Level.h"
+#include "GameManager.h"
+#include "MargeurythmeGame.h"
 
 BeatMap::BeatMap(const string& _path)
 {
 	path = _path;
 	isLoaded = false;
-	missDamage = 0;
-	timeStamp = nullptr;
 	difficulty = "Easy";
+	missDamage = 0;
 	notes = map<Time, NoteType>();
+	timeStamp = Clock();
+	perfectScoreMin = 0;
 }
 
 BeatMap::~BeatMap()
 {
+	
 }
 
 void BeatMap::Start()
@@ -22,8 +26,7 @@ void BeatMap::Start()
 	{
 		LoadBeatMap();
 	}
-	timeStamp = new Clock();
-	timeStamp->restart();
+	timeStamp.restart();
 }
 
 void BeatMap::Update()
@@ -37,8 +40,8 @@ void BeatMap::Update()
 		if(notes.contains(_time))
 		{
 			NoteType _noteType = notes[_time];
-			Level::SpawnActor(Note(_noteType))->SetPosition(Vector2f(50.0f * static_cast<float>(_noteType), 0));
-			LOG(Warning, "Note spawned !");
+			MeshActor* _triggerNote = Cast<MargeurythmeGame>(M_GAME.GetCurrent())->GetTriggers()[_noteType];
+			Level::SpawnActor(Note(_noteType, _triggerNote))->SetPosition(Vector2f(60.0f* _noteType, 0));
 		}
 	}
 	else
@@ -72,6 +75,7 @@ void BeatMap::LoadBeatMap()
 			_content = SplitString(line, '|');
 			notes.insert(pair<Time, NoteType>(Time(seconds((stof(_content[0])))), NoteType(stoi(_content[1]))));
 			LOG(Display, "Progress : " + to_string((float)notes.size() / _totalLine * 100) + "%)");
+			perfectScoreMin += NR_PERFECT;
 		}
 		_file.close();
 		LOG(Display, "BeatMap loaded ! Nb Note : " + to_string(notes.size()));

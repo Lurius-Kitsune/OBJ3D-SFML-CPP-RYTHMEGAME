@@ -12,11 +12,14 @@ void MargeurythmeGame::Start()
 		Note* _note = Level::SpawnActor(Note(NoteType(_i)));
 
 		_note->SetPosition(Vector2f(60*_i, 0));
+		triggers[NoteType(_i)] = Level::SpawnActor(SquareActor(50.0f));
+		triggers[NoteType(_i)]->SetPosition(Vector2f(100+ 60 * _i, 700));
+		triggers[NoteType(_i)]->SetOriginAtMiddle();
 	}
 
 	beatMap = (new BeatMapLevel())->GetBeatMap(0);
 	beatMap->Start();
-	//delete _beatMap;
+	
 }
 
 bool MargeurythmeGame::Update()
@@ -29,6 +32,7 @@ bool MargeurythmeGame::Update()
 void MargeurythmeGame::Stop()
 {
 		Super::Stop();
+		delete beatMap;
 }
 
 void MargeurythmeGame::InitInput()
