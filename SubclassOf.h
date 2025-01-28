@@ -13,6 +13,8 @@ public:
 	}
 
 public:
+	SubclassOf() = default;
+
 	SubclassOf(const T& _objectRef)
 	{
 		objectRef = new T(_objectRef);
