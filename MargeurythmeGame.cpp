@@ -1,6 +1,6 @@
 #include "MargeurythmeGame.h"
 
-#include "BeatMapLevel.h"
+#include "Level.h"
 
 void MargeurythmeGame::Start()
 {
@@ -12,9 +12,14 @@ void MargeurythmeGame::Start()
 		Note* _note = Level::SpawnActor(Note(NoteType(_i)));
 
 		_note->SetPosition(Vector2f(60*_i, 0));
+		triggers[NoteType(_i)] = Level::SpawnActor(SquareActor(50.0f));
+		triggers[NoteType(_i)]->SetPosition(Vector2f(100+ 60 * _i, 700));
+		triggers[NoteType(_i)]->SetOriginAtMiddle();
 	}
 
-	beatMap = (new BeatMapLevel())->GetBeatMap(0);
+	
+
+	beatMap = new BeatMap("Assets/BeatMap/CrabRave.txt");
 	beatMap->Start();
 	
 }

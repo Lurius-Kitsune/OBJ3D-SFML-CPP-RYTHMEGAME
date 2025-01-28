@@ -13,6 +13,14 @@ class MargeurythmeGame : public Game
 
 	map<Code, GameInput::Input> inputMap;
 
+	map<NoteType, MeshActor*> triggers;
+
+public:
+	FORCEINLINE map<NoteType, MeshActor*>& GetTriggers()
+	{
+		return triggers;
+	}
+
 public:
 	virtual void Start() override;
 	virtual bool Update() override;

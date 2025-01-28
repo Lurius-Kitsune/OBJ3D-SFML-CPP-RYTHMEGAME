@@ -1,6 +1,8 @@
 #include "BeatMap.h"
 #include <fstream>
 #include "Level.h"
+#include "GameManager.h"
+#include "MargeurythmeGame.h"
 
 BeatMap::BeatMap(const string& _path)
 {
@@ -38,7 +40,8 @@ void BeatMap::Update()
 		if(notes.contains(_time))
 		{
 			NoteType _noteType = notes[_time];
-			Level::SpawnActor(Note(_noteType, triggerNote))->SetPosition(Vector2f(60.0f* _noteType, 0));
+			MeshActor* _triggerNote = Cast<MargeurythmeGame>(M_GAME.GetCurrent())->GetTriggers()[_noteType];
+			Level::SpawnActor(Note(_noteType, _triggerNote))->SetPosition(Vector2f(60.0f* _noteType, 0));
 		}
 	}
 	else
@@ -77,9 +80,6 @@ void BeatMap::LoadBeatMap()
 		_file.close();
 		LOG(Display, "BeatMap loaded ! Nb Note : " + to_string(notes.size()));
 		isLoaded = true;
-
-		triggerNote = Level::SpawnActor(Actor());
-		triggerNote->SetPosition(Vector2f(350.0f, 550.0f));
 	}
 	else
 	{
