@@ -38,6 +38,7 @@ void TextureManager::LoadTexture(Texture& _texture, const string& _path, const I
 		{
 			LOG(Error, "Cannot open file with the following path : \'" + _finalPath + "\' !");
 			_texture = GetDefaultTexture();
+			delete _textureRead;
 		}
 		else
 		{
