@@ -7,6 +7,7 @@ class TextureManager : public Singleton<TextureManager>
 	string defaultTexturePath;
 	string defaultTextureExtension;
 	Texture* defaultTexture;
+	map<string, Texture*> textures;
 
 private:
 	FORCEINLINE Texture GetDefaultTexture()
