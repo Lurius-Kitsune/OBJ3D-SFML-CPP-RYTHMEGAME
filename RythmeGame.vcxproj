@@ -147,6 +147,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorManager.cpp" />
     <ClCompile Include="BeatMap.cpp" />
+    <ClCompile Include="BeatMapLevel.cpp" />
     <ClCompile Include="Bird.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
@@ -179,7 +180,6 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RectangleActor.cpp" />
     <ClCompile Include="RootComponent.cpp" />
-    <ClCompile Include="RythmGame.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="ScoreLabel.cpp" />
     <ClCompile Include="ShapeObject.cpp" />
@@ -198,6 +198,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorManager.h" />
     <ClInclude Include="BeatMap.h" />
+    <ClInclude Include="BeatMapLevel.h" />
     <ClInclude Include="Bird.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationComponent.h" />
