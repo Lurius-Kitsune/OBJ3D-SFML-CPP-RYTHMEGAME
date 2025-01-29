@@ -2,12 +2,14 @@
 
 #include "Song.h"
 #include "Level.h"
+#include "ActorManager.h"
+#include "CameraManager.h"
 
 void MargeurythmeGame::Start()
 {
 	Super::Start();
 	InitInput();
-
+	M_CAMERA.CreateCamera<CameraActor>(FloatRect({ 0.0f, 0.0f }, CAST(Vector2f, GetWindowSize())), "DefaultCamera");
 	for(u_int _i = 0; _i < 4; _i++)
 	{
 		Note* _note = Level::SpawnActor(Note(NoteType(_i)));
