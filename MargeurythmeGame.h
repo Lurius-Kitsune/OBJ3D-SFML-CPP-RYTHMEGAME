@@ -7,7 +7,6 @@
 class MargeurythmeGame : public Game
 {
 
-	// 4 button Input arrowLeft, arrowRight, arrowUp, arrowDown
 	BeatMap* beatMap;
 
 	//map<Code, GameInput::Input> inputMap;
