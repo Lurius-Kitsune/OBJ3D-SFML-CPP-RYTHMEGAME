@@ -1,5 +1,4 @@
 #include "BeatMap.h"
-#include <fstream>
 #include "Level.h"
 #include "GameManager.h"
 #include "MargeurythmeGame.h"
@@ -8,8 +7,12 @@ BeatMap::BeatMap(const string& _path)
 {
 	path = _path;
 	isLoaded = false;
-	difficulty = "Easy";
-	missDamage = 0;
+
+	vector<string> _contentFile = ReadAllFile(path);
+	vector<string> _content = SplitString(_contentFile[0], '|');
+	missDamage = stoi(_content[1]);
+	difficulty = _content[0];
+
 	notes = map<Time, NoteType>();
 	timeStamp = Clock();
 	perfectScoreMin = 0;
@@ -54,30 +57,20 @@ void BeatMap::LoadBeatMap()
 {
 	if (!isLoaded)
 	{
-		ifstream _file = ifstream(path);
-		if (!_file.is_open())
-		{
-			LOG(Error, "BeatMap file not found at " + path);
-			return;
-		}
-		const u_int& _totalLine = count(istreambuf_iterator<char>(_file), istreambuf_iterator<char>(), '\n');
-		_file.seekg(0, ios::beg);
-
-		string line;
-		getline(_file, line);
-		vector<string> _content = SplitString(line, '|');
-		missDamage = stoi(_content[1]);
-		difficulty = _content[0];
+		vector<string> _contentFile = ReadAllFile(path);
+		
+		//Nombre de ligne total
+		const u_int _totalLine = CAST(u_int, _contentFile.size() - 1);
 
 		//Pourcentage de progressino de la map
-		while (getline(_file, line))
+		for (u_int _i = 1; _i <= _totalLine; _i++)
 		{
-			_content = SplitString(line, '|');
+			vector<string> _content = SplitString(_contentFile[_i], '|');
 			notes.insert(pair<Time, NoteType>(Time(seconds((stof(_content[0])))), NoteType(stoi(_content[1]))));
 			LOG(Display, "Progress : " + to_string((float)notes.size() / _totalLine * 100) + "%)");
 			perfectScoreMin += NR_PERFECT;
 		}
-		_file.close();
+
 		LOG(Display, "BeatMap loaded ! Nb Note : " + to_string(notes.size()));
 		isLoaded = true;
 	}

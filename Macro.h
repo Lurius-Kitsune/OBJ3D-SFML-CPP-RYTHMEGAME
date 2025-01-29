@@ -12,6 +12,7 @@
 #include <typeinfo>
 #include <exception>
 #include <random>
+#include <fstream>
 
 // OLD
 #include <math.h>
