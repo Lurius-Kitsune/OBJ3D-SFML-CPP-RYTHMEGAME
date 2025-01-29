@@ -44,7 +44,7 @@ void Tracks::Init()
 		{
 			string _infoTemp = _info; 
 			artist = InitInfo(_infoTemp);
-			LOG(Error, artist);
+			LOG(Display, artist);
 		},
 		[&](const string& _info) 
 		{
@@ -56,7 +56,7 @@ void Tracks::Init()
 		{
 			string _infoTemp = _info;
 			title = InitInfo(_infoTemp);
-			LOG(Error, title);
+			LOG(Display, title);
 		},
 	};
 
@@ -80,6 +80,7 @@ string Tracks::InitInfo(const string& _infoLine)
 {
 	string _temp; 
 	_temp = CAST(string, _infoLine.substr(_infoLine.find("{") + 1));
+	_temp.erase(_temp.size() - 1);
 	return _temp;
 }
 

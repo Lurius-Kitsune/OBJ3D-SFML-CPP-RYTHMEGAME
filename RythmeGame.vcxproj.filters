@@ -255,9 +255,6 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Scripts\Managers\Input</Filter>
     </ClCompile>
-    <ClCompile Include="FileManager.cpp">
-      <Filter>Scripts\Managers\File</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
