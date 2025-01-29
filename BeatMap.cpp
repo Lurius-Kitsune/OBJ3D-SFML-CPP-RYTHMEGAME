@@ -43,8 +43,8 @@ void BeatMap::Update()
 		if(notes.contains(_time))
 		{
 			NoteType _noteType = notes[_time];
-			MeshActor* _triggerNote = Cast<MargeurythmeGame>(M_GAME.GetCurrent())->GetTriggers()[_noteType];
-			Level::SpawnActor(Note(_noteType, _triggerNote))->SetPosition(Vector2f(60.0f* _noteType, 0));
+			NoteDetector* _triggerNote = Cast<MargeurythmeGame>(M_GAME.GetCurrent())->GetNoteDetector()[_noteType];
+			Level::SpawnActor(Note(_noteType, _triggerNote))->SetPosition(Vector2f(60.0f + 120.0f * _noteType, 0));
 		}
 	}
 	else

@@ -173,8 +173,8 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="MusicSample.cpp" />
     <ClCompile Include="Note.cpp" />
+    <ClCompile Include="NoteDetector.cpp" />
     <ClCompile Include="NoteMouvementComponent.cpp" />
-    <ClCompile Include="NoteReceiver.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RectangleActor.cpp" />
     <ClCompile Include="RootComponent.cpp" />
@@ -218,8 +218,8 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClInclude Include="MargeurythmeGame.h" />
     <ClInclude Include="MusicSample.h" />
     <ClInclude Include="Note.h" />
+    <ClInclude Include="NoteDetector.h" />
     <ClInclude Include="NoteMouvementComponent.h" />
-    <ClInclude Include="NoteReceiver.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Song.h" />
     <ClInclude Include="Spawner.h" />
