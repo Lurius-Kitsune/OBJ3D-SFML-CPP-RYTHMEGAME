@@ -13,6 +13,7 @@
 #include <exception>
 #include <random>
 #include <fstream>
+#include <filesystem>
 
 // OLD
 #include <math.h>
@@ -52,6 +53,7 @@
 
 using namespace std;
 using namespace sf;
+using namespace filesystem;
 using namespace priv;
 
 typedef unsigned short u_short;

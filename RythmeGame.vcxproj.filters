@@ -118,6 +118,12 @@
     <Filter Include="MargeuRythme">
       <UniqueIdentifier>{2c44e566-c4e2-4a6e-be95-f287b9a1c054}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Managers\Input">
+      <UniqueIdentifier>{8aa21fce-4343-403a-9e05-33d845ba76ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Managers\File">
+      <UniqueIdentifier>{7971005a-c14c-42f4-9ce3-f3d6c4a45bc8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextObject.cpp">
@@ -210,12 +216,6 @@
     <ClCompile Include="TriangleActor.cpp">
       <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bird.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CameraActor.cpp">
       <Filter>Scripts\Core\Actors\Camera</Filter>
     </ClCompile>
@@ -234,11 +234,29 @@
     <ClCompile Include="Level.cpp">
       <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MargeurythmeGame.cpp">
       <Filter>MargeuRythme</Filter>
+    </ClCompile>
+    <ClCompile Include="BeatMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Note.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteMouvementComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteReceiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tracks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Scripts\Managers\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Scripts\Managers\File</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -356,12 +374,6 @@
     <ClInclude Include="SubclassOf.h">
       <Filter>Scripts\Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bird.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CameraActor.h">
       <Filter>Scripts\Core\Actors\Camera</Filter>
     </ClInclude>
@@ -377,11 +389,32 @@
     <ClInclude Include="CameraManager.h">
       <Filter>Scripts\Managers\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MargeurythmeGame.h">
       <Filter>MargeuRythme</Filter>
+    </ClInclude>
+    <ClInclude Include="BeatMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Note.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteMouvementComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteReceiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tracks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Scripts\Managers\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Scripts\Managers\File</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

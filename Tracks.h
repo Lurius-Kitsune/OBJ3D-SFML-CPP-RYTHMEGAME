@@ -2,15 +2,15 @@
 #include "CoreMinimal.h"
 #include "BeatMap.h"
 #include "MusicSample.h"
-class Song
+class Tracks
 {
 	string path;
-	map<string, BeatMap> beatMaps;
 	string artist;
 	string title;
 	Time duration;
 	MusicSample* music;
 	BeatMap* currentBeatMap;
+	map<string, BeatMap> beatMaps;
 
 public:
 	FORCEINLINE string GetArtist() const
@@ -35,12 +35,16 @@ public:
 	}
 
 public:
-	Song(const string& _path);
-	~Song();
+	Tracks(const string& _path = "default");
+	~Tracks();
 
 public:
 	void Start(const string& _difficulty);
 private:
 	void Init();
+	string InitInfo(const string& _infoLine);
+
+public:
+	bool operator < (Tracks _other) const;
 };
 
