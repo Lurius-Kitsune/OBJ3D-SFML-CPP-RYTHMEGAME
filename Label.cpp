@@ -6,7 +6,6 @@ UI::Label::Label(const string& _text, const RenderType& _type, const string& _pa
 	: Widget("Label", _type)
 {
 	text = new TextObject(_text, _path, _fontType);
-	textMeshToken = 0;
 }
 
 UI::Label::~Label()

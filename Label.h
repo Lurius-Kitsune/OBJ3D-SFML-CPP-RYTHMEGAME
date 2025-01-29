@@ -16,10 +16,6 @@ namespace UI
 		{
 			return text;
 		}
-		FORCEINLINE void SetText(const string& _text) const
-		{
-			text->SetString(_text);
-		}
 #pragma region Modifier
 		FORCEINLINE void SetCharacterSize(const u_int& _size)
 		{

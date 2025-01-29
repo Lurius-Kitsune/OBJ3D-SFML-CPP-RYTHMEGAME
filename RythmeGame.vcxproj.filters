@@ -234,6 +234,10 @@
     <ClCompile Include="Level.cpp">
       <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreLabel.cpp">
+      <Filter>MargeuRythme</Filter>
+    </ClCompile>
+
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -376,6 +380,9 @@
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>Scripts\Managers\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreLabel.h">
+      <Filter>MargeuRythme</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>

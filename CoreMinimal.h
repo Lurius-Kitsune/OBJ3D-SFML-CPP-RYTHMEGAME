@@ -12,3 +12,4 @@
 #define M_FONT FontManager::GetInstance()
 #define M_AUDIO AudioManager::GetInstance()
 #define M_INPUT InputManager::GetInstance()
+#define M_HUD HUD::GetInstance()
