@@ -4,7 +4,6 @@
 
 namespace UI
 {
-
 	class Image : public Widget
 	{
 		ShapeObject* image;
@@ -67,10 +66,8 @@ namespace UI
 
 	private:
 		void UpdateSize();
-		void UpdateGradient();
 
 	public:
 		virtual void Render(RenderWindow& _window) override;
 	};
 }
-
