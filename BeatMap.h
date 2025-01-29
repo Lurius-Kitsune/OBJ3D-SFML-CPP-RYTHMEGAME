@@ -2,20 +2,6 @@
 #include "CoreMinimal.h"
 #include "Note.h"
 
-struct BeatMapPathList
-{
-	string path;
-	vector<string> pathList;
-	BeatMapPathList()
-	{
-		path = "Assets/BeatMap/";
-		pathList =
-		{
-			path + "CrabRave.txt",
-		};
-	}
-};
-
 class BeatMap
 {
 	string path;
@@ -44,6 +30,7 @@ public:
 	}
 
 public:
+	BeatMap() = default;
 	BeatMap(const string& _path);
 	~BeatMap();
 

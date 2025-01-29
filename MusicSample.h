@@ -44,6 +44,11 @@ public:
 		return music->getVolume();
 	}
 
+	FORCEINLINE Time GetDuration() const
+	{
+		return music->getDuration();
+	}
+
 public:
 	MusicSample(const string& _path);
 	~MusicSample();

@@ -1,5 +1,6 @@
 #include "MargeurythmeGame.h"
 
+#include "Song.h"
 #include "Level.h"
 
 void MargeurythmeGame::Start()
@@ -16,11 +17,9 @@ void MargeurythmeGame::Start()
 		triggers[NoteType(_i)]->SetPosition(Vector2f(100+ 60 * _i, 700));
 		triggers[NoteType(_i)]->SetOriginAtMiddle();
 	}
-
-	
-
-	beatMap = new BeatMap("Assets/BeatMap/CrabRave.txt");
-	beatMap->Start();
+	Song* _song = new Song("CrabRave");
+	beatMap = &_song->GetBeatMaps()["Medium"];
+	_song->Start("Medium");
 	
 }
 
@@ -33,8 +32,7 @@ bool MargeurythmeGame::Update()
 
 void MargeurythmeGame::Stop()
 {
-		Super::Stop();
-		delete beatMap;
+	Super::Stop();
 }
 
 void MargeurythmeGame::InitInput()

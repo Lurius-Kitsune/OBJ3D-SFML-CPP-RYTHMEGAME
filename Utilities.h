@@ -26,5 +26,6 @@ Type* Cast(BaseType* _baseType)
     if (!_baseType) return nullptr;
 	return dynamic_cast<Type*>(_baseType);
 }
+vector<string> ReadAllFile(const string& _path);
 
 vector<string> SplitString(const string& _string, const char _delimiter);
