@@ -8,7 +8,7 @@ namespace File
 
 	public:
 		template<typename Type>
-		set<Type> ReadFile(const char* _path, const string& _extension = "txt")
+		vector<Type> ReadFile(const char* _path, const string& _extension = "txt")
 		{
 			ifstream _stream = ifstream(string(_path) + "." + _extension);
 			if (!_stream.is_open())
@@ -18,28 +18,28 @@ namespace File
 				LOG(Fatal, string("Impossible to read the file : " + _finalFileName));
 				throw CustomException(string("Impossible to read the file : " + _finalFileName).c_str());
 			}
-			set<Type> _data;
+			vector<Type> _data;
 			string _currentLine;
 			while (getline(_stream, _currentLine))
 			{
 				Type _currentData = Type(_currentLine);
-				_data.insert(_currentData);
+				_data.push_back(_currentData);
 			}
 			return _data;
 		}
 
 
 		template<typename Type>
-		set<Type> ReadFolder(const string& _path)
+		set<Type*> ReadFolder(const string& _path)
 		{
 			// TODO faire une sécurité
 
-			set<Type> _data;
+			set<Type*> _data;
 			for (directory_entry _file : directory_iterator{ ".\\" + _path })
 			{
 				if (_file.exists())
 				{
-					const Type& _currentData = Type(_file.path().string());
+					Type* _currentData = new Type(_file.path().string());
 					_data.insert(_currentData);
 				}
 				else

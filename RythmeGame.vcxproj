@@ -150,8 +150,10 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorManager.cpp" />
     <ClCompile Include="BeatMap.cpp" />
+    <ClCompile Include="BeatMapLevel.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="CameraActor.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraManager.cpp" />
@@ -164,7 +166,9 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -174,14 +178,16 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="MusicSample.cpp" />
     <ClCompile Include="Note.cpp" />
+    <ClCompile Include="NoteDetector.cpp" />
     <ClCompile Include="NoteMouvementComponent.cpp" />
-    <ClCompile Include="NoteReceiver.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RectangleActor.cpp" />
     <ClCompile Include="RootComponent.cpp" />
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="ScoreLabel.cpp" />
+    <ClCompile Include="SelectLevel.cpp" />
     <ClCompile Include="ShapeObject.cpp" />
-    <ClCompile Include="Tracks.cpp" />
+    <ClCompile Include="Track.cpp" />
     <ClCompile Include="SoundSample.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Spawner.cpp" />
@@ -190,13 +196,16 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TriangleActor.cpp" />
     <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorManager.h" />
     <ClInclude Include="BeatMap.h" />
+    <ClInclude Include="BeatMapLevel.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="CameraActor.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraManager.h" />
@@ -212,18 +221,23 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MargeurythmeGame.h" />
     <ClInclude Include="MusicSample.h" />
     <ClInclude Include="Note.h" />
+    <ClInclude Include="NoteDetector.h" />
     <ClInclude Include="NoteMouvementComponent.h" />
-    <ClInclude Include="NoteReceiver.h" />
+    <ClInclude Include="RenderType.h" />
     <ClInclude Include="Sample.h" />
-    <ClInclude Include="Tracks.h" />
+    <ClInclude Include="SelectLevel.h" />
+    <ClInclude Include="ScoreLabel.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="SubclassOf.h" />
+    <ClInclude Include="Track.h" />
     <ClInclude Include="TransformableViewer.h" />
     <ClInclude Include="TransformableModifier.h" />
     <ClInclude Include="Logger.h" />
@@ -244,6 +258,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClInclude Include="TransformData.h" />
     <ClInclude Include="TriangleActor.h" />
     <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Widget.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODOList.txt" />

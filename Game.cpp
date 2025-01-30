@@ -4,6 +4,8 @@
 #include "TimerManager.h"
 #include "InputManager.h"
 
+using namespace Camera;
+
 Game::Game()
 {
 	window = RenderWindow();

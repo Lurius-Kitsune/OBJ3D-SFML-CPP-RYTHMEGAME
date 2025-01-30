@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "GameManager.h"
 #include "MargeurythmeGame.h"
+#include "BeatMapLevel.h"
+#include "SelectLevel.h"
 
 void InitConfig()
 {

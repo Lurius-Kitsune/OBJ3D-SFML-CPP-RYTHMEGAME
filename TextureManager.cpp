@@ -10,6 +10,10 @@ TextureManager::TextureManager()
 TextureManager::~TextureManager()
 {
 	delete defaultTexture;
+	for (pair<string, Texture*> _texture : textures)
+	{
+		delete _texture.second;
+	}
 }
 
 
@@ -23,11 +27,26 @@ void TextureManager::LoadDefaultTexture()
 void TextureManager::LoadTexture(Texture& _texture, const string& _path, const IntRect& _rect)
 {
 	const string& _finalPath = "Assets/Textures/" + _path;
-	if (!_texture.loadFromFile(_finalPath, false, _rect))
+	if (textures.contains(_path))
 	{
-		LOG(Error, "Cannot open file with the following path : \'" + _finalPath + "\' !");
-		_texture = GetDefaultTexture();
+		_texture = *textures[_path];
 	}
+	else
+	{
+		Texture* _textureRead = new Texture();
+		if (!_textureRead->loadFromFile(_finalPath, false, _rect))
+		{
+			LOG(Error, "Cannot open file with the following path : \'" + _finalPath + "\' !");
+			_texture = GetDefaultTexture();
+			delete _textureRead;
+		}
+		else
+		{
+			_texture = *_textureRead;
+			textures[_path] = _textureRead;
+		}
+	}
+	
 }
 
 void TextureManager::SetTexture(Shape* _shape, const Texture* _texture)

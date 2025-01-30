@@ -1,22 +1,21 @@
 #pragma once
 #include "Game.h"
-#include "NoteReceiver.h"
+#include "NoteDetector.h"
 #include "GameInput.h"
 #include "BeatMap.h"
+#include "Track.h"
 
 class MargeurythmeGame : public Game
 {
 
-	// 4 button Input arrowLeft, arrowRight, arrowUp, arrowDown
-	NoteReceiver* arrowLeft;
 	BeatMap* beatMap;
 
-	map<Code, GameInput::Input> inputMap;
-
-	map<NoteType, MeshActor*> triggers;
+	//map<Code, GameInput::Input> inputMap;
+	set<Track*> allTracks;
+	map<NoteType, NoteDetector*> triggers;
 
 public:
-	FORCEINLINE map<NoteType, MeshActor*>& GetTriggers()
+	FORCEINLINE map<NoteType, NoteDetector*>& GetNoteDetector()
 	{
 		return triggers;
 	}
