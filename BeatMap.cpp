@@ -70,7 +70,7 @@ void BeatMap::LoadBeatMap()
 		for (u_int _i = 1; _i <= _totalLine; _i++)
 		{
 			vector<string> _content = SplitString(_contentFile[_i], '|');
-			notes.insert(pair<Time, NoteType>(Time(seconds((stof(_content[0])))), NoteType(stoi(_content[1]))));
+			notes.insert(pair<Time, NoteType>(Time(seconds((stof(_content[0]))).asMicroseconds()), NoteType(stoi(_content[1]))));
 			LOG(Display, "Progress : " + to_string((float)notes.size() / _totalLine * 100) + "%)");
 			perfectScoreMin += NR_PERFECT;
 		}

@@ -31,10 +31,10 @@ void MargeurythmeGame::Start()
 
 bool MargeurythmeGame::Update()
 {
-	if (beatMap)
-	{
-		beatMap->Update();
-	}
+	//if (beatMap)
+	//{
+	//	beatMap->Update();
+	//}
 	return Super::Update();
 }
 
