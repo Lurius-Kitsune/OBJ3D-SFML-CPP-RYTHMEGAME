@@ -11,7 +11,7 @@ class MargeurythmeGame : public Game
 	BeatMap* beatMap;
 
 	//map<Code, GameInput::Input> inputMap;
-	set<Track*> allTracks;
+	vector<Track*> allTracks;
 	map<NoteType, NoteDetector*> triggers;
 
 public:

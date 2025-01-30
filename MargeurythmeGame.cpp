@@ -24,7 +24,7 @@ void MargeurythmeGame::Start()
 		triggers[NoteType(_i)]->SetOriginAtMiddle();
 	}
 
-	Track* _song = *allTracks.begin();
+	Track* _song = allTracks[0];
 	beatMap = &_song->GetBeatMaps()["Medium"];
 	_song->Start("Medium");
 	

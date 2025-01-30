@@ -13,7 +13,7 @@ void InitConfig()
 int main()
 {
     InitConfig();
-    M_GAME.Launch(new MargeurythmeGame());
+    M_GAME.Launch(new SelectLevel());
 
 	return EXIT_SUCCESS;
 }

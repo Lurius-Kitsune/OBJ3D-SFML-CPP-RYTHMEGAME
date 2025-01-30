@@ -2,24 +2,28 @@
 #include "CameraManager.h"
 #include "TimerManager.h"
 #include "GameManager.h"
+#include "FileManager.h"
+#include "HUD.h"
 #include "MeshActor.h"
 #include "ActorManager.h"
-#include "RectangleActor.h"
-#include "HUD.h"
+#include "Image.h"
+
 
 using namespace Camera;
 using namespace UI;
+using namespace File;
 
 SelectLevel::SelectLevel()
 {
-	allSounds = {};
+	allTracks = {};
 	background = nullptr;
 	windowSize = Vector2f();
+	trackIndex = 0;
 }
 
 SelectLevel::~SelectLevel()
 {
-	for (Track* _song : allSounds)
+	for (Track* _song : allTracks)
 	{
 		delete _song;
 	}
@@ -57,7 +61,7 @@ void SelectLevel::InitLabel(Track* _track)
 	_artist->SetZOrder(2);
 	_artist->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.3f));
 
-	Label* _duration = M_HUD.CreateWidget<Label>(to_string(_track->GetDuration().asSeconds()), Screen, "Test", TTF); //TODO implemant Font
+	Label* _duration = M_HUD.CreateWidget<Label>(_track->GetDurationAsString(), Screen, "Test", TTF); //TODO implemant Font
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
 	_duration->SetPosition(Vector2f(windowSize.x * 0.8f, windowSize.y * 0.4f));
@@ -82,6 +86,46 @@ void SelectLevel::InitLabel(Track* _track)
 	M_HUD.AddToViewport(_play);
 }
 
+void SelectLevel::InitRectangleTrackInfo(Track* _track)
+{
+	//RectangleActor* _trackInfo = Level::SpawnActor(RectangleActor()); //TODO implemant Font
+	//_trackInfo->SetFillColor(Color(255, 255, 255, 150));
+	//
+
+	Canvas* _trackInfo = M_HUD.CreateWidget<Canvas>("Test", Screen);
+	UI::Image* _background = M_HUD.CreateWidget<UI::Image>("background", RectangleShapeData(Vector2f(windowSize.x * 0.58f, 50.0f), "background"), World); //TODO implemant Font
+	const Vector2f& _backgroundSize = _background->GetSize();
+	_background->SetZOrder(0);
+
+
+	Label* _title = M_HUD.CreateWidget<Label>(_track->GetTitle(), Screen, "Test", TTF); //TODO implemant Font
+	_title->SetCharacterSize(20);
+	_title->SetZOrder(2);
+	_title->SetPosition(Vector2f(_backgroundSize.x * 0.01f, 0.0f));
+
+	Label* _artist = M_HUD.CreateWidget<Label>(_track->GetArtist(), Screen, "Test", TTF); //TODO implemant Font
+	_artist->SetCharacterSize(20);
+	_artist->SetZOrder(2);
+	_artist->SetPosition(Vector2f(_backgroundSize.x * 0.01f, _backgroundSize.y * 0.5f));
+
+	Label* _duration = M_HUD.CreateWidget<Label>(_track->GetDurationAsString(), Screen, "Test", TTF); //TODO implemant Font
+	_duration->SetCharacterSize(20);
+	_duration->SetZOrder(2);
+	_duration->SetPosition(Vector2f(_backgroundSize.x * 0.5f, _backgroundSize.y * 0.25f));
+
+	_trackInfo->AddWidget(_background);
+	_trackInfo->AddWidget(_title);
+	_trackInfo->AddWidget(_artist);
+	_trackInfo->AddWidget(_duration);
+
+
+	_trackInfo->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * (allTracksRectangle.size() + 1)));
+	allTracksRectangle.push_back(_trackInfo);
+
+	_trackInfo->UpdateWidgets();
+	M_HUD.AddToViewport(_trackInfo);
+}
+
 void SelectLevel::Start()
 {
 	Super::Start();
@@ -96,16 +140,17 @@ void SelectLevel::Start()
 	background->SetRotation(degrees(45));
 	background->SetFillColor(Color(255, 255, 255, 100));
 
-	allSounds.push_back(new Track("CrabRave"));
+	allTracks = M_FILE.ReadFolder<Track>("Assets\\Tracks");
+	Track* _track = allTracks[trackIndex];
 
-	//TODO Replace with selected Sound
-	for (Track* _track : allSounds)
+	allButtons.push_back(new Button("Button", Screen, _track));
+	InitSeparator(_track);
+	InitLabel(_track);
+
+	for (Track* _track : allTracks)
 	{
-		allButtons.push_back(new Button("Button", Screen, _track));
-		InitSeparator(_track);
-		InitLabel(_track);
+		InitRectangleTrackInfo(_track);
 	}
-
 
 	M_ACTOR.BeginPlay();
 	//allLevels["Test"] = new BeatMapLevel("Song Name !", "Very Hard");
