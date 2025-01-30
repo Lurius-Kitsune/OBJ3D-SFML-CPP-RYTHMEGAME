@@ -9,7 +9,7 @@ class BeatMap
 
 	string difficulty;
 	int missDamage;
-	map<Time, NoteType> notes;
+	map<Time, pair<NoteType, bool>> notes;
 	Clock timeStamp;
 	int perfectScoreMin;
 
