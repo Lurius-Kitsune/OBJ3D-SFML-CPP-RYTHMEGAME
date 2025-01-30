@@ -1,19 +1,22 @@
-#include "Song.h"
+#include "Track.h"
+#include "FileManager.h"
 
-Song::Song(const string& _path)
+using namespace File;
+
+Track::Track(const string& _path)
 {
-	path = "Assets/Musics/" + _path;
-	music = new MusicSample(_path + "/music.mp3");
+	path = _path;
+	music = new MusicSample(_path + "\\music.mp3");
 	music->Stop();
 	currentBeatMap = nullptr;
 	Init();
 }
 
-Song::~Song()
+Track::~Track()
 {
 }
 
-void Song::Start(const string& _difficulty)
+void Track::Start(const string& _difficulty)
 {
 	if(beatMaps.contains(_difficulty))
 	{
@@ -27,9 +30,9 @@ void Song::Start(const string& _difficulty)
 	}
 }
 
-void Song::Init()
+void Track::Init()
 {
-	vector<string> _info = ReadAllFile(path + "/info.txt");
+	vector<string> _info = M_FILE.ReadFile<string>(string(path + "\\info").c_str());
 	if (_info.size() < 3)
 	{
 		LOG(Error, "Missing Information" + path);
@@ -42,8 +45,13 @@ void Song::Init()
 	const u_int& _beatMapInfo = CAST(u_int, _info.size());
 	for (u_int _i = 2; _i < _beatMapInfo; _i++)
 	{
-		BeatMap _beatMap = BeatMap(path + "/" + _info[_i] + ".txt");
+		BeatMap _beatMap = BeatMap(path + "\\" + _info[_i]);
 		beatMaps.insert({ _beatMap.GetDifficulty(), _beatMap });
 	}
+}
+
+bool Track::operator < (Track _other) const 
+{
+	return title < _other.title;
 }
 

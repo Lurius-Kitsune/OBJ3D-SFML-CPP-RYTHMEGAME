@@ -3,7 +3,7 @@
 
 MusicSample::MusicSample(const string& _path) : Sample(_path)
 {
-	const string& _finalPath = "Assets/Musics/" + _path;
+	const string& _finalPath = _path;
 	music = new Music();
 
 	if (!music->openFromFile(_finalPath))

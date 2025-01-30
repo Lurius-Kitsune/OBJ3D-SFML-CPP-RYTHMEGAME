@@ -46,25 +46,6 @@ float EaseOutQuart(const float _time)
     return 1 - powf(1 - _time, 4.0f);
 }
 
-vector<string> ReadAllFile(const string& _path)
-{
-    ifstream _file = ifstream(_path);
-
-    if (!_file.is_open())
-	{
-		LOG(Error, "File not found at " + _path);
-		return vector<string>();
-	}
-
-    vector<string> _lines;
-    string _line;
-    while(getline(_file, _line))
-	{
-		_lines.push_back(_line);
-	}
-    return _lines;
-}
-
 vector<string> SplitString(const string& _string, const char _delimiter)
 {
     vector<string> _result;

@@ -3,7 +3,7 @@
 
 #include "Image.h"
 #include "Label.h"
-#include "Song.h"
+#include "Track.h"
 
 namespace UI
 {
@@ -18,7 +18,7 @@ namespace UI
 		Label* difficulty;
 
 	public:
-		Button(const string& _name, const RenderType& _type, Song* _song);
+		Button(const string& _name, const RenderType& _type, Track* _song);
 
 	public:
 		virtual void Render(RenderWindow& _window) override;

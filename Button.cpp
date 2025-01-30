@@ -1,13 +1,13 @@
 #include "Button.h"
 #include "RenderType.h"
 
-UI::Button::Button(const string& _name, const RenderType& _type, Song* _song) : UI::Widget(_name, _type)
+UI::Button::Button(const string& _name, const RenderType& _type, Track* _track) : UI::Widget(_name, _type)
 {
 	isSelected = false;
 	border = new Image("Border", RectangleShapeData({ 300.0f, 64.0f }, "Background"));
 	icon = new Image("Icon", RectangleShapeData({64.0f, 64.0f}, "Background"));
-	title = new Label(_song->GetTitle(), Screen, "Test", TTF);
-	artist = new Label(_song->GetArtist(), Screen, "Test", TTF);
+	title = new Label(_track->GetTitle(), Screen, "Test", TTF);
+	artist = new Label(_track->GetArtist(), Screen, "Test", TTF);
 	duration = new Label("Duration", Screen, "Test", TTF);
 	difficulty = new Label("Difficulty", Screen, "Test", TTF);
 }

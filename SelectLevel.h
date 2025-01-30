@@ -6,7 +6,7 @@
 
 class SelectLevel : public Game
 {
-	vector<Song*> allSounds;
+	vector<Track*> allSounds;
 	MeshActor* background;
 	Vector2f windowSize;
 	vector<Button*> allButtons;
@@ -16,8 +16,8 @@ public:
 	~SelectLevel();
 
 private:
-	void InitSeparator(Song* _song);
-	void InitLabel(Song* _song);
+	void InitSeparator(Track* _song);
+	void InitLabel(Track* _song);
 
 public:
 	virtual void Start() override;

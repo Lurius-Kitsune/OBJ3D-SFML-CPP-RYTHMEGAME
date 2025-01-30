@@ -19,13 +19,13 @@ SelectLevel::SelectLevel()
 
 SelectLevel::~SelectLevel()
 {
-	for (Song* _song : allSounds)
+	for (Track* _song : allSounds)
 	{
 		delete _song;
 	}
 }
 
-void SelectLevel::InitSeparator(Song* _song)
+void SelectLevel::InitSeparator(Track* _track)
 {
 	RectangleActor* _topSeparation = Level::SpawnActor(RectangleActor(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background"))); //TODO implemant Font
 	_topSeparation->SetFillColor(Color(255, 255, 255, 150));
@@ -40,24 +40,24 @@ void SelectLevel::InitSeparator(Song* _song)
 	_bottomSeparation->SetPosition(Vector2f(0.0f, windowSize.y - 60.0f));
 }
 
-void SelectLevel::InitLabel(Song* _song)
+void SelectLevel::InitLabel(Track* _track)
 {
 	Label* _label = M_HUD.CreateWidget<Label>("Select Level", Screen, "Test", TTF); //TODO implemant Font
 	_label->SetCharacterSize(35);
 	_label->SetZOrder(2);
 	_label->SetPosition(Vector2f(windowSize.x * 0.05f, 10.0f));
 
-	Label* _title = M_HUD.CreateWidget<Label>(_song->GetTitle(), Screen, "Test", TTF); //TODO implemant Font
+	Label* _title = M_HUD.CreateWidget<Label>(_track->GetTitle(), Screen, "Test", TTF); //TODO implemant Font
 	_title->SetCharacterSize(50);
 	_title->SetZOrder(2);
 	_title->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.2f));
 
-	Label* _artist = M_HUD.CreateWidget<Label>(_song->GetArtist(), Screen, "Test", TTF); //TODO implemant Font
+	Label* _artist = M_HUD.CreateWidget<Label>(_track->GetArtist(), Screen, "Test", TTF); //TODO implemant Font
 	_artist->SetCharacterSize(25);
 	_artist->SetZOrder(2);
 	_artist->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.3f));
 
-	Label* _duration = M_HUD.CreateWidget<Label>(to_string(_song->GetDuration().asSeconds()), Screen, "Test", TTF); //TODO implemant Font
+	Label* _duration = M_HUD.CreateWidget<Label>(to_string(_track->GetDuration().asSeconds()), Screen, "Test", TTF); //TODO implemant Font
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
 	_duration->SetPosition(Vector2f(windowSize.x * 0.8f, windowSize.y * 0.4f));
@@ -96,14 +96,14 @@ void SelectLevel::Start()
 	background->SetRotation(degrees(45));
 	background->SetFillColor(Color(255, 255, 255, 100));
 
-	allSounds.push_back(new Song("CrabRave"));
+	allSounds.push_back(new Track("CrabRave"));
 
 	//TODO Replace with selected Sound
-	for (Song* _song : allSounds)
+	for (Track* _track : allSounds)
 	{
-		allButtons.push_back(new Button("Button", Screen, _song));
-		InitSeparator(_song);
-		InitLabel(_song);
+		allButtons.push_back(new Button("Button", Screen, _track));
+		InitSeparator(_track);
+		InitLabel(_track);
 	}
 
 

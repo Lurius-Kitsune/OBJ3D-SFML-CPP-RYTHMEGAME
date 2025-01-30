@@ -3,6 +3,7 @@
 #include "NoteDetector.h"
 #include "GameInput.h"
 #include "BeatMap.h"
+#include "Track.h"
 
 class MargeurythmeGame : public Game
 {
@@ -10,7 +11,7 @@ class MargeurythmeGame : public Game
 	BeatMap* beatMap;
 
 	//map<Code, GameInput::Input> inputMap;
-
+	set<Track*> allTracks;
 	map<NoteType, NoteDetector*> triggers;
 
 public:
