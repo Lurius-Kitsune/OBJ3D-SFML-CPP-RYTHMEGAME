@@ -1,7 +1,7 @@
 #include "BeatMap.h"
 #include "Level.h"
 #include "GameManager.h"
-#include "MargeurythmeGame.h"
+#include "BeatMapLevel.h"
 #include "FileManager.h"
 
 using namespace File;
@@ -46,8 +46,8 @@ void BeatMap::Update()
 		if(notes.contains(_time))
 		{
 			NoteType _noteType = notes[_time];
-			NoteDetector* _triggerNote = Cast<MargeurythmeGame>(M_GAME.GetCurrent())->GetNoteDetector()[_noteType];
-			Level::SpawnActor(Note(_noteType, _triggerNote))->SetPosition(Vector2f(60.0f + 120.0f * _noteType, 0));
+			NoteDetector* _triggerNote = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteDetector()[_noteType];
+			Level::SpawnActor(Note(_noteType, _triggerNote))->SetPosition(Vector2f(GetRandomNumberInRange(0, 1200), 0));
 		}
 	}
 	else
@@ -55,6 +55,7 @@ void BeatMap::Update()
 		LOG(Error, "BeatMap not loaded !");
 	}
 }
+
 
 void BeatMap::LoadBeatMap()
 {

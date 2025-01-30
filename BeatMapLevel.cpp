@@ -5,23 +5,47 @@
 #include "RectangleActor.h"
 #include "CameraManager.h"
 #include "HUD.h"
+#include "FileManager.h"
 
+using namespace File;
 using namespace Camera;
 using namespace UI;
 
-BeatMapLevel::BeatMapLevel(const string& _name, const string& _difficulty)
+BeatMapLevel::BeatMapLevel(Track* _track)
 {
-	name = _name;
-	difficulty = _difficulty;
+	track = _track;
+	name = track->GetTitle();
+	difficulty = track->GetCurrentBeatMap()->GetDifficulty();
 }
 
 void BeatMapLevel::Start()
 {
 	Super::Start();
 	windowSize = M_GAME.GetCurrent()->GetWindowSize();
-
 	M_CAMERA.CreateCamera<CameraActor>(FloatRect({}, CAST(Vector2f, M_GAME.GetCurrent()->GetWindowSize())), "DefaultCamera");
 
+	InitLevelAspect();
+	InitHUD();
+	InitNote();
+
+	track->Start(difficulty);
+}
+
+bool BeatMapLevel::Update()
+{
+	track->Update();
+	return Super::Update();
+}
+
+void BeatMapLevel::Stop()
+{
+	Super::Stop();
+	track->Stop();
+}
+
+
+void BeatMapLevel::InitLevelAspect()
+{
 	MeshActor* _background = Level::SpawnActor(MeshActor(RectangleShapeData(CAST(Vector2f, windowSize), "background"))); //TODO implemant Font
 	_background->SetFillColor(Color(255, 255, 255, 100));
 	_background->SetFillColor(Color(255, 255, 255, 100));
@@ -32,7 +56,10 @@ void BeatMapLevel::Start()
 	_separation->GetMesh()->GetShape()->GetDrawable()->setTexture(nullptr);
 	_separation->SetFillColor(Color(255, 255, 255, 150));
 	_separation->SetPosition(Vector2f(0.0f, 60.0f));
+}
 
+void BeatMapLevel::InitHUD()
+{
 	//_layer->SetOutlineColor(Color(, 0, 0, 25));
 	score = M_HUD.CreateWidget<ScoreLabel>("Test", TTF); //TODO implemant Font
 	score->SetPosition(Vector2f(windowSize.x - 200.0f, 10));
@@ -55,17 +82,18 @@ void BeatMapLevel::Start()
 	M_HUD.AddToViewport(_levelName);
 }
 
-bool BeatMapLevel::Update()
+void BeatMapLevel::InitNote()
 {
+	for (u_int _i = 0; _i < 4; _i++)
+	{
+		/*Note* _note = Level::SpawnActor(Note(NoteType(_i)));
 
-	return Super::Update();
+		_note->SetPosition(Vector2f(400.0f + 120.0f * _i, 0));*/
+		triggers[NoteType(_i)] = Level::SpawnActor(NoteDetector(NoteType(_i)));
+		triggers[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 700));
+		triggers[NoteType(_i)]->SetOriginAtMiddle();
+	}
 }
-
-void BeatMapLevel::Stop()
-{
-	Super::Stop();
-}
-
 
 void BeatMapLevel::SpawnCombo(const u_int& _comboCout, const Color& _color)
 {

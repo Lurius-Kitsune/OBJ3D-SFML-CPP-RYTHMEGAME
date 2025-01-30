@@ -32,6 +32,7 @@ void NoteMouvementComponent::Move(const float _deltaTime)
 		const FloatRect& _ownerRect = Cast<Note>(owner)->GetMesh()->GetShape()->GetDrawable()->getGlobalBounds();
 		if (_ownerRect.contains(triggerNote->GetPosition()))
 		{
+			owner->SetLifeSpan(1.0f);
 			triggerNote = nullptr;
 		}
 

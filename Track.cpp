@@ -30,6 +30,16 @@ void Track::Start(const string& _difficulty)
 	}
 }
 
+void Track::Update()
+{
+	currentBeatMap->Update();
+}
+
+void Track::Stop()
+{
+	music->Stop();
+}
+
 void Track::Init()
 {
 	vector<string> _info = M_FILE.ReadFile<string>(string(path + "\\info").c_str());

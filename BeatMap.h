@@ -40,7 +40,6 @@ public:
 
 	void Update();
 
-
 	void LoadBeatMap();
 };
 

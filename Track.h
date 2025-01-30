@@ -33,6 +33,10 @@ public:
 	{
 		return beatMaps;
 	}
+	FORCEINLINE BeatMap* GetCurrentBeatMap()
+	{
+		return currentBeatMap;
+	}
 
 public:
 	Track(const string& _path = "default");
@@ -40,6 +44,8 @@ public:
 
 public:
 	void Start(const string& _difficulty);
+	void Update();
+	void Stop();
 private:
 	void Init();
 

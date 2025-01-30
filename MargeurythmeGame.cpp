@@ -16,7 +16,6 @@ void MargeurythmeGame::Start()
 	for(u_int _i = 0; _i < 4; _i++)
 	{
 		Note* _note = Level::SpawnActor(Note(NoteType(_i)));
-
 		
 		_note->SetPosition(Vector2f(60*_i, 0));
 		triggers[NoteType(_i)] = Level::SpawnActor(NoteDetector(NoteType(_i)));

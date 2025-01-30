@@ -3,6 +3,9 @@
 #include "MargeurythmeGame.h"
 #include "BeatMapLevel.h"
 #include "SelectLevel.h"
+#include "FileManager.h"
+
+using namespace File;
 
 void InitConfig()
 {
@@ -13,7 +16,10 @@ void InitConfig()
 int main()
 {
     InitConfig();
-    M_GAME.Launch(new MargeurythmeGame());
+
+    set<Track*> allTracks = M_FILE.ReadFolder<Track>("Assets\\Tracks");
+
+    M_GAME.Launch(new BeatMapLevel(*allTracks.begin(),"Medium"));
 
 	return EXIT_SUCCESS;
 }
