@@ -11,11 +11,11 @@ using namespace File;
 using namespace Camera;
 using namespace UI;
 
-BeatMapLevel::BeatMapLevel(Track* _track)
+BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 {
 	track = _track;
 	name = track->GetTitle();
-	difficulty = track->GetCurrentBeatMap()->GetDifficulty();
+	difficulty = _difficulty;
 }
 
 void BeatMapLevel::Start()

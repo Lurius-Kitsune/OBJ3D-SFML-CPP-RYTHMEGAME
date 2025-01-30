@@ -23,7 +23,7 @@ public:
 	}
 
 public:
-	BeatMapLevel(Track* _track);
+	BeatMapLevel(Track* _track, const string& _difficulty);
 
 public:
 
