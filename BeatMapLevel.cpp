@@ -13,23 +13,29 @@ BeatMapLevel::BeatMapLevel(const string& _name, const string& _difficulty)
 {
 	name = _name;
 	difficulty = _difficulty;
+}
+
+void BeatMapLevel::Start()
+{
+	Super::Start();
 	windowSize = M_GAME.GetCurrent()->GetWindowSize();
 
 	M_CAMERA.CreateCamera<CameraActor>(FloatRect({}, CAST(Vector2f, M_GAME.GetCurrent()->GetWindowSize())), "DefaultCamera");
 
-	MeshActor* _background = SpawnActor(MeshActor(RectangleShapeData(CAST(Vector2f, windowSize), "background"))); //TODO implemant Font
+	MeshActor* _background = Level::SpawnActor(MeshActor(RectangleShapeData(CAST(Vector2f, windowSize), "background"))); //TODO implemant Font
 	_background->SetFillColor(Color(255, 255, 255, 100));
 	_background->SetFillColor(Color(255, 255, 255, 100));
-	RectangleActor* _layerDark = SpawnActor(RectangleActor(RectangleShapeData(Vector2f(windowSize.x * 1.0f, 60.0f)))); //TODO implemant Font
+	RectangleActor* _layerDark = Level::SpawnActor(RectangleActor(RectangleShapeData(Vector2f(windowSize.x * 1.0f, 60.0f)))); //TODO implemant Font
 	_layerDark->SetFillColor(Color(0, 0, 0, 50));
 
-	RectangleActor* _separation = SpawnActor(RectangleActor(RectangleShapeData(Vector2f(windowSize.x * 1.0f, 5.0f)))); //TODO implemant Font
+	RectangleActor* _separation = Level::SpawnActor(RectangleActor(RectangleShapeData(Vector2f(windowSize.x * 1.0f, 5.0f)))); //TODO implemant Font
+	_separation->GetMesh()->GetShape()->GetDrawable()->setTexture(nullptr);
 	_separation->SetFillColor(Color(255, 255, 255, 150));
 	_separation->SetPosition(Vector2f(0.0f, 60.0f));
 
 	//_layer->SetOutlineColor(Color(, 0, 0, 25));
 	score = M_HUD.CreateWidget<ScoreLabel>("Test", TTF); //TODO implemant Font
-	score->SetPosition(Vector2f(windowSize.x - 200.0f, 10)); 
+	score->SetPosition(Vector2f(windowSize.x - 200.0f, 10));
 	score->SetCharacterSize(25);
 	score->SetZOrder(1);
 
@@ -49,15 +55,17 @@ BeatMapLevel::BeatMapLevel(const string& _name, const string& _difficulty)
 	M_HUD.AddToViewport(_levelName);
 }
 
-void BeatMapLevel::Display()
+bool BeatMapLevel::Update()
 {
-	BaseDisplay();
+
+	return Super::Update();
 }
 
-void BeatMapLevel::BaseDisplay()
+void BeatMapLevel::Stop()
 {
-	
+	Super::Stop();
 }
+
 
 void BeatMapLevel::SpawnCombo(const u_int& _comboCout, const Color& _color)
 {

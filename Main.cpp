@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameManager.h"
 #include "MargeurythmeGame.h"
+#include "BeatMapLevel.h"
 #include "SelectLevel.h"
 
 void InitConfig()
@@ -12,7 +13,7 @@ void InitConfig()
 int main()
 {
     InitConfig();
-    M_GAME.Launch(new MargeurythmeGame());
+    M_GAME.Launch(new BeatMapLevel("Bob", "Bob"));
 
 	return EXIT_SUCCESS;
 }
