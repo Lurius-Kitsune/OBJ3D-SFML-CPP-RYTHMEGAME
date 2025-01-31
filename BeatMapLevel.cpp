@@ -110,7 +110,7 @@ void BeatMapLevel::IncrementCombo()
 		GetRandomNumberInRange(0, 255),
 		GetRandomNumberInRange(0, 255));
 
-	score->AddScore(GetRandomNumberInRange(10, 250));
+	score->AddScore(GetRandomNumberInRange(10, 250)); // TODO REMOVE
 
 	comboData->operator++();
 	comboData->label->SetFillColor(_finalColor);
