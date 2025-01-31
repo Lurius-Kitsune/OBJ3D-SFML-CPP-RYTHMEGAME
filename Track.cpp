@@ -38,6 +38,7 @@ void Track::Update()
 
 void Track::Stop()
 {
+	currentBeatMap->Stop();
 	music->Stop();
 }
 

@@ -32,6 +32,7 @@ void BeatMap::Start()
 	{
 		LoadBeatMap();
 	}
+	timeStamp.stop();
 	timeStamp.restart();
 }
 
@@ -57,6 +58,14 @@ void BeatMap::Update()
 	else
 	{
 		LOG(Error, "BeatMap not loaded !");
+	}
+}
+
+void BeatMap::Stop()
+{
+	for(pair<Time, pair<NoteType, bool>> _note : notes)
+	{
+		_note.second.second = false;
 	}
 }
 

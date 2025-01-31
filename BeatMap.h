@@ -40,6 +40,8 @@ public:
 
 	void Update();
 
+	void Stop();
+
 	void LoadBeatMap();
 };
 
