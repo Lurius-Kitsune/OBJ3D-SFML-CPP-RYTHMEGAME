@@ -40,7 +40,6 @@ void BeatMap::Update()
 	if (isLoaded)
 	{
 		float _currentTime = GetCurrentTime().asSeconds();
-		LOG(Display, "Current Time : " + to_string(_currentTime));
 		// on prend que 2 chiffre apres la virgule
 		_currentTime = CAST(int, _currentTime * 100) / 100.0f;
 		Time _time = Time(seconds(_currentTime));

@@ -13,10 +13,12 @@ using namespace UI;
 
 BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 {
-	track = _track;
-	name = track->GetTitle();
-	difficulty = _difficulty;
+	score = nullptr;
+	comboData = make_unique<ComboData>();
 	triggers = map<NoteType, NoteDetector*>();
+	track = _track;
+	trackInfo = track->GetInfo();
+	difficulty = _difficulty;
 }
 
 void BeatMapLevel::Start()
@@ -30,6 +32,8 @@ void BeatMapLevel::Start()
 	InitNoteTriggerAndSpawner();
 
 	track->Start(difficulty);
+
+	//new Timer([&]() {IncrementCombo(); }, Time(seconds(5.0f)), true, true);
 }
 
 bool BeatMapLevel::Update()
@@ -43,7 +47,6 @@ void BeatMapLevel::Stop()
 	Super::Stop();
 	track->Stop();
 }
-
 
 void BeatMapLevel::InitLevelAspect()
 {
@@ -67,13 +70,13 @@ void BeatMapLevel::InitHUD()
 	score->SetCharacterSize(25);
 	score->SetZOrder(1);
 
-	new Timer<Seconds>([&]() {SpawnCombo(); }, seconds(5), true, true);
+	new Timer<Seconds>([&]() {IncrementCombo(); }, seconds(5), true, true);
 	Label* _levelDifficulty = M_HUD.CreateWidget<Label>(difficulty, Screen, "Test", TTF); //TODO implemant Font
 	_levelDifficulty->SetPosition(Vector2f(10.0f, 10.0f));
 	_levelDifficulty->SetCharacterSize(25);
 	_levelDifficulty->SetZOrder(2);
 
-	Label* _levelName = M_HUD.CreateWidget<Label>(name, Screen, "Test", TTF); //TODO implemant Font
+	Label* _levelName = M_HUD.CreateWidget<Label>(trackInfo.title, Screen, "Test", TTF); //TODO implemant Font
 	_levelName->SetPosition(Vector2f(350.0f, 10.0f));
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
@@ -99,24 +102,18 @@ void BeatMapLevel::InitNoteTriggerAndSpawner()
 	}
 }
 
-void BeatMapLevel::SpawnCombo(const u_int& _comboCout, const Color& _color)
+void BeatMapLevel::IncrementCombo()
 {
-	u_int _finalComboCount = _comboCout;
-	if (_finalComboCount == 0)
-	{
-		_finalComboCount = GetRandomNumberInRange(0, 50);
-	}
-	Color _finalColor = _color;
-	if (_finalColor == Color(0, 0, 0))
-	{
-		_finalColor = Color(GetRandomNumberInRange(0, 255),
-			GetRandomNumberInRange(0, 255),
-			GetRandomNumberInRange(0, 255));
-	}
-	Label* _combo = M_HUD.CreateWidget<Label>("X " + to_string(_finalComboCount), Screen, "Test", TTF);
-	_combo->SetFillColor(_finalColor);
-	_combo->SetCharacterSize(20);
-	_combo->SetPosition(Vector2f(GetRandomNumberInRange(10.0f, windowSize.x * 0.1f), GetRandomNumberInRange(35.0f, windowSize.y - 35.0f)));
-	_combo->SetLifeSpan(GetRandomNumberInRange(1.0f, 3.0f));
-	_combo->SetRotation(radians(GetRandomNumberInRange(-(priv::pi / 4.0f), (priv::pi / 4.0f))));
+	LOG(Display, "Increment Combo");
+
+	Color _finalColor = Color(GetRandomNumberInRange(0, 255),
+		GetRandomNumberInRange(0, 255),
+		GetRandomNumberInRange(0, 255));
+
+	comboData->SetCount(++comboData->count);
+	comboData->label->SetFillColor(_finalColor);
+	comboData->label->SetCharacterSize(20);
+	comboData->label->SetPosition(Vector2f(GetRandomNumberInRange(10.0f, windowSize.x * 0.1f), GetRandomNumberInRange(35.0f, windowSize.y - 35.0f)));
+	comboData->label->SetLifeSpan(GetRandomNumberInRange(1.0f, 3.0f));
+	comboData->label->SetRotation(radians(GetRandomNumberInRange(-(priv::pi / 4.0f), (priv::pi / 4.0f))));
 }

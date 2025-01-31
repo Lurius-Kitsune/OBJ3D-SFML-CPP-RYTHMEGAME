@@ -19,8 +19,6 @@ void NoteSpawner::BeginPlay()
 
 void NoteSpawner::Spawn()
 {
-	Note _note = ref->GetObject();
-	_note.SetPosition(GetPosition());
 
-	Level::SpawnActor<Note>(_note);
+	Level::SpawnActor<Note>(*ref)->SetPosition(GetPosition());
 }

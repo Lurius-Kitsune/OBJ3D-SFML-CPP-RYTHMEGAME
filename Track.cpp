@@ -9,6 +9,7 @@ Track::Track(const string& _path)
 	music = new MusicSample(_path + "\\music.mp3");
 	music->Stop();
 	currentBeatMap = nullptr;
+	info = TrackInfo();
 	Init();
 }
 
@@ -49,9 +50,7 @@ void Track::Init()
 		return;
 	}
 
-	title = _info[0];
-	artist = _info[1];
-	duration = music->GetDuration();
+	info = TrackInfo(_info[0], _info[1], music->GetDuration());
 	const u_int& _beatMapInfo = CAST(u_int, _info.size());
 	for (u_int _i = 2; _i < _beatMapInfo; _i++)
 	{
@@ -62,6 +61,6 @@ void Track::Init()
 
 bool Track::operator < (Track _other) const 
 {
-	return title < _other.title;
+	return info.title < _other.info.title;
 }
 

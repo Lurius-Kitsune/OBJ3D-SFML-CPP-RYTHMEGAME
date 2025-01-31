@@ -1,20 +1,46 @@
 #pragma once
 #include "Level.h"
+#include "HUD.h"
 #include "ScoreLabel.h"
 #include "Track.h"
 #include "NoteDetector.h"
 #include "NoteSpawner.h"
 
+
+struct ComboData
+{
+	Label* label;
+	u_int count;
+
+	ComboData()
+	{
+		count = 0;
+		label = M_HUD.CreateWidget<Label>("X " + to_string(count), Screen, "Test", TTF);
+		label->SetVisibility(Hidden);
+		M_HUD.AddToViewport(label);
+	}
+
+	FORCEINLINE void SetCount(const u_int& _count)
+	{
+		label->SetVisibility(_count == 0 ? Hidden : Visible);
+		count = _count;
+		label->GetText()->SetString("X " + to_string(count));
+	}
+};
+
+
+
 class BeatMapLevel : public Game
 {
 	ScoreLabel* score;
-	string name;
-	string difficulty;
+	unique_ptr<ComboData> comboData;
 	Vector2u windowSize;
 	map<NoteType, NoteDetector*> triggers;
 	map<NoteType, NoteSpawner*> noteSpawners;
 
 	Track* track;
+	TrackInfo trackInfo;
+	string difficulty;
 	
 	//float advancementPercent;
 
@@ -51,6 +77,6 @@ private:
 	void InitHUD();
 	void InitNoteTriggerAndSpawner();
 
-	void SpawnCombo(const u_int& _comboCout = 0, const Color& _color = Color(0, 0, 0));
+	void IncrementCombo();
 };
 
