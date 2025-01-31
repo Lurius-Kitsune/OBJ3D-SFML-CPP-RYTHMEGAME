@@ -68,6 +68,12 @@ public:
 		return currentBeatMap;
 	}
 
+
+	FORCEINLINE bool IsFinished() const
+	{
+		return currentBeatMap->GetCurrentTime() > info.duration;
+	}
+
 public:
 	Track(const string& _path = "default");
 	~Track();

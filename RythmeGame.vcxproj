@@ -183,6 +183,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClCompile Include="NoteMouvementComponent.cpp" />
     <ClCompile Include="NoteSpawner.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="RectangleActor.cpp" />
     <ClCompile Include="RootComponent.cpp" />
     <ClCompile Include="Sample.cpp" />
@@ -235,6 +236,7 @@ xcopy /y /d "..\SFML-3.0.0\bin\sfml-window-d-3.dll" "$(OutDir)"
     <ClInclude Include="NoteDetector.h" />
     <ClInclude Include="NoteMouvementComponent.h" />
     <ClInclude Include="NoteSpawner.h" />
+    <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="RenderType.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SelectLevel.h" />

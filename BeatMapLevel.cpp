@@ -6,6 +6,7 @@
 #include "CameraManager.h"
 #include "HUD.h"
 #include "FileManager.h"
+#include "ProgressBar.h"
 
 using namespace File;
 using namespace Camera;
@@ -39,6 +40,14 @@ void BeatMapLevel::Start()
 bool BeatMapLevel::Update()
 {
 	track->Update();
+
+	if (track->IsFinished())
+	{
+		track->Stop();
+		track->Start(difficulty);
+		score->SetScore(0);
+		comboData->SetCount(0);
+	}
 	return Super::Update();
 }
 
@@ -81,6 +90,11 @@ void BeatMapLevel::InitHUD()
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
 
+	//ProgressBar* _progressBar = M_HUD.CreateWidget<ProgressBar>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), "Test", 100.0f, Screen); //TODO implemant Font
+	//_progressBar->SetFillColor(Color(0, 255, 0, 255));
+	//_progressBar->ChangeValue(50.0f);
+
+	//M_HUD.AddToViewport(_progressBar);
 	M_HUD.AddToViewport(score);
 	M_HUD.AddToViewport(_levelDifficulty);
 	M_HUD.AddToViewport(_levelName);

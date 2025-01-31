@@ -44,8 +44,6 @@ struct ComboData
 		return *this;
 	}
 
-	
-private:
 	FORCEINLINE void SetCount(const u_int& _count)
 	{
 		label->SetVisibility(_count == 0 ? Hidden : Visible);
@@ -88,6 +86,7 @@ public:
 	{
 		return noteSpawners[_noteType];
 	}
+
 
 public:
 	BeatMapLevel(Track* _track, const string& _difficulty);
