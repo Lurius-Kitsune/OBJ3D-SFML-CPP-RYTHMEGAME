@@ -56,4 +56,5 @@ public:
 		return Cast<Type>(_sample);
 	}
 	void ToggleMute();
+	void Stop();
 };

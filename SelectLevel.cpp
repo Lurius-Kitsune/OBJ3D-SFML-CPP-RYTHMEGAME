@@ -8,6 +8,7 @@
 #include "ActorManager.h"
 #include "Image.h"
 #include "InputManager.h"
+#include "AudioManager.h"
 
 using namespace Camera;
 using namespace UI;
@@ -103,7 +104,7 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	//RectangleActor* _trackInfo = Level::SpawnActor(RectangleActor()); //TODO implemant Font
 	//_trackInfo->SetFillColor(Color(255, 255, 255, 150));
 	//
-	if (allTracksRectangle.contains(_track)) return;
+	if (allTracksCanvas.contains(_track)) return;
 
 	Canvas* _trackInfo = M_HUD.CreateWidget<Canvas>("TrackSelection", Screen);
 	UI::Image* _background = M_HUD.CreateWidget<UI::Image>("background", RectangleShapeData(Vector2f(windowSize.x * 0.58f, 50.0f), "background"), World); //TODO implemant Font
@@ -130,12 +131,10 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	_trackInfo->AddWidget(_artist);
 	_trackInfo->AddWidget(_duration);
 
-
-	_trackInfo->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * (allTracksRectangle.size() + 1)));
+	_trackInfo->Hide();
 	
-	allTracksRectangle.insert(make_pair(_track, _trackInfo));
+	allTracksCanvas.insert(make_pair(_track, _trackInfo));
 	
-	_trackInfo->UpdateWidgets();
 	M_HUD.AddToViewport(_trackInfo);
 }
 
@@ -148,24 +147,80 @@ void SelectLevel::SetDescription(Track* _track)
 
 void SelectLevel::ChangeIterator(bool _isUp)
 {
+	M_AUDIO.Stop();
 	if (_isUp)
 	{
-		if (musicIterator == --allTracksRectangle.end())
+		if (musicIterator == --allTracksCanvas.end())
 		{
-			musicIterator = allTracksRectangle.begin();
-			return;
+			musicIterator = allTracksCanvas.begin();
 		}
-		++musicIterator;
+		else
+		{
+			++musicIterator;
+		}
 	}
 	else
 	{
-		if (musicIterator == allTracksRectangle.begin())
+		if (musicIterator == allTracksCanvas.begin())
 		{
-			musicIterator = --allTracksRectangle.end() ;
-			return;
+			musicIterator = --allTracksCanvas.end() ;
 		}
-		--musicIterator;
+		else
+		{
+			--musicIterator;
+		}
 	}
+	WheelCanvas();
+}
+
+void SelectLevel::SelectTrack()
+{
+	Canvas* _selectCanvas = (*musicIterator).second;
+	_selectCanvas->Show();
+	_selectCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 140.0f));
+	_selectCanvas->UpdateWidgets();
+
+}
+
+void SelectLevel::WheelCanvas()
+{
+	Iterator _current = musicIterator;
+	SelectTrack();
+	const u_int& _allTracksCanvasSize = CAST(u_int, allTracksCanvas.size()); 
+	for (u_int _index = 1; _index < _allTracksCanvasSize + 1; _index++)
+	{
+		if(!CrampIterator(_current)) ++_current;
+		if (_index == 2)
+		{
+			++_index;
+			if (_current == musicIterator)
+			{
+				if (!CrampIterator(_current))
+				{
+					++_current;
+					++_index;
+				}
+			}
+			
+		}
+		Canvas* _currentCanvas = (*_current).second;
+		_currentCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * _index));
+		_currentCanvas->UpdateWidgets();
+		_currentCanvas->Show();
+		
+		
+	}
+	
+}
+
+bool SelectLevel::CrampIterator(Iterator& _current)
+{
+	if (_current == --allTracksCanvas.end())
+	{
+		_current = allTracksCanvas.begin();
+		return true;
+	}
+	return false;
 }
 
 void SelectLevel::Start()
@@ -196,22 +251,26 @@ void SelectLevel::Start()
 		InitRectangleTrackInfo(_track);
 	}
 
-	musicIterator = allTracksRectangle.begin();
+	musicIterator = allTracksCanvas.begin();
 
 
 	M_ACTOR.BeginPlay();
 	M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::Z);
 	M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::S);
 	M_INPUT.BindAction([&]() { (*musicIterator).first->PlayExtrait(); }, Code::R);
+
+	WheelCanvas();
 }
 
 bool SelectLevel::Update()
 {
 	Super::Update();
+	// Background
 	background->Rotate(degrees(M_TIMER.GetDeltaTime().asSeconds() * 10));
-
+	// Description
 	SetDescription((*musicIterator).first);
-
+	// Wheel
+	
 
 	return IsOver();
 }

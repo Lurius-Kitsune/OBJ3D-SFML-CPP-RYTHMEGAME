@@ -24,11 +24,11 @@ class SelectLevel : public Game
 	vector<Track*> allTracks;
 
 	// Description
-	unordered_map<Track*,Canvas*> allTracksRectangle;
+	unordered_map<Track*,Canvas*> allTracksCanvas;
 	Iterator musicIterator; 
 
 
-	// Left Info
+	// Right Info
 	Canvas* description; 
 	map<TrackInfo, Label*> infoLabel;
 	u_int trackIndex;
@@ -48,7 +48,10 @@ private:
 	void SetDescription(Track* _track);
 	void ChangeIterator(bool _isUp);
 
+	void SelectTrack();
+	void WheelCanvas();
 
+	bool CrampIterator(Iterator& _current);
 public:
 	virtual void Start() override;
 	virtual bool Update() override;
