@@ -1,5 +1,6 @@
 #include "NoteMouvementComponent.h"
 #include "Note.h"
+#include "BeatMapLevel.h"
 
 
 NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, Actor* _triggerNote, const float _speed)
@@ -34,8 +35,8 @@ void NoteMouvementComponent::Move(const float _deltaTime)
 		{
 			owner->SetLifeSpan(1.0f);
 			triggerNote = nullptr;
+			Cast<BeatMapLevel>(M_GAME.GetCurrent())->IncrementCombo();
 		}
-
 	}
 	owner->Move(direction* speed * _deltaTime * 400.0f);
 }

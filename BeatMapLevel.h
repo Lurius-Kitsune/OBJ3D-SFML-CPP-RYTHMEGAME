@@ -20,6 +20,32 @@ struct ComboData
 		M_HUD.AddToViewport(label);
 	}
 
+	ComboData& operator++()
+	{
+		SetCount(++count);
+		return *this;
+	}
+
+	ComboData operator++(const int _value)
+	{
+		SetCount(count++);
+		return *this;
+	}
+
+	ComboData& operator--()
+	{
+		SetCount(--count);
+		return *this;
+	}
+
+	ComboData operator--(const int _value)
+	{
+		SetCount(count--);
+		return *this;
+	}
+
+	
+private:
 	FORCEINLINE void SetCount(const u_int& _count)
 	{
 		label->SetVisibility(_count == 0 ? Hidden : Visible);
@@ -70,12 +96,11 @@ public:
 	virtual void Start() override;
 	virtual bool Update() override;
 	virtual void Stop() override;
+	void IncrementCombo();
 
 private:
 	void InitLevelAspect(); //TODO change name Methode
 	void InitHUD();
 	void InitNoteTriggerAndSpawner();
-
-	void IncrementCombo();
 };
 

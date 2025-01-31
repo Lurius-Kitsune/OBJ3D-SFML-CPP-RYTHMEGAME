@@ -70,7 +70,7 @@ void BeatMapLevel::InitHUD()
 	score->SetCharacterSize(25);
 	score->SetZOrder(1);
 
-	new Timer<Seconds>([&]() {IncrementCombo(); }, seconds(5), true, true);
+	//new Timer<Seconds>([&]() {IncrementCombo(); }, seconds(5), true, true);
 	Label* _levelDifficulty = M_HUD.CreateWidget<Label>(difficulty, Screen, "Test", TTF); //TODO implemant Font
 	_levelDifficulty->SetPosition(Vector2f(10.0f, 10.0f));
 	_levelDifficulty->SetCharacterSize(25);
@@ -110,7 +110,7 @@ void BeatMapLevel::IncrementCombo()
 		GetRandomNumberInRange(0, 255),
 		GetRandomNumberInRange(0, 255));
 
-	comboData->SetCount(++comboData->count);
+	comboData->operator++();
 	comboData->label->SetFillColor(_finalColor);
 	comboData->label->SetCharacterSize(20);
 	comboData->label->SetPosition(Vector2f(GetRandomNumberInRange(10.0f, windowSize.x * 0.1f), GetRandomNumberInRange(35.0f, windowSize.y - 35.0f)));
