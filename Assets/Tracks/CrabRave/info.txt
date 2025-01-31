@@ -1,3 +1,5 @@
 Crab Rave
 Noisestorm
+easy
 medium
+hard
