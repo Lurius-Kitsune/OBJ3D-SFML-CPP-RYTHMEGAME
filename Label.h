@@ -16,7 +16,13 @@ namespace UI
 		{
 			return text;
 		}
+
 #pragma region Modifier
+
+		FORCEINLINE void SetString(const string& _text) 
+		{
+			text->SetString(_text);
+		}
 		FORCEINLINE void SetCharacterSize(const u_int& _size)
 		{
 			text->GetDrawable()->setCharacterSize(_size);

@@ -13,6 +13,7 @@ class Track
 	map<string, BeatMap> beatMaps;
 
 public:
+	
 	FORCEINLINE string GetArtist() const
 	{
 		return artist;
@@ -51,6 +52,8 @@ public:
 	~Track();
 
 public:
+	void PlayExtrait() const;
+
 	void Start(const string& _difficulty);
 	void Update();
 	void Stop();

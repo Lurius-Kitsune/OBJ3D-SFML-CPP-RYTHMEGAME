@@ -5,13 +5,32 @@
 #include "Button.h"
 #include "Canvas.h"
 
+enum TrackInfo
+{
+	TI_TITLE,
+	TI_ARTIST,
+	TI_DURATION,
+	
+	TI_COUNT,
+};
+
 class SelectLevel : public Game
 {
-	vector<Track*> allTracks;
+	using Iterator = unordered_map<Track*, Canvas*>::iterator;
+
 	MeshActor* background;
 	Vector2f windowSize;
 	vector<Button*> allButtons;
-	vector<Canvas*> allTracksRectangle;
+	vector<Track*> allTracks;
+
+	// Description
+	unordered_map<Track*,Canvas*> allTracksRectangle;
+	Iterator musicIterator; 
+
+
+	// Left Info
+	Canvas* description; 
+	map<TrackInfo, Label*> infoLabel;
 	u_int trackIndex;
 
 public:
@@ -19,10 +38,16 @@ public:
 	~SelectLevel();
 
 private:
-	void InitSeparator(Track* _track);
-	void InitLabel(Track* _track);
-
+	// Init
+	void InitSeparator();
+	void InitLabel();
+	void InitDescription();
 	void InitRectangleTrackInfo(Track* _track);
+
+	// SetLabel
+	void SetDescription(Track* _track);
+	void ChangeIterator(bool _isUp);
+
 
 public:
 	virtual void Start() override;
