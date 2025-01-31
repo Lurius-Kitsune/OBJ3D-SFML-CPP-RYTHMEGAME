@@ -65,7 +65,6 @@ public:
 
 public:
 	BeatMapLevel(Track* _track, const string& _difficulty);
-
 public:
 
 	virtual void Start() override;

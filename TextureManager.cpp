@@ -74,13 +74,15 @@ void TextureManager::Load(ShapeObject* _shapeObject, const string& _path, const 
 
 	if (_path.empty())
 	{
-		LOG(Error, "Cannot open file with an empty path !");
-		_texture = GetDefaultTexture();
+		LOG(Warning, "No path set, no texture applied");
+		_texture = Texture();
 	}
-
-	// Init Texture
-	const string _texturePath = _path + "." + GetExtensionNameByType(_textureType);
-	LoadTexture(_texture, _texturePath, _rect);
+	else
+	{
+		// Init Texture
+		const string _texturePath = _path + "." + GetExtensionNameByType(_textureType);
+		LoadTexture(_texture, _texturePath, _rect);
+	}
 	_texture.setRepeated(_isRepeated);
 	_texture.setSmooth(_smooth);
 

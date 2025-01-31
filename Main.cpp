@@ -21,5 +21,10 @@ int main()
     //new BeatMapLevel(*allTracks.begin(), "Medium")
     M_GAME.Launch(new BeatMapLevel(*allTracks.begin(), "Medium"));
 
+    for (Track* _track : allTracks)
+	{
+		delete _track;
+	}
+
 	return EXIT_SUCCESS;
 }
