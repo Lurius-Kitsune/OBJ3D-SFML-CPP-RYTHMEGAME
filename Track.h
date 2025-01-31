@@ -6,16 +6,16 @@
 
 struct TrackInfo
 {
-	string artist;
 	string title;
+	string artist;
 	Time duration;
 
 	TrackInfo() = default;
 
-	TrackInfo(const string& _artist, const string& _title, const Time& _duration)
+	TrackInfo(const string& _title, const string& _artist, const Time& _duration)
 	{
-		artist = _artist;
 		title = _title;
+		artist = _artist;
 		duration = _duration;
 	}
 };
