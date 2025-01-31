@@ -63,9 +63,12 @@ void BeatMap::Update()
 
 void BeatMap::Stop()
 {
-	for(pair<Time, pair<NoteType, bool>> _note : notes)
+	using Iterator = map<Time, pair<NoteType, bool>>::iterator;
+	const Iterator _end = notes.end();
+	for (Iterator _it = notes.begin(); _it != _end; ++_it)
 	{
-		_note.second.second = false;
+		pair<NoteType, bool>& _note = _it->second;
+		_note.second = false;
 	}
 }
 
