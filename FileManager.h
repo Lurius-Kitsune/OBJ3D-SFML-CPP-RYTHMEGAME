@@ -30,17 +30,17 @@ namespace File
 
 
 		template<typename Type>
-		set<Type*> ReadFolder(const string& _path)
+		vector<Type*> ReadFolder(const string& _path)
 		{
 			// TODO faire une sécurité
 
-			set<Type*> _data;
+			vector<Type*> _data;
 			for (directory_entry _file : directory_iterator{ ".\\" + _path })
 			{
 				if (_file.exists())
 				{
 					Type* _currentData = new Type(_file.path().string());
-					_data.insert(_currentData);
+					_data.push_back(_currentData);
 				}
 				else
 				{

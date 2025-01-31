@@ -25,6 +25,14 @@ public:
 	{
 		return duration;
 	}
+
+	FORCEINLINE string GetDurationAsString() const
+	{
+		const float _seconds = duration.asSeconds();
+		const string _minutes = to_string(CAST(int, _seconds) / 60);
+		const string _secondsString = to_string(CAST(int, _seconds) % 60);
+		return _minutes + ":" + _secondsString;
+	}
 	FORCEINLINE MusicSample* GetMusic() const
 	{
 		return music;

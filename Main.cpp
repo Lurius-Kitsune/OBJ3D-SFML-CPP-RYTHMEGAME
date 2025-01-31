@@ -17,9 +17,9 @@ int main()
 {
     InitConfig();
 
-    set<Track*> allTracks = M_FILE.ReadFolder<Track>("Assets\\Tracks");
-
-    M_GAME.Launch(new BeatMapLevel(*allTracks.begin(),"Medium"));
+    vector<Track*> allTracks = FileManager::GetInstance().ReadFolder<Track>("Assets\\Tracks");
+    //new BeatMapLevel(*allTracks.begin(), "Medium")
+    M_GAME.Launch(new SelectLevel());
 
 	return EXIT_SUCCESS;
 }

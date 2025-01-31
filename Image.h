@@ -4,12 +4,31 @@
 
 namespace UI
 {
+	struct Gradient
+	{
+		Color topLeft;
+		Color topRight;
+		Color bottomLeft;
+		Color bottomRight;
+
+		Gradient(const Color& _topLeft = Color(), const Color& _topRight = Color(),
+			const Color& _bottomLeft = Color(), const Color& _bottomRight = Color())
+		{
+			topLeft = _topLeft;
+			topRight = _topRight;
+			bottomLeft = _bottomLeft;
+			bottomRight = _bottomRight;
+		}
+	};
+
 	class Image : public Widget
 	{
 		ShapeObject* image;
 
 		bool sizeToContent;
 		Vector2f initialSize;
+		VertexArray gradient;
+		Gradient colorGradient;
 
 	public:
 		FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
@@ -53,7 +72,7 @@ namespace UI
 		}
 		FORCEINLINE Vector2f GetSize() const
 		{
-			return image->GetDrawable()->getScale();
+			return Cast<RectangleShape>(image->GetDrawable())->getSize();
 		}
 		FORCEINLINE Vector2f GetPosition() const
 		{
@@ -66,8 +85,12 @@ namespace UI
 
 	private:
 		void UpdateSize();
+		void UpdateGradient();
 
 	public:
 		virtual void Render(RenderWindow& _window) override;
+		void SetSizeToContent(const bool _status);
+		void SetGradient(const Gradient& _gradient);
 	};
 }
+
