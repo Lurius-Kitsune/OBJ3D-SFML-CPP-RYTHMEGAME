@@ -3,6 +3,7 @@
 #include "ScoreLabel.h"
 #include "Track.h"
 #include "NoteDetector.h"
+#include "NoteSpawner.h"
 
 class BeatMapLevel : public Game
 {
@@ -10,16 +11,30 @@ class BeatMapLevel : public Game
 	string name;
 	string difficulty;
 	Vector2u windowSize;
+	map<NoteType, NoteDetector*> triggers;
+	map<NoteType, NoteSpawner*> noteSpawners;
 
 	Track* track;
-	map<NoteType, NoteDetector*> triggers;
 	
 	//float advancementPercent;
 
 public:
-	FORCEINLINE map<NoteType, NoteDetector*>& GetNoteDetector()
+	FORCEINLINE map<NoteType, NoteDetector*>& GetNoteDetectors()
 	{
 		return triggers;
+	}
+	FORCEINLINE NoteDetector* GetNoteDetector(const NoteType& _noteType)
+	{
+		return triggers[_noteType];
+	}
+
+	FORCEINLINE map<NoteType, NoteSpawner*>& GetNoteSpawners()
+	{
+		return noteSpawners;
+	}
+	FORCEINLINE NoteSpawner* GetNoteSpawner(const NoteType& _noteType)
+	{
+		return noteSpawners[_noteType];
 	}
 
 public:
@@ -34,7 +49,7 @@ public:
 private:
 	void InitLevelAspect(); //TODO change name Methode
 	void InitHUD();
-	void InitNote(); //TODO change name Methode
+	void InitNoteTriggerAndSpawner();
 
 	void SpawnCombo(const u_int& _comboCout = 0, const Color& _color = Color(0, 0, 0));
 };

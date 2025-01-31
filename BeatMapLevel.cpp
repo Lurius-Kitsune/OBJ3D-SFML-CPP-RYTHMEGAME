@@ -16,6 +16,7 @@ BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 	track = _track;
 	name = track->GetTitle();
 	difficulty = _difficulty;
+	triggers = map<NoteType, NoteDetector*>();
 }
 
 void BeatMapLevel::Start()
@@ -26,7 +27,7 @@ void BeatMapLevel::Start()
 
 	InitLevelAspect();
 	InitHUD();
-	InitNote();
+	InitNoteTriggerAndSpawner();
 
 	track->Start(difficulty);
 }
@@ -82,7 +83,7 @@ void BeatMapLevel::InitHUD()
 	M_HUD.AddToViewport(_levelName);
 }
 
-void BeatMapLevel::InitNote()
+void BeatMapLevel::InitNoteTriggerAndSpawner()
 {
 	for (u_int _i = 0; _i < 4; _i++)
 	{
@@ -92,6 +93,9 @@ void BeatMapLevel::InitNote()
 		triggers[NoteType(_i)] = Level::SpawnActor(NoteDetector(NoteType(_i)));
 		triggers[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 700));
 		triggers[NoteType(_i)]->SetOriginAtMiddle();
+
+		noteSpawners[NoteType(_i)] = Level::SpawnActor(NoteSpawner(NoteType(_i), triggers[NoteType(_i)]));
+		noteSpawners[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 0));
 	}
 }
 

@@ -49,8 +49,8 @@ void BeatMap::Update()
 			pair<NoteType, bool>& _noteType = notes[_time];
 			if (!_noteType.second)
 			{
-				NoteDetector* _triggerNote = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteDetector()[_noteType.first];
-				Level::SpawnActor(Note(_noteType.first, _triggerNote))->SetPosition(Vector2f(GetRandomNumberInRange(0, 1200), 0));
+				NoteDetector* _triggerNote = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteDetector(_noteType.first);
+				Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteSpawner(_noteType.first)->Spawn();
 				_noteType.second = true;
 			}
 		}

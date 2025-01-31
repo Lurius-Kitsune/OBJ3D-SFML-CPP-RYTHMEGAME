@@ -12,6 +12,11 @@ public:
 		return *objectRef;
 	}
 
+	FORCEINLINE T* GetObjectRef() const
+	{
+		return objectRef;
+	}
+
 public:
 	SubclassOf() = default;
 
