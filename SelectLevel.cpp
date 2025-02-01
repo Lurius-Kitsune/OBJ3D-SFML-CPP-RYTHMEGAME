@@ -166,6 +166,7 @@ void SelectLevel::ChangeIterator(bool _isUp)
 			--musicIterator;
 		}
 	}
+	(*musicIterator).first->PlayExtrait();
 	WheelCanvas();
 }
 
@@ -250,10 +251,9 @@ void SelectLevel::Start()
 
 
 	M_ACTOR.BeginPlay();
-	M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::Z);
-	M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::S);
-	M_INPUT.BindAction([&]() { (*musicIterator).first->PlayExtrait(); }, Code::R);
-
+	M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
+	M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
+	(*musicIterator).first->PlayExtrait();
 	WheelCanvas();
 }
 

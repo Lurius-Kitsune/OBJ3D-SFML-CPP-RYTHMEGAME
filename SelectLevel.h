@@ -35,7 +35,7 @@ class SelectLevel : public Game
 
 public:
 	SelectLevel();
-	~SelectLevel();
+	virtual ~SelectLevel();
 
 private:
 	// Init
