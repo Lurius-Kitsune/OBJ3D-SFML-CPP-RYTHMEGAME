@@ -44,7 +44,6 @@ bool BeatMapLevel::Update()
 	if (track->IsFinished())
 	{
 		track->Stop();
-		track->Start(difficulty);
 		score->SetScore(0);
 		comboData->SetCount(0);
 	}
