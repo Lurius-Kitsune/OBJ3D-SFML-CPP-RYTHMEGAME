@@ -35,6 +35,13 @@ namespace UI
 			}
 		}
 
+		FORCEINLINE Widget* GetWidgetAtIndex(u_int _index)const
+		{
+			set<Widget*>::iterator _it = allWidgets.begin();
+			advance(_it, _index);
+			return *_it;
+		}
+
 		FORCEINLINE void AddWidget(Widget* _widget)
 		{
 			allWidgets.insert(_widget);

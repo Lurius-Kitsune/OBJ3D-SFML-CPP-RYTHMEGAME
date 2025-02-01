@@ -101,9 +101,6 @@ void SelectLevel::InitDescription()
 
 void SelectLevel::InitRectangleTrackInfo(Track* _track)
 {
-	//RectangleActor* _trackInfo = Level::SpawnActor(RectangleActor()); //TODO implemant Font
-	//_trackInfo->SetFillColor(Color(255, 255, 255, 150));
-	//
 	if (allTracksCanvas.contains(_track)) return;
 
 	Canvas* _trackInfo = M_HUD.CreateWidget<Canvas>("TrackSelection", Screen);
@@ -132,7 +129,6 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	_trackInfo->AddWidget(_duration);
 
 	_trackInfo->Hide();
-	
 	allTracksCanvas.insert(make_pair(_track, _trackInfo));
 	
 	M_HUD.AddToViewport(_trackInfo);
@@ -179,7 +175,7 @@ void SelectLevel::SelectTrack()
 	_selectCanvas->Show();
 	_selectCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 140.0f));
 	_selectCanvas->UpdateWidgets();
-
+	Cast<UI::Image>(_selectCanvas->GetWidgetAtIndex(0))->SetOutline(2.0f, Color(255, 255, 255));
 }
 
 void SelectLevel::WheelCanvas()
@@ -204,11 +200,10 @@ void SelectLevel::WheelCanvas()
 			
 		}
 		Canvas* _currentCanvas = (*_current).second;
+		Cast<UI::Image>((*_current).second->GetWidgetAtIndex(0))->SetOutline(0.0f, Color(255, 255, 255, 0));
 		_currentCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * _index));
 		_currentCanvas->UpdateWidgets();
 		_currentCanvas->Show();
-		
-		
 	}
 	
 }
