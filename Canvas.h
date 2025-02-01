@@ -46,7 +46,7 @@ namespace UI
 		{
 			allWidgets.insert(_widget);
 			const Vector2f& _widgetPosition = _widget->GetPosition(); 
-			const Vector2f& _offSet = Vector2f(GetPosition().x - _widgetPosition.x, GetPosition().y - _widgetPosition.y);
+			const Vector2f& _offSet = Vector2f(_widgetPosition - GetPosition());
 			offSet.insert(make_pair(_widget, _offSet));
 		}
 		FORCEINLINE void RemoveWidget(Widget* _widget)
