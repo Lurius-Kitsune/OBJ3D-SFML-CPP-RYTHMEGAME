@@ -6,6 +6,7 @@
 #include "CameraManager.h"
 #include "HUD.h"
 #include "FileManager.h"
+#include "ProgressBar.h"
 
 using namespace File;
 using namespace Camera;
@@ -13,8 +14,11 @@ using namespace UI;
 
 BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 {
+	score = nullptr;
+	comboData = make_unique<ComboData>();
+	triggers = map<NoteType, NoteDetector*>();
 	track = _track;
-	name = track->GetTitle();
+	trackInfo = track->GetInfo();
 	difficulty = _difficulty;
 }
 
@@ -26,14 +30,23 @@ void BeatMapLevel::Start()
 
 	InitLevelAspect();
 	InitHUD();
-	InitNote();
+	InitNoteTriggerAndSpawner();
 
 	track->Start(difficulty);
+
+	//new Timer([&]() {IncrementCombo(); }, Time(seconds(5.0f)), true, true);
 }
 
 bool BeatMapLevel::Update()
 {
 	track->Update();
+
+	if (track->IsFinished())
+	{
+		track->Stop();
+		score->SetScore(0);
+		comboData->SetCount(0);
+	}
 	return Super::Update();
 }
 
@@ -42,7 +55,6 @@ void BeatMapLevel::Stop()
 	Super::Stop();
 	track->Stop();
 }
-
 
 void BeatMapLevel::InitLevelAspect()
 {
@@ -66,23 +78,28 @@ void BeatMapLevel::InitHUD()
 	score->SetCharacterSize(25);
 	score->SetZOrder(1);
 
-	new Timer<Seconds>([&]() {SpawnCombo(); }, seconds(5), true, true);
+	//new Timer<Seconds>([&]() {IncrementCombo(); }, seconds(5), true, true);
 	Label* _levelDifficulty = M_HUD.CreateWidget<Label>(difficulty, Screen, "Test", TTF); //TODO implemant Font
 	_levelDifficulty->SetPosition(Vector2f(10.0f, 10.0f));
 	_levelDifficulty->SetCharacterSize(25);
 	_levelDifficulty->SetZOrder(2);
 
-	Label* _levelName = M_HUD.CreateWidget<Label>(name, Screen, "Test", TTF); //TODO implemant Font
+	Label* _levelName = M_HUD.CreateWidget<Label>(trackInfo.title, Screen, "Test", TTF); //TODO implemant Font
 	_levelName->SetPosition(Vector2f(350.0f, 10.0f));
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
 
+	//ProgressBar* _progressBar = M_HUD.CreateWidget<ProgressBar>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), "Test", 100.0f, Screen); //TODO implemant Font
+	//_progressBar->SetFillColor(Color(0, 255, 0, 255));
+	//_progressBar->ChangeValue(50.0f);
+
+	//M_HUD.AddToViewport(_progressBar);
 	M_HUD.AddToViewport(score);
 	M_HUD.AddToViewport(_levelDifficulty);
 	M_HUD.AddToViewport(_levelName);
 }
 
-void BeatMapLevel::InitNote()
+void BeatMapLevel::InitNoteTriggerAndSpawner()
 {
 	for (u_int _i = 0; _i < 4; _i++)
 	{
@@ -92,27 +109,26 @@ void BeatMapLevel::InitNote()
 		triggers[NoteType(_i)] = Level::SpawnActor(NoteDetector(NoteType(_i)));
 		triggers[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 700));
 		triggers[NoteType(_i)]->SetOriginAtMiddle();
+
+		noteSpawners[NoteType(_i)] = Level::SpawnActor(NoteSpawner(NoteType(_i), triggers[NoteType(_i)]));
+		noteSpawners[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 0));
 	}
 }
 
-void BeatMapLevel::SpawnCombo(const u_int& _comboCout, const Color& _color)
+void BeatMapLevel::IncrementCombo()
 {
-	u_int _finalComboCount = _comboCout;
-	if (_finalComboCount == 0)
-	{
-		_finalComboCount = GetRandomNumberInRange(0, 50);
-	}
-	Color _finalColor = _color;
-	if (_finalColor == Color(0, 0, 0))
-	{
-		_finalColor = Color(GetRandomNumberInRange(0, 255),
-			GetRandomNumberInRange(0, 255),
-			GetRandomNumberInRange(0, 255));
-	}
-	Label* _combo = M_HUD.CreateWidget<Label>("X " + to_string(_finalComboCount), Screen, "Test", TTF);
-	_combo->SetFillColor(_finalColor);
-	_combo->SetCharacterSize(20);
-	_combo->SetPosition(Vector2f(GetRandomNumberInRange(10.0f, windowSize.x * 0.1f), GetRandomNumberInRange(35.0f, windowSize.y - 35.0f)));
-	_combo->SetLifeSpan(GetRandomNumberInRange(1.0f, 3.0f));
-	_combo->SetRotation(radians(GetRandomNumberInRange(-(priv::pi / 4.0f), (priv::pi / 4.0f))));
+	LOG(Display, "Increment Combo");
+
+	Color _finalColor = Color(GetRandomNumberInRange(0, 255),
+		GetRandomNumberInRange(0, 255),
+		GetRandomNumberInRange(0, 255));
+
+	score->AddScore(GetRandomNumberInRange(10, 250)); // TODO REMOVE
+
+	comboData->operator++();
+	comboData->label->SetFillColor(_finalColor);
+	comboData->label->SetCharacterSize(20);
+	comboData->label->SetPosition(Vector2f(GetRandomNumberInRange(10.0f, windowSize.x * 0.1f), GetRandomNumberInRange(35.0f, windowSize.y - 35.0f)));
+	comboData->label->SetLifeSpan(GetRandomNumberInRange(1.0f, 3.0f));
+	comboData->label->SetRotation(radians(GetRandomNumberInRange(-(priv::pi / 4.0f), (priv::pi / 4.0f))));
 }

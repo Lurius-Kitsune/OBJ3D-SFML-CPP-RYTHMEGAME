@@ -145,6 +145,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Scripts\Core\Actors\Widget\ProgressBar">
+      <UniqueIdentifier>{f214b1ca-12e0-4436-af2e-5708d510ac49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextObject.cpp">
@@ -296,6 +299,15 @@
     </ClCompile>
     <ClCompile Include="Track.cpp">
       <Filter>MargeuRythme\Track</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteSpawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>Scripts\Core\Actors\Widget\ProgressBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -478,6 +490,15 @@
     </ClInclude>
     <ClInclude Include="Track.h">
       <Filter>MargeuRythme\Track</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteSpawner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>Scripts\Core\Actors\Widget\ProgressBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

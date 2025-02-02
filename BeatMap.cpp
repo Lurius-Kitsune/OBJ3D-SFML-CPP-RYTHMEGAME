@@ -32,6 +32,7 @@ void BeatMap::Start()
 	{
 		LoadBeatMap();
 	}
+	timeStamp.stop();
 	timeStamp.restart();
 }
 
@@ -40,7 +41,6 @@ void BeatMap::Update()
 	if (isLoaded)
 	{
 		float _currentTime = GetCurrentTime().asSeconds();
-		LOG(Display, "Current Time : " + to_string(_currentTime));
 		// on prend que 2 chiffre apres la virgule
 		_currentTime = CAST(int, _currentTime * 100) / 100.0f;
 		Time _time = Time(seconds(_currentTime));
@@ -49,8 +49,8 @@ void BeatMap::Update()
 			pair<NoteType, bool>& _noteType = notes[_time];
 			if (!_noteType.second)
 			{
-				NoteDetector* _triggerNote = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteDetector()[_noteType.first];
-				Level::SpawnActor(Note(_noteType.first, _triggerNote))->SetPosition(Vector2f(GetRandomNumberInRange(0, 1200), 0));
+				NoteDetector* _triggerNote = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteDetector(_noteType.first);
+				Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteSpawner(_noteType.first)->Spawn();
 				_noteType.second = true;
 			}
 		}
@@ -58,6 +58,17 @@ void BeatMap::Update()
 	else
 	{
 		LOG(Error, "BeatMap not loaded !");
+	}
+}
+
+void BeatMap::Stop()
+{
+	using Iterator = map<Time, pair<NoteType, bool>>::iterator;
+	const Iterator _end = notes.end();
+	for (Iterator _it = notes.begin(); _it != _end; ++_it)
+	{
+		pair<NoteType, bool>& _note = _it->second;
+		_note.second = false;
 	}
 }
 
