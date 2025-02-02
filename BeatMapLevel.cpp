@@ -117,7 +117,6 @@ void BeatMapLevel::InitNoteTriggerAndSpawner()
 
 void BeatMapLevel::IncrementCombo()
 {
-	LOG(Display, "Increment Combo");
 
 	Color _finalColor = Color(GetRandomNumberInRange(0, 255),
 		GetRandomNumberInRange(0, 255),
