@@ -60,9 +60,9 @@ public:
 
 
 public:
-	CameraActor(const string& _name = "CameraActor");
-	CameraActor(const Vector2f& _center, const Vector2f& _size);
-	CameraActor(const FloatRect& _rect);
+	CameraActor(const string& _name);
+	CameraActor(const Vector2f& _center, const Vector2f& _size, const string& _name);
+	CameraActor(const FloatRect& _rect, const string& _name);
 	CameraActor(const CameraActor& _other);
 
 protected:

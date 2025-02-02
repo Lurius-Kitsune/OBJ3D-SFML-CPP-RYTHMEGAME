@@ -1,17 +1,25 @@
 #pragma once
 #include "Game.h"
-#include "NoteReceiver.h"
+#include "NoteDetector.h"
 #include "GameInput.h"
 #include "BeatMap.h"
+#include "Track.h"
 
 class MargeurythmeGame : public Game
 {
+	using Iteraor = vector<Track*>::iterator;
 
-	// 4 button Input arrowLeft, arrowRight, arrowUp, arrowDown
-	NoteReceiver* arrowLeft;
 	BeatMap* beatMap;
 
-	map<Code, GameInput::Input> inputMap;
+	//map<Code, GameInput::Input> inputMap;
+	vector<Track*> allTracks;
+	map<NoteType, NoteDetector*> triggers;
+
+public:
+	FORCEINLINE map<NoteType, NoteDetector*>& GetNoteDetector()
+	{
+		return triggers;
+	}
 
 public:
 	virtual void Start() override;

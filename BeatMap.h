@@ -6,10 +6,12 @@ class BeatMap
 {
 	string path;
 	bool isLoaded;
-	map<Time, NoteType> notes;
-	int missDamage;
-	Clock timeStamp;
+
 	string difficulty;
+	int missDamage;
+	map<Time, pair<NoteType, bool>> notes;
+	Clock timeStamp;
+	int perfectScoreMin;
 
 public:
 	Time GetCurrentTime()const
@@ -22,7 +24,13 @@ public:
 		return to_string(timeStamp.getElapsedTime().asSeconds());
 	}
 
+	FORCEINLINE string GetDifficulty()
+	{
+		return difficulty;
+	}
+
 public:
+	BeatMap() = default;
 	BeatMap(const string& _path);
 	~BeatMap();
 
@@ -31,7 +39,6 @@ public:
 	void Start();
 
 	void Update();
-
 
 	void LoadBeatMap();
 };

@@ -11,6 +11,8 @@ class TextObject : public Object
 {
 	Text* text;
 	Font font;
+	string path;
+	FontExtensionType fontType;
 
 public:
 	FORCEINLINE Font& GetFont()
@@ -57,7 +59,13 @@ public:
 		text->scale(_factor);
 	}
 
+	FORCEINLINE void SetString(const string& _string)
+	{
+		text->setString(_string);
+	}
+
 public:
 	TextObject(const string& _text, const string& _path = "", const FontExtensionType& _fontType = OTF);
+	TextObject(const TextObject& _other);
 	~TextObject();
 };

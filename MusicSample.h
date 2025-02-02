@@ -44,11 +44,16 @@ public:
 		return music->getVolume();
 	}
 
+	FORCEINLINE Time GetDuration() const
+	{
+		return music->getDuration();
+	}
+
 public:
 	MusicSample(const string& _path);
 	~MusicSample();
 
-	virtual void Play(const Time& _time = Time()) override;
+	virtual void Play(const Time& _offset = Time(), const Time& _duration = Time()) override;
 	virtual void Pause() override;
 	virtual void Stop() override;
 };

@@ -1,15 +1,24 @@
 #include "BeatMap.h"
-#include <fstream>
 #include "Level.h"
+#include "GameManager.h"
+#include "BeatMapLevel.h"
+#include "FileManager.h"
+
+using namespace File;
 
 BeatMap::BeatMap(const string& _path)
 {
 	path = _path;
 	isLoaded = false;
-	missDamage = 0;
+
+	vector<string> _contentFile = M_FILE.ReadFile<string>(string(path).c_str());
+	vector<string> _content = SplitString(_contentFile[0], '|');
+	missDamage = stoi(_content[1]);
+	difficulty = _content[0];
+
+	notes = map<Time, pair<NoteType, bool>>();
 	timeStamp = Clock();
-	difficulty = "Easy";
-	notes = map<Time, NoteType>();
+	perfectScoreMin = 0;
 }
 
 BeatMap::~BeatMap()
@@ -31,13 +40,19 @@ void BeatMap::Update()
 	if (isLoaded)
 	{
 		float _currentTime = GetCurrentTime().asSeconds();
+		LOG(Display, "Current Time : " + to_string(_currentTime));
 		// on prend que 2 chiffre apres la virgule
 		_currentTime = CAST(int, _currentTime * 100) / 100.0f;
 		Time _time = Time(seconds(_currentTime));
 		if(notes.contains(_time))
 		{
-			NoteType _noteType = notes[_time];
-			Level::SpawnActor(Note(_noteType))->SetPosition(Vector2f(50.0f* _noteType, 0));
+			pair<NoteType, bool>& _noteType = notes[_time];
+			if (!_noteType.second)
+			{
+				NoteDetector* _triggerNote = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteDetector()[_noteType.first];
+				Level::SpawnActor(Note(_noteType.first, _triggerNote))->SetPosition(Vector2f(GetRandomNumberInRange(0, 1200), 0));
+				_noteType.second = true;
+			}
 		}
 	}
 	else
@@ -46,33 +61,25 @@ void BeatMap::Update()
 	}
 }
 
+
 void BeatMap::LoadBeatMap()
 {
 	if (!isLoaded)
 	{
-		ifstream _file = ifstream(path);
-		if (!_file.is_open())
-		{
-			LOG(Error, "BeatMap file not found at " + path);
-			return;
-		}
-		const u_int& _totalLine = count(istreambuf_iterator<char>(_file), istreambuf_iterator<char>(), '\n');
-		_file.seekg(0, ios::beg);
-
-		string line;
-		getline(_file, line);
-		vector<string> _content = SplitString(line, '|');
-		missDamage = stoi(_content[1]);
-		difficulty = _content[0];
+		vector<string> _contentFile = M_FILE.ReadFile<string>(string(path).c_str());
+		
+		//Nombre de ligne total
+		const u_int _totalLine = CAST(u_int, _contentFile.size() - 1);
 
 		//Pourcentage de progressino de la map
-		while (getline(_file, line))
+		for (u_int _i = 1; _i <= _totalLine; _i++)
 		{
-			_content = SplitString(line, '|');
-			notes.insert(pair<Time, NoteType>(Time(seconds((stof(_content[0])))), NoteType(stoi(_content[1]))));
+			vector<string> _content = SplitString(_contentFile[_i], '|');
+			notes.insert({ Time(seconds((stof(_content[0])))), {NoteType(stoi(_content[1])), false} });
 			LOG(Display, "Progress : " + to_string((float)notes.size() / _totalLine * 100) + "%)");
+			perfectScoreMin += NR_PERFECT;
 		}
-		_file.close();
+
 		LOG(Display, "BeatMap loaded ! Nb Note : " + to_string(notes.size()));
 		isLoaded = true;
 	}

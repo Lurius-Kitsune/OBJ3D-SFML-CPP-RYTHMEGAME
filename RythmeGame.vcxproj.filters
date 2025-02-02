@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
@@ -76,9 +72,6 @@
     <Filter Include="Scripts\Managers\Font">
       <UniqueIdentifier>{a27c8130-50ec-4ebf-bfa7-ed2ba11c894b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Core\Actors\Texts">
-      <UniqueIdentifier>{3a236a4d-3434-4099-898c-b9f32bc86ba4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts\Core\Components\Animation">
       <UniqueIdentifier>{486f8b75-db00-4b39-9f9f-f217ee614670}</UniqueIdentifier>
     </Filter>
@@ -117,6 +110,40 @@
     </Filter>
     <Filter Include="MargeuRythme">
       <UniqueIdentifier>{2c44e566-c4e2-4a6e-be95-f287b9a1c054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Managers\HUD">
+      <UniqueIdentifier>{5c1eccc7-98a4-42d0-a700-28e27de99264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Actors\Widget">
+      <UniqueIdentifier>{7cae45e0-1932-4251-9f42-f7efbcc66589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Actors\Widget\Texts">
+      <UniqueIdentifier>{3a236a4d-3434-4099-898c-b9f32bc86ba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Actors\Widget\Button">
+      <UniqueIdentifier>{84eb812d-d6db-43c6-afa5-cc63278ec5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Managers\InputManager">
+      <UniqueIdentifier>{73cce3d3-dd87-452d-96fc-c216dad38e82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Track">
+      <UniqueIdentifier>{180aee18-1036-41e4-a6c5-8eb92661823a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Track\BeatMap">
+      <UniqueIdentifier>{6b5d2d25-4a12-4aa3-9ab7-62a843474d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Note">
+      <UniqueIdentifier>{bf9aed3a-040f-49f5-b4a8-b9e1f354fd96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Note\Mouvement">
+      <UniqueIdentifier>{f1eec3c8-2154-4681-a54f-7946ca955e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Actors\Widget\Image">
+      <UniqueIdentifier>{3f52a399-1a9c-46a4-b394-0cd02a6b076c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +208,7 @@
       <Filter>Scripts\Managers\Font</Filter>
     </ClCompile>
     <ClCompile Include="Label.cpp">
-      <Filter>Scripts\Core\Actors\Texts</Filter>
+      <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>Scripts\Managers\Audio</Filter>
@@ -210,12 +237,6 @@
     <ClCompile Include="TriangleActor.cpp">
       <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bird.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CameraActor.cpp">
       <Filter>Scripts\Core\Actors\Camera</Filter>
     </ClCompile>
@@ -234,11 +255,47 @@
     <ClCompile Include="Level.cpp">
       <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ScoreLabel.cpp">
+      <Filter>MargeuRythme</Filter>
     </ClCompile>
     <ClCompile Include="MargeurythmeGame.cpp">
       <Filter>MargeuRythme</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Scripts\Managers\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>Scripts\Core\Actors\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Scripts\Core\Actors\Widget\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Scripts\Managers\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BeatMapLevel.cpp">
+      <Filter>MargeuRythme</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteDetector.cpp">
+      <Filter>MargeuRythme\Note</Filter>
+    </ClCompile>
+    <ClCompile Include="Note.cpp">
+      <Filter>MargeuRythme\Note</Filter>
+    </ClCompile>
+    <ClCompile Include="BeatMap.cpp">
+      <Filter>MargeuRythme\Track\BeatMap</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectLevel.cpp">
+      <Filter>MargeuRythme</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteMouvementComponent.cpp">
+      <Filter>MargeuRythme\Note\Mouvement</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Scripts\Core\Actors\Widget\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.cpp">
+      <Filter>MargeuRythme\Track</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -312,7 +369,7 @@
       <Filter>Scripts\Managers\Font</Filter>
     </ClInclude>
     <ClInclude Include="Label.h">
-      <Filter>Scripts\Core\Actors\Texts</Filter>
+      <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
     </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>Scripts\Managers\Audio</Filter>
@@ -356,12 +413,6 @@
     <ClInclude Include="SubclassOf.h">
       <Filter>Scripts\Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bird.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CameraActor.h">
       <Filter>Scripts\Core\Actors\Camera</Filter>
     </ClInclude>
@@ -377,11 +428,56 @@
     <ClInclude Include="CameraManager.h">
       <Filter>Scripts\Managers\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ScoreLabel.h">
+      <Filter>MargeuRythme</Filter>
     </ClInclude>
     <ClInclude Include="MargeurythmeGame.h">
       <Filter>MargeuRythme</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Scripts\Managers\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>Scripts\Core\Actors\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Scripts\Core\Actors\Widget\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Scripts\Managers\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderType.h">
+      <Filter>Scripts\Core\Actors\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteDetector.h">
+      <Filter>MargeuRythme\Note</Filter>
+    </ClInclude>
+    <ClInclude Include="Note.h">
+      <Filter>MargeuRythme\Note</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteMouvementComponent.h">
+      <Filter>MargeuRythme\Note\Mouvement</Filter>
+    </ClInclude>
+    <ClInclude Include="BeatMapLevel.h">
+      <Filter>MargeuRythme</Filter>
+    </ClInclude>
+    <ClInclude Include="BeatMap.h">
+      <Filter>MargeuRythme\Track\BeatMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectLevel.h">
+      <Filter>MargeuRythme</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Scripts\Core\Actors\Widget\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.h">
+      <Filter>MargeuRythme\Track</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

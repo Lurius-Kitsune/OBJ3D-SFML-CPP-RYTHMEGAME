@@ -2,12 +2,13 @@
 #include "TextureManager.h"
 
 
-Note::Note(const NoteType _type)
-	: SquareActor(50.0f, "ArrowCow")
+Note::Note(const NoteType _type, Actor* _actor)
+	: SquareActor(100.0f, "ArrowCow")
 {
 	type = _type;
 	M_TEXTURE.SetTextureRect(GetMesh()->GetShape()->GetDrawable(), IntRect(Vector2i(702 * type, 0), Vector2i(702, 702)));
-	mouvementComponent= CreateComponent<NoteMouvementComponent>();
+	mouvementComponent= CreateComponent<NoteMouvementComponent>(_actor);
+	SetOriginAtMiddle();
 }
 
 Note::Note(const Note& _other)
@@ -16,5 +17,6 @@ Note::Note(const Note& _other)
 	type = _other.type;
 	M_TEXTURE.SetTextureRect(GetMesh()->GetShape()->GetDrawable(), IntRect(Vector2i(702 * type, 0), Vector2i(702, 702)));
 	mouvementComponent = CreateComponent<NoteMouvementComponent>(*_other.mouvementComponent);
+	SetOriginAtMiddle();
 }
 

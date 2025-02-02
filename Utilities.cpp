@@ -1,4 +1,5 @@
 #include "Utilities.h"
+#include "Logger.h"
 
 u_int GetUniqueID()
 {
