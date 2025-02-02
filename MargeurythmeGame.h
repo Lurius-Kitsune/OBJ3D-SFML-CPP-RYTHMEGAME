@@ -7,6 +7,7 @@
 
 class MargeurythmeGame : public Game
 {
+	using Iteraor = vector<Track*>::iterator;
 
 	BeatMap* beatMap;
 

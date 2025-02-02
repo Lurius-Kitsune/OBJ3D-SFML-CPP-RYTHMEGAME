@@ -25,3 +25,11 @@ void AudioManager::ToggleMute()
 		_samplePair.second->SetMuteStatus(isMuted);
 	}
 }
+
+void AudioManager::Stop()
+{
+	for (pair<string, Sample*> _samplePair : allSamples)
+	{
+		_samplePair.second->Stop();
+	}
+}

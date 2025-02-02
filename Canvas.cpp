@@ -26,9 +26,9 @@ void UI::Canvas::UpdateWidgets()
 {
 	for (Widget* _widget : allWidgets)
 	{
-		_widget->SetPosition(_widget->GetPosition() + GetPosition());
+		_widget->SetPosition(GetPosition() + offSet[_widget]);
 		_widget->SetRotation(_widget->GetRotation() + GetRotation());
 		_widget->SetScale(Vector2f(_widget->GetScale().x * GetScale().x,
-			_widget->GetScale().y * GetScale().y));
+		_widget->GetScale().y * GetScale().y));
 	}
 }

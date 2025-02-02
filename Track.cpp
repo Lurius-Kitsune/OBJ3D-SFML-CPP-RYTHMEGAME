@@ -1,5 +1,6 @@
 #include "Track.h"
 #include "FileManager.h"
+#include "AudioManager.h"
 
 using namespace File;
 
@@ -9,12 +10,17 @@ Track::Track(const string& _path)
 	music = new MusicSample(_path + "\\music.mp3");
 	music->Stop();
 	currentBeatMap = nullptr;
-	info = TrackInfo();
+	info = TrackData();
 	Init();
 }
 
 Track::~Track()
 {
+}
+
+void Track::PlayExtrait() const
+{
+	M_AUDIO.PlaySample<SoundSample>(music->GetPath(), MP3, music->GetDuration() / 2.0f, seconds(10.0f));
 }
 
 void Track::Start(const string& _difficulty)
@@ -51,7 +57,7 @@ void Track::Init()
 		return;
 	}
 
-	info = TrackInfo(_info[0], _info[1], music->GetDuration());
+	info = TrackData(_info[0], _info[1], music->GetDuration());
 	const u_int& _beatMapInfo = CAST(u_int, _info.size());
 	for (u_int _i = 2; _i < _beatMapInfo; _i++)
 	{

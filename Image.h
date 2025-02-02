@@ -70,6 +70,12 @@ namespace UI
 		{
 			image->GetDrawable()->setFillColor(_color);
 		}
+		FORCEINLINE virtual void SetOutline(const float _thickness, const Color& _color)
+		{
+			image->GetDrawable()->setOutlineThickness(_thickness);
+			image->GetDrawable()->setOutlineColor(_color);
+		}
+
 		FORCEINLINE Vector2f GetSize() const
 		{
 			return Cast<RectangleShape>(image->GetDrawable())->getSize();

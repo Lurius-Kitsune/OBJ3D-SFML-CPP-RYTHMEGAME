@@ -63,7 +63,7 @@ class BeatMapLevel : public Game
 	map<NoteType, NoteSpawner*> noteSpawners;
 
 	Track* track;
-	TrackInfo trackInfo;
+	TrackData trackInfo;
 	string difficulty;
 	
 	//float advancementPercent;

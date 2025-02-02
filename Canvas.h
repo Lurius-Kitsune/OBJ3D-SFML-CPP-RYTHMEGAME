@@ -6,6 +6,8 @@ namespace UI
 	class Canvas : public Widget
 	{
 		set<Widget*> allWidgets;
+		map<Widget*, Vector2f> offSet;
+
 	public:
 		/*template <typename Type = Widget, IS_BASE_OF(Widget, Type)>
 		FORCEINLINE void AddWidget(Type* _widget)
@@ -17,10 +19,35 @@ namespace UI
 		{
 			RemoveChild(_widget);
 		}*/
+		FORCEINLINE void Hide()const
+		{
+			for (Widget* _current : allWidgets)
+			{
+				_current->SetVisibility(Hidden);
+			}
+		}
+
+		FORCEINLINE void Show()const
+		{
+			for (Widget* _current : allWidgets)
+			{
+				_current->SetVisibility(Visible);
+			}
+		}
+
+		FORCEINLINE Widget* GetWidgetAtIndex(u_int _index)const
+		{
+			set<Widget*>::iterator _it = allWidgets.begin();
+			advance(_it, _index);
+			return *_it;
+		}
 
 		FORCEINLINE void AddWidget(Widget* _widget)
 		{
 			allWidgets.insert(_widget);
+			const Vector2f& _widgetPosition = _widget->GetPosition(); 
+			const Vector2f& _offSet = Vector2f(_widgetPosition - GetPosition());
+			offSet.insert(make_pair(_widget, _offSet));
 		}
 		FORCEINLINE void RemoveWidget(Widget* _widget)
 		{

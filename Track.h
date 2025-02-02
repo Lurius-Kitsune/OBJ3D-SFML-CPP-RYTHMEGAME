@@ -4,15 +4,15 @@
 #include "MusicSample.h"
 
 
-struct TrackInfo
+struct TrackData
 {
 	string title;
 	string artist;
 	Time duration;
 
-	TrackInfo() = default;
+	TrackData() = default;
 
-	TrackInfo(const string& _title, const string& _artist, const Time& _duration)
+	TrackData(const string& _title, const string& _artist, const Time& _duration)
 	{
 		title = _title;
 		artist = _artist;
@@ -24,17 +24,18 @@ struct TrackInfo
 class Track
 {
 	string path;
-	TrackInfo info;
+	TrackData info;
 	MusicSample* music;
 	BeatMap* currentBeatMap;
 	map<string, BeatMap> beatMaps;
 
 public:
-	FORCEINLINE TrackInfo GetInfo() const
+	FORCEINLINE TrackData GetInfo() const
 	{
 		return info;
 	}
 
+	
 	FORCEINLINE string GetArtist() const
 	{
 		return info.artist;
@@ -79,6 +80,8 @@ public:
 	~Track();
 
 public:
+	void PlayExtrait() const;
+
 	void Start(const string& _difficulty);
 	void Update();
 	void Stop();
