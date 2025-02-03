@@ -11,12 +11,16 @@ struct ComboData
 {
 	Label* label;
 	u_int count;
+	bool finishedAnimation;
+	Vector2f minScale;
 
 	ComboData()
 	{
 		count = 0;
 		label = M_HUD.CreateWidget<Label>("X " + to_string(count), Screen, "Test", TTF);
 		label->SetVisibility(Hidden);
+		finishedAnimation = false;
+		minScale = { 1.0f, 1.0f };
 		M_HUD.AddToViewport(label);
 	}
 
@@ -49,6 +53,26 @@ struct ComboData
 		label->SetVisibility(_count == 0 ? Hidden : Visible);
 		count = _count;
 		label->GetText()->SetString("X " + to_string(count));
+	}
+	FORCEINLINE void IncrementScale()
+	{
+		label->Scale({ 0.1f, 0.1f });
+		if (label->GetScale().x <= 3.0f || label->GetScale().y <= 3.0f)
+		{
+			label->SetScale({ 3.0f, 3.0f });
+		}
+	}
+
+	void Animate()
+	{
+		if (!finishedAnimation)
+		{
+			const float _deltaTime = M_TIMER.GetDeltaTime().asSeconds();
+			label->SetScale(label->GetScale() * 0.99f);
+
+			if (label->GetScale().x <= minScale.x || label->GetScale().y <= minScale.y)
+				finishedAnimation = true;
+		}
 	}
 };
 
@@ -99,7 +123,7 @@ public:
 
 private:
 	void InitLevelAspect(); //TODO change name Methode
-	void InitHUD();
+	void InitTopBar();
 	void InitNoteTriggerAndSpawner();
 };
 

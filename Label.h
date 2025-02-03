@@ -31,6 +31,10 @@ namespace UI
 		{
 			text->GetDrawable()->setFillColor(_color);
 		}
+		FORCEINLINE Color GetFillColor() const
+		{
+			return text->GetDrawable()->getFillColor();
+		}
 		FORCEINLINE void SetOutlineColor(const Color& _color)
 		{
 			text->GetDrawable()->setOutlineColor(_color);
@@ -69,6 +73,10 @@ namespace UI
 		{
 			Super::Scale(_factor);
 			text->Scale(_factor);
+		}
+		FORCEINLINE void SetOriginAtMiddle()
+		{
+			text->GetDrawable()->setOrigin(text->GetDrawable()->getGlobalBounds().getCenter());
 		}
 
 #pragma endregion
