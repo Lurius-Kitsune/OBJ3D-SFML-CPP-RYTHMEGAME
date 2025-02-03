@@ -12,7 +12,7 @@ UI::ProgressBar::ProgressBar(const ProgressType& _type, const RectangleShapeData
     foreground = new ShapeObject(_data);
 
     size = _data.size;
-    UpdateOriginAndPosition(size);
+    //UpdateOriginAndPosition(size);
 
     maxValue = _maxValue;
     currentValue = 0;
