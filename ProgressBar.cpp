@@ -8,6 +8,7 @@ UI::ProgressBar::ProgressBar(const ProgressType& _type, const RectangleShapeData
 {
     type = _type;
     bar = new ShapeObject(_data);
+    M_TEXTURE.Load(bar, "", PNG);
     foreground = new ShapeObject(_data);
 
     size = _data.size;
@@ -47,8 +48,8 @@ void UI::ProgressBar::UpdateOriginAndPosition(const Vector2f& _size)
 
 IntRect UI::ProgressBar::MakeRect(const float _percent)
 {
-    const Texture* _bgTexture = bar->GetDrawable()->getTexture();
-    const Vector2f& _textureSize = GetSize();
+    const Texture* _bgTexture = foreground->GetDrawable()->getTexture();
+    const Vector2f& _textureSize = Vector2f(_bgTexture->getSize());
     FloatRect _rect;
 
     if (type == PT_CENTER)
@@ -84,8 +85,8 @@ IntRect UI::ProgressBar::MakeRect(const float _percent)
 void UI::ProgressBar::Render(RenderWindow& _window)
 {
     if (visibility == Hidden) return;
-	_window.draw(*foreground->GetDrawable());
 	_window.draw(*bar->GetDrawable());
+	_window.draw(*foreground->GetDrawable());
 }
 
 void UI::ProgressBar::Update()
