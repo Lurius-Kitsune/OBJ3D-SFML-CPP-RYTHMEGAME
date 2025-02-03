@@ -42,6 +42,19 @@ namespace UI
 			return *_it;
 		}
 
+		template<typename Type = Widget, IS_BASE_OF(Widget, Type)>
+		FORCEINLINE Type* GetFirstWidgetOf() const
+		{
+			for (Widget* _current : allWidgets)
+			{
+				if (Type* _casted = dynamic_cast<Type*>(_current))
+				{
+					return _casted;
+				}
+			}
+			return nullptr;
+		}
+
 		FORCEINLINE void AddWidget(Widget* _widget)
 		{
 			allWidgets.insert(_widget);

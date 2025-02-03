@@ -42,6 +42,7 @@ public:
 
 	void Stop();
 
+private:
 	void LoadBeatMap();
 };
 
