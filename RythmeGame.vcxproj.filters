@@ -309,6 +309,12 @@
     <ClCompile Include="ProgressBar.cpp">
       <Filter>Scripts\Core\Actors\Widget\ProgressBar</Filter>
     </ClCompile>
+    <ClCompile Include="HorizontalBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VerticalBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -499,6 +505,12 @@
     </ClInclude>
     <ClInclude Include="ProgressBar.h">
       <Filter>Scripts\Core\Actors\Widget\ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VerticalBox.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

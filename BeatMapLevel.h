@@ -5,6 +5,7 @@
 #include "Track.h"
 #include "NoteDetector.h"
 #include "NoteSpawner.h"
+#include "MeshActor.h"
 
 
 struct ComboData
@@ -81,8 +82,10 @@ struct ComboData
 class BeatMapLevel : public Game
 {
 	ScoreLabel* score;
+	MeshActor* background;
+	Label* time;
 	unique_ptr<ComboData> comboData;
-	Vector2u windowSize;
+	Vector2f windowSize;
 	map<NoteType, NoteDetector*> triggers;
 	map<NoteType, NoteSpawner*> noteSpawners;
 
@@ -90,6 +93,7 @@ class BeatMapLevel : public Game
 	TrackData trackInfo;
 	string difficulty;
 	
+	bool finishedBackgroundAnimation;
 	//float advancementPercent;
 
 public:
@@ -120,10 +124,14 @@ public:
 	virtual bool Update() override;
 	virtual void Stop() override;
 	void IncrementCombo();
+	
 
 private:
 	void InitLevelAspect(); //TODO change name Methode
 	void InitTopBar();
 	void InitNoteTriggerAndSpawner();
+	void AnimateBackground();
+	string GetTime();
+	void UpdateTime();
 };
 

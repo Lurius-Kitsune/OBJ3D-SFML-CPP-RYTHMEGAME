@@ -78,6 +78,10 @@ namespace UI
 		{
 			text->GetDrawable()->setOrigin(text->GetDrawable()->getGlobalBounds().getCenter());
 		}
+		FORCEINLINE Vector2f GetSize() const
+		{
+			return text->GetDrawable()->getLocalBounds().size;
+		}
 
 #pragma endregion
 
