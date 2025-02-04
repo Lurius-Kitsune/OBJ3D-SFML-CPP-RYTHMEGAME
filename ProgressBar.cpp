@@ -12,7 +12,7 @@ UI::ProgressBar::ProgressBar(const ProgressType& _type, const RectangleShapeData
     foreground = new ShapeObject(_data);
 
     size = _data.size;
-    //UpdateOriginAndPosition(size);
+    UpdateOriginAndPosition(size);
 
     maxValue = _maxValue;
     currentValue = 0;
@@ -22,27 +22,32 @@ UI::ProgressBar::ProgressBar(const ProgressType& _type, const RectangleShapeData
 void UI::ProgressBar::UpdateOriginAndPosition(const Vector2f& _size)
 {
 	Shape* _fgShape = foreground->GetDrawable();
-    const Vector2f& _barPosition = GetPosition();
+    const Vector2f& _barPosition = bar->GetDrawable()->getPosition();
 
     if (type == PT_LEFT)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() - Vector2f(_size.x / 2.0f, 0.0f));
-        _fgShape->setPosition(_barPosition - Vector2f(_size.x / 2.0f, 0.0f));
+        _fgShape->setOrigin(Vector2f(0.0f,0.0f));
+        _fgShape->setPosition(_barPosition);
     }
     else if (type == PT_RIGHT)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() + Vector2f(_size.x / 2.0f, 0.0f));
-        _fgShape->setPosition(_barPosition + Vector2f(_size.x / 2.0f, 0.0f));
+        _fgShape->setOrigin(Vector2f(_size.x, 0.0f));
+        _fgShape->setPosition(_barPosition + Vector2f(_size.x, 0.0f));
     }
     else if (type == PT_TOP)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() - Vector2f(0.0f, _size.y / 2.0f));
+        _fgShape->setOrigin(Vector2f(0.0f, _size.y));
         _fgShape->setPosition(_barPosition - Vector2f(0.0f, _size.y / 2.0f));
     }
     else if (type == PT_BOTTOM)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() + Vector2f(0.0f, _size.y / 2.0f));
+        _fgShape->setOrigin(Vector2f(0.0f, 0.0f));
         _fgShape->setPosition(_barPosition + Vector2f(0.0f, _size.y / 2.0f));
+    }
+    else if (type == PT_CENTER)
+    {
+        _fgShape->setOrigin(_size / 2.0f);
+        _fgShape->setPosition(_barPosition + Vector2f(_size / 2.0f));
     }
 }
 
