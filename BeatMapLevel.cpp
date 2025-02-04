@@ -84,7 +84,7 @@ void BeatMapLevel::InitHUD()
 	_levelDifficulty->SetCharacterSize(25);
 	_levelDifficulty->SetZOrder(2);
 
-	Label* _levelName = M_HUD.CreateWidget<Label>(trackInfo.title, Screen, "Test", TTF); //TODO implemant Font
+	Label* _levelName = M_HUD.CreateWidget<Label>(trackInfo->title, Screen, "Test", TTF); //TODO implemant Font
 	_levelName->SetPosition(Vector2f(350.0f, 10.0f));
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);

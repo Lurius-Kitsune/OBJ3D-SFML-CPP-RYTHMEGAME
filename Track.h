@@ -30,38 +30,38 @@ struct TrackData
 class Track
 {
 	string path;
-	TrackData info;
+	unique_ptr<TrackData> info;
 	MusicSample* music;
 	BeatMap* currentBeatMap;
 	map<string, BeatMap> beatMaps;
 
 public:
-	FORCEINLINE TrackData GetInfo() const
+	FORCEINLINE TrackData* GetInfo() const
 	{
-		return info;
+		return info.get();
 	}
 
 	
 	FORCEINLINE string GetArtist() const
 	{
-		return info.artist;
+		return info.get()->artist;
 	}
 	FORCEINLINE string GetTitle() const
 	{
-		return info.title;
+		return info.get()->title;
 	}
 	FORCEINLINE Time GetDuration() const
 	{
-		return info.duration;
+		return info.get()->duration;
 	}
 	FORCEINLINE UI::Image* GetCover() const
 	{
-		return info.cover;
+		return info.get()->cover;
 	}
 
 	FORCEINLINE string GetDurationAsString() const
 	{
-		const float _seconds = info.duration.asSeconds();
+		const float _seconds = info.get()->duration.asSeconds();
 		const string _minutes = to_string(CAST(int, _seconds) / 60);
 		const string _secondsString = to_string(CAST(int, _seconds) % 60);
 		return _minutes + ":" + _secondsString;
@@ -82,7 +82,7 @@ public:
 
 	FORCEINLINE bool IsFinished() const
 	{
-		return currentBeatMap->GetCurrentTime() > info.duration;
+		return currentBeatMap->GetCurrentTime() > info.get()->duration;
 	}
 
 public:

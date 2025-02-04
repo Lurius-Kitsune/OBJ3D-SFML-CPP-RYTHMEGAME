@@ -10,7 +10,7 @@ Track::Track(const string& _path)
 	music = new MusicSample(_path + "\\music.mp3");
 	music->Stop();
 	currentBeatMap = nullptr;
-	info = TrackData();
+	info = make_unique<TrackData>();
 	Init();
 }
 
@@ -57,7 +57,7 @@ void Track::Init()
 		return;
 	}
 	UI::Image* _image = new UI::Image(path + "\\cover.png", RectangleShapeData(Vector2f(200.0f, 200.0f)), World);
-	info = TrackData(_info[0], _info[1], music->GetDuration(), _image);
+	info = make_unique<TrackData>(_info[0], _info[1], music->GetDuration(), _image);
 	const u_int& _beatMapInfo = CAST(u_int, _info.size());
 	for (u_int _i = 2; _i < _beatMapInfo; _i++)
 	{
@@ -68,6 +68,6 @@ void Track::Init()
 
 bool Track::operator < (Track _other) const 
 {
-	return info.title < _other.info.title;
+	return info.get()->title < _other.info.get()->title;
 }
 
