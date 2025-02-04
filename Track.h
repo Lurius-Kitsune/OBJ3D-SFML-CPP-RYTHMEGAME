@@ -19,6 +19,11 @@ struct TrackData
 		duration = _duration;
 		cover = _image;
 	}
+
+	~TrackData()
+	{
+		delete cover;
+	}
 };
 
 
