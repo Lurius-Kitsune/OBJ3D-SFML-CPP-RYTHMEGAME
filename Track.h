@@ -49,9 +49,9 @@ public:
 	{
 		return info.duration;
 	}
-	FORCEINLINE string GetPath() const
+	FORCEINLINE UI::Image* GetCover() const
 	{
-		return path;
+		return info.cover;
 	}
 
 	FORCEINLINE string GetDurationAsString() const

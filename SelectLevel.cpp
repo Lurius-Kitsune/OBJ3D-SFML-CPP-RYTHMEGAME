@@ -179,12 +179,17 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	Label* _duration = M_HUD.CreateWidget<Label>(_track->GetDurationAsString(), Screen, "Test", TTF); //TODO implemant Font
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
-	_duration->SetPosition(Vector2f(_backgroundSize.x * 0.5f, _backgroundSize.y * 0.25f));
+	_duration->SetPosition(Vector2f(_backgroundSize.x - 10.0f - _duration->GetText()->GetDrawable()->getLocalBounds().size.x, _backgroundSize.y * 0.25f));
+
+	UI::Image* _separator = M_HUD.CreateWidget<UI::Image>("separator", RectangleShapeData(Vector2f(3.0f, _backgroundSize.y), ""), World); //TODO implemant Font
+	//_separator->SetOrigin(_separator->GetSize() / 2.0f);
+	_separator->SetPosition(Vector2f(_duration->GetPosition().x - 5.0f, 0.0f));
 
 	_trackInfo->AddWidget(_background);
 	_trackInfo->AddWidget(_title);
 	_trackInfo->AddWidget(_artist);
 	_trackInfo->AddWidget(_duration);
+	_trackInfo->AddWidget(_separator);
 
 	_trackInfo->Hide();
 	allTracksCanvas.insert(make_pair(_track, _trackInfo));
