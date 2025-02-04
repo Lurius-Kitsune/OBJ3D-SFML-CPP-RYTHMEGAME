@@ -28,8 +28,8 @@ namespace UI
 		FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
 		{
 			Super::SetPosition(_position);
-			foreground->SetPosition(_position);
 			bar->SetPosition(_position);
+			UpdateOriginAndPosition(size);
 		}
 		FORCEINLINE virtual void SetRotation(const Angle& _rotation) override
 		{
@@ -48,6 +48,8 @@ namespace UI
 			Super::SetOrigin(_origin);
 			foreground->SetOrigin(_origin);
 			bar->SetOrigin(_origin);
+			
+			UpdateOriginAndPosition(size);
 		}
 		FORCEINLINE virtual void Move(const Vector2f& _offset) override
 		{

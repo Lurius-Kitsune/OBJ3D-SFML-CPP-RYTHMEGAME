@@ -89,9 +89,13 @@ void BeatMapLevel::InitHUD()
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
 
-	ProgressBar* _progressBar = M_HUD.CreateWidget<ProgressBar>(PT_RIGHT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), "Test", 100.0f, Screen); //TODO implemant Font
+	ProgressBar* _progressBar = M_HUD.CreateWidget<ProgressBar>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), "Test", 100.0f, Screen); //TODO implemant Font
 	_progressBar->SetFillColor(Color(0, 255, 0, 255));
-	_progressBar->ChangeValue(95.0f);
+	_progressBar->ChangeValue(50.0f);
+	//_progressBar->SetType(PT_LEFT);
+	//_progressBar->SetType(PT_CENTER);
+
+	//_progressBar->SetPosition(Vector2f(windowSize.x - 200.0f, 40.0f));
 
 	M_HUD.AddToViewport(_progressBar);
 	M_HUD.AddToViewport(score);

@@ -37,6 +37,11 @@ public:
 	SelectLevel();
 	virtual ~SelectLevel();
 
+public:
+	virtual void Start() override;
+	virtual bool Update() override;
+	virtual void Stop() override;
+
 private:
 	// Init
 	void InitSeparator();
@@ -48,12 +53,9 @@ private:
 	void SetDescription(Track* _track);
 	void ChangeIterator(bool _isUp);
 
+	// WHEEL
 	void SelectTrack();
 	void WheelCanvas();
 
 	bool CrampIterator(Iterator& _current);
-public:
-	virtual void Start() override;
-	virtual bool Update() override;
-	virtual void Stop() override;
 };

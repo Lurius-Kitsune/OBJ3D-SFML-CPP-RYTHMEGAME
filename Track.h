@@ -2,21 +2,22 @@
 #include "CoreMinimal.h"
 #include "BeatMap.h"
 #include "MusicSample.h"
-
+#include "Image.h"
 
 struct TrackData
 {
 	string title;
 	string artist;
 	Time duration;
-
+	UI::Image* cover;
 	TrackData() = default;
 
-	TrackData(const string& _title, const string& _artist, const Time& _duration)
+	TrackData(const string& _title, const string& _artist, const Time& _duration, UI::Image* _image)
 	{
 		title = _title;
 		artist = _artist;
 		duration = _duration;
+		cover = _image;
 	}
 };
 
@@ -47,6 +48,10 @@ public:
 	FORCEINLINE Time GetDuration() const
 	{
 		return info.duration;
+	}
+	FORCEINLINE string GetPath() const
+	{
+		return path;
 	}
 
 	FORCEINLINE string GetDurationAsString() const
