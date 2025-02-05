@@ -147,12 +147,12 @@ void BeatMapLevel::InitTopBar()
 	_separation->SetPosition(Vector2f(0.0f, 60.0f));
 
 	//new Timer<Seconds>([&]() {IncrementCombo(); }, seconds(5), true, true);
-	Label* _levelDifficulty = M_HUD.CreateWidget<Label>(difficulty, Screen, "Test", TTF); //TODO implemant Font
+	Label* _levelDifficulty = M_HUD.CreateWidget<Label>("Difficulty: " + difficulty, Screen, "Test", TTF); //TODO implemant Font
 	_levelDifficulty->SetPosition(Vector2f(10.0f, 15.0f));
 	_levelDifficulty->SetCharacterSize(25);
 	_levelDifficulty->SetZOrder(2);
 
-	Label* _levelName = M_HUD.CreateWidget<Label>(trackInfo.title, Screen, "Test", TTF); //TODO implemant Font
+	Label* _levelName = M_HUD.CreateWidget<Label>("Title:" +trackInfo.title, Screen, "Test", TTF); //TODO implemant Font
 	_levelName->SetPosition(Vector2f(((windowSize.x - _levelName->GetSize().x) / 2.0f), 15.0f));
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
