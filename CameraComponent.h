@@ -50,6 +50,7 @@ public:
 public:
 	CameraComponent(Actor* _owner);
 	CameraComponent(Actor* _owner, const Vector2f& _center, const Vector2f& _size);
+	CameraComponent(Actor* _owner, const Vector2f& _size);
 	CameraComponent(Actor* _owner, const FloatRect& _rect);
 	CameraComponent(Actor* _owner, const CameraComponent* _other);
 	~CameraComponent();

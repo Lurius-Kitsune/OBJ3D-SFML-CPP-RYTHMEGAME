@@ -5,7 +5,6 @@
 
 class MeshActor : public Actor
 {
-protected:
 	MeshComponent* mesh;
 	u_int renderMeshToken;
 
@@ -47,15 +46,7 @@ public:
 	FORCEINLINE FloatRect GetHitbox() const
 	{
 		return mesh->GetShape()->GetDrawable()->getGlobalBounds();
-	}
-	FORCEINLINE void SetFillColor(const Color& _color)
-	{
-		mesh->GetShape()->GetDrawable()->setFillColor(_color);
-	}
-	FORCEINLINE void SetOutlineColor(const Color& _color)
-	{
-		mesh->GetShape()->GetDrawable()->setOutlineColor(_color);
-	}
+	}  
 	FORCEINLINE void SetTextureRect(const Vector2i& _start, const Vector2i& _size)
 	{
 		SetTextureRect(IntRect(_start, _size));
@@ -111,8 +102,9 @@ public:
 
 public:
 	MeshActor() = default;
-	MeshActor(const float _radius, const size_t& _pointCount = 30, const string& _path = "", const IntRect& _rect = {}, const string& _name = "MeshActor");
+	MeshActor(const CircleShapeData& _data, const string& _name = "MeshActor");
 	MeshActor(const RectangleShapeData& _data, const string& _name = "MeshActor");
+	MeshActor(const VertexArrayData& _data, const string& _name = "MeshActor");
 	MeshActor(const MeshActor& _other);
 
 protected:

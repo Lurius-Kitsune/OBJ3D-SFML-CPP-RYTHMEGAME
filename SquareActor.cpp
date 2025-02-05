@@ -5,8 +5,3 @@ SquareActor::SquareActor(const float _size, const string& _path, const TextureEx
 {
 
 }
-
-SquareActor::SquareActor(const SquareActor& _other)
-					   : RectangleActor(_other)
-{
-}

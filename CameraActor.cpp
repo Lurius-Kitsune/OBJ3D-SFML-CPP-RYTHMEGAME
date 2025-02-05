@@ -1,5 +1,6 @@
 #include "CameraActor.h"
-#include "GameManager.h"
+#include "Duck.h"
+#include "DuckHuntGame.h"
 
 CameraActor::CameraActor(const string& _name) : Actor(_name)
 {
@@ -10,6 +11,12 @@ CameraActor::CameraActor(const string& _name) : Actor(_name)
 CameraActor::CameraActor(const Vector2f& _center, const Vector2f& _size, const string& _name) : Actor(_name)
 {
 	camera = CreateComponent<CameraComponent>(_center, _size);
+	target = nullptr;
+}
+
+CameraActor::CameraActor(const Vector2f& _size, const string& _name) : Actor(_name)
+{
+	camera = CreateComponent<CameraComponent>(_size);
 	target = nullptr;
 }
 

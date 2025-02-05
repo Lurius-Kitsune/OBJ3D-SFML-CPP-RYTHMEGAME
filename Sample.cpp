@@ -7,7 +7,7 @@ Sample::Sample(const string& _path)
 }
 
 
-void Sample::Play(const Time& _offSet, const Time& _duration)
+void Sample::Play(const Time& _time)
 {
 	if (IsStatusByIndex(1))
 	{

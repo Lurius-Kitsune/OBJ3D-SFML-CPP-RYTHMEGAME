@@ -1,9 +1,11 @@
 #include "Actor.h"
 #include "ActorManager.h"
 #include "TimerManager.h"
+#include "Level.h"
 
 Actor::Actor(const string& _name, const TransformData& _transform)
 {
+	level = nullptr;
 	name = _name;
 	displayName = "Unknown";
 	isToDelete = false;
@@ -13,6 +15,7 @@ Actor::Actor(const string& _name, const TransformData& _transform)
 
 Actor::Actor(const Actor& _actor)
 {
+	level = _actor.level;
 	name = _actor.name;
 	displayName = _actor.displayName;
 	isToDelete = _actor.isToDelete;
@@ -31,14 +34,21 @@ Actor::~Actor()
 
 void Actor::Construct()
 {
+	if (!level)
+	{
+		LOG(Fatal, "Tried to construct an actor (\"" + name + "\") with no level associated !");
+		return;
+	}
 	id = GetUniqueID();
 	//displayName = M_ACTOR.GetAvailableName(name);
-	M_ACTOR.AddActor(this);
-}
+	SetActive(true);
+	level->GetActorManager().AddActor(this);
+ }
 
 void Actor::Deconstruct()
 {
-	M_ACTOR.RemoveActor(this);
+	SetActive(false);
+	level->GetActorManager().RemoveActor(this);
 }
 
 void Actor::BeginPlay()
@@ -56,6 +66,7 @@ void Actor::BeginPlay()
 
 void Actor::Tick(const float _deltaTime)
 {
+	Super::Tick(_deltaTime);
 	for (Component* _component : components)
 	{
 		_component->Tick(_deltaTime);

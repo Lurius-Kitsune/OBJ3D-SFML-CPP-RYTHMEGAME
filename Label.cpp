@@ -2,8 +2,8 @@
 #include "CameraManager.h"
 
 UI::Label::Label(const string& _text, const RenderType& _type, const string& _path,
-	const FontExtensionType& _fontType)
-	: Widget("Label", _type)
+				 const FontExtensionType& _fontType)
+			   : Widget("Label", _type)
 {
 	text = new TextObject(_text, _path, _fontType);
 }

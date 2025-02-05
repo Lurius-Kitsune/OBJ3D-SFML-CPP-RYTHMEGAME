@@ -2,7 +2,7 @@
 #include "Singleton.h"
 #include "Actor.h"
 
-class ActorManager : public Singleton<ActorManager>
+class ActorManager
 {
 	set<Actor*> allActors;
 	multimap<string, Actor*> actorsID;
@@ -24,17 +24,16 @@ public:
 
 		const string& _actorName = _actor->GetName();
 		using Iterator = multimap<string, Actor*>::iterator;
-		pair<Iterator, Iterator> _results = actorsID.equal_range(_actorName);
+		const pair<Iterator, Iterator>& _results = actorsID.equal_range(_actorName);
 
-		for (Iterator _it = _results.first; _it != _results.second;)
+		for (Iterator _it = _results.first; _it != _results.second; )
 		{
 			if (_it->second == _actor)
 			{
-				Iterator _tempIt = _it;
-				--_it;
-				actorsID.erase(_tempIt);
+				actorsID.erase(_it++);
 				continue;
 			}
+
 			++_it;
 		}
 
@@ -64,10 +63,9 @@ public:
 	}
 
 public:
-	ActorManager();
 	~ActorManager();
 
 	void BeginPlay();
-	void Tick(const float _deltaTime);
+	void Update(const float _deltaTime);
 	void BeginDestroy();
 };

@@ -1,45 +1,37 @@
 #include "InputManager.h"
 
-InputManager::InputManager()
+Input::InputManager::InputManager()
 {
-
+    actionsMaps = map<string, ActionMap*>();
 }
 
-void InputManager::ConsumeInput(RenderWindow& _window)
+Input::InputManager::~InputManager()
 {
-    while (const std::optional _event = _window.pollEvent())
+    for (const pair<string, ActionMap*>& _pair : actionsMaps)
+    {
+        delete _pair.second;
+    }
+}
+
+
+void Input::InputManager::UpdateActionMaps(const EventInfo& _event)
+{
+    for (const pair<string, ActionMap*>& _map : actionsMaps)
+    {
+        _map.second->Update(_event);
+    }
+}
+
+void Input::InputManager::Update(RenderWindow& _window)
+{
+    while (const EventInfo& _event = _window.pollEvent())
     {
         if (_event->is<Event::Closed>())
         {
             _window.close();
+            return;
         }
 
-        else if (const KeyPressed* _key = _event->getIf<KeyPressed>())
-        {
-            for (const InputData& _inputData : inputDatas)
-            {
-                _inputData.TryToExecute(_key);
-            }
-        }
+        UpdateActionMaps(_event);
     }
-}
-
-void InputManager::BindAction(const function<void()>& _callback, const Code& _code)
-{
-    inputDatas.push_back(InputData(_callback, { _code }));
-}
-
-void InputManager::BindAction(const function<void()>& _callback, const vector<Code>& _codes)
-{
-    inputDatas.push_back(InputData(_callback, _codes, _codes.empty()));
-}
-
-string InputManager::KeyCodeToString(const Code& _code) const
-{
-    return Keyboard::getDescription(Keyboard::delocalize(_code));
-}
-
-void InputManager::CloseWindow(RenderWindow& _window)
-{
-    _window.close();
 }

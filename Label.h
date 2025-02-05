@@ -4,41 +4,13 @@
 
 namespace UI
 {
-
 	class Label : public Widget
 	{
-	protected:
 		TextObject* text;
-		u_int textMeshToken;
 
 	public:
-		FORCEINLINE TextObject* GetText() const
-		{
-			return text;
-		}
+	#pragma region Modifier
 
-#pragma region Modifier
-
-		FORCEINLINE void SetString(const string& _text) 
-		{
-			text->SetString(_text);
-		}
-		FORCEINLINE void SetCharacterSize(const u_int& _size)
-		{
-			text->GetDrawable()->setCharacterSize(_size);
-		}
-		FORCEINLINE void SetFillColor(const Color& _color)
-		{
-			text->GetDrawable()->setFillColor(_color);
-		}
-		FORCEINLINE Color GetFillColor() const
-		{
-			return text->GetDrawable()->getFillColor();
-		}
-		FORCEINLINE void SetOutlineColor(const Color& _color)
-		{
-			text->GetDrawable()->setOutlineColor(_color);
-		}
 		FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
 		{
 			Super::SetPosition(_position);
@@ -74,16 +46,8 @@ namespace UI
 			Super::Scale(_factor);
 			text->Scale(_factor);
 		}
-		FORCEINLINE void SetOriginAtMiddle()
-		{
-			text->GetDrawable()->setOrigin(text->GetDrawable()->getGlobalBounds().getCenter());
-		}
-		FORCEINLINE Vector2f GetSize() const
-		{
-			return text->GetDrawable()->getLocalBounds().size;
-		}
 
-#pragma endregion
+	#pragma endregion
 
 	public:
 		Label(const string& _text, const RenderType& _type = Screen, const string& _path = "", const FontExtensionType& _fontType = OTF);

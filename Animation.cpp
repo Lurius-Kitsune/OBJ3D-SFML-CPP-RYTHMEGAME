@@ -16,14 +16,7 @@ Animation::Animation(const string& _name, ShapeObject* _shape, const AnimationDa
 	name = _name;
 	data = _data;
 	shape = _shape;
-
-	timer = new Timer([&]()
-		{
-			Update(); },
-		seconds(data.sprites[currentIndex].timeBetween * data.count / data.duration),
-		false,
-		true
-	); //TODO change
+	timer = nullptr;
 }
 
 Animation::Animation(const Animation& _other)
@@ -32,20 +25,14 @@ Animation::Animation(const Animation& _other)
 	name = _other.name;
 	data = _other.data;
 	shape = _other.shape;
-	
-	timer = new Timer([&]()
-		{ 
-			Update(); },
-		seconds(data.sprites[currentIndex].timeBetween * data.count / data.duration),
-		false,
-		true
-	);
+	timer = _other.timer;
 }
 
 Animation::~Animation()
 {
 	timer->Stop();
 }
+
 
 void Animation::Update()
 {
@@ -74,8 +61,27 @@ void Animation::Update()
 	{
 		_notifies[currentIndex]();
 	}
+
 	const SpriteData& _spriteData = data.sprites[currentIndex - 1];
+	UpdateTimer(data.duration / data.count * _spriteData.factor);
+	
 	M_TEXTURE.SetTextureRect(shape->GetDrawable(), _spriteData.start, _spriteData.size);
+}
+
+void Animation::UpdateTimer(const float _duration)
+{
+	delete timer;
+	timer = nullptr;
+
+	if (!timer)
+	{
+		timer = new Timer(
+			[&]() { Update(); },
+			seconds(_duration),
+			false,
+			true
+		);
+	}
 }
 
 void Animation::Reset()

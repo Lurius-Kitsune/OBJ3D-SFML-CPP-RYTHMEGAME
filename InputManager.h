@@ -1,58 +1,37 @@
 #pragma once
-#include "CoreMinimal.h"
-#include "Singleton.h"
+#include "ActionMap.h"
 
-
-using KeyPressed = Event::KeyPressed;
-using Code = Keyboard::Key;
-
-
-struct InputData
+namespace Input
 {
-	vector<Code> codes;
-	bool isAnyKey;
-	function<void()> callback;
-
-	InputData(const function<void()>& _callback, const vector<Code>& _codes = {}, const bool _isAnyKey = false)
+	class InputManager
 	{
-		codes = _codes;
-		isAnyKey = _isAnyKey;
-		callback = _callback;
-	}
+		map<string, ActionMap*> actionsMaps;
 
-	bool TryToExecute(const KeyPressed* _key) const
-	{
-		if (!isAnyKey && !ContainsKey(_key->code)) return false;
-
-		callback();
-		return true;
-	}
-
-private:
-	INLINE bool ContainsKey(Code _currentCode) const
-	{
-		for (const Code& _code : codes)
+		FORCEINLINE void AddActionMap(const pair<string, ActionMap*>& _actionMap)
 		{
-			if (_currentCode == _code) return true;
+			actionsMaps.insert(_actionMap);
 		}
-		return false;
-	}
-};
+	public:
+		FORCEINLINE ActionMap* GetActionMapByName(const string& _name)
+		{
+			if (!actionsMaps.contains(_name)) return nullptr;
+			return actionsMaps.at(_name);
+		}
+		FORCEINLINE ActionMap* CreateActionMap(const string& _name)
+		{
+			ActionMap* _actionMap = new ActionMap(_name);
+			AddActionMap({ _name, _actionMap });
+			return _actionMap;
+		}
 
-class InputManager : public Singleton<InputManager>
-{
-	vector<InputData> inputDatas;
-	map<Code, string> keyToString;
+	public:
+		InputManager();
+		~InputManager();
 
-public:
-	InputManager();
-public:
+	private:
+		void UpdateActionMaps(const EventInfo& _event);
 
-	void ConsumeInput(RenderWindow& _window);
-	void BindAction(const function<void()>& _callback, const Code& _code);
-	void BindAction(const function<void()>& _callback, const vector<Code>& _codes = {});
-
-	string KeyCodeToString(const Code& _code) const;
-private:
-	void CloseWindow(RenderWindow& _window);
-};
+	public:
+		void Update(RenderWindow& _window);
+	};
+}

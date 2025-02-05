@@ -1,13 +1,13 @@
 #include "SoundSample.h"
 #include "AudioManager.h"
-#include "TimerManager.h"
 
 SoundSample::SoundSample(const string& _path) : Sample(_path)
 {
+	const string& _finalPath = "Assets/Sounds/" + _path;
 
-	if (!buffer.loadFromFile(_path))
+	if (!buffer.loadFromFile(_finalPath))
 	{
-		LOG(Error, "Invalid path : " + _path);
+		LOG(Error, "Invalid path : " + _finalPath);
 		sound = nullptr;
 		return;
 	}
@@ -22,14 +22,11 @@ SoundSample::~SoundSample()
 }
 
 
-void SoundSample::Play(const Time& _time, const Time& _duration)
+void SoundSample::Play(const Time& _time)
 {
 	if (!sound) return;
+
 	Super::Play(_time);
-	if (_duration != Time())
-	{
-		new Timer([&]() {sound->stop(); }, _duration, true, false);
-	}
 	sound->play();
 	sound->setPlayingOffset(_time);
 }

@@ -12,6 +12,7 @@ enum ShapeObjectType
 {
 	SOT_CIRCLE,
 	SOT_RECTANGLE,
+	SOT_VERTEX,
 
 	SOT_COUNT,
 };
@@ -23,8 +24,8 @@ struct CircleShapeData
 	IntRect rect;
 	size_t pointCount;
 
-	CircleShapeData(const float _radius, const string& _path, const IntRect& _rect,
-					const size_t& _pointCount)
+	CircleShapeData(const float _radius, const string& _path = "", const IntRect& _rect = IntRect(),
+					const size_t& _pointCount = 30)
 	{
 		radius = _radius;
 		path = _path;
@@ -62,10 +63,21 @@ struct RectangleShapeData
 	}
 };
 
+struct VertexArrayData
+{
+	VertexArray	vertices;
+
+	VertexArrayData(const u_int& _count, const PrimitiveType& _type)
+	{
+		vertices = VertexArray(_type, _count);
+	}
+};
+
 union ObjectData
 {
 	CircleShapeData* circleData;
 	RectangleShapeData* rectangleData;
+	VertexArrayData* vertexArrayData;
 
 	ObjectData() {}
 	~ObjectData() {}
@@ -90,6 +102,11 @@ struct ShapeObjectData
 		type = _type;
 		data.rectangleData = new RectangleShapeData(_rectangleData);
 	}
+	ShapeObjectData(const ShapeObjectType& _type, const VertexArrayData& _vertexArrayData)
+	{
+		type = _type;
+		data.vertexArrayData = new VertexArrayData(_vertexArrayData);
+	}
 	~ShapeObjectData()
 	{
 		if (type == SOT_CIRCLE)
@@ -100,6 +117,11 @@ struct ShapeObjectData
 		else if (type == SOT_RECTANGLE)
 		{
 			delete data.rectangleData;
+		}
+
+		else if (type == SOT_VERTEX)
+		{
+			delete data.vertexArrayData;
 		}
 	}
 
@@ -115,6 +137,11 @@ struct ShapeObjectData
 		else if (type == SOT_RECTANGLE)
 		{
 			data.rectangleData = new RectangleShapeData(*_other.data.rectangleData);
+		}
+
+		else if (type == SOT_VERTEX)
+		{
+			data.vertexArrayData = new VertexArrayData(*_other.data.vertexArrayData);
 		}
 
 		return *this;
@@ -173,9 +200,9 @@ public:
 	}
 
 public:
-	ShapeObject(const float _radius, const string& _path = "", const IntRect& _rect = IntRect(),
-				const size_t& _pointCount = 30); // Circle
+	ShapeObject(const CircleShapeData& _data); // Circle
 	ShapeObject(const RectangleShapeData& _data); // Rectangle
+	ShapeObject(const VertexArrayData& _data); // Vertices
 	ShapeObject(const ShapeObject& _other);
 	~ShapeObject();
 

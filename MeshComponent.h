@@ -19,8 +19,9 @@ public:
 	}
 
 public:
-	MeshComponent(Actor* _owner, const float _radius, const size_t& _pointCount = 30, const string& _path = "", const IntRect& _rect = {});
+	MeshComponent(Actor* _owner, const CircleShapeData& _data);
 	MeshComponent(Actor* _owner, const RectangleShapeData& _data);
+	MeshComponent(Actor* _owner, const VertexArrayData& _data);
 	MeshComponent(Actor* _owner, const MeshComponent* _other);
 	~MeshComponent();
 };
