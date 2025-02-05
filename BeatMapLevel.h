@@ -5,18 +5,23 @@
 #include "Track.h"
 #include "NoteDetector.h"
 #include "NoteSpawner.h"
+#include "MeshActor.h"
 
 
 struct ComboData
 {
 	Label* label;
 	u_int count;
+	bool finishedAnimation;
+	Vector2f minScale;
 
 	ComboData()
 	{
 		count = 0;
 		label = M_HUD.CreateWidget<Label>("X " + to_string(count), Screen, "Test", TTF);
 		label->SetVisibility(Hidden);
+		finishedAnimation = false;
+		minScale = { 1.0f, 1.0f };
 		M_HUD.AddToViewport(label);
 	}
 
@@ -50,6 +55,26 @@ struct ComboData
 		count = _count;
 		label->GetText()->SetString("X " + to_string(count));
 	}
+	FORCEINLINE void IncrementScale()
+	{
+		label->Scale({ 0.1f, 0.1f });
+		if (label->GetScale().x <= 3.0f || label->GetScale().y <= 3.0f)
+		{
+			label->SetScale({ 3.0f, 3.0f });
+		}
+	}
+
+	void Animate()
+	{
+		if (!finishedAnimation)
+		{
+			const float _deltaTime = M_TIMER.GetDeltaTime().asSeconds();
+			label->SetScale(label->GetScale() * 0.99f);
+
+			if (label->GetScale().x <= minScale.x || label->GetScale().y <= minScale.y)
+				finishedAnimation = true;
+		}
+	}
 };
 
 
@@ -57,8 +82,10 @@ struct ComboData
 class BeatMapLevel : public Game
 {
 	ScoreLabel* score;
+	MeshActor* background;
+	Label* time;
 	unique_ptr<ComboData> comboData;
-	Vector2u windowSize;
+	Vector2f windowSize;
 	map<NoteType, NoteDetector*> triggers;
 	map<NoteType, NoteSpawner*> noteSpawners;
 
@@ -66,6 +93,7 @@ class BeatMapLevel : public Game
 	TrackData trackInfo;
 	string difficulty;
 	
+	bool finishedBackgroundAnimation;
 	//float advancementPercent;
 
 public:
@@ -96,10 +124,14 @@ public:
 	virtual bool Update() override;
 	virtual void Stop() override;
 	void IncrementCombo();
+	
 
 private:
 	void InitLevelAspect(); //TODO change name Methode
-	void InitHUD();
+	void InitTopBar();
 	void InitNoteTriggerAndSpawner();
+	void AnimateBackground();
+	string GetTime();
+	void UpdateTime();
 };
 
