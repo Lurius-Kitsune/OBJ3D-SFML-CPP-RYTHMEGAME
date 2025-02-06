@@ -42,6 +42,7 @@ private:
 	void InitSeparator();
 	void InitLabel();
 	void InitDescription();
+	void InitInput();
 	void InitRectangleTrackInfo(Track* _track);
 
 	// SetLabel

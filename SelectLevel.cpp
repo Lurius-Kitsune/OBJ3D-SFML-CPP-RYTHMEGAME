@@ -13,6 +13,7 @@
 using namespace Camera;
 using namespace UI;
 using namespace File;
+using namespace Input;
 
 SelectLevel::SelectLevel()
 {
@@ -97,6 +98,22 @@ void SelectLevel::InitDescription()
 	description->AddWidget(_easy);
 
 	M_HUD.AddToViewport(description);
+}
+
+void SelectLevel::InitInput()
+{
+	ActionMap* _actionMap = M_INPUT.CreateActionMap("SelectLevel");
+	Action* _upAction = new Action("GoUp", ActionData(KeyHold, Key::Z), [&]()
+		{
+			++trackIndex %= allTracks.size();
+		});
+	_upAction->AddData(ActionData(KeyHold, Key::Up));
+	Action* _downAction = new Action("GoUp", ActionData(KeyHold, Key::S), [&]()
+		{
+			trackIndex = trackIndex == 0 ? CAST(u_int,allTracks.size()) - 1 : trackIndex - 1;
+		});
+	_downAction->AddData(ActionData(KeyHold, Key::Down));
+	_actionMap->AddActions({ _upAction , _downAction });
 }
 
 void SelectLevel::InitRectangleTrackInfo(Track* _track)
