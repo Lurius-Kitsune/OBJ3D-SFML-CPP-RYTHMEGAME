@@ -10,7 +10,7 @@
 
 struct ComboData
 {
-	Label* label;
+	LabelWidget* label;
 	u_int count;
 	bool finishedAnimation;
 	Vector2f minScale;
@@ -18,7 +18,7 @@ struct ComboData
 	ComboData()
 	{
 		count = 0;
-		label = M_HUD.CreateWidget<Label>("X " + to_string(count), Screen, "Test", TTF);
+		label = M_HUD.CreateWidget<LabelWidget>("X " + to_string(count), "ComboLabel", Screen);
 		label->SetVisibility(Hidden);
 		finishedAnimation = false;
 		minScale = { 1.0f, 1.0f };
@@ -53,7 +53,7 @@ struct ComboData
 	{
 		label->SetVisibility(_count == 0 ? Hidden : Visible);
 		count = _count;
-		label->GetText()->SetString("X " + to_string(count));
+		label->SetText("X " + to_string(count));
 	}
 	FORCEINLINE void IncrementScale()
 	{
@@ -79,11 +79,11 @@ struct ComboData
 
 
 
-class BeatMapLevel : public Game
+class BeatMapLevel : public Level
 {
 	ScoreLabel* score;
 	MeshActor* background;
-	Label* time;
+	LabelWidget* time;
 	unique_ptr<ComboData> comboData;
 	Vector2f windowSize;
 	map<NoteType, NoteDetector*> triggers;
@@ -120,13 +120,15 @@ public:
 	BeatMapLevel(Track* _track, const string& _difficulty);
 public:
 
-	virtual void Start() override;
-	virtual bool Update() override;
-	virtual void Stop() override;
+	virtual void Tick(const float _deltaTime) override;
+	virtual void BeginPlay() override;
+	virtual void OnUnload();
+	virtual void BeginDestroy() override;
 	void IncrementCombo();
 	
 
 private:
+	virtual void InitLevel() override;
 	void InitLevelAspect(); //TODO change name Methode
 	void InitTopBar();
 	void InitNoteTriggerAndSpawner();

@@ -1,4 +1,5 @@
 #include "Utilities.h"
+#include "Logger.h"
 
 u_int GetUniqueID()
 {
@@ -44,7 +45,6 @@ float EaseOutQuart(const float _time)
 {
     return 1 - powf(1 - _time, 4.0f);
 }
-
 float EaseInQuart(const float _time)
 {
     return _time * _time * _time * _time;
@@ -75,4 +75,18 @@ Vector2f ComputeNormal(const FloatRect& _rect)
     const Vector2f& _normal = Vector2f(-_rect.size.y, _rect.size.x);
     const float _norme = Length(_normal);
     return _normal / _norme;
+}
+
+vector<string> SplitString(const string& _string, const char _delimiter)
+{
+    vector<string> _result;
+	stringstream _ss(_string);
+	string _item;
+
+	while (getline(_ss, _item, _delimiter))
+	{
+		_result.push_back(_item);
+	}
+
+	return _result;
 }

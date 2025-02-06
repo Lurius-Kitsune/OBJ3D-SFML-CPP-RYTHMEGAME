@@ -33,9 +33,9 @@ void NoteMouvementComponent::Move(const float _deltaTime)
 		const FloatRect& _ownerRect = Cast<Note>(owner)->GetMesh()->GetShape()->GetDrawable()->getGlobalBounds();
 		if (_ownerRect.contains(triggerNote->GetPosition()))
 		{
-			owner->SetLifeSpan(1.0f);
+			//owner->SetLifeSpan(1.0f);
 			triggerNote = nullptr;
-			Cast<BeatMapLevel>(M_GAME.GetCurrent())->IncrementCombo();
+			Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel())->IncrementCombo();
 		}
 	}
 	owner->Move(direction* speed * _deltaTime * 400.0f);

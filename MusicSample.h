@@ -35,6 +35,11 @@ public:
 		return true;
 	}
 
+	FORCEINLINE Time GetDuration() const
+	{
+		return music->getDuration();
+	}
+
 
 	#pragma endregion
 

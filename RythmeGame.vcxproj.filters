@@ -216,9 +216,6 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>Scripts\Managers\Font</Filter>
     </ClCompile>
-    <ClCompile Include="Label.cpp">
-      <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
-    </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>Scripts\Managers\Audio</Filter>
     </ClCompile>
@@ -270,9 +267,6 @@
     <ClCompile Include="Widget.cpp">
       <Filter>Scripts\Core\Actors\Widget</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Scripts\Core\Actors\Widget\Button</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Scripts\Managers\InputManager</Filter>
     </ClCompile>
@@ -306,12 +300,6 @@
     <ClCompile Include="ProgressBar.cpp">
       <Filter>Scripts\Core\Actors\Widget\ProgressBar</Filter>
     </ClCompile>
-    <ClCompile Include="HorizontalBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VerticalBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -338,6 +326,12 @@
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>Scripts\Core\Actors\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="LabelWidget.cpp">
+      <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
+    </ClCompile>
+    <ClCompile Include="Slot.cpp">
+      <Filter>Scripts\Core\Actors\Widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -407,9 +401,6 @@
     <ClInclude Include="FontManager.h">
       <Filter>Scripts\Managers\Font</Filter>
     </ClInclude>
-    <ClInclude Include="Label.h">
-      <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
-    </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>Scripts\Managers\Audio</Filter>
     </ClInclude>
@@ -473,9 +464,6 @@
     <ClInclude Include="Widget.h">
       <Filter>Scripts\Core\Actors\Widget</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Scripts\Core\Actors\Widget\Button</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Scripts\Managers\InputManager</Filter>
     </ClInclude>
@@ -515,12 +503,6 @@
     <ClInclude Include="ProgressBar.h">
       <Filter>Scripts\Core\Actors\Widget\ProgressBar</Filter>
     </ClInclude>
-    <ClInclude Include="HorizontalBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VerticalBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -550,6 +532,12 @@
     </ClInclude>
     <ClInclude Include="GameInput.h">
       <Filter>MargeuRythme</Filter>
+    </ClInclude>
+    <ClInclude Include="LabelWidget.h">
+      <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
+    </ClInclude>
+    <ClInclude Include="Slot.h">
+      <Filter>Scripts\Core\Actors\Widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

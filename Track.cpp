@@ -20,7 +20,7 @@ Track::~Track()
 
 void Track::PlayExtrait() const
 {
-	M_AUDIO.PlaySample<SoundSample>(music->GetPath(), MP3, music->GetDuration() / 2.0f, seconds(10.0f));
+	//M_AUDIO.PlaySample<SoundSample>(music->GetPath(), MP3, music->GetDuration() / 2.0f, seconds(10.0f));
 }
 
 void Track::Start(const string& _difficulty)

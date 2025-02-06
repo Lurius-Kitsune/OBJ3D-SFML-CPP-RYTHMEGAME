@@ -1,9 +1,9 @@
 #pragma once
-#include "Label.h"
+#include "LabelWidget.h"
 
 using namespace UI;
 
-class ScoreLabel : public Label
+class ScoreLabel : public LabelWidget
 {
 	int score;
 	u_int scoreMaxDigit;
@@ -17,18 +17,18 @@ public:
 	FORCEINLINE void SetScore(const int _score)
 	{
 		score = _score >= pow(10, scoreMaxDigit) ? pow(10, scoreMaxDigit) - 1 : _score;
-		text->SetString(ComputeScoreText());
+		SetText(ComputeScoreText());
 	}
 
 	FORCEINLINE void AddScore(const int _score)
 	{
 		score += _score;
 		score = score >= pow(10, scoreMaxDigit) ? pow(10, scoreMaxDigit) - 1 : score;
-		text->SetString(ComputeScoreText());
+		SetText(ComputeScoreText());
 	}
 
 public:
-	ScoreLabel(const string& _path, const FontExtensionType& _fontType);
+	ScoreLabel(const string& _name, const RenderType& _renderType = Screen,  const int _score = 0, const u_int _scoreMaxDigit = 7);
 	ScoreLabel(const ScoreLabel& _other);
 
 private:

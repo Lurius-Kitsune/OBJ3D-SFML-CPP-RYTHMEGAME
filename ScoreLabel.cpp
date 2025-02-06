@@ -1,15 +1,16 @@
 #include "ScoreLabel.h"
 
-ScoreLabel::ScoreLabel(const string& _path, const FontExtensionType& _fontType)
-	: Label("0", Screen, _path, _fontType)
+
+ScoreLabel::ScoreLabel(const string& _name, const RenderType& _renderType, const int _score, const u_int _scoreMaxDigit)
+	: LabelWidget("", _name, _renderType)
 {
-	score = 0;
-	scoreMaxDigit = 7;
-	text->SetString(ComputeScoreText());
+	score = _score;
+	scoreMaxDigit = _scoreMaxDigit;
+	SetText(ComputeScoreText());
 }
 
 ScoreLabel::ScoreLabel(const ScoreLabel& _other)
-	: Label(_other)
+	: LabelWidget(_other)
 {
 	score = _other.score;
 	scoreMaxDigit = _other.scoreMaxDigit;

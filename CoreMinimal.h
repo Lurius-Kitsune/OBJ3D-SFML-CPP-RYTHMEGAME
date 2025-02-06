@@ -12,3 +12,4 @@
 #define M_AUDIO AudioManager::GetInstance()
 #define M_LEVEL LevelManager::GetInstance()
 #define M_HUD HUD::GetInstance()
+#define M_FILE FileManager::GetInstance()
