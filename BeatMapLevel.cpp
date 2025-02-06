@@ -66,6 +66,63 @@ void BeatMapLevel::Stop()
 	track->Stop();
 }
 
+void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector* _noteDetector)
+{
+	AddScore(_noteResult);
+	if(_noteResult < NR_GOOD)
+	{
+		ResetCombo();
+	}
+	else
+	{
+		IncrementCombo();
+	}
+
+	string _text;
+	Color _color;
+	const Vector2f& _textPosition = _noteDetector->GetPosition() - Vector2f(0, _noteDetector->GetHitbox().size.y /2);
+	if(_noteResult == NR_PERFECT)
+	{
+		_text = "PERFECT";
+		_color = Color::Yellow;
+	}
+	else if(_noteResult == NR_GOOD)
+	{
+		_text = "GOOD";
+		_color = Color::Green;
+	}
+	else if(_noteResult == NR_TOOEARLY)
+	{
+		_text = "TOO EARLY";
+		_color = Color::Red;
+	}
+	else if(_noteResult == NR_TOOLATE)
+	{
+		_text = "TOO LATE";
+		_color = Color::Red;
+	}
+	else if(_noteResult == NR_MISS)
+	{
+		_text = "MISS";
+		_color = Color::Magenta;
+	}
+
+
+	Label* _noteResultLabel = M_HUD.CreateWidget<Label>(_text, Screen, "Test", TTF);
+	_noteResultLabel->SetOriginAtMiddle();
+	_noteResultLabel->SetPosition(_textPosition);
+	_noteResultLabel->SetCharacterSize(25);
+	_noteResultLabel->SetZOrder(3);
+	_noteResultLabel->SetFillColor(_color);
+	new Timer([_noteResultLabel]()
+		{ 
+			M_HUD.RemoveFromViewport(_noteResultLabel);
+		}, seconds(1), true, false);
+
+	M_HUD.AddToViewport(_noteResultLabel);
+
+}
+
 void BeatMapLevel::InitLevelAspect()
 {
 	background = Level::SpawnActor(MeshActor(RectangleShapeData(windowSize, "background"))); //TODO implemant Font

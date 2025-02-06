@@ -22,7 +22,7 @@ enum NoteType
 enum NoteResult
 {
 	NR_MISS = 0,
-	NR_TOOEARLY = 50,
+	NR_TOOEARLY = 49,
 	NR_GOOD = 100,
 	NR_PERFECT = 250,
 	NR_TOOLATE = 50,

@@ -23,7 +23,7 @@ void DetectNoteComponent::DetectNote()
 	Note* _note = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNote();
 	if (!_note)
 	{
-		GiveScore(-1.0f, false);
+		InterpretResult(-1.0f, false);
 		return;
 	}
 	// Savoir à combien de difference elle est entre la globaxBox et l'origine
@@ -34,40 +34,37 @@ void DetectNoteComponent::DetectNote()
 		const float _distance = Distance(owner->GetPosition(), _note->GetPosition());
 		const float _distanceNormalised = _distance / 100.0f;
 		const bool _isAfterTrigger = _note->GetPosition().y > owner->GetPosition().y;
-		GiveScore(_distanceNormalised, true);
+		InterpretResult(_distanceNormalised, _isAfterTrigger);
 	}
 	else
 	{
 		LOG(Display, "Missed");
-		GiveScore(-1.0f, false);
+		InterpretResult(-1.0f, false);
 	}
 	_note->Destroy();
 	// Envoyer cela A giveScore
 
 }
 
-void DetectNoteComponent::GiveScore(const float _precision, const bool _isAfter)
+void DetectNoteComponent::InterpretResult(const float _precision, const bool _isAfter)
 {
 	BeatMapLevel* _level = Cast<BeatMapLevel>(M_GAME.GetCurrent());
+	NoteDetector* _detector = Cast<NoteDetector>(owner);
 	if (_precision >= 0.0f && _precision <= 0.1f)
 	{
-		_level->AddScore(NR_PERFECT);
-		_level->IncrementCombo();
+		_level->ComputeNoteResult(NR_PERFECT, _detector);
 	}
 	else if (_precision > 0.1f && _precision <= 0.2f)
 	{
-		_level->AddScore(NR_GOOD);
-		_level->IncrementCombo();
+		_level->ComputeNoteResult(NR_GOOD, _detector);
 	}
 	else if (_precision < 0.0f)
 	{
-		_level->AddScore(NR_MISS);
-		_level->ResetCombo();
+		_level->ComputeNoteResult(NR_MISS, _detector);
 	}
 	else
 	{
-		_level->AddScore(_isAfter ? NR_TOOLATE : NR_TOOEARLY);
-		_level->IncrementCombo();
+		_level->ComputeNoteResult(_isAfter ? NR_TOOLATE : NR_TOOEARLY, _detector);
 	}
 
 }

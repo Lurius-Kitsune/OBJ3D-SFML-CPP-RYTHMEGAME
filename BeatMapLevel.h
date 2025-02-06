@@ -137,10 +137,7 @@ public:
 	virtual void Start() override;
 	virtual bool Update() override;
 	virtual void Stop() override;
-	void IncrementCombo();
-	void ResetCombo();
-	void AddScore(const NoteResult& _noteResult);
-	
+	void ComputeNoteResult(const NoteResult& _noteResult, NoteDetector* _noteDetector);
 
 private:
 	void InitLevelAspect(); //TODO change name Methode
@@ -149,6 +146,10 @@ private:
 	void AnimateBackground();
 	string GetTime();
 	void UpdateTime();
+
+	void IncrementCombo();
+	void ResetCombo();
+	void AddScore(const NoteResult& _noteResult);
 
 	pair<string, Keyboard::Key> GetKey(const NoteType& _noteType);
 };

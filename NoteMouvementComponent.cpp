@@ -44,7 +44,7 @@ void NoteMouvementComponent::Move(const float _deltaTime)
 	{
 		Note* _note = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNote();
 		_note->SetLifeSpan(1.0f);
-		Cast<BeatMapLevel>(M_GAME.GetCurrent())->ResetCombo();
+		Cast<BeatMapLevel>(M_GAME.GetCurrent())->ComputeNoteResult(NR_MISS, triggerNote);
 		isInteractable = false;
 	}
 	owner->Move(direction* speed * _deltaTime * 400.0f);
