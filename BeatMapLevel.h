@@ -88,7 +88,7 @@ class BeatMapLevel : public Game
 	Vector2f windowSize;
 	map<NoteType, NoteDetector*> triggers;
 	map<NoteType, NoteSpawner*> noteSpawners;
-	priority_queue<Note*> notes;
+	queue<Note*> notes;
 
 	Track* track;
 	TrackData trackInfo;
@@ -123,7 +123,8 @@ public:
 
 	FORCEINLINE Note* GetNote()
 	{
-		Note* _note = notes.top();
+		if (notes.empty()) return nullptr;
+		Note* _note = notes.front();
 		notes.pop();
 		return _note;
 	}
@@ -137,6 +138,8 @@ public:
 	virtual bool Update() override;
 	virtual void Stop() override;
 	void IncrementCombo();
+	void ResetCombo();
+	void AddScore(const NoteResult& _noteResult);
 	
 
 private:

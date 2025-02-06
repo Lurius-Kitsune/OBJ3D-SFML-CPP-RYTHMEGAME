@@ -24,6 +24,8 @@ BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 	trackInfo = track->GetInfo();
 	difficulty = _difficulty;
 	finishedBackgroundAnimation = true;
+
+	notes = queue<Note*>();
 }
 
 void BeatMapLevel::Start()
@@ -192,8 +194,6 @@ void BeatMapLevel::InitNoteTriggerAndSpawner()
 
 void BeatMapLevel::IncrementCombo()
 {
-	score->AddScore(GetRandomNumberInRange(10, 250)); // TODO REMOVE
-
 	comboData->operator++();
 	comboData->label->SetCharacterSize(25);
 	comboData->label->SetPosition(Vector2f(windowSize.x * 0.125f, windowSize.y * 0.8));
@@ -202,6 +202,16 @@ void BeatMapLevel::IncrementCombo()
 	comboData->finishedAnimation = false;
 	background->SetScale({ 1.8f, 2.5f });
 	finishedBackgroundAnimation = false;
+}
+
+void BeatMapLevel::ResetCombo()
+{
+	comboData->SetCount(0);
+}
+
+void BeatMapLevel::AddScore(const NoteResult& _noteResult)
+{
+	score->AddScore(_noteResult);
 }
 
 void BeatMapLevel::AnimateBackground()

@@ -1,8 +1,8 @@
 #include "Note.h"
 #include "TextureManager.h"
+#include "NoteDetector.h"
 
-
-Note::Note(const NoteType _type, Actor* _actor)
+Note::Note(const NoteType _type, NoteDetector* _actor)
 	: SquareActor(100.0f, "ArrowCow")
 {
 	type = _type;

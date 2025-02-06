@@ -3,11 +3,13 @@
 #include "SquareActor.h"
 #include "NoteMouvementComponent.h"
 
+class NoteDetector;
+
 enum NoteType
 {
-	NT_UP,
-	NT_DOWN,
 	NT_LEFT,
+	NT_DOWN,
+	NT_UP,
 	NT_RIGHT,
 	NT_TRIGGER,
 	NT_LEFTCLICK,
@@ -41,7 +43,7 @@ public:
 	}
 public:
 	Note() = default;
-	Note(const NoteType _type, Actor* _actor = nullptr);
+	Note(const NoteType _type, NoteDetector* _actor = nullptr);
 	Note(const Note& _other);
 
 };

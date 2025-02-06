@@ -1,13 +1,16 @@
 #include "NoteMouvementComponent.h"
 #include "Note.h"
 #include "BeatMapLevel.h"
+#include "NoteDetector.h"
 
-
-NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, Actor* _triggerNote, const float _speed)
+NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, NoteDetector* _triggerNote, const float _speed)
 	: Component(_owner)
 {
 	speed = _speed;
 	triggerNote = _triggerNote;
+	triggerRect = triggerNote->GetHitbox();
+	isInteractable = true;
+	isFollowingTarget = true;
 	direction = Vector2f(0, 1.0f);
 }
 
@@ -16,6 +19,7 @@ NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, const NoteMouvemen
 {
 	speed = _other.speed;
 	triggerNote = _other.triggerNote;
+	triggerRect = _other.triggerRect;
 	direction = _other.direction;
 }
 
@@ -26,17 +30,22 @@ void NoteMouvementComponent::Tick(const float _deltaTime)
 
 void NoteMouvementComponent::Move(const float _deltaTime)
 {
-	if (triggerNote)
+	const FloatRect& _ownerRect = Cast<Note>(owner)->GetMesh()->GetShape()->GetDrawable()->getGlobalBounds();
+	if (isFollowingTarget)
 	{
 		const Vector2f _direction = triggerNote->GetPosition() - owner->GetPosition();
 		direction = _direction.normalized();
-		const FloatRect& _ownerRect = Cast<Note>(owner)->GetMesh()->GetShape()->GetDrawable()->getGlobalBounds();
-		if (_ownerRect.contains(triggerNote->GetPosition()))
+		if (triggerRect.contains(owner->GetPosition()))
 		{
-			owner->SetLifeSpan(1.0f);
-			triggerNote = nullptr;
-			Cast<BeatMapLevel>(M_GAME.GetCurrent())->IncrementCombo();
+			isFollowingTarget = false;
 		}
+	}
+	else if (isInteractable && !triggerRect.contains(owner->GetPosition()))
+	{
+		Note* _note = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNote();
+		_note->SetLifeSpan(1.0f);
+		Cast<BeatMapLevel>(M_GAME.GetCurrent())->ResetCombo();
+		isInteractable = false;
 	}
 	owner->Move(direction* speed * _deltaTime * 400.0f);
 }
