@@ -105,12 +105,12 @@ void SelectLevel::InitInput()
 	ActionMap* _actionMap = M_INPUT.CreateActionMap("SelectLevel");
 	Action* _upAction = new Action("GoUp", ActionData(KeyHold, Key::Z), [&]()
 		{
-			++trackIndex %= allTracks.size();
+			ChangeIterator(true);
 		});
 	_upAction->AddData(ActionData(KeyHold, Key::Up));
-	Action* _downAction = new Action("GoUp", ActionData(KeyHold, Key::S), [&]()
+	Action* _downAction = new Action("GoDown", ActionData(KeyHold, Key::S), [&]()
 		{
-			trackIndex = trackIndex == 0 ? CAST(u_int,allTracks.size()) - 1 : trackIndex - 1;
+			ChangeIterator(false);
 		});
 	_downAction->AddData(ActionData(KeyHold, Key::Down));
 	_actionMap->AddActions({ _upAction , _downAction });
