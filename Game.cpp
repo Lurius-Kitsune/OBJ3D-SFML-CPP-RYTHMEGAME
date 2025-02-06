@@ -5,6 +5,7 @@
 #include "InputManager.h"
 
 using namespace Camera;
+using namespace Input;
 
 Game::Game()
 {
@@ -21,15 +22,7 @@ bool Game::Update()
 {
     TM_Seconds& _timer = M_TIMER;
     _timer.Update();
-
-    M_INPUT.ConsumeInput(window);
-    while (const optional _event = window.pollEvent())
-    {
-        if (_event->is<Event::Closed>())
-        {
-            window.close();
-        }
-    }
+    M_INPUT.Update(window);
 
     const float _deltaTime = _timer.GetDeltaTime().asSeconds();
     M_ACTOR.Tick(_deltaTime);
