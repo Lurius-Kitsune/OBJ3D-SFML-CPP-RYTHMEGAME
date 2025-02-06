@@ -9,6 +9,12 @@ float Lerp(const float _start, const float _end, const float _time);
 float Lerp_Constant(const float _start, const float _end, const float _time);
 float DotProduct(const Vector2f& _direction, const Vector2f& _normal);
 float EaseOutQuart(const float _time);
+Vector2f ComputeNormal(const FloatRect& _rect);
+float Length(const Vector2f& _vector);
+void Normalize(Vector2f& _vector);
+float Distance(const float _first, const float _second);
+float Distance(const Vector2f& _first, const Vector2f& _second);
+Vector2f ComputeNormal(const FloatRect& _rect);
 
 template <typename T>
 T GetRandomNumberInRange(const T& _min, const T& _max)

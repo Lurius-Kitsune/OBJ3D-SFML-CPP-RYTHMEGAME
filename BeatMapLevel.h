@@ -88,6 +88,7 @@ class BeatMapLevel : public Game
 	Vector2f windowSize;
 	map<NoteType, NoteDetector*> triggers;
 	map<NoteType, NoteSpawner*> noteSpawners;
+	priority_queue<Note*> notes;
 
 	Track* track;
 	TrackData trackInfo;
@@ -115,6 +116,18 @@ public:
 		return noteSpawners[_noteType];
 	}
 
+	FORCEINLINE void AddNoteToQueue(Note* _note)
+	{
+		notes.push(_note);
+	}
+
+	FORCEINLINE Note* GetNote()
+	{
+		Note* _note = notes.top();
+		notes.pop();
+		return _note;
+	}
+
 
 public:
 	BeatMapLevel(Track* _track, const string& _difficulty);
@@ -133,5 +146,7 @@ private:
 	void AnimateBackground();
 	string GetTime();
 	void UpdateTime();
+
+	pair<string, Keyboard::Key> GetKey(const NoteType& _noteType);
 };
 

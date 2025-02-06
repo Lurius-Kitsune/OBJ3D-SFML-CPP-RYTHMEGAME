@@ -33,6 +33,12 @@ class Note : public SquareActor
 	NoteType type;
 	NoteMouvementComponent* mouvementComponent;
 
+
+public:
+	FORCEINLINE NoteType GetType() const
+	{
+		return type;
+	}
 public:
 	Note() = default;
 	Note(const NoteType _type, Actor* _actor = nullptr);

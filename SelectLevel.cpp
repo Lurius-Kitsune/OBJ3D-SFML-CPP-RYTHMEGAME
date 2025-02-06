@@ -251,8 +251,8 @@ void SelectLevel::Start()
 
 
 	M_ACTOR.BeginPlay();
-	M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
-	M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
+	//M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
+	//M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
 	(*musicIterator).first->PlayExtrait();
 	WheelCanvas();
 }

@@ -1,16 +1,18 @@
 #include "BeatMapLevel.h"
 #include "GameManager.h"
 #include "TimerManager.h"
+#include "InputManager.h"
 #include "MeshActor.h"
 #include "RectangleActor.h"
 #include "CameraManager.h"
 #include "HUD.h"
 #include "FileManager.h"
-#include "ProgressBar.h"
+#include "DetectNoteComponent.h"
 
 using namespace File;
 using namespace Camera;
 using namespace UI;
+using namespace Input;
 
 BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 {
@@ -47,7 +49,6 @@ bool BeatMapLevel::Update()
 	comboData->Animate();
 	background->Rotate(degrees(M_TIMER.GetDeltaTime().asSeconds() * 10));
 	AnimateBackground();
-
 	if (track->IsFinished())
 	{
 		track->Stop();
@@ -168,18 +169,25 @@ void BeatMapLevel::InitTopBar()
 
 void BeatMapLevel::InitNoteTriggerAndSpawner()
 {
+	ActionMap* _actMap = M_INPUT.CreateActionMap("NoteTrigger");
 	for (u_int _i = 0; _i < 4; _i++)
 	{
 		/*Note* _note = Level::SpawnActor(Note(NoteType(_i)));
 
 		_note->SetPosition(Vector2f(400.0f + 120.0f * _i, 0));*/
-		triggers[NoteType(_i)] = Level::SpawnActor(NoteDetector(NoteType(_i)));
+		NoteDetector* _noteDetect = Level::SpawnActor(NoteDetector(NoteType(_i)));
+		triggers[NoteType(_i)] = _noteDetect;
 		triggers[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 700));
 		triggers[NoteType(_i)]->SetOriginAtMiddle();
+		pair<string, Keyboard::Key> _key = GetKey(NoteType(_i));
+		ActionData _actData = ActionData(KeyPressed, _key.second);
+		_actMap->AddAction(_key.first, _actData, [_noteDetect]() {_noteDetect->GetDetectComponent()->DetectNote(); });
 
 		noteSpawners[NoteType(_i)] = Level::SpawnActor(NoteSpawner(NoteType(_i), triggers[NoteType(_i)]));
 		noteSpawners[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 0));
+		
 	}
+	_actMap->Enable();
 }
 
 void BeatMapLevel::IncrementCombo()
@@ -232,4 +240,21 @@ string BeatMapLevel::GetTime()
 void BeatMapLevel::UpdateTime()
 {
 	time->SetString(GetTime());
+}
+
+pair<string, Keyboard::Key> BeatMapLevel::GetKey(const NoteType& _noteType)
+{
+	switch (_noteType)
+	{
+	case NoteType::NT_UP:
+		return make_pair("ArrowUp", Keyboard::Key::Z);
+	case NoteType::NT_DOWN:
+		return make_pair("ArrowDown", Keyboard::Key::S);
+	case NoteType::NT_LEFT:
+		return make_pair("ArrowLeft", Keyboard::Key::Q);
+	case NoteType::NT_RIGHT:
+		return make_pair("ArrowRight", Keyboard::Key::D);
+	default:
+		return make_pair("", Keyboard::Key::Unknown);
+	}
 }
