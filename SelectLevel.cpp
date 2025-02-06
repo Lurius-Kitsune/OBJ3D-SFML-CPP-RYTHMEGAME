@@ -114,6 +114,7 @@ void SelectLevel::InitInput()
 		});
 	_downAction->AddData(ActionData(KeyHold, Key::Down));
 	_actionMap->AddActions({ _upAction , _downAction });
+	_actionMap->Enable();
 }
 
 void SelectLevel::InitRectangleTrackInfo(Track* _track)
@@ -258,6 +259,7 @@ void SelectLevel::Start()
 	InitSeparator();
 	InitLabel();
 	InitDescription();
+	InitInput();
 
 	for (Track* _track : allTracks)
 	{
