@@ -34,8 +34,6 @@ void DetectNoteComponent::DetectNote()
 		const float _distance = Distance(owner->GetPosition(), _note->GetPosition());
 		const float _distanceNormalised = _distance / 100.0f;
 		const bool _isAfterTrigger = _note->GetPosition().y > owner->GetPosition().y;
-		LOG(Display, "Distance: " + std::to_string(_distance));
-		LOG(Display, "Distance Normalised: " + std::to_string(_distanceNormalised));
 		GiveScore(_distanceNormalised, true);
 	}
 	else
