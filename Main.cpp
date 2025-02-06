@@ -1,4 +1,3 @@
-#include "DuckHuntGame.h"
 #include "GameMode.h"
 #include "Engine.h"
 #include "LevelManager.h"

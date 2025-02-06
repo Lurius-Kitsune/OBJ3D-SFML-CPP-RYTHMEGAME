@@ -102,9 +102,6 @@
     <Filter Include="Scripts\Managers\Camera">
       <UniqueIdentifier>{ad246227-2594-4a00-ab58-6b357858850e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Managers\Game">
-      <UniqueIdentifier>{ce2385b3-d33a-47d0-95af-228399b36827}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts\Core\Actors\Spawner">
       <UniqueIdentifier>{b091efd0-aff1-4015-9200-761743303927}</UniqueIdentifier>
     </Filter>
@@ -148,6 +145,18 @@
     <Filter Include="Scripts\Core\Actors\Widget\ProgressBar">
       <UniqueIdentifier>{f214b1ca-12e0-4436-af2e-5708d510ac49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Managers\Level">
+      <UniqueIdentifier>{4f699a93-53e7-45c8-834c-5884b2c0f124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Actors\Widget\Canvas">
+      <UniqueIdentifier>{9a326a99-165a-44dd-9998-77783f537845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Resource Files\Kismet">
+      <UniqueIdentifier>{295d6410-2bf5-4024-9eae-85f08b7c3ed9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Core\Actors\Player">
+      <UniqueIdentifier>{7476fc9c-adea-41f5-95b6-10630ca69f1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextObject.cpp">
@@ -161,9 +170,6 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Scripts\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Scripts\Core\Actors</Filter>
@@ -249,9 +255,6 @@
     <ClCompile Include="CameraManager.cpp">
       <Filter>Scripts\Managers\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Scripts\Managers\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Spawner.cpp">
       <Filter>Scripts\Core\Actors\Spawner</Filter>
     </ClCompile>
@@ -259,9 +262,6 @@
       <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
     <ClCompile Include="ScoreLabel.cpp">
-      <Filter>MargeuRythme</Filter>
-    </ClCompile>
-    <ClCompile Include="MargeurythmeGame.cpp">
       <Filter>MargeuRythme</Filter>
     </ClCompile>
     <ClCompile Include="HUD.cpp">
@@ -300,9 +300,6 @@
     <ClCompile Include="Track.cpp">
       <Filter>MargeuRythme\Track</Filter>
     </ClCompile>
-    <ClCompile Include="Canvas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NoteSpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -314,6 +311,33 @@
     </ClCompile>
     <ClCompile Include="VerticalBox.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Scripts\Managers\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Scripts\Managers\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionMap.cpp">
+      <Filter>Scripts\Managers\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Scripts\Core\Actors\Widget\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Kismet.cpp">
+      <Filter>Scripts\Resource Files\Kismet</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Scripts\Core\Actors\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,9 +358,6 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Scripts\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Scripts\GameLoop</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>Scripts\Core\Actors</Filter>
@@ -440,20 +461,11 @@
     <ClInclude Include="Spawner.h">
       <Filter>Scripts\Core\Actors\Spawner</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Scripts\Managers\Game</Filter>
-    </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>Scripts\Managers\Camera</Filter>
     </ClInclude>
     <ClInclude Include="ScoreLabel.h">
       <Filter>MargeuRythme</Filter>
-    </ClInclude>
-    <ClInclude Include="MargeurythmeGame.h">
-      <Filter>MargeuRythme</Filter>
-    </ClInclude>
-    <ClInclude Include="GameInput.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Scripts\Managers\HUD</Filter>
@@ -497,9 +509,6 @@
     <ClInclude Include="Track.h">
       <Filter>MargeuRythme\Track</Filter>
     </ClInclude>
-    <ClInclude Include="Canvas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NoteSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -511,6 +520,36 @@
     </ClInclude>
     <ClInclude Include="VerticalBox.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Scripts\Managers\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Scripts\Managers\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMap.h">
+      <Filter>Scripts\Managers\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Scripts\Core\Actors\Widget\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Kismet.h">
+      <Filter>Scripts\Resource Files\Kismet</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Scripts\Core\Actors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInput.h">
+      <Filter>MargeuRythme</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
