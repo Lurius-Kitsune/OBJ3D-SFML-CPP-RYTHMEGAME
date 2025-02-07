@@ -10,7 +10,7 @@
 
 struct ComboData
 {
-	LabelWidget* label;
+	Label* label;
 	u_int count;
 	bool finishedAnimation;
 	Vector2f minScale;
@@ -18,7 +18,7 @@ struct ComboData
 	ComboData()
 	{
 		count = 0;
-		label = M_HUD.CreateWidget<LabelWidget>("X " + to_string(count), "ComboLabel", Screen);
+		label = M_HUD.CreateWidget<Label>("X " + to_string(count), Screen, "Test", TTF);
 		label->SetVisibility(Hidden);
 		finishedAnimation = false;
 		minScale = { 1.0f, 1.0f };
@@ -53,7 +53,7 @@ struct ComboData
 	{
 		label->SetVisibility(_count == 0 ? Hidden : Visible);
 		count = _count;
-		label->SetText("X " + to_string(count));
+		label->GetText()->SetString("X " + to_string(count));
 	}
 	FORCEINLINE void IncrementScale()
 	{
@@ -79,15 +79,16 @@ struct ComboData
 
 
 
-class BeatMapLevel : public Level
+class BeatMapLevel : public Game
 {
 	ScoreLabel* score;
 	MeshActor* background;
-	LabelWidget* time;
+	Label* time;
 	unique_ptr<ComboData> comboData;
 	Vector2f windowSize;
 	map<NoteType, NoteDetector*> triggers;
 	map<NoteType, NoteSpawner*> noteSpawners;
+	queue<Note*> notes;
 
 	Track* track;
 	TrackData trackInfo;
@@ -115,25 +116,41 @@ public:
 		return noteSpawners[_noteType];
 	}
 
+	FORCEINLINE void AddNoteToQueue(Note* _note)
+	{
+		notes.push(_note);
+	}
+
+	FORCEINLINE Note* GetNote()
+	{
+		if (notes.empty()) return nullptr;
+		Note* _note = notes.front();
+		notes.pop();
+		return _note;
+	}
+
 
 public:
 	BeatMapLevel(Track* _track, const string& _difficulty);
 public:
 
-	virtual void Tick(const float _deltaTime) override;
-	virtual void BeginPlay() override;
-	virtual void OnUnload();
-	virtual void BeginDestroy() override;
-	void IncrementCombo();
-	
+	virtual void Start() override;
+	virtual bool Update() override;
+	virtual void Stop() override;
+	void ComputeNoteResult(const NoteResult& _noteResult, NoteDetector* _noteDetector);
 
 private:
-	virtual void InitLevel() override;
 	void InitLevelAspect(); //TODO change name Methode
 	void InitTopBar();
 	void InitNoteTriggerAndSpawner();
 	void AnimateBackground();
 	string GetTime();
 	void UpdateTime();
+
+	void IncrementCombo();
+	void ResetCombo();
+	void AddScore(const NoteResult& _noteResult);
+
+	pair<string, Keyboard::Key> GetKey(const NoteType& _noteType);
 };
 

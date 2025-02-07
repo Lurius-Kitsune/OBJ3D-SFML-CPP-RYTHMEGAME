@@ -1,14 +1,19 @@
 #pragma once
 #include "Component.h"
-#include "Actor.h"
+
+class NoteDetector;
+
 class NoteMouvementComponent : public Component
 {
 	float speed;
-	Actor* triggerNote;
+	NoteDetector* triggerNote;
+	FloatRect triggerRect;
+	bool isFollowingTarget;
+	bool isInteractable;
 	Vector2f direction;
 
 public:
-	NoteMouvementComponent(Actor* _owner, Actor* _triggerNote = nullptr,const float _speed = 1.0f);
+	NoteMouvementComponent(Actor* _owner, NoteDetector* _triggerNote = nullptr,const float _speed = 1.0f);
 	NoteMouvementComponent(Actor* _owner, const NoteMouvementComponent& _other);
 
 	virtual ~NoteMouvementComponent() = default;

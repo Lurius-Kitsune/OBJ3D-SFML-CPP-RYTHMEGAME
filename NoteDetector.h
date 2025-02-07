@@ -1,10 +1,17 @@
 #pragma once
 #include "SquareActor.h"
 #include "Note.h"
+#include "DetectNoteComponent.h"
 class NoteDetector : public SquareActor
 {
 	NoteType type;
+	DetectNoteComponent* detectComponent;
 
+public:
+	FORCEINLINE DetectNoteComponent* GetDetectComponent() const 
+	{ 
+		return detectComponent; 
+	}
 public:
 	NoteDetector() = default;
 	NoteDetector(const NoteType _type);

@@ -127,6 +127,16 @@ namespace Input
 		SensorChanged,			//ValueType = Digital
 	};
 
+		
+
+	enum ControllerAxesType
+	{
+		LeftStickX,
+		LeftStickY,
+		RightStickX,
+		RightStickY,
+	};
+
 
 	enum ValueType
 	{
@@ -336,6 +346,7 @@ namespace Input
 		/// Constructeur pour les ActionTypes :
 		/// JoystickButtonPressed /
 		/// JoystickButtonReleased /
+		/// JoystickMoved /
 		/// JoystickConnected /
 		///	JoystickDisconnected 
 		/// </summary>
@@ -394,6 +405,7 @@ namespace Input
 			case MouseMoved:
 			case MouseMovedRaw:
 			case Resized:
+			case JoystickMoved:
 			case TouchBegan:
 			case TouchMoved:
 			case TouchEnded:
@@ -413,6 +425,8 @@ namespace Input
 		string name;
 		multimap<TypeIndex, ActionData> allData;
 		shared_ptr<CallBackType> callback;
+		bool isKeyHolding;
+		bool isButtonHolding;
 
 	private:
 		template<typename EnumType, typename = enable_if_t<is_enum_v<EnumType>>>
@@ -459,6 +473,8 @@ namespace Input
 		{
 			name = _name;
 			AddData(_data);
+			isKeyHolding = false;
+			isButtonHolding = false;
 		}
 		void MultipleConstruct(const string& _name, const vector<ActionData>& _allData)
 		{
@@ -467,6 +483,8 @@ namespace Input
 			{
 				AddData(_actionData);
 			}
+			isKeyHolding = false;
+			isButtonHolding = false;
 		}
 
 	public:

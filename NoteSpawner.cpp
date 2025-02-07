@@ -1,4 +1,5 @@
 #include "NoteSpawner.h"
+#include "BeatMapLevel.h"
 
 NoteSpawner::NoteSpawner(const NoteType& _noteType, NoteDetector* _detector)
 	: Spawner<Note>(new SubclassOf(Note(_noteType, _detector)))
@@ -19,5 +20,7 @@ void NoteSpawner::BeginPlay()
 
 void NoteSpawner::Spawn()
 {
-	M_LEVEL.GetCurrentLevel()->SpawnActor<Note>(*ref)->SetPosition(GetPosition());
+	Note* _note = Level::SpawnActor<Note>(*ref);
+	_note->SetPosition(GetPosition());
+	Cast<BeatMapLevel>(M_GAME.GetCurrent())->AddNoteToQueue(_note);
 }
