@@ -1,8 +1,8 @@
 #include "ScoreLabel.h"
 
 
-ScoreLabel::ScoreLabel(const string& _name, const RenderType& _renderType, const int _score, const u_int _scoreMaxDigit)
-	: LabelWidget("", _name, _renderType)
+ScoreLabel::ScoreLabel(Level* _level, const string& _name, const RenderType& _renderType, const int _score, const u_int _scoreMaxDigit)
+	: LabelWidget(_level, "", _name, _renderType)
 {
 	score = _score;
 	scoreMaxDigit = _scoreMaxDigit;

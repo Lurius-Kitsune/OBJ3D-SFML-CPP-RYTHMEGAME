@@ -43,7 +43,7 @@ public:
 	}
 public:
 	Note() = default;
-	Note(const NoteType _type, NoteDetector* _actor = nullptr);
+	Note(Level* _level, const NoteType _type, NoteDetector* _actor = nullptr);
 	Note(const Note& _other);
 
 };

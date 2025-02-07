@@ -14,14 +14,14 @@ protected:
 	SubclassOf<T>* ref;
 
 public:
-	Spawner(SubclassOf<T>* _ref) : Actor("Spawner")
+	Spawner(Level* _level, SubclassOf<T>* _ref) : Actor(_level, "Spawner")
 	{
 		spawnRate = 1.0f;
 		spawnRange = 200.0f;
 		ref = _ref;
 	}
 
-	Spawner(const Spawner<T>& _other) : Actor(_other)
+	Spawner(Level* _level, const Spawner<T>& _other) : Actor(_level, _other)
 	{
 		spawnRate = _other.spawnRate;
 		spawnRange = _other.spawnRange;

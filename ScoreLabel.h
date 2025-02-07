@@ -28,7 +28,7 @@ public:
 	}
 
 public:
-	ScoreLabel(const string& _name, const RenderType& _renderType = Screen,  const int _score = 0, const u_int _scoreMaxDigit = 7);
+	ScoreLabel(Level* _level, const string& _name, const RenderType& _renderType = Screen,  const int _score = 0, const u_int _scoreMaxDigit = 7);
 	ScoreLabel(const ScoreLabel& _other);
 
 private:

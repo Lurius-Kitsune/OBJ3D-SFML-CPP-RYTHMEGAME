@@ -4,8 +4,8 @@
 
 using namespace File;
 
-Track::Track(const string& _path)
-	: Actor(_path)
+Track::Track(Level* _level, const string& _path)
+	: Actor(_level, _path)
 {
 	path = _path;
 	music = new MusicSample("..\\..\\" + _path + "\\music.mp3");
@@ -16,6 +16,7 @@ Track::Track(const string& _path)
 }
 
 Track::Track(const Track& _other)
+	: Actor(_other)
 {
 	path = _other.path;
 	info = _other.info;

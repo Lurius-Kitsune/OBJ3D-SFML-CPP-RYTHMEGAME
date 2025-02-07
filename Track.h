@@ -76,7 +76,7 @@ public:
 	}
 
 public:
-	Track(const string& _path = "default");
+	Track(Level* _level, const string& _path = "default");
 	Track(const Track& _other);
 	~Track();
 

@@ -2,8 +2,8 @@
 #include "BeatMapLevel.h"
 #include "LevelManager.h"
 
-NoteSpawner::NoteSpawner(const NoteType& _noteType, NoteDetector* _detector)
-	: Spawner<Note>(new SubclassOf(Note(_noteType, _detector)))
+NoteSpawner::NoteSpawner(Level* _level, const NoteType& _noteType, NoteDetector* _detector)
+	: Spawner<Note>(_level, new SubclassOf(Note(_level, _noteType, _detector)))
 {
 	noteType = _noteType;
 }
