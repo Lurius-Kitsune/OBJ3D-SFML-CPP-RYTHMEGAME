@@ -5,6 +5,7 @@
 using namespace File;
 
 Track::Track(const string& _path)
+	: Actor(_path)
 {
 	path = _path;
 	music = new MusicSample(_path + "\\music.mp3");

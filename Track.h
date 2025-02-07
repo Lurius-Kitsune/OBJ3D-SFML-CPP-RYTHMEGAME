@@ -21,7 +21,7 @@ struct TrackData
 };
 
 
-class Track
+class Track : public Actor
 {
 	string path;
 	TrackData info;
