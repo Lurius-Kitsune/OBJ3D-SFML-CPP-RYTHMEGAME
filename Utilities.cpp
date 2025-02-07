@@ -76,3 +76,17 @@ Vector2f ComputeNormal(const FloatRect& _rect)
     const float _norme = Length(_normal);
     return _normal / _norme;
 }
+
+vector<string> SplitString(const string& _string, const char _delimiter)
+{
+    vector<string> _result;
+    stringstream _ss(_string);
+    string _item;
+
+    while (getline(_ss, _item, _delimiter))
+    {
+        _result.push_back(_item);
+    }
+
+    return _result;
+}

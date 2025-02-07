@@ -405,7 +405,6 @@ namespace Input
 			case MouseMoved:
 			case MouseMovedRaw:
 			case Resized:
-			case JoystickMoved:
 			case TouchBegan:
 			case TouchMoved:
 			case TouchEnded:

@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "MeshActor.h"
 #include "LevelManager.h"
+#include "TimerManager.h"
 
 template<typename T>
 class Spawner : public Actor

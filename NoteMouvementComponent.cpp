@@ -30,6 +30,7 @@ void NoteMouvementComponent::Tick(const float _deltaTime)
 
 void NoteMouvementComponent::Move(const float _deltaTime)
 {
+	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
 	const FloatRect& _ownerRect = Cast<Note>(owner)->GetMesh()->GetShape()->GetDrawable()->getGlobalBounds();
 	if (isFollowingTarget)
 	{
@@ -42,9 +43,9 @@ void NoteMouvementComponent::Move(const float _deltaTime)
 	}
 	else if (isInteractable && !triggerRect.contains(owner->GetPosition()))
 	{
-		Note* _note = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNote();
-		_note->SetLifeSpan(1.0f);
-		Cast<BeatMapLevel>(M_GAME.GetCurrent())->ComputeNoteResult(NR_MISS, triggerNote);
+		Note* _note = _level->GetNote();
+		_note->SetL(1.0f);
+		_level->ComputeNoteResult(NR_MISS, triggerNote);
 		isInteractable = false;
 	}
 	owner->Move(direction* speed * _deltaTime * 400.0f);

@@ -38,3 +38,5 @@ bool Instanceof(K _object)
 {
     return is_same<T, decltype(_object)>::value;
 }
+
+vector<string> SplitString(const string& _string, const char _delimiter);
