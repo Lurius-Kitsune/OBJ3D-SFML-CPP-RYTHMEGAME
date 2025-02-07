@@ -31,6 +31,7 @@ void Track::Start(const string& _difficulty)
 		currentBeatMap = &beatMaps[_difficulty];
 		currentBeatMap->Start();
 		music->Play();
+		
 	}
 	else
 	{
@@ -38,8 +39,10 @@ void Track::Start(const string& _difficulty)
 	}
 }
 
-void Track::Update()
+void Track::Tick(const float _deltaTime)
 {
+	Super::Tick(_deltaTime);
+	if (!currentBeatMap) return;
 	currentBeatMap->Update();
 }
 
@@ -47,6 +50,7 @@ void Track::Stop()
 {
 	currentBeatMap->Stop();
 	music->Stop();
+	currentBeatMap = nullptr;
 }
 
 void Track::Init()
