@@ -21,6 +21,8 @@ NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, const NoteMouvemen
 	triggerNote = _other.triggerNote;
 	triggerRect = _other.triggerRect;
 	direction = _other.direction;
+	isInteractable = _other.isInteractable;
+	isFollowingTarget = _other.isFollowingTarget;
 }
 
 void NoteMouvementComponent::Tick(const float _deltaTime)
