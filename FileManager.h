@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#include "Level.h"
 
 namespace File
 {
@@ -30,14 +31,14 @@ namespace File
 		}
 
 		template<typename Type>
-		vector<Type*> ReadFolder(const string& _path)
+		vector<Type*> ReadFolder(Level* _level, const string& _path)
 		{
 			vector<Type*> _data;
 			for (directory_entry _file : directory_iterator{ ".\\" + _path })
 			{
 				if (_file.exists())
 				{
-					Type* _currentData = new Type(_file.path().string());
+					Type* _currentData = new Type(_level, _file.path().string());
 					_data.push_back(_currentData);
 				}
 				else
