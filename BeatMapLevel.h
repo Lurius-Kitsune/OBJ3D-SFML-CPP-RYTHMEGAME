@@ -15,10 +15,10 @@ struct ComboData
 	bool finishedAnimation;
 	Vector2f minScale;
 
-	ComboData()
+	ComboData(Level* _level)
 	{
 		count = 0;
-		//label = CreateWidget<LabelWidget>("X " + to_string(count), "ComboCount");
+		label = _level->SpawnWidget<LabelWidget>("X " + to_string(count), "ComboCount");
 		label->SetVisibility(Hidden);
 		finishedAnimation = false;
 		minScale = { 1.0f, 1.0f };
