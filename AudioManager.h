@@ -30,7 +30,8 @@ public:
 	~AudioManager();
 
 	template <typename Type, IS_BASE_OF(Sample, Type)>
-	Type* PlaySample(const string& _path, const AudioExtensionType& _type = MP3, const Time& _time = Time())
+	Type* PlaySample(const string& _path, const AudioExtensionType& _type = MP3,
+					 const Time& _time = Time(), const Time& _duration = Time())
 	{
 		//static_assert(is_base_of_v<Sample, T>, "ERREUR CUSTOM !");
 
@@ -45,13 +46,13 @@ public:
 			_sample = _iterator->second;
 			if (_sample->IsAvailable())
 			{
-				_sample->Play(_time);
+				_sample->Play(_time, _duration);
 				return Cast<Type>(_sample);
 			}
 		}
 
 		_sample = new Type(_finalPath);
-		_sample->Play(_time);
+		_sample->Play(_time, _duration);
 
 		return Cast<Type>(_sample);
 	}

@@ -5,22 +5,39 @@
 
 Actor::Actor(const string& _name, const TransformData& _transform)
 {
-	level = nullptr;
+	isToDelete = false;
+	id = 0;
+	lifeSpan = 0.0f;
 	name = _name;
 	displayName = "Unknown";
-	isToDelete = false;
-	lifeSpan = 0.0f;
+	components = set<Component*>();
 	root = CreateComponent<RootComponent>(_transform);
+	parent = nullptr;
+	attachment = AT_NONE;
+	children = set<Actor*>();
+	level = nullptr;
 }
 
-Actor::Actor(const Actor& _actor)
+Actor::Actor(const Actor& _other)
 {
-	level = _actor.level;
-	name = _actor.name;
-	displayName = _actor.displayName;
-	isToDelete = _actor.isToDelete;
-	lifeSpan = _actor.lifeSpan;
-	root = CreateComponent<RootComponent>(_actor.root);
+	isToDelete = _other.isToDelete;
+	id = _other.id;
+	lifeSpan = _other.lifeSpan;
+	name = _other.name;
+	displayName = _other.displayName;
+	for (Component* _component : _other.components)
+	{
+		CreateComponent<TYPE(*_component)>(*_component);
+	}
+	root = GetComponent<RootComponent>();
+	parent = _other.parent;
+	attachment = _other.attachment;
+	for (Actor* _child : _other.children)
+	{
+		TYPE(_child)* _actor = new TYPE(_child)(_child);
+		children.insert(*_actor);
+	}
+	level = _other.level;
 }
 
 Actor::~Actor()
@@ -39,8 +56,9 @@ void Actor::Construct()
 		LOG(Fatal, "Tried to construct an actor (\"" + name + "\") with no level associated !");
 		return;
 	}
+
 	id = GetUniqueID();
-	//displayName = M_ACTOR.GetAvailableName(name);
+	displayName = level->GetActorManager().GetAvailableName(name);
 	SetActive(true);
 	level->GetActorManager().AddActor(this);
  }
@@ -81,11 +99,18 @@ void Actor::BeginDestroy()
 	}
 }
 
+
+void Actor::SetName(const string& _name)
+{
+	if (name == _name) return;
+	name = _name;
+	displayName = level->GetActorManager().GetDisplayName(this);
+}
+
 void Actor::Destroy()
 {
 	SetToDelete();
 }
-
 
 void Actor::AddComponent(Component* _component)
 {

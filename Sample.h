@@ -39,7 +39,7 @@ public:
 	virtual ~Sample() = default;
 
 public:
-	virtual void Play(const Time& _time = Time());
+	virtual void Play(const Time& _time = Time(), const Time& _duration = Time());
 	virtual void Pause() = 0;
 	virtual void Stop() = 0;
 };

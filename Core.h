@@ -6,14 +6,13 @@ class Core
 	bool isActive = false;
 
 public:
+	FORCEINLINE void SetActive(const bool _active)
+	{
+		isActive = _active;
+	}
 	FORCEINLINE bool IsActive() const
 	{
 		return isActive;
-	}
-
-	virtual FORCEINLINE void SetActive(const bool _active)
-	{
-		isActive = _active;
 	}
 
 public:

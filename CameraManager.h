@@ -1,9 +1,6 @@
 #pragma once
-#include "Singleton.h"
 #include "CameraActor.h"
 #include "RenderType.h"
-
-class Level;
 
 namespace Camera
 {
@@ -56,8 +53,7 @@ namespace Camera
 		FORCEINLINE void Register(CameraActor* _camera)
 		{
 			if (!_camera) return;
-			allCameras.insert({ _camera->GetName(), _camera });
-			//allCameras.insert({ _camera->GetDisplayName(), _camera });
+			allCameras.insert({ _camera->GetDisplayName(), _camera });
 		}
 
 	public:
@@ -66,9 +62,8 @@ namespace Camera
 		void RenderAllCameras(RenderWindow& _window);
 		void UnbindOnRenderWindow(const u_int& _uniqueId);
 
-
 	public:
-		template <typename Type = CameraActor>
+		template <typename Type = CameraActor, IS_BASE_OF(CameraActor, Type)>
 		Type* AddCamera(Type* _camera)
 		{
 			Register(_camera);

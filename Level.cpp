@@ -1,51 +1,31 @@
 #include "Level.h"
 #include "LevelManager.h"
 
-Level::Level(const string& _name, GameMode* _gamemode)
+Level::Level(const string& _name)
 {
-	gamemode = _gamemode;
-	name = _name;
-	window.create(VideoMode({ 1200, 600 }), name);
+	isLoaded = false;
+	window.create(VideoMode({ 1200, 600 }), _name);
 	window.setVisible(false);
-
-	InitLevel();
+	name = _name;
+	actorManager = ActorManager();
+	cameraManager = CameraManager();
+	gamemodeRef = GameMode();
+	gamemode = nullptr;
 
 	M_LEVEL.RegisterLevel(_name, this);
 }
 
-Level::~Level()
-{
-	delete gamemode;
-}
 
-void Level::Tick(const float _deltaTime)
+void Level::Update(const float _deltaTime)
 {
-	Super::Tick(_deltaTime);
 	actorManager.Update(_deltaTime);
-	gamemode->GetPlayerController()->GetInputManager().Update(window);
+	//TODO change
+	GetGameMode()->GetPlayerController()->GetInputManager().Update(window);
 
 	if (!window.isOpen())
 	{
-		OnUnload();
 		M_LEVEL.SetLevel(nullptr);
 	}
-}
-
-void Level::BeginPlay()
-{
-	SetActive(true);
-	actorManager.BeginPlay(); // TODO Remplacer par construct
-}
-
-void Level::OnUnload()
-{
-	SetActive(false);
-	window.clear();
-}
-
-void Level::BeginDestroy()
-{
-	actorManager.BeginDestroy();
 }
 
 void Level::UpdateWindow()
@@ -55,14 +35,24 @@ void Level::UpdateWindow()
 	window.display();
 }
 
-void Level::SetActive(const bool _active)
+void Level::Load()
 {
-	Super::SetActive(_active);
-	window.setVisible(_active);
+	if (!isLoaded)
+	{
+		InitLevel();
+	}
+
+	window.setVisible(true);
+}
+
+void Level::Unload()
+{
+	window.setVisible(false);
+	window.clear();
 }
 
 void Level::InitLevel()
 {
-	CreateCamera(gamemode->GetPlayerController()->GetCamera()->GetObject());
+	isLoaded = true;
+	//CreateCamera(gamemode->GetPlayerController()->GetCamera()->GetObject());
 }
-

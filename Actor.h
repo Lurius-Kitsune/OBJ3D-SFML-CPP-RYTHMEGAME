@@ -4,14 +4,18 @@
 #include "TransformableViewer.h"
 #include "Component.h"
 #include "RootComponent.h"
-#include "TimerManager.h"
+#include "Layer.h"
 
 class Level;
+struct CollisionData;
 
 class Actor : public Core, public ITransformableModifier, public ITransformableViewer
 {
 	bool isToDelete;
 	u_int id;
+protected:
+	float lifeSpan;
+private:
 	string name;
 	string displayName;
 	set<Component*> components;
@@ -21,13 +25,12 @@ class Actor : public Core, public ITransformableModifier, public ITransformableV
 	set<Actor*> children;
 protected:
 	Level* level;
-	float lifeSpan;
 
 protected:
 	template <typename Type, typename ...Args, IS_BASE_OF(Component, Type)>
-	FORCEINLINE Type* CreateComponent(Args... _args)
+	FORCEINLINE Type* CreateComponent(Args&&... _args)
 	{
-		Type* _component = new Type(this, _args...);
+		Type* _component = new Type(this, forward<Args>(_args)...);
 		AddComponent(_component);
 		return _component;
 	}
@@ -61,12 +64,20 @@ public:
 		return displayName;
 	}
 
-	#pragma region Children
-
+	#pragma region Level
+	
+	FORCEINLINE void SetLevelReference(Level* _level)
+	{
+		level = _level;
+	}
 	FORCEINLINE Level* GetLevel() const
 	{
 		return level;
 	}
+	
+	#pragma endregion
+
+	#pragma region Children
 
 private:
 	FORCEINLINE void SetParent(Actor* _parent)
@@ -84,7 +95,7 @@ private:
 		const vector<function<Vector2f()>>& _computePosition =
 		{
 			// Keep the child’s relative position to the parent.
-			[&]() { return _child->GetPosition() - GetPosition(); },
+			[&]() { return _child->GetPosition() + GetPosition(); },
 			// Keep the child’s world position.
 			[&]() { return _child->GetPosition(); },
 			// Snap the child to the parent's position.
@@ -99,7 +110,7 @@ private:
 		const vector<function<Angle()>>& _computeRotation =
 		{
 			// Keep the child’s relative rotation to the parent.
-			[&]() { return _child->GetRotation() - GetRotation(); },
+			[&]() { return _child->GetRotation() + GetRotation(); },
 			// Keep the child’s world rotation.
 			[&]() { return _child->GetRotation(); },
 			// Snap the child to the parent's rotation.
@@ -114,7 +125,10 @@ private:
 		const vector<function<Vector2f()>>& _computeScale =
 		{
 			// Keep the child’s relative scale to the parent.
-			[&]() { return _child->GetScale() - GetScale(); },
+			[&]() 
+			{ 
+				return Vector2f(_child->GetScale().x * GetScale().x, _child->GetScale().y * GetScale().y);
+			},
 			// Keep the child’s world scale.
 			[&]() { return _child->GetScale(); },
 			// Snap the child to the parent's scale.
@@ -189,6 +203,36 @@ public:
 	{
 		return root->GetTransform();
 	}
+	FORCEINLINE Vector2f GetForwardVector() const
+	{
+		const Angle& _angle = GetRotation();
+		const float _radians = _angle.asRadians();
+		return Vector2f(cos(_radians), sin(_radians));
+	}
+	FORCEINLINE Vector2f GetDownVector() const
+	{
+		const Angle& _angle = GetRotation();
+		const float _radians = _angle.asRadians();
+		return Vector2f(sin(_radians), -cos(_radians));
+	}
+	FORCEINLINE Vector2f GetRightVector() const
+	{
+		const Angle& _angle = GetRotation();
+		const float _radians = _angle.asRadians();
+		return Vector2f(cos(_radians), -sin(_radians));
+	}
+	FORCEINLINE Vector2f GetLeftVector() const
+	{
+		const Angle& _angle = GetRotation();
+		const float _radians = _angle.asRadians();
+		return Vector2f(-cos(_radians), sin(_radians));
+	}
+	FORCEINLINE Vector2f GetBackVector() const
+	{
+		const Angle& _angle = GetRotation();
+		const float _radians = _angle.asRadians();
+		return Vector2f(-cos(_radians), -sin(_radians));
+	}
 
 	#pragma endregion
 
@@ -259,7 +303,7 @@ public:
 
 public:
 	Actor(const string& _name = "Actor", const TransformData& _transform = TransformData());
-	Actor(const Actor& _actor);
+	Actor(const Actor& _other);
 	virtual ~Actor();
 
 public:
@@ -269,12 +313,8 @@ public:
 	virtual void Tick(const float _deltaTime) override;
 	virtual void BeginDestroy() override;
 
+	void SetName(const string& _name);
 	void Destroy();
-
-	FORCEINLINE void SetLevelReference(Level* _level) // Ceci existe à cause du SubclassOf, la ref qu'il possède n'a pas de level, faut en associer un par la suite
-	{
-		level = _level;
-	}
 
 	#pragma region Components
 
@@ -293,6 +333,14 @@ public:
 
 		return nullptr;
 	}
+
+	#pragma endregion
+
+	#pragma region Collision
+
+	virtual void CollisionEnter(const CollisionData& _data) {}
+	virtual void CollisionUpdate(const CollisionData& _data) {}
+	virtual void CollisionExit(const CollisionData& _data) {}
 
 	#pragma endregion
 };

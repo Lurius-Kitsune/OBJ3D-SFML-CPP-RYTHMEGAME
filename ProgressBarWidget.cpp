@@ -1,54 +1,60 @@
-#include "ProgressBar.h"
+#include "ProgressBarWidget.h"
 #include "TextureManager.h"
 #include "HUD.h"
 
-UI::ProgressBar::ProgressBar(const ProgressType& _type, const RectangleShapeData& _data,
+UI::ProgressBarWidget::ProgressBarWidget(const ProgressType& _type, const RectangleShapeData& _data,
     const string _name, const float _maxValue, const RenderType& _renderType)
-    : Widget(_name, _renderType)
+    : ImageWidget(_name, _data,_renderType)
 {
     type = _type;
-    bar = new ShapeObject(_data);
-    M_TEXTURE.Load(bar, "", PNG);
-    foreground = new ShapeObject(_data);
-
+    foreground = new ImageWidget(_name + "Foreground", _data, _renderType);
     size = _data.size;
     UpdateOriginAndPosition(size);
-
     maxValue = _maxValue;
     currentValue = 0;
 }
 
-
-void UI::ProgressBar::UpdateOriginAndPosition(const Vector2f& _size)
+UI::ProgressBarWidget::~ProgressBarWidget()
 {
-	Shape* _fgShape = foreground->GetDrawable();
+    delete foreground;
+}
+
+void UI::ProgressBarWidget::UpdateOriginAndPosition(const Vector2f& _size)
+{
+	Shape* _fgShape = foreground->GetMeshActor()->GetMesh()->GetShape()->GetDrawable();
     const Vector2f& _barPosition = GetPosition();
+    const Vector2f& _originOffset = _fgShape->getOrigin() - GetOrigin();
 
     if (type == PT_LEFT)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() - Vector2f(_size.x / 2.0f, 0.0f));
+        _fgShape->setOrigin(_fgShape->getOrigin() - Vector2f(_size.x / 2.0f, 0.0f) - _originOffset);
         _fgShape->setPosition(_barPosition - Vector2f(_size.x / 2.0f, 0.0f));
     }
     else if (type == PT_RIGHT)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() + Vector2f(_size.x / 2.0f, 0.0f));
+        _fgShape->setOrigin(_fgShape->getOrigin() + Vector2f(_size.x / 2.0f, 0.0f) - _originOffset);
         _fgShape->setPosition(_barPosition + Vector2f(_size.x / 2.0f, 0.0f));
     }
     else if (type == PT_TOP)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() - Vector2f(0.0f, _size.y / 2.0f));
+        _fgShape->setOrigin(_fgShape->getOrigin() - Vector2f(0.0f, _size.y / 2.0f) - _originOffset);
         _fgShape->setPosition(_barPosition - Vector2f(0.0f, _size.y / 2.0f));
     }
     else if (type == PT_BOTTOM)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() + Vector2f(0.0f, _size.y / 2.0f));
+        _fgShape->setOrigin(_fgShape->getOrigin() + Vector2f(0.0f, _size.y / 2.0f) - _originOffset);
         _fgShape->setPosition(_barPosition + Vector2f(0.0f, _size.y / 2.0f));
     }
+	else if (type == PT_CENTER)
+	{
+        foreground->SetOriginAtMiddle();
+		_fgShape->setPosition(_barPosition + _originOffset);
+	}
 }
 
-IntRect UI::ProgressBar::MakeRect(const float _percent)
+IntRect UI::ProgressBarWidget::MakeRect(const float _percent)
 {
-    const Texture* _bgTexture = foreground->GetDrawable()->getTexture();
+    const Texture* _bgTexture = foreground->GetMeshActor()->GetMesh()->GetShape()->GetDrawable()->getTexture();
     const Vector2f& _textureSize = Vector2f(_bgTexture->getSize());
     FloatRect _rect;
 
@@ -82,16 +88,16 @@ IntRect UI::ProgressBar::MakeRect(const float _percent)
 }
 
 
-void UI::ProgressBar::Render(RenderWindow& _window)
+void UI::ProgressBarWidget::Render(RenderWindow& _window)
 {
     if (visibility == Hidden) return;
-	_window.draw(*bar->GetDrawable());
-	_window.draw(*foreground->GetDrawable());
+    Super::Render(_window);
+	foreground->Render(_window);
 }
 
-void UI::ProgressBar::Update()
+void UI::ProgressBarWidget::Update()
 {
-    Shape* _fgShape = foreground->GetDrawable();
+    Shape * _fgShape = foreground->GetMeshActor()->GetMesh()->GetShape()->GetDrawable();
 
     const float _fillPercent = currentValue / maxValue;
     const IntRect& _rect = MakeRect(_fillPercent);

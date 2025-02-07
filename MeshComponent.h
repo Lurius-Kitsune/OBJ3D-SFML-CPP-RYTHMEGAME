@@ -21,7 +21,6 @@ public:
 public:
 	MeshComponent(Actor* _owner, const CircleShapeData& _data);
 	MeshComponent(Actor* _owner, const RectangleShapeData& _data);
-	MeshComponent(Actor* _owner, const VertexArrayData& _data);
-	MeshComponent(Actor* _owner, const MeshComponent* _other);
+	MeshComponent(Actor* _owner, const MeshComponent& _other);
 	~MeshComponent();
 };

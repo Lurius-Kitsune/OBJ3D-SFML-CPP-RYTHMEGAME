@@ -3,6 +3,8 @@
 Input::InputManager::InputManager()
 {
     actionsMaps = map<string, ActionMap*>();
+    isKeyHolding = false;
+    isButtonHolding = false;
 }
 
 Input::InputManager::~InputManager()
@@ -33,5 +35,29 @@ void Input::InputManager::Update(RenderWindow& _window)
         }
 
         UpdateActionMaps(_event);
+        if (_event->is<PressedKey>() && !isKeyHolding)
+        {
+            isKeyHolding = true;
+        }
+        else if (_event->is<ReleasedKey>() && isKeyHolding)
+        {
+            isKeyHolding = false;
+        }
+        else if (_event->is<PressedMouseButton>() && !isButtonHolding)
+        {
+            isButtonHolding = true;
+        }
+        else if (_event->is<ReleasedMouseButton>() && isButtonHolding)
+        {
+            isButtonHolding = false;
+        }
+        else if (_event->is<PressedMouseButton>() && !isButtonHolding)
+        {
+            isJoystickButtonHolding = true;
+        }
+        else if (_event->is<ReleasedMouseButton>() && isButtonHolding)
+        {
+            isJoystickButtonHolding = false;
+        }
     }
 }

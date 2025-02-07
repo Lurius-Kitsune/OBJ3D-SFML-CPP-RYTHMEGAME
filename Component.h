@@ -14,6 +14,7 @@ public:
 
 public:
 	Component(Actor* _owner);
+	Component(Actor* _owner, const Component& _other);
 	virtual ~Component() = default;
 
 public:

@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "TransformableObject.h"
 
 enum FontExtensionType
 {
@@ -7,7 +7,7 @@ enum FontExtensionType
 	TTF,
 };
 
-class TextObject : public Object
+class TextObject : public TransformableObject
 {
 	Text* text;
 	Font font;

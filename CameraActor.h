@@ -5,7 +5,6 @@
 class CameraActor : public Actor
 {
 	CameraComponent* camera;
-	Actor* target;
 
 public:
 	FORCEINLINE void SetViewport(const FloatRect& _rect)
@@ -45,14 +44,6 @@ public:
 	{
 		camera->Zoom(_factor);
 	}
-	FORCEINLINE void SetTarget(Actor* _target)
-	{
-		target = _target;
-	}
-	FORCEINLINE bool HasTarget() const
-	{
-		return target;
-	}
 	FORCEINLINE View* GetView() const
 	{
 		return camera->GetView();
@@ -65,7 +56,4 @@ public:
 	CameraActor(const Vector2f& _size, const string& _name);
 	CameraActor(const FloatRect& _rect, const string& _name);
 	CameraActor(const CameraActor& _other);
-
-protected:
-	virtual void Tick(const float _deltaTime) override;
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Singleton.h"
 #include "InputManager.h"
+#include "Level.h"
 
 using namespace Input;
 
@@ -8,6 +9,7 @@ class Engine : public Singleton<Engine>
 {
 	RenderWindow window;
 	InputManager inputManager;
+	Color backgroundColor;
 
 public:
 	Engine();
@@ -15,8 +17,6 @@ public:
 public:
 	void Start();
 	void Update();
-	void Stop();
-
 	void UpdateWindow();
-
+	void Stop();
 };

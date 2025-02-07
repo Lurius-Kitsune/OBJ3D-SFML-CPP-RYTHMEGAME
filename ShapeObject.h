@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "TransformableObject.h"
 
 enum TextureExtensionType
 {
@@ -63,21 +63,10 @@ struct RectangleShapeData
 	}
 };
 
-struct VertexArrayData
-{
-	VertexArray	vertices;
-
-	VertexArrayData(const u_int& _count, const PrimitiveType& _type)
-	{
-		vertices = VertexArray(_type, _count);
-	}
-};
-
 union ObjectData
 {
 	CircleShapeData* circleData;
 	RectangleShapeData* rectangleData;
-	VertexArrayData* vertexArrayData;
 
 	ObjectData() {}
 	~ObjectData() {}
@@ -102,11 +91,6 @@ struct ShapeObjectData
 		type = _type;
 		data.rectangleData = new RectangleShapeData(_rectangleData);
 	}
-	ShapeObjectData(const ShapeObjectType& _type, const VertexArrayData& _vertexArrayData)
-	{
-		type = _type;
-		data.vertexArrayData = new VertexArrayData(_vertexArrayData);
-	}
 	~ShapeObjectData()
 	{
 		if (type == SOT_CIRCLE)
@@ -117,11 +101,6 @@ struct ShapeObjectData
 		else if (type == SOT_RECTANGLE)
 		{
 			delete data.rectangleData;
-		}
-
-		else if (type == SOT_VERTEX)
-		{
-			delete data.vertexArrayData;
 		}
 	}
 
@@ -139,16 +118,11 @@ struct ShapeObjectData
 			data.rectangleData = new RectangleShapeData(*_other.data.rectangleData);
 		}
 
-		else if (type == SOT_VERTEX)
-		{
-			data.vertexArrayData = new VertexArrayData(*_other.data.vertexArrayData);
-		}
-
 		return *this;
 	}
 };
 
-class ShapeObject : public Object
+class ShapeObject : public TransformableObject
 {
 	Texture texture;
 	Shape* shape;
@@ -202,7 +176,6 @@ public:
 public:
 	ShapeObject(const CircleShapeData& _data); // Circle
 	ShapeObject(const RectangleShapeData& _data); // Rectangle
-	ShapeObject(const VertexArrayData& _data); // Vertices
 	ShapeObject(const ShapeObject& _other);
 	~ShapeObject();
 

@@ -1,11 +1,10 @@
 #pragma once
 #include "Singleton.h"
+
 namespace File
 {
 	class FileManager : public Singleton<FileManager>
 	{
-
-
 	public:
 		template<typename Type>
 		vector<Type> ReadFile(const char* _path, const string& _extension = "txt")
@@ -18,6 +17,7 @@ namespace File
 				LOG(Fatal, string("Impossible to read the file : " + _finalFileName));
 				throw CustomException(string("Impossible to read the file : " + _finalFileName).c_str());
 			}
+
 			vector<Type> _data;
 			string _currentLine;
 			while (getline(_stream, _currentLine))
@@ -25,9 +25,9 @@ namespace File
 				Type _currentData = Type(_currentLine);
 				_data.push_back(_currentData);
 			}
+
 			return _data;
 		}
-
 
 		template<typename Type>
 		vector<Type*> ReadFolder(const string& _path)
@@ -48,9 +48,8 @@ namespace File
 					throw CustomException(string("No folder was found: " + _path).c_str());
 				}
 			}
+
 			return _data;
 		}
 	};
 };
-
-

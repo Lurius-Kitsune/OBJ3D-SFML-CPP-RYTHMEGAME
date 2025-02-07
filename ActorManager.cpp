@@ -8,22 +8,16 @@ ActorManager::~ActorManager()
 	}
 }
 
-
-void ActorManager::BeginPlay()
-{
-	for (Actor* _actor : allActors)
-	{
-		_actor->BeginPlay();
-	}
-}
-
 void ActorManager::Update(const float _deltaTime)
 {
 	vector<Actor*> _garbage;
 
 	for (Actor* _actor : allActors)
 	{
-		_actor->Tick(_deltaTime);
+		if (_actor->IsActive())
+		{
+			_actor->Tick(_deltaTime);
+		}
 
 		if (_actor->IsToDelete())
 		{
@@ -35,13 +29,5 @@ void ActorManager::Update(const float _deltaTime)
 	{
 		_actor->Deconstruct();
 		delete _actor;
-	}
-}
-
-void ActorManager::BeginDestroy()
-{
-	for (Actor* _actor : allActors)
-	{
-		_actor->BeginDestroy();
 	}
 }

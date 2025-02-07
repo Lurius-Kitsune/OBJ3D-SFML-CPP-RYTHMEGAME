@@ -8,6 +8,8 @@ namespace UI
 	class LabelWidget : public Widget
 	{
 		TextObject* text;
+		u_int score;
+		u_int scoreMaxDigit;
 
 	public:
 	#pragma region Modifier
@@ -72,6 +74,7 @@ namespace UI
 		{
 			text->GetDrawable()->setFillColor(Color(GetFillColor().r, GetFillColor().g, GetFillColor().b, _alpha));
 		}
+		//Info : Update Origin to fix potential height issue because of the Font
 		FORCEINLINE virtual void SetFont(const string& _path, const FontExtensionType& _fontType)
 		{
 			M_FONT.Load(text, _path, _fontType);
@@ -84,7 +87,7 @@ namespace UI
 		{
 			return text->GetDrawable()->getFillColor();
 		}
-		FORCEINLINE virtual Vector2f GetSize() const
+		FORCEINLINE virtual Vector2f GetSize() const override
 		{
 			return text->GetDrawable()->getLocalBounds().size;
 		}
@@ -97,5 +100,9 @@ namespace UI
 
 	public:
 		virtual void Render(RenderWindow& _window) override;
+		virtual void Tick(const float _deltaTime) override;
+
+	private:
+		string ComputeScoreText();
 	};
 }

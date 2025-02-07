@@ -19,28 +19,37 @@ namespace UI
 	{
 		u_int renderToken;
 		RenderType type;
-		Slot* slot;
 	protected:
+		Slot* slot;
 		VisibilityType visibility;
 		int zOrder;
 
 	public:
-		FORCEINLINE virtual void SetVisibility(const VisibilityType& _visibility)
+		FORCEINLINE virtual void AddSlot(Slot* _slot)
 		{
-			visibility = _visibility;
+			slot = _slot;
 		}
-		FORCEINLINE virtual void SetZOrder(const int _zOrder)
+		FORCEINLINE virtual void RemoveSlot()
 		{
-			zOrder = _zOrder;
+			delete slot;
 		}
 		FORCEINLINE virtual Slot* GetSlot() const
 		{
 			return slot;
 		}
-		FORCEINLINE virtual void SetSlot(Slot* _slot)
+		FORCEINLINE virtual void SetVisibility(const VisibilityType& _visibility)
 		{
-			 slot = _slot;
+			visibility = _visibility;
 		}
+		FORCEINLINE virtual int GetZOrder() const
+		{
+			return zOrder;
+		}
+		FORCEINLINE virtual void SetZOrder(const int _zOrder)
+		{
+			zOrder = _zOrder;
+		}
+		FORCEINLINE virtual Vector2f GetSize() const = 0;
 
 	public:
 		Widget(const string& _name, const RenderType& _type = Screen);

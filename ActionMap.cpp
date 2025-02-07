@@ -16,17 +16,63 @@ Input::ActionMap::~ActionMap()
 }
 
 
-void Input::ActionMap::AddAction(Action* _action)
+void Input::ActionMap::AddAction(const string& _name, const ActionData& _data, const function<void()>& _callback)
 {
+	assert(_data.value == Digital &&
+		"The callback must be a function with compatible parameter like ValueType return !");
+
+	if (actions.contains(_name))
+	{
+		LOG(Error, "This Action's name (" + _name + ") already used in this ActionMap ("+ name + ") !");
+		return;
+	}
+
+	Action* _action = new Action(_name, _data, _callback);
+	actions.insert({ _action->GetName(), _action });
+}
+void Input::ActionMap::AddAction(const string& _name, const ActionData& _data, const function<void(const Vector2f& _parameter)>& _callback)
+{
+	assert(_data.value == Axis2 &&
+		"The callback must be a function with compatible parameter like ValueType return !");
+
+	if (actions.contains(_name))
+	{
+		LOG(Error, "This Action's name (" + _name + ") already used in this ActionMap (" + name + ") !");
+		return;
+	}
+
+	Action* _action = new Action(_name, _data, _callback);
 	actions.insert({ _action->GetName(), _action });
 }
 
+void Input::ActionMap::AddAction(const string& _name, const ActionData& _data, const function<void(const float _parameter)>& _callback)
+{
+	assert(_data.value == Axis &&
+		"The callback must be a function with compatible parameter like ValueType return !");
+
+	if (actions.contains(_name))
+	{
+		LOG(Error, "This Action's name (" + _name + ") already used in this ActionMap (" + name + ") !");
+		return;
+	}
+
+	Action* _action = new Action(_name, _data, _callback);
+	actions.insert({ _action->GetName(), _action });
+}
 void Input::ActionMap::AddActions(const vector<Action*>& _actions)
 {
 	for (Action* _action : _actions)
 	{
-		AddAction(_action);
+		actions.insert({ _action->GetName(), _action });
 	}
+}
+
+void Input::ActionMap::RemoveAction(const string& _name)
+{
+	if (!actions.contains(_name)) return;
+
+	delete actions.at(_name);
+	actions.erase(_name);
 }
 
 void Input::ActionMap::Update(const EventInfo& _event)

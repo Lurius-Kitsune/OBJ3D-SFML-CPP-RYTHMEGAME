@@ -5,6 +5,7 @@
 
 enum AttachmentType
 {
+	AT_NONE,
 	AT_KEEP_RELATIVE,
 	AT_KEEP_WORLD,
 	AT_SNAP_TO_TARGET,

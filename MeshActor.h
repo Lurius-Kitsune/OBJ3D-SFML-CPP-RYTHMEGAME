@@ -1,44 +1,17 @@
 #pragma once
 #include "Actor.h"
 #include "MeshComponent.h"
+#include "CollisionComponent.h"
 #include "TextureManager.h"
 
 class MeshActor : public Actor
 {
-	MeshComponent* mesh;
 	u_int renderMeshToken;
+	MeshComponent* mesh;
+protected:
+	CollisionComponent* collision;
 
 public:
-	FORCEINLINE Vector2f GetForwardVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(cos(_radians), sin(_radians));
-	}
-	FORCEINLINE Vector2f GetDownVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(sin(_radians), -cos(_radians));
-	}
-	FORCEINLINE Vector2f GetRightVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(cos(_radians), -sin(_radians));
-	}
-	FORCEINLINE Vector2f GetLeftVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(-cos(_radians), sin(_radians));
-	}
-	FORCEINLINE Vector2f GetBackVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(-cos(_radians), -sin(_radians));
-	}
 	FORCEINLINE MeshComponent* GetMesh() const
 	{
 		return mesh;
@@ -104,7 +77,6 @@ public:
 	MeshActor() = default;
 	MeshActor(const CircleShapeData& _data, const string& _name = "MeshActor");
 	MeshActor(const RectangleShapeData& _data, const string& _name = "MeshActor");
-	MeshActor(const VertexArrayData& _data, const string& _name = "MeshActor");
 	MeshActor(const MeshActor& _other);
 
 protected:

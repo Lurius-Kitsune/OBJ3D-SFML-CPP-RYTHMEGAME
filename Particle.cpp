@@ -1,36 +1,16 @@
 #include "Particle.h"
 
-ParticleSystem::ParticleSystem(const u_int& _count, const PrimitiveType& _type)
-{
-	vertices = VertexArray(_type, _count);
-}
-
-void ParticleSystem::draw(RenderTarget& target, RenderStates states) const
-{
-	states.transform *= getTransform();
-	states.texture = nullptr;
-	target.draw(vertices, states);
-}
-
-
 ParticleActor::ParticleActor(const u_int& _count, const float _maxLifeTime, const Color& _color, const PrimitiveType& _type)
-						   : MeshActor(VertexArrayData(_count, _type), "Particle")
+						   : VertexActor(_count, _type, "Particle")
 {
 	maxLifeTime = _maxLifeTime;
 	particles = vector<Particle>(_count);
-	system = new ParticleSystem(_count, _type);
 }
 
-ParticleActor::ParticleActor(const ParticleActor& _other) : MeshActor(_other)
+ParticleActor::ParticleActor(const ParticleActor& _other) : VertexActor(_other)
 {
 	maxLifeTime = _other.maxLifeTime;
 	particles = _other.particles;
-	system = new ParticleSystem(*_other.system);
-}
-
-ParticleActor::~ParticleActor()
-{
-	delete system;
 }
 
 void ParticleActor::Tick(const float _deltaTime)
@@ -41,7 +21,7 @@ void ParticleActor::Tick(const float _deltaTime)
 	for (Particle& _particle : particles)
 	{
 		_particle.lifeTime -= _deltaTime;
-		Vertex& _vertex = system->GetVertexByIndex(_index++);
+		Vertex& _vertex = GetVertexByIndex(_index++);
 
 		if (_particle.lifeTime <= 0.0f)
 		{

@@ -1,5 +1,6 @@
 #include "MusicSample.h"
 #include "AudioManager.h"
+#include "TimerManager.h"
 
 MusicSample::MusicSample(const string& _path) : Sample(_path)
 {
@@ -23,13 +24,18 @@ MusicSample::~MusicSample()
 }
 
 
-void MusicSample::Play(const Time& _time)
+void MusicSample::Play(const Time& _time, const Time& _duration)
 {
 	if (!music) return;
 
 	Super::Play(_time);
 	music->play();
 	music->setPlayingOffset(_time);
+
+	if (_duration != Time())
+	{
+		new Timer([&]() { music->stop(); }, seconds(_duration.asSeconds()), true, false);
+	}
 }
 
 void MusicSample::Pause()

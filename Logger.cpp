@@ -52,6 +52,8 @@ void Logger::PrintLog(const VerbosityType& _type, const string& _text, const str
 			WriteInConsole(_verbosity.RetrieveFullText(true));
 		}
 	}
+
+    if (_type == Fatal) throw CustomException("Fatal exception occurred");
 }
 void Logger::PrintLog(const VerbosityType& _type, const Vector2f& _vector, const string& _debug)
 {

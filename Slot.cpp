@@ -1,9 +1,10 @@
 #include "Slot.h"
+#include "PanelWidget.h"
 
-Slot::Slot(const Vector2f _position, const Vector2f _size)
+UI::Slot::Slot(PanelWidget* _parent, Widget* _content)
 {
-	position = _position;
-	size = _size;
-	autoSize = false;
-	zOrder = 0;
+	parent = _parent;
+	content = _content;
+	position = _content->GetPosition();
+	size = _content->GetSize();
 }

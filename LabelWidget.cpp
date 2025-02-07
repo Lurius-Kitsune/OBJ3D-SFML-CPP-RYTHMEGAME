@@ -17,3 +17,16 @@ void UI::LabelWidget::Render(RenderWindow& _window)
 	if (visibility == Hidden) return;
 	_window.draw(*text->GetDrawable());
 }
+
+void UI::LabelWidget::Tick(const float _deltaTime)
+{
+	
+}
+
+string UI::LabelWidget::ComputeScoreText()
+{
+	stringstream _ss;
+	_ss << setw(scoreMaxDigit) << setfill('0') << score;
+
+	return _ss.str();
+}

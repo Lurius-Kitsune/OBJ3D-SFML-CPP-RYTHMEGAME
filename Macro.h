@@ -12,7 +12,6 @@
 #include <typeinfo>
 #include <exception>
 #include <random>
-#include <fstream>
 #include <filesystem>
 
 // OLD
@@ -59,9 +58,9 @@
 
 using namespace std;
 using namespace sf;
-using namespace filesystem;
 using namespace priv;
 using namespace placeholders;
+using namespace filesystem;
 
 typedef unsigned short u_short;
 typedef unsigned int u_int;

@@ -15,6 +15,7 @@ namespace UI
 			allWidgets.insert(_widget);
 		}
 	public:
+		// Tips: Look the parameters in the Constructor of your Class
 		template <typename Type, typename ...Args, IS_BASE_OF(Widget, Type)>
 		FORCEINLINE Type* CreateWidget(Args... _args)
 		{

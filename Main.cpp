@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "LevelManager.h"
 #include "MeshActor.h"
+#include "Particle.h"
 
 void InitConfig()
 {
@@ -13,12 +14,12 @@ int main()
 {
 	InitConfig();
 
-	Level* _test = new Level("test", new GameMode());
-	_test->SpawnActor(MeshActor(RectangleShapeData({50.f, 50.f}, "Wall", JPG)));
-	M_LEVEL.SetLevel(_test);
-	_test->GetCameraManager().GetCurrent()->Zoom(1.5f);
-	Engine::GetInstance().Start();
+	Level* _level = new Level("LevelDemo");
+	_level->SpawnActor<MeshActor>(RectangleShapeData({ 50.f, 50.f }, "Wall", JPG));
+	_level->SpawnActor<ParticleActor>(1000, 3.0f);
+	M_LEVEL.SetLevel(_level);
 
+	Engine::GetInstance().Start();
 
 	return EXIT_SUCCESS;
 }
