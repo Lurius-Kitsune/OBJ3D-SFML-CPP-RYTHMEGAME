@@ -15,7 +15,7 @@ UI::ImageWidget::ImageWidget(const string& _name, const RectangleShapeData& _dat
 UI::ImageWidget::ImageWidget(const string& _name, const CircleShapeData& _data, const RenderType& _type)
 	: Widget(_name, _type)
 {
-	image = new MeshActor(_data.radius, _data.pointCount, _data.path, _data.rect, _name);
+	image = new MeshActor(_data, _name);
 	SetTexture(_data.path);
 }
 
