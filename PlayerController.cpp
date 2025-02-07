@@ -1,9 +1,9 @@
 #include "PlayerController.h"
 #include "Level.h"
 
-PlayerController::PlayerController(const string& _name) : Actor(_name)
+PlayerController::PlayerController(Level* _level, const string& _name) : Actor(_level, _name)
 {
-	cameraRef = CameraActor(Vector2f(1200.0f, 600.0f), "PlayerCamera");
+	cameraRef = CameraActor(_level, Vector2f(1200.0f, 600.0f), "PlayerCamera");
 	camera = nullptr;
 }
 

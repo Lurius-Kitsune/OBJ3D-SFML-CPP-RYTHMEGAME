@@ -1,7 +1,8 @@
 #include "Particle.h"
 
-ParticleActor::ParticleActor(const u_int& _count, const float _maxLifeTime, const Color& _color, const PrimitiveType& _type)
-						   : VertexActor(_count, _type, "Particle")
+ParticleActor::ParticleActor(Level* _level, const u_int& _count, const float _maxLifeTime, 
+							 const Color& _color, const PrimitiveType& _type)
+						   : VertexActor(_level, _count, _type, "Particle")
 {
 	maxLifeTime = _maxLifeTime;
 	particles = vector<Particle>(_count);

@@ -5,14 +5,14 @@
 
 using namespace Camera;
 
-MeshActor::MeshActor(const CircleShapeData& _data, const string& _name)
+MeshActor::MeshActor(Level* _level, const CircleShapeData& _data, const string& _name) : Actor(_level, _name)
 {
 	renderMeshToken = -1;
 	mesh = CreateComponent<MeshComponent>(_data);
 	collision = CreateComponent<CollisionComponent>();
 }
 
-MeshActor::MeshActor(const RectangleShapeData& _data, const string& _name) : Actor(_name)
+MeshActor::MeshActor(Level* _level, const RectangleShapeData& _data, const string& _name) : Actor(_level, _name)
 {
 	renderMeshToken = -1;
 	mesh = CreateComponent<MeshComponent>(_data);

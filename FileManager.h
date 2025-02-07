@@ -32,8 +32,6 @@ namespace File
 		template<typename Type>
 		vector<Type*> ReadFolder(const string& _path)
 		{
-			// TODO faire une sécurité
-
 			vector<Type*> _data;
 			for (directory_entry _file : directory_iterator{ ".\\" + _path })
 			{

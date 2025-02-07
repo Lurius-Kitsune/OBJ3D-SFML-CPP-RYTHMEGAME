@@ -58,7 +58,10 @@ void Track::Tick(const float _deltaTime)
 
 void Track::Stop()
 {
-	currentBeatMap->Stop();
+	if (currentBeatMap)
+	{
+		currentBeatMap->Stop();
+	}
 	music->Stop();
 	currentBeatMap = nullptr;
 }

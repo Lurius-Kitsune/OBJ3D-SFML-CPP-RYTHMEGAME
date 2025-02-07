@@ -22,7 +22,7 @@ string VerbosityData::RetrieveFullText(const bool _useColor, const bool _useTime
 }
 
 /// Logger
-string Logger::logsPath = "Logs/log.txt";
+string Logger::logsPath = "Assets/Logs/log.txt";
 
 void Logger::WriteInConsole(const string& _text)
 {
@@ -55,6 +55,7 @@ void Logger::PrintLog(const VerbosityType& _type, const string& _text, const str
 
     if (_type == Fatal) throw CustomException("Fatal exception occurred");
 }
+
 void Logger::PrintLog(const VerbosityType& _type, const Vector2f& _vector, const string& _debug)
 {
 	const string& _vectorString = "X: " + to_string(_vector.x) + " Y: " + to_string(_vector.y);

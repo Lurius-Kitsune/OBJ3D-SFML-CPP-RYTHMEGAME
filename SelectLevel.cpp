@@ -2,15 +2,17 @@
 #include "CameraManager.h"
 #include "TimerManager.h"
 #include "FileManager.h"
-#include "HUD.h"
-#include "MeshActor.h"
 #include "ActorManager.h"
 #include "InputManager.h"
 #include "AudioManager.h"
+#include "MeshActor.h"
+#include "ButtonWidget.h"
+#include "HUD.h"
 
 using namespace Camera;
 using namespace UI;
 using namespace File;
+using namespace Input;
 
 SelectLevel::SelectLevel() : Level("level") //Todo trouver un nom
 {
@@ -97,6 +99,23 @@ void SelectLevel::InitDescription()
 	M_HUD.AddToViewport(description);
 }
 
+void SelectLevel::InitInput()
+{
+	ActionMap* _actionMap = M_INPUT.CreateActionMap("SelectLevel");
+	Action* _upAction = new Action("GoUp", ActionData(KeyHold, Key::Z), [&]()
+		{
+			ChangeIterator(true);
+		});
+	_upAction->AddData(ActionData(KeyHold, Key::Up));
+	Action* _downAction = new Action("GoDown", ActionData(KeyHold, Key::S), [&]()
+		{
+			ChangeIterator(false);
+		});
+	_downAction->AddData(ActionData(KeyHold, Key::Down));
+	_actionMap->AddActions({ _upAction , _downAction });
+	_actionMap->Enable();
+}
+
 void SelectLevel::InitRectangleTrackInfo(Track* _track)
 {
 	if (allTracksCanvas.contains(_track)) return;
@@ -127,7 +146,6 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	_trackInfo->AddChild(_duration);
 
 	_trackInfo->SetVisibility(VisibilityType::Hidden);
-	//_trackInfo->Hide();
 	allTracksCanvas.insert(make_pair(_track, _trackInfo));
 	
 	M_HUD.AddToViewport(_trackInfo);
@@ -221,11 +239,42 @@ bool SelectLevel::CrampIterator(Iterator& _current)
 
 void SelectLevel::Load()
 {
+	Super::Load();
+
+	cameraManager.AddCamera(new CameraActor(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera"));
+	windowSize = GetWindowSize();
+	background = SpawnActor<MeshActor>(MeshActor(RectangleShapeData(windowSize, "background"))); //TODO implemant Font
+	background->SetOriginAtMiddle();
+	background->SetPosition(windowSize / 2.0f);
+	background->SetScale({ 1.2f, 2.0f });
+	background->SetRotation(degrees(45));
+	//background->SetFillColor(Color(255, 255, 255, 100));
+
+	allTracks = M_FILE.ReadFolder<Track>("Assets\\Tracks");
+	Track* _track = allTracks[trackIndex];
+
+	//allButtons.push_back(new ButtonWidget("ButtonOkay", Screen));
+
+	InitSeparator();
+	InitLabel();
+	InitDescription();
+
+	for (Track* _track : allTracks)
+	{
+		InitRectangleTrackInfo(_track);
+	}
+
+	musicIterator = allTracksCanvas.begin();
+	//M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
+	//M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
+	(*musicIterator).first->PlayExtrait();
+	WheelCanvas();
 }
 
 void SelectLevel::Unload()
 {
 	Super::Unload();
+	M_INPUT.GetActionMapByName("SelectLevel")->Disable();
 }
 
 void SelectLevel::InitLevel()
@@ -249,6 +298,14 @@ void SelectLevel::InitLevel()
 	InitSeparator();
 	InitLabel();
 	InitDescription();
+	if (ActionMap* _input = M_INPUT.GetActionMapByName("SelectLevel"))
+	{
+		_input->Enable();
+	}
+	else
+	{
+		InitInput();
+	}
 
 	for (Track* _track : allTracks)
 	{
@@ -264,44 +321,6 @@ void SelectLevel::InitLevel()
 	WheelCanvas();
 }
 
-//void SelectLevel::Start()
-//{
-//	////Super::Start();
-//	////windowSize = CAST(Vector2f, M_GAME.GetCurrent()->GetWindowSize());
-//
-//	////M_CAMERA.CreateCamera<CameraActor>(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera");
-//
-//	////background = Level::SpawnActor(MeshActor(RectangleShapeData(windowSize, "background"))); //TODO implemant Font
-//	//background->SetOriginAtMiddle();
-//	//background->SetPosition(windowSize / 2.0f);
-//	//background->SetScale({ 1.2f, 2.0f });
-//	//background->SetRotation(degrees(45));
-//	//background->SetFillColor(Color(255, 255, 255, 100));
-//
-//	//allTracks = M_FILE.ReadFolder<Track>("Assets\\Tracks");
-//	//Track* _track = allTracks[trackIndex];
-//
-//	//allButtons.push_back(new Button("Button", Screen, _track));
-//
-//	//InitSeparator();
-//	//InitLabel();
-//	//InitDescription();
-//
-//	//for (Track* _track : allTracks)
-//	//{
-//	//	InitRectangleTrackInfo(_track);
-//	//}
-//
-//	//musicIterator = allTracksCanvas.begin();
-//
-//
-//	//M_ACTOR.BeginPlay();
-//	////M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
-//	////M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
-//	//(*musicIterator).first->PlayExtrait();
-//	//WheelCanvas();
-//}
-
 //bool SelectLevel::Update()
 //{
 //	Super::Update();
@@ -313,11 +332,4 @@ void SelectLevel::InitLevel()
 //	
 //
 //	return IsOver();
-//}
-
-//void SelectLevel::Stop()
-//{
-//	Super::Stop();
-//
-//
 //}

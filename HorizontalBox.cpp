@@ -1,7 +1,6 @@
 #include "HorizontalBox.h"
-#include "Level.h"
 
-HorizontalBox::HorizontalBox(const BoxData& _data) : Box(_data)
+UI::HorizontalBox::HorizontalBox(Level* _level, const BoxData& _data) : Box(_level, _data)
 {
 	if (data.spaceBetween == -1.0f)
 	{
@@ -9,14 +8,14 @@ HorizontalBox::HorizontalBox(const BoxData& _data) : Box(_data)
 	}
 }
 
-void HorizontalBox::Update()
-{
-	Super::Update();
 
+void UI::HorizontalBox::Update()
+{
 	const Vector2f& _totalSize = GetSize();
 	const u_int& _totalElement = GetElementCount();
 	const float _spaceX = (_totalSize.x - data.spaceBetween * (_totalElement - 1)) / _totalElement;
 	float _allElementsSize = 0.0f;
+
 	for (Widget* _widget : widgets)
 	{
 		const Vector2f& _size = _widget->GetSize();
@@ -28,8 +27,8 @@ void HorizontalBox::Update()
 	}
 
 	_allElementsSize += data.spaceBetween * (_totalElement - 1);
-
 	float _currentX = (_totalSize.x - _allElementsSize) / 2.0f;
+
 	for (Widget* _widget : widgets)
 	{
 		const float _computeSizeX = _widget->GetSize().x * _widget->GetScale().x;

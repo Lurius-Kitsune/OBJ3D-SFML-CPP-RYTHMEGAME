@@ -64,7 +64,7 @@ void BeatMapLevel::Unload()
 {
 	Super::Unload();
 	track->Stop();
-	score->SetScore(0);
+	//score->SetScore(0);
 	comboData->SetCount(0);
 }
 
@@ -110,18 +110,18 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 	}
 
 
-	LabelWidget* _noteResultLabel = M_HUD.CreateWidget<LabelWidget>(_text, "NoteResultLabel");
+	LabelWidget* _noteResultLabel = SpawnWidget<LabelWidget>(_text, "NoteResultLabel");
 	_noteResultLabel->SetOriginAtMiddle();
 	_noteResultLabel->SetPosition(_textPosition);
 	_noteResultLabel->SetCharacterSize(25);
 	_noteResultLabel->SetZOrder(3);
 	_noteResultLabel->SetFillColor(_color);
-	new Timer([_noteResultLabel]()
+	new Timer([_noteResultLabel, this]()
 		{ 
-			M_HUD.RemoveFromViewport(_noteResultLabel);
+			GetHUD()->RemoveFromViewport(_noteResultLabel);
 		}, seconds(1), true, false);
 
-	M_HUD.AddToViewport(_noteResultLabel);
+	GetHUD()->AddToViewport(_noteResultLabel);
 
 }
 
@@ -164,27 +164,27 @@ void BeatMapLevel::InitLevelAspect()
 	//_separatorBottomNote->SetFillColor(Color(255, 255, 255, 150));
 	_separatorBottomNote->SetPosition(Vector2f(_separatorLeft->GetPosition().x, 760.0f));
 
-	LabelWidget* _scoreText = M_HUD.CreateWidget<LabelWidget>("Score :", "Score Text");
+	LabelWidget* _scoreText = SpawnWidget<LabelWidget>("Score :", "Score Text");
 	_scoreText->SetPosition(Vector2f((_separatorLeft->GetPosition().x - _scoreText->GetSize().x) / 2.0f, windowSize.y * 0.25));
 	_scoreText->SetCharacterSize(25);
 	_scoreText->SetZOrder(3);
 
-	score = M_HUD.CreateWidget<ScoreLabel>("Score"); //TODO implemant Font
+	score = SpawnWidget<ScoreLabel>("Score"); //TODO implemant Font
 	score->SetPosition(Vector2f((_separatorLeft->GetPosition().x - score->GetSize().x) / 2.0f, _scoreText->GetPosition().y + _scoreText->GetSize().y + 10.0f));
 	score->SetCharacterSize(25);
 	score->SetZOrder(1);
 
-	LabelWidget* _rankText= M_HUD.CreateWidget<LabelWidget>("Rang :", "RankLabelInfo");
+	LabelWidget* _rankText= SpawnWidget<LabelWidget>("Rang :", "RankLabelInfo");
 	_rankText->SetPosition(Vector2f((_separatorLeft->GetPosition().x - _rankText->GetSize().x) / 2.0f, windowSize.y * 0.6));
 	_rankText->SetCharacterSize(25);
 	_rankText->SetZOrder(3);
 
-	LabelWidget* _rang = M_HUD.CreateWidget<LabelWidget>("F", "Rank"); //TODO Implement Rang
+	LabelWidget* _rang = SpawnWidget<LabelWidget>("F", "Rank"); //TODO Implement Rang
 	_rang->SetPosition(Vector2f(windowSize.x * 0.1f, windowSize.y * 0.625));
 	_rang->SetCharacterSize(100);
 	_rang->SetZOrder(3);
 
-	time = M_HUD.CreateWidget<LabelWidget>("0:00 / 0:00", "TimeLabel");
+	time = SpawnWidget<LabelWidget>("0:00 / 0:00", "TimeLabel");
 	time->SetPosition(Vector2f((_separatorRight->GetPosition().x + (windowSize.x - _separatorRight->GetPosition().x) / 2.0f) - time->GetSize().x / 2.0f, windowSize.y * 0.8f));
 	time->SetCharacterSize(25);
 	time->SetZOrder(3);

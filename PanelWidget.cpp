@@ -1,6 +1,6 @@
 #include "PanelWidget.h"
 
-UI::PanelWidget::PanelWidget(const string& _name, const RenderType& _type) : Widget(_name, _type)
+UI::PanelWidget::PanelWidget(Level* _level, const string& _name, const RenderType& _type) : Widget(_level, _name, _type)
 {
 	maxChild = 32768;
 	size = { 64.0f, 64.0f };
@@ -11,21 +11,10 @@ UI::PanelWidget::PanelWidget(const string& _name, const RenderType& _type) : Wid
 	debugFrame[2].color = Color(0, 255, 0);
 	debugFrame[3].color = Color(255, 255, 0);
 	debugFrame[4].color = Color(255, 0, 0);
+
 	UpdateDebugFrame();
 }
 
-UI::PanelWidget::~PanelWidget()
-{
-
-}
-
-void UI::PanelWidget::Render(RenderWindow& _window)
-{
-	if (debugMode)
-	{
-		_window.draw(debugFrame);
-	}
-}
 
 void UI::PanelWidget::UpdateDebugFrame()
 {
@@ -34,4 +23,13 @@ void UI::PanelWidget::UpdateDebugFrame()
 	debugFrame[2].position = Vector2f(size.x, size.y);
 	debugFrame[3].position = Vector2f(GetPosition().x, size.y);
 	debugFrame[4].position = debugFrame[0].position;
+}
+
+
+void UI::PanelWidget::Render(RenderWindow& _window)
+{
+	if (debugMode)
+	{
+		_window.draw(debugFrame);
+	}
 }

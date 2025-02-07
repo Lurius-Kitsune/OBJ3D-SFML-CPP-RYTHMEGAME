@@ -3,7 +3,7 @@
 
 using namespace Camera;
 
-VertexActor::VertexActor(const u_int& _count, const PrimitiveType& _type, const string& _name) : Actor(_name)
+VertexActor::VertexActor(Level* _level, const u_int& _count, const PrimitiveType& _type, const string& _name) : Actor(_level, _name)
 {
 	vertex = CreateComponent<VertexComponent>(_count, _type);
 	renderMeshToken = -1;

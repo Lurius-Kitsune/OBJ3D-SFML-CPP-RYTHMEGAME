@@ -46,13 +46,11 @@ namespace Input
 
 	struct CallBackType
 	{
-		unique_ptr<function<void()>> digitalCallback; // bool
-		unique_ptr<function<void(const float& _axis)>>	axisCallback;	 // float
-		unique_ptr<function<void(const Vector2f& _axis2)>>	axis2Callback;
-		CallBackType()
-		{
+		unique_ptr<function<void()>> digitalCallback;						// bool
+		unique_ptr<function<void(const float& _axis)>>	axisCallback;		// float
+		unique_ptr<function<void(const Vector2f& _axis2)>>	axis2Callback;	//Vector2f
 
-		}
+		CallBackType() = default;
 		CallBackType(const function<void()>& _digitalCallback)
 		{
 			digitalCallback = make_unique<function<void()>>(_digitalCallback);
@@ -65,26 +63,6 @@ namespace Input
 		{
 			axis2Callback = make_unique<function<void(const Vector2f & _axis2)>>(_axis2Callback);
 		}
-		~CallBackType()
-		{
-
-		}
-	};
-
-	enum class ControllerButtonsType
-	{
-		Start,
-		Select,
-		Cross,
-		Circle,
-		Triangle,
-		Square,
-		L1,
-		R1,
-		L2,
-		R2,
-		LeftStick,
-		RightStick
 	};
 
 	enum ActionType
@@ -117,8 +95,8 @@ namespace Input
 		JoystickButtonHold,		//ValueType = Digital
 		JoystickButtonReleased,	//ValueType = Digital
 		JoystickMoved,			//ValueType = Axis
-		JoystickConnected,		//ValueType = Digital
-		JoystickDisconnected,	//ValueType = Digital
+		JoystickConnected,		//ValueType = Axis
+		JoystickDisconnected,	//ValueType = Axis
 
 		//Screen
 		TouchBegan,				//ValueType = Axis2
@@ -126,17 +104,6 @@ namespace Input
 		TouchEnded,				//ValueType = Axis2
 		SensorChanged,			//ValueType = Digital
 	};
-
-		
-
-	enum ControllerAxesType
-	{
-		LeftStickX,
-		LeftStickY,
-		RightStickX,
-		RightStickY,
-	};
-
 
 	enum ValueType
 	{
@@ -232,10 +199,10 @@ namespace Input
 		Subtract,     //!< The - key (minus, usually from numpad)
 		Multiply,     //!< The * key
 		Divide,       //!< The / key
-		Left_Arrow,         //!< Left arrow
-		Right_Arrow,        //!< Right arrow
-		Up_Arrow,           //!< Up arrow
-		Down_Arrow,         //!< Down arrow
+		Left_Arrow,   //!< Left arrow
+		Right_Arrow,  //!< Right arrow
+		Up_Arrow,     //!< Up arrow
+		Down_Arrow,   //!< Down arrow
 		Numpad0,      //!< The numpad 0 key
 		Numpad1,      //!< The numpad 1 key
 		Numpad2,      //!< The numpad 2 key
@@ -281,13 +248,14 @@ namespace Input
 		Joystick_PovX,		//!< The X axis of the point-of-view hat = D_PadX
 		Joystick_PovY,		//!< The Y axis of the point-of-view hat = D_PadY
 
-		LeftJoystickX = 0, // Left : -100 - 0 / Right : 0 - 100
-		LeftJoystickY, // Up : -100 - 0 / Down : 0 - 100
-		BackButtons = 3, // 0 - 100 : LT / -100 - 0 : RT (Xbox Controller)
-		RightJoystickX, // Left : -100 - 0 / Right : 0 - 100
-		RightJoystickY, // Up : -100 - 0 / Down : 0 - 100
-		D_PadX, // Left = -100 / Right = 100
-		D_PadY // D-Pad : Up = -100 / Down = 100
+		//XBOX CONTROLLER
+		LeftJoystickX = 0,	// Left : -100 - 0 / Right : 0 - 100
+		LeftJoystickY,		// Up : -100 - 0 / Down : 0 - 100
+		BackButtons = 3,	// 0 - 100 : LT / -100 - 0 : RT (Xbox Controller)
+		RightJoystickX,		// Left : -100 - 0 / Right : 0 - 100
+		RightJoystickY,		// Up : -100 - 0 / Down : 0 - 100
+		D_PadX,				// Left = -100 / Right = 100
+		D_PadY				// D-Pad : Up = -100 / Down = 100
 	};
 
 	struct ActionData
@@ -346,7 +314,6 @@ namespace Input
 		/// Constructeur pour les ActionTypes :
 		/// JoystickButtonPressed /
 		/// JoystickButtonReleased /
-		/// JoystickMoved /
 		/// JoystickConnected /
 		///	JoystickDisconnected 
 		/// </summary>
@@ -354,8 +321,7 @@ namespace Input
 		/// <param name="_button">Boutton de Joystick</param>
 		ActionData(const ActionType& _type, const int _joystickID, const int _button = -1)
 		{
-			assert((_type == JoystickButtonPressed || _type == JoystickButtonReleased ||
-				_type == JoystickConnected || _type == JoystickDisconnected) &&
+			assert((_type == JoystickButtonPressed || _type == JoystickButtonReleased) &&
 				"Invalid constructor to use this ActionType!");
 
 			value = ComputeValueTypeWithActionType(_type);
@@ -389,8 +355,7 @@ namespace Input
 				_type != KeyReleased && _type != MouseButtonPressed && _type != MouseButtonHold &&
 				_type != MouseButtonReleased && _type != SensorChanged &&
 				_type != JoystickButtonPressed && _type != JoystickButtonReleased &&
-				_type != JoystickMoved && _type != JoystickConnected &&
-				_type != JoystickDisconnected && _type != MouseWheelScrolled) &&
+				_type != JoystickMoved && _type != MouseWheelScrolled) &&
 				"Invalid constructor to use this ActionType!");
 
 			value = ComputeValueTypeWithActionType(_type);
@@ -410,6 +375,8 @@ namespace Input
 			case TouchEnded:
 				return Axis2;
 			case JoystickMoved:
+			case JoystickConnected:
+			case JoystickDisconnected:
 			case MouseWheelScrolled:
 				return Axis;
 			default:
@@ -423,9 +390,7 @@ namespace Input
 	{
 		string name;
 		multimap<TypeIndex, ActionData> allData;
-		shared_ptr<CallBackType> callback;
-		bool isKeyHolding;
-		bool isButtonHolding;
+		CallBackType callback;
 
 	private:
 		template<typename EnumType, typename = enable_if_t<is_enum_v<EnumType>>>
@@ -453,27 +418,10 @@ namespace Input
 			}
 			return false;
 		}
-		template<typename EnumType, typename = enable_if_t<is_enum_v<EnumType>>>
-		FORCEINLINE bool IsSpecificTypeInAllData(const TypeIndex& _type, const EnumType& _key, const ActionType& _specificType)
-		{
-			return IsSpecificTypeInAllData(_type, CAST(int, _key), _specificType);
-		}
-		FORCEINLINE bool IsSpecificTypeInAllData(const TypeIndex& _type, const int _key, const ActionType& _specificType)
-		{
-			using Iterator = multimap<TypeIndex, ActionData>::iterator;
-			const pair <Iterator, Iterator>& _actionsType = allData.equal_range(_type);
-			for (Iterator _it = _actionsType.first; _it != _actionsType.second; ++_it)
-			{
-				if (_it->second.key == _key && _it->second.type == _specificType) return true;
-			}
-			return false;
-		}
 		void SimpleConstruct(const string& _name, const ActionData& _data)
 		{
 			name = _name;
 			AddData(_data);
-			isKeyHolding = false;
-			isButtonHolding = false;
 		}
 		void MultipleConstruct(const string& _name, const vector<ActionData>& _allData)
 		{
@@ -482,8 +430,6 @@ namespace Input
 			{
 				AddData(_actionData);
 			}
-			isKeyHolding = false;
-			isButtonHolding = false;
 		}
 
 	public:
@@ -495,11 +441,6 @@ namespace Input
 		{
 			allData.insert({ ComputeTypeIndexByActionType(_actionData.type), _actionData });
 		}
-		/*template <typename Type>
-		FORCEINLINE void SetTrigger()
-		{
-			data.trigger = typeid(Type);
-		}*/
 
 	public:
 		/// <summary>
@@ -558,6 +499,5 @@ namespace Input
 	private:
 		TypeIndex ComputeTypeIndexByActionType(const ActionType& _typeIndex);
 		
-	
 	};
 }

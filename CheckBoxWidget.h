@@ -50,6 +50,7 @@ namespace UI
 			checkImage->Scale(_factor);
 		}
 		#pragma endregion
+
 		FORCEINLINE virtual bool GetIsChecked() const
 		{
 			return isChecked;
@@ -58,7 +59,6 @@ namespace UI
 		{
 			isChecked = _isChecked;
 		}
-
 		FORCEINLINE virtual void SetZOrder(const int _zOrder) override
 		{
 			Super::SetZOrder(_zOrder);
@@ -72,13 +72,12 @@ namespace UI
 		{
 			checkImage->SetTexture(_texture, _extension);
 		}
+
 	public:
-		CheckBoxWidget(const string& _name, const float _size, const RenderType& _type = Screen);
+		CheckBoxWidget(Level* _level, const string& _name, const float _size, const RenderType& _type = Screen);
 	
 	public:
 		virtual void OnClick() override;
 		virtual void Render(RenderWindow& _window) override;
 	};
 }
-
-

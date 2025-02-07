@@ -3,8 +3,10 @@
 #include "TimerManager.h"
 #include "Level.h"
 
-Actor::Actor(const string& _name, const TransformData& _transform)
+Actor::Actor(Level* _level, const string& _name, const TransformData& _transform)
 {
+	level = _level; // Setup level in first
+
 	isToDelete = false;
 	id = 0;
 	lifeSpan = 0.0f;
@@ -15,7 +17,6 @@ Actor::Actor(const string& _name, const TransformData& _transform)
 	parent = nullptr;
 	attachment = AT_NONE;
 	children = set<Actor*>();
-	level = nullptr;
 }
 
 Actor::Actor(const Actor& _other)
@@ -105,6 +106,12 @@ void Actor::SetName(const string& _name)
 	if (name == _name) return;
 	name = _name;
 	displayName = level->GetActorManager().GetDisplayName(this);
+}
+
+void Actor::CreateSocket(const string& _name, const TransformData& _transform, const AttachmentType& _type)
+{
+	Actor* _socket = level->SpawnActor<Actor>(_name, _transform);
+	AddChild(_socket, _type);
 }
 
 void Actor::Destroy()

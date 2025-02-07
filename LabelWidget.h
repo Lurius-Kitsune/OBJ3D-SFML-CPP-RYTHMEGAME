@@ -95,14 +95,13 @@ namespace UI
 
 
 	public:
-		LabelWidget(const string& _text, const string& _name, const RenderType& _type = Screen);
+		LabelWidget(Level* _level, const string& _text, const string& _name, const RenderType& _type = Screen);
 		~LabelWidget();
-
-	public:
-		virtual void Render(RenderWindow& _window) override;
-		virtual void Tick(const float _deltaTime) override;
 
 	private:
 		string ComputeScoreText();
+
+	public:
+		virtual void Render(RenderWindow& _window) override;
 	};
 }

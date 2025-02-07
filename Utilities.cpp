@@ -80,7 +80,7 @@ Vector2f ComputeNormal(const FloatRect& _rect)
 vector<string> SplitString(const string& _string, const char _delimiter)
 {
     vector<string> _result;
-    stringstream _ss(_string);
+    stringstream _ss = stringstream(_string);
     string _item;
 
     while (getline(_ss, _item, _delimiter))

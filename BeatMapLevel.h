@@ -18,7 +18,7 @@ struct ComboData
 	ComboData()
 	{
 		count = 0;
-		label = M_HUD.CreateWidget<LabelWidget>("X " + to_string(count), "ComboCount");
+		//label = CreateWidget<LabelWidget>("X " + to_string(count), "ComboCount");
 		label->SetVisibility(Hidden);
 		finishedAnimation = false;
 		minScale = { 1.0f, 1.0f };

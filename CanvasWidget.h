@@ -7,22 +7,19 @@ namespace UI
 	class CanvasWidget : public PanelWidget
 	{
 	public:
-		template <typename Type, typename ...Args, IS_BASE_OF(Widget, Type)>
-		FORCEINLINE void AddChild(Type* _widget)
+		FORCEINLINE virtual bool AddChild(Widget* _widget) override
 		{
-			if (!CanAddMoreChildren()) return;
-			Actor::AddChild(_widget, AT_KEEP_RELATIVE);
+			if (!Super::AddChild(_widget)) return false;
+
 			_widget->AddSlot(new CanvasSlot(this, _widget));
+			return true;
 		}
 
 	public:
-		CanvasWidget(const string& _name, const RenderType& _type);
-		~CanvasWidget();
+		CanvasWidget(Level* _level, const string& _name, const RenderType& _type);
 
 	public:
 		virtual void Construct() override;
 		virtual void Render(RenderWindow& _window) override;
 	};
 }
-
-

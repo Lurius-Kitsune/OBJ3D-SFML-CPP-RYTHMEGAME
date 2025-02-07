@@ -1,26 +1,26 @@
 #pragma once
 #include "ImageWidget.h"
 
-enum ProgressType
-{
-	PT_CENTER,
-	PT_LEFT,
-	PT_TOP,
-	PT_RIGHT,
-	PT_BOTTOM,
-
-	PT_COUNT
-};
-
 namespace UI
 {
+	enum ProgressType
+	{
+		PT_CENTER,
+		PT_LEFT,
+		PT_TOP,
+		PT_RIGHT,
+		PT_BOTTOM,
+
+		PT_COUNT
+	};
+
 	class ProgressBarWidget : public ImageWidget
 	{
-		ProgressType type;
-		ImageWidget* foreground;
 		float currentValue;
 		float maxValue;
 		Vector2f size;
+		ProgressType type;
+		ImageWidget* foreground;
 
 	public:
 		FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
@@ -117,17 +117,16 @@ namespace UI
 		}
 
 	public:
-		ProgressBarWidget(const ProgressType& _type, const RectangleShapeData& _data,
-			const string _name, const float _maxValue = 100.0f,
-			const RenderType& _renderType = Screen);
-		virtual ~ProgressBarWidget();
-
-	public:
-		virtual void Render(RenderWindow& _window) override;
+		ProgressBarWidget(Level* _level, const ProgressType& _type, const RectangleShapeData& _data,
+						  const string _name, const float _maxValue = 100.0f,
+						  const RenderType& _renderType = Screen);
 
 	private:
 		void Update();
 		void UpdateOriginAndPosition(const Vector2f& _size);
 		IntRect MakeRect(const float _percent);
-};
+
+	public:
+		virtual void Render(RenderWindow& _window) override;
+	};
 }

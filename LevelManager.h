@@ -22,7 +22,7 @@ public:
 	{
 		if (!allLevels.contains(_name))
 		{
-			LOG(Error, "Level \"" + _name + "\" not found !");
+			LOG(Fatal, "Level \"" + _name + "\" not found !");
 			return false;
 		}
 

@@ -14,7 +14,8 @@ public:
 	}
 
 public:
-	VertexActor(const u_int& _count, const PrimitiveType& _type = PrimitiveType::Points, const string& _name = "VertexActor");
+	VertexActor(Level* _level, const u_int& _count, const PrimitiveType& _type = PrimitiveType::Points,
+				const string& _name = "VertexActor");
 	VertexActor(const VertexActor& _other);
 
 	virtual void Construct() override;

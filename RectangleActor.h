@@ -4,5 +4,6 @@
 class RectangleActor : public MeshActor
 {
 public:
-	RectangleActor(const RectangleShapeData& _data);
+	RectangleActor(Level* _level, const RectangleShapeData& _data);
+	RectangleActor(const RectangleActor& _other);
 };

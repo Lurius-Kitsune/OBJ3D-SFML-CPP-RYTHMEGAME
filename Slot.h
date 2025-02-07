@@ -3,7 +3,7 @@
 
 namespace UI
 {
-	class Slot //TODO Update
+	class Slot
 	{
 	protected:
 		Vector2f position;
