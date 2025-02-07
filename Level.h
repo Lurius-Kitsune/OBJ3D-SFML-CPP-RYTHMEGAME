@@ -62,7 +62,7 @@ public:
 	template <typename Type = UI::HUD, IS_BASE_OF(Type, UI::HUD)>
 	FORCEINLINE Type* GetHUD()
 	{
-		return Cast<Type>(gameMode->GetHUD());
+		return Cast<Type>(GetGameMode()->GetHUD());
 	}
 
 	#pragma region Spawn
