@@ -13,7 +13,7 @@ class ParticleActor : public VertexActor
 	vector<Particle> particles;
 
 public:
-	ParticleActor(const u_int& _count, const float _maxLifeTime = 1.0f,
+	ParticleActor(Level* _level, const u_int& _count, const float _maxLifeTime = 1.0f,
 				  const Color& _color = Color::White, const PrimitiveType& _type = PrimitiveType::Points);
 	ParticleActor(const ParticleActor& _other);
 

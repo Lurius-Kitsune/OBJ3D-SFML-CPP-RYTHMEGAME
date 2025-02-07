@@ -9,8 +9,8 @@ Level::Level(const string& _name)
 	name = _name;
 	actorManager = ActorManager();
 	cameraManager = CameraManager();
-	gamemodeRef = GameMode();
-	gamemode = nullptr;
+	gameModeRef = GameMode(this);
+	gameMode = nullptr;
 
 	M_LEVEL.RegisterLevel(_name, this);
 }
@@ -54,5 +54,4 @@ void Level::Unload()
 void Level::InitLevel()
 {
 	isLoaded = true;
-	//CreateCamera(gamemode->GetPlayerController()->GetCamera()->GetObject());
 }

@@ -1,7 +1,8 @@
 #pragma once
 #include "ImageWidget.h"
-#include "LabelWidget.h"
+
 using MouseMouvement = Event::MouseMoved;
+
 namespace UI
 {
 	struct CallbackData
@@ -15,9 +16,9 @@ namespace UI
 
 	class ButtonWidget : public ImageWidget
 	{
-		unique_ptr<CallbackData> callbackData;
-		bool isHovered;
 		bool isPressed;
+		bool isHovered;
+		unique_ptr<CallbackData> callbackData;
 
 	public:
 		FORCEINLINE FloatRect GetGlobalBox() const
@@ -64,9 +65,9 @@ namespace UI
 			callbackData.get()->onDragActions.push_back(_action);
 		}
 		#pragma endregion
+
 	public:
-		ButtonWidget(const string _name, const RectangleShapeData& _data, const RenderType& _renderType);
-		virtual ~ButtonWidget();
+		ButtonWidget(Level* _level, const string _name, const RectangleShapeData& _data, const RenderType& _renderType);
 
 	public:
 		virtual void OnClick();

@@ -6,14 +6,14 @@ Input::Action::Action(const string& _name, const ActionData& _data, const functi
 	assert(_data.value == Axis2 &&
 		"The callback must be a function with compatible parameter like ValueType return !");
 	SimpleConstruct(_name, _data);
-	callback = make_shared<CallBackType>(_callback);
+	callback = CallBackType(_callback);
 }
 Input::Action::Action(const string& _name, const ActionData& _data, const function<void(const float _parameter)>& _callback)
 {
 	assert(_data.value == Axis &&
 		"The callback must be a function with compatible parameter like ValueType return !");
 	SimpleConstruct(_name, _data);
-	callback = make_shared<CallBackType>(_callback);
+	callback = CallBackType(_callback);
 }
 Input::Action::Action(const string& _name, const ActionData& _data, const function<void()>& _callback)
 {
@@ -21,7 +21,7 @@ Input::Action::Action(const string& _name, const ActionData& _data, const functi
 		"The callback must be a function with compatible parameter like ValueType return !");
 
 	SimpleConstruct(_name, _data);
-	callback = make_shared<CallBackType>(_callback);
+	callback = CallBackType(_callback);
 }
 Input::Action::Action(const string& _name, const vector<ActionData>& _allData, const function<void()>& _callback)
 {
@@ -31,7 +31,7 @@ Input::Action::Action(const string& _name, const vector<ActionData>& _allData, c
 		"The callback must be a function with compatible parameter like ValueType return !");
 
 	MultipleConstruct(_name, _allData);
-	callback = make_shared<CallBackType>(_callback);
+	callback = CallBackType(_callback);
 }
 Input::Action::Action(const string& _name, const vector<ActionData>& _allData, const function<void(const Vector2f& _parameter)>& _callback)
 {
@@ -41,7 +41,7 @@ Input::Action::Action(const string& _name, const vector<ActionData>& _allData, c
 		"The callback must be a function with compatible parameter like ValueType return !");
 
 	MultipleConstruct(_name, _allData);
-	callback = make_shared<CallBackType>(_callback);
+	callback = CallBackType(_callback);
 }
 Input::Action::Action(const string& _name, const vector<ActionData>& _allData, const function<void(const float _parameter)>& _callback)
 {
@@ -51,7 +51,7 @@ Input::Action::Action(const string& _name, const vector<ActionData>& _allData, c
 		"The callback must be a function with compatible parameter like ValueType return !");
 
 	MultipleConstruct(_name, _allData);
-	callback = make_shared<CallBackType>(_callback);
+	callback = CallBackType(_callback);
 }
 
 void Input::Action::TryToExecute(const EventInfo& _event)
@@ -77,7 +77,7 @@ void Input::Action::TryToExecute(const EventInfo& _event)
 							if (_it->second.type == KeyHold ||
 								(!_isKeyHolding && _it->second.type == KeyPressed))
 							{
-								(*callback.get()->digitalCallback.get())();
+								(*callback.digitalCallback.get())();
 								break;
 							}
 						}
@@ -88,7 +88,7 @@ void Input::Action::TryToExecute(const EventInfo& _event)
 				{
 					if (IsInAllData(_elementType, CAST(const int, _key->code)))
 					{
-						(*callback.get()->digitalCallback.get())();
+						(*callback.digitalCallback.get())();
 					}
 				}
 
@@ -110,7 +110,7 @@ void Input::Action::TryToExecute(const EventInfo& _event)
 							if ( _it->second.type == MouseButtonHold ||
 								(!_isButtonHolding && _it->second.type == MouseButtonPressed))
 							{
-								(*callback.get()->digitalCallback.get())();
+								(*callback.digitalCallback.get())();
 								break;
 							}
 						}
@@ -121,57 +121,56 @@ void Input::Action::TryToExecute(const EventInfo& _event)
 				{
 					if (IsInAllData(_elementType, CAST(const int, _key->button)))
 					{
-						(*callback.get()->digitalCallback.get())();
+						(*callback.digitalCallback.get())();
 					}
 				}
 #pragma endregion
 
-				//TODO rajouter condition appel callback
 				else if (const ScrolledMouseWheel* _key = _event->getIf<ScrolledMouseWheel>())
 				{
 					if (IsInAllData(_elementType, _key->wheel))
 					{
-						(*callback.get()->axisCallback.get())(_key->delta);
+						(*callback.axisCallback.get())(_key->delta);
 					}
 				}
 				else if (const MovedMouse* _key = _event->getIf<MovedMouse>())
 				{
-					(*callback.get()->axis2Callback.get())(CAST(Vector2f, _key->position));
+					(*callback.axis2Callback.get())(CAST(Vector2f, _key->position));
 				}
 				else if (const MovedRawMouse* _key = _event->getIf<MovedRawMouse>())
 				{
-					(*callback.get()->axis2Callback.get())(CAST(Vector2f, _key->delta));
+					(*callback.axis2Callback.get())(CAST(Vector2f, _key->delta));
 				}
 				else if (_event->is<EnteredMouse>())
 				{
-					(*callback.get()->digitalCallback.get())();
+					(*callback.digitalCallback.get())();
 				}
 				else if (_event->is<LeftMouse>())
 				{
-					(*callback.get()->digitalCallback.get())();
+					(*callback.digitalCallback.get())();
 				}
 #pragma endregion
 
 #pragma region Window
 				else if (const ResizedWindow* _key = _event->getIf<ResizedWindow>())
 				{
-					(*callback.get()->axis2Callback.get())(CAST(Vector2f, _key->size));
+					(*callback.axis2Callback.get())(CAST(Vector2f, _key->size));
 				}
 				else if (_event->is<LostFocus>())
 				{
-					(*callback.get()->digitalCallback.get())();
+					(*callback.digitalCallback.get())();
 				}
 				else if (_event->is<GainedFocus>())
 				{
-					(*callback.get()->digitalCallback.get())();
+					(*callback.digitalCallback.get())();
 				}
 				else if (const EnteredText* _key = _event->getIf<EnteredText>())
 				{
-					(*callback.get()->digitalCallback.get())();
+					(*callback.digitalCallback.get())();
 				}
 				else if (const ClosedWindow* _key = _event->getIf<ClosedWindow>())
 				{
-					(*callback.get()->digitalCallback.get())();
+					(*callback.digitalCallback.get())();
 				}
 #pragma endregion
 
@@ -191,7 +190,7 @@ void Input::Action::TryToExecute(const EventInfo& _event)
 									(!_isJoystickButtonHolding
 										&& _it->second.type == JoystickButtonPressed))
 								{
-									(*callback.get()->digitalCallback.get())();
+									(*callback.digitalCallback.get())();
 									break;
 								}
 							}
@@ -203,7 +202,7 @@ void Input::Action::TryToExecute(const EventInfo& _event)
 					if (HasJoystickIDInAllData(_elementType, _key->joystickId) && 
 						IsInAllData(_elementType, _key->button))
 					{
-						(*callback.get()->digitalCallback.get())();
+						(*callback.digitalCallback.get())();
 					}
 				}
 				else if (const ControllerJoystickMoved* _key = _event->getIf<ControllerJoystickMoved>())
@@ -211,43 +210,37 @@ void Input::Action::TryToExecute(const EventInfo& _event)
 					if (HasJoystickIDInAllData(_elementType, _key->joystickId) &&
 						IsInAllData(_elementType, _key->axis))
 					{
-						(*callback.get()->axisCallback.get())(_key->position);
+						(*callback.axisCallback.get())(_key->position / 100.0f);
 					}
 				}
 				else if (const ControllerJoystickConnected* _key = _event->getIf<ControllerJoystickConnected>())
 				{
-					if (HasJoystickIDInAllData(_elementType, _key->joystickId))
-					{
-						(*callback.get()->digitalCallback.get())();
-					}
+					(*callback.axisCallback.get())(CAST(float, _key->joystickId));
 				}
 				else if (const ControllerJoystickDisconnected* _key = _event->getIf<ControllerJoystickDisconnected>())
 				{
-					if (HasJoystickIDInAllData(_elementType, _key->joystickId))
-					{
-						(*callback.get()->digitalCallback.get())();
-					}
+					(*callback.axisCallback.get())(CAST(float, _key->joystickId));
 				}
 #pragma endregion
 
 #pragma region Screen
 				else if (const BeganTouch* _key = _event->getIf<BeganTouch>())
 				{
-					(*callback.get()->axis2Callback.get())(CAST(Vector2f, _key->position));
+					(*callback.axis2Callback.get())(CAST(Vector2f, _key->position));
 				}
 				else if (const MovedTouch* _key = _event->getIf<MovedTouch>())
 				{
-					(*callback.get()->axis2Callback.get())(CAST(Vector2f, _key->position));
+					(*callback.axis2Callback.get())(CAST(Vector2f, _key->position));
 				}
 				else if (const EndedTouch* _key = _event->getIf<EndedTouch>())
 				{
-					(*callback.get()->axis2Callback.get())(CAST(Vector2f, _key->position));
+					(*callback.axis2Callback.get())(CAST(Vector2f, _key->position));
 				}
 				else if (const ChangedSensor* _key = _event->getIf<ChangedSensor>())
 				{
 					if (IsInAllData(_elementType, _key->type))
 					{
-						(*callback.get()->digitalCallback.get())();
+						(*callback.digitalCallback.get())();
 					}
 				}
 #pragma endregion

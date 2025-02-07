@@ -18,7 +18,7 @@ public:
 	}
 
 public:
-	PlayerController(const string& _name = "PlayerController");
+	PlayerController(Level* _level, const string& _name = "PlayerController");
 	PlayerController(const PlayerController& _other);
 	virtual void Construct() override;
 

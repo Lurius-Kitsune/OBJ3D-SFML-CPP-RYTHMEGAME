@@ -1,17 +1,13 @@
 #include "ButtonWidget.h"
-#include "HUD.h"
 
-UI::ButtonWidget::ButtonWidget(const string _name, const RectangleShapeData& _data, const RenderType& _renderType)
-	: ImageWidget(_name, _data, _renderType)
+UI::ButtonWidget::ButtonWidget(Level* _level, const string _name, const RectangleShapeData& _data, const RenderType& _renderType)
+							 : ImageWidget(_level, _name, _data, _renderType)
 {
-	callbackData = make_unique<CallbackData>();
-	isHovered = false;
 	isPressed = false;
+	isHovered = false;
+	callbackData = make_unique<CallbackData>();
 }
 
-UI::ButtonWidget::~ButtonWidget()
-{
-}
 
 void UI::ButtonWidget::OnClick()
 {
@@ -50,7 +46,8 @@ void UI::ButtonWidget::OnUnhover()
 
 void UI::ButtonWidget::OnDrag(const MouseMouvement* _mouseMovement)
 {
-	if(!isPressed) return;
+	if (!isPressed) return;
+
 	for (function<void(const MouseMouvement*)>& _action : callbackData.get()->onDragActions)
 	{
 		_action(_mouseMovement);

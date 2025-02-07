@@ -1,30 +1,30 @@
 #pragma once
 #include "Macro.h"
 
-template <typename T>
+template <typename Type>
 class SubclassOf
 {
-	T* objectRef = nullptr;
+	Type* objectRef = nullptr;
 
 public:
-	FORCEINLINE T GetObject() const
+	FORCEINLINE Type GetObject() const
 	{
 		return *objectRef;
 	}
 
 public:
 	SubclassOf() = default;
-	SubclassOf(const T& _objectRef)
+	SubclassOf(const Type& _objectRef)
 	{
-		objectRef = new T(_objectRef);
+		objectRef = new Type(_objectRef);
 	}
-	SubclassOf(const SubclassOf<T>& _other)
+	SubclassOf(const SubclassOf<Type>& _other)
 	{
-		objectRef = new T(_other.GetObject());
+		objectRef = new Type(_other.GetObject());
 	}
-	SubclassOf(T&& _value)
+	SubclassOf(Type&& _value)
 	{
-		objectRef = new T(move(_value));
+		objectRef = new Type(move(_value));
 	}
 	~SubclassOf()
 	{
@@ -32,24 +32,24 @@ public:
 	}
 
 public:
-	SubclassOf& operator = (const SubclassOf<T>& _other)
+	SubclassOf& operator = (const SubclassOf<Type>& _other)
 	{
 		if (this != &_other)
 		{
 			delete objectRef;
 		}
 
-		objectRef = new T(_other.GetObject());
+		objectRef = new Type(_other.GetObject());
 		return *this;
 	}
-	SubclassOf& operator = (SubclassOf<T>&& _other)
+	SubclassOf& operator = (SubclassOf<Type>&& _other)
 	{
 		if (this != &_other)
 		{
 			delete objectRef;
 		}
 
-		objectRef = new T(move(_other.GetObject()));
+		objectRef = new Type(move(_other.GetObject()));
 		return *this;
 	}
 };

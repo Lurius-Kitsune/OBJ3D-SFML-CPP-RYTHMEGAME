@@ -34,13 +34,6 @@ protected:
 		AddComponent(_component);
 		return _component;
 	}
-	FORCEINLINE void CreateSocket(const string& _name, const TransformData& _transform = TransformData(),
-								  const AttachmentType& _type = AT_SNAP_TO_TARGET)
-	{
-		Actor* _socket = new Actor(_name, _transform);
-		_socket->SetLevelReference(level);
-		AddChild(_socket, _type);
-	}
 
 public:
 	FORCEINLINE void SetToDelete()
@@ -66,10 +59,6 @@ public:
 
 	#pragma region Level
 	
-	FORCEINLINE void SetLevelReference(Level* _level)
-	{
-		level = _level;
-	}
 	FORCEINLINE Level* GetLevel() const
 	{
 		return level;
@@ -302,7 +291,7 @@ public:
 	#pragma endregion
 
 public:
-	Actor(const string& _name = "Actor", const TransformData& _transform = TransformData());
+	Actor(Level* _level, const string& _name = "Actor", const TransformData& _transform = TransformData());
 	Actor(const Actor& _other);
 	virtual ~Actor();
 
@@ -314,21 +303,19 @@ public:
 	virtual void BeginDestroy() override;
 
 	void SetName(const string& _name);
+	void CreateSocket(const string& _name, const TransformData& _transform = TransformData(), const AttachmentType& _type = AT_SNAP_TO_TARGET);
 	void Destroy();
 
 	#pragma region Components
 
 	void AddComponent(Component* _component);
 	void RemoveComponent(Component* _component);
-	template <typename T>
-	T* GetComponent()
+	template <typename Type, IS_BASE_OF(Component, Type)>
+	Type* GetComponent()
 	{
 		for (Component* _component : components)
 		{
-			if (is_same_v<decltype(_component), T*>)
-			{
-				return dynamic_cast<T*>(_component);
-			}
+			if (Type* _result = Cast<Type>(_component)) return _result;
 		}
 
 		return nullptr;

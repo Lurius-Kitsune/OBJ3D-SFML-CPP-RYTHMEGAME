@@ -1,7 +1,7 @@
 #pragma once
 #include "Widget.h"
 #include "MeshActor.h"
-#include "TextureManager.h"
+
 namespace UI
 {
 	struct Gradient
@@ -12,7 +12,7 @@ namespace UI
 		Color bottomRight;
 
 		Gradient(const Color& _topLeft = Color(), const Color& _topRight = Color(),
-			const Color& _bottomLeft = Color(), const Color& _bottomRight = Color())
+				 const Color& _bottomLeft = Color(), const Color& _bottomRight = Color())
 		{
 			topLeft = _topLeft;
 			topRight = _topRight;
@@ -111,9 +111,9 @@ namespace UI
 		}
 
 	public:
-		ImageWidget(const string& _name, const RectangleShapeData& _data, const RenderType& _type = Screen);
-		ImageWidget(const string& _name, const CircleShapeData& _data, const RenderType& _type = Screen);
-		virtual ~ImageWidget() override;
+		ImageWidget(Level* _level, const string& _name, const RectangleShapeData& _data, const RenderType& _type = Screen);
+		ImageWidget(Level* _level, const string& _name, const CircleShapeData& _data, const RenderType& _type = Screen);
+
 	private:
 		void UpdateGradient();
 		void UpdatePosition(const Vector2f& _position);
@@ -125,4 +125,3 @@ namespace UI
 		virtual void Render(RenderWindow& _window) override;
 	};
 }
-

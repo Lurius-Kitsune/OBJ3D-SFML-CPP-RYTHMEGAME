@@ -1,21 +1,21 @@
 #include "CameraActor.h"
 
-CameraActor::CameraActor(const string& _name) : Actor(_name)
+CameraActor::CameraActor(Level* _level, const string& _name) : Actor(_level, _name)
 {
 	camera = CreateComponent<CameraComponent>();
 }
 
-CameraActor::CameraActor(const Vector2f& _center, const Vector2f& _size, const string& _name) : Actor(_name)
+CameraActor::CameraActor(Level* _level, const Vector2f& _center, const Vector2f& _size, const string& _name) : Actor(_level, _name)
 {
 	camera = CreateComponent<CameraComponent>(_center, _size);
 }
 
-CameraActor::CameraActor(const Vector2f& _size, const string& _name) : Actor(_name)
+CameraActor::CameraActor(Level* _level, const Vector2f& _size, const string& _name) : Actor(_level, _name)
 {
 	camera = CreateComponent<CameraComponent>(_size);
 }
 
-CameraActor::CameraActor(const FloatRect& _rect, const string& _name) : Actor(_name)
+CameraActor::CameraActor(Level* _level, const FloatRect& _rect, const string& _name) : Actor(_level, _name)
 {
 	camera = CreateComponent<CameraComponent>(_rect);
 }

@@ -1,15 +1,15 @@
 #pragma once
 #include "Box.h"
 
-class VerticalBox : public Box
+namespace UI
 {
+	class VerticalBox : public Box
+	{
+	public:
+		VerticalBox(Level* _level, const BoxData& _data);
 
-public:
-	VerticalBox() = default;
-	VerticalBox(const BoxData& _data);
-
-public:
-	virtual void Update() override;
-
-	virtual void Render(RenderWindow& _window) override {};
-};
+	public:
+		virtual void Update() override;
+		virtual void Render(RenderWindow& _window) override {};
+	};
+}

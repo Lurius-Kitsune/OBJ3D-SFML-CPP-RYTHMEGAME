@@ -1,24 +1,18 @@
 #include "SliderWidget.h"
-#include "HUD.h"
+#include "Level.h"
 
-UI::SliderWidget::SliderWidget(const string _name, const RenderType& _renderType)
-	: Widget(_name, _renderType)
+UI::SliderWidget::SliderWidget(Level* _level, const string _name, const RenderType& _renderType) : Widget(_level, _name, _renderType)
 {
-	minValue = 0.0f;
 	value = 0.0f;
+	minValue = 0.0f;
 	maxValue = 100.0f;
 	step = 1.0f;
-	sliderBar = M_HUD.CreateWidget<ImageWidget>(_name+"Bar", RectangleShapeData(Vector2f(100.0f, 10.0f), "sliderBar"), _renderType);
-	sliderButton = M_HUD.CreateWidget<ButtonWidget>(_name+"Button", RectangleShapeData(Vector2f(10.0f, 25.0f), "sliderButton"), _renderType);
+	sliderBar = level->SpawnWidget<ImageWidget>(_name + "_Bar", RectangleShapeData(Vector2f(100.0f, 10.0f), "sliderBar"), _renderType);
+	sliderButton = level->SpawnWidget<ButtonWidget>(_name + "_Button", RectangleShapeData(Vector2f(10.0f, 25.0f), "sliderButton"), _renderType);
+
 	Init();
 }
 
-void UI::SliderWidget::Render(RenderWindow& _window)
-{
-	if (visibility == Hidden) return;
-	sliderBar->Render(_window);
-	sliderButton->Render(_window);
-}
 
 void UI::SliderWidget::Init()
 {
@@ -48,4 +42,12 @@ void UI::SliderWidget::UpdateCursorPosition()
 	const float _normaliseValue = (value - minValue) / (maxValue - minValue);
 	const Vector2f& _offset = Vector2f(sliderBar->GetSize().x * _normaliseValue, sliderBar->GetSize().y / 2.0f);
 	sliderButton->SetPosition(_position + _offset);
+}
+
+
+void UI::SliderWidget::Render(RenderWindow& _window)
+{
+	if (visibility == Hidden) return;
+	sliderBar->Render(_window);
+	sliderButton->Render(_window);
 }

@@ -10,14 +10,16 @@ namespace UI
 		bool debugMode;
 		int maxChild;
 		Vector2f size;
+
 	public:
 		//Adds a new child widget to the container.
-		template <typename Type, typename ...Args, IS_BASE_OF(Widget, Type)>
-		FORCEINLINE void AddChild(Type* _widget)
+		FORCEINLINE virtual bool AddChild(Widget* _widget)
 		{
-			if (!CanAddMoreChildren()) return;
+			if (!CanAddMoreChildren()) return false;
+
 			Actor::AddChild(_widget, AT_KEEP_RELATIVE);
 			_widget->AddSlot(new Slot(this, _widget));
+			return true;
 		}
 
 		//Returns true if the panel can accept another child widget.
@@ -67,6 +69,7 @@ namespace UI
 			return _slots;
 		}
 
+		//TODO QUENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
 		FORCEINLINE virtual Vector2f GetSize() const override
 		{
 			return size;
@@ -111,14 +114,20 @@ namespace UI
 			advance(_it, _index);
 			RemoveChild(Cast<Widget>(*_it));
 		}
+
+		//TODO QUENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
 		FORCEINLINE void SetDebugMode(const bool _status)
 		{
 			debugMode = _status;
 		}
+
+		//TODO QUENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
 		FORCEINLINE virtual void SetSize(const Vector2f& _size)
 		{
 			size = _size;
 		}
+
+		//TODO QUENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
 		FORCEINLINE virtual void SetScale(const Vector2f& _scale)
 		{
 			Super::SetScale(_scale);
@@ -130,13 +139,12 @@ namespace UI
 		}
 
 	public:
-		PanelWidget(const string& _name, const RenderType& _type);
-		~PanelWidget();
-
-	public:
-		virtual void Render(RenderWindow& _window) override;
+		PanelWidget(Level* _level, const string& _name, const RenderType& _type);
 
 	private:
 		void UpdateDebugFrame();
+
+	public:
+		virtual void Render(RenderWindow& _window) override;
 	};
 }

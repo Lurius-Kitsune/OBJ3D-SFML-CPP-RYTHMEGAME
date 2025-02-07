@@ -1,27 +1,19 @@
 #pragma once
-#include "Singleton.h"
+#include "Actor.h"
 #include "Widget.h"
 
 namespace UI
 {
-	class HUD : public Singleton<HUD>
+	class HUD : public Actor
 	{
 		set<Widget*> allWidgets;
 		Widget* currentWidget;
 
+	public:
 		FORCEINLINE void RegisterWidget(Widget* _widget)
 		{
 			if (allWidgets.contains(_widget)) return;
 			allWidgets.insert(_widget);
-		}
-	public:
-		// Tips: Look the parameters in the Constructor of your Class
-		template <typename Type, typename ...Args, IS_BASE_OF(Widget, Type)>
-		FORCEINLINE Type* CreateWidget(Args... _args)
-		{
-			Type* _widget = new Type(_args...);
-			RegisterWidget(_widget);
-			return _widget;
 		}
 		FORCEINLINE void UnregisterWidget(Widget* _widget)
 		{
@@ -30,8 +22,8 @@ namespace UI
 		}
 
 	public:
-		HUD();
-		~HUD();
+		HUD(Level* _level);
+		HUD(const HUD& _other);
 
 	public:
 		void AddToViewport(Widget* _widget);

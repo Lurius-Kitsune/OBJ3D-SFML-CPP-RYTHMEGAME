@@ -112,17 +112,13 @@ namespace UI
 		}
 		
 	public:
-
-		SliderWidget(const string _name, const RenderType& _renderType);
-
-	public:
-		virtual void Render(RenderWindow& _window) override;
+		SliderWidget(Level* _level, const string _name, const RenderType& _renderType);
 
 	private: 
 		void Init();
-
 		void UpdateCursorPosition();
 
+	public:
+		virtual void Render(RenderWindow& _window) override;
 	};
 }
-

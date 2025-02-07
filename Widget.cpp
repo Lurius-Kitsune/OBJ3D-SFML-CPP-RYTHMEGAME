@@ -4,7 +4,7 @@
 
 using namespace Camera;
 
-UI::Widget::Widget(const string& _name, const RenderType& _type) : Actor(_name)
+UI::Widget::Widget(Level* _level, const string& _name, const RenderType& _type) : Actor(_level, _name)
 {
 	type = _type;
 	visibility = Visible;
@@ -17,6 +17,7 @@ UI::Widget::~Widget()
 {
 	delete slot;
 }
+
 
 void UI::Widget::Construct()
 {

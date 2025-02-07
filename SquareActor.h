@@ -4,5 +4,6 @@
 class SquareActor : public RectangleActor
 {
 public:
-	SquareActor(const float _size, const string& _path = "", const TextureExtensionType& _textureType = PNG, const IntRect& _rect = {});
+	SquareActor(Level* _level, const float _size, const string& _path = "", const TextureExtensionType& _textureType = PNG, const IntRect& _rect = {});
+	SquareActor(const SquareActor& _other);
 };
