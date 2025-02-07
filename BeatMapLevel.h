@@ -76,7 +76,54 @@ struct ComboData
 	}
 };
 
+enum RankType
+{
+	F,
+	B = 60,
+	A = 70,
+	S = 80,
+	SS = 90,
+	SSS = 100,
+};
 
+struct Rank
+{
+	vector<RankType> rankType = { RankType::F, RankType::B , RankType::A , RankType::S , RankType::SS , RankType::SSS };
+	size_t size = rankType.size();
+
+	string ComputeCurrentRank(ScoreLabel* _scoreLabel, const int _maxScore)
+	{
+		for (size_t _i = 0; _i < size - 1; _i++)
+		{
+			if ((_scoreLabel->GetScore() / _maxScore) * 100 > rankType[_i]
+				&& (_scoreLabel->GetScore() / _maxScore) * 100 < rankType[_i + 1])
+			{
+				return GetRankString(rankType[_i]);
+			}
+		}
+	}
+	string GetRankString(RankType _rank)
+	{
+		switch (_rank)
+		{
+		case  RankType::F:
+			return "F";
+		case RankType::B:
+			return "B";
+		case  RankType::A:
+			return "A";
+		case RankType::S:
+			return "S";
+		case RankType::SS:
+			return "SS";
+		case RankType::SSS:
+			return "SSS";
+		default:
+			break;
+		}
+	}
+
+};
 
 class BeatMapLevel : public Level
 {
