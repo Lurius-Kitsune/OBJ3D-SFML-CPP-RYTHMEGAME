@@ -3,7 +3,7 @@
 #include "LevelManager.h"
 
 NoteSpawner::NoteSpawner(Level* _level, const NoteType& _noteType, NoteDetector* _detector)
-	: Spawner<Note>(_level, new SubclassOf(Note(_level, _noteType, _detector)))
+	: Spawner<Note>(_level, new Note(_level, _noteType, _detector))
 {
 	noteType = _noteType;
 }
@@ -22,7 +22,7 @@ void NoteSpawner::BeginPlay()
 void NoteSpawner::Spawn()
 {
 	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
-	Note* _note = _level->SpawnActor<Note>(*ref);
+	Note* _note = _level->SpawnActor<Note>(ref->GetType(), ref->GetMouvementComponent()->GetTriggerNote());
 	_note->SetPosition(GetPosition());
 	_level->AddNoteToQueue(_note);
 }

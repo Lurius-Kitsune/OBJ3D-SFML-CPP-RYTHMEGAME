@@ -32,16 +32,7 @@ BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 void BeatMapLevel::Load()
 {
 	Super::Load();
-	windowSize = GetWindowSize();
-	//cameraManager.<CameraActor>(FloatRect({}, CAST(Vector2f, windowSize)), "DefaultCamera");
-	//M_HUD.AddToViewport(comboData.get()->label);
-	InitLevelAspect();
-	InitTopBar();
-	InitNoteTriggerAndSpawner();
-
-	track->Start(difficulty);
-
-	new Timer<Seconds>([&]() { UpdateTime(); }, milliseconds(1000), true, true);
+	
 }
 
 //
@@ -127,7 +118,7 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 
 void BeatMapLevel::InitLevelAspect()
 {
-	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
+	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "Background")); //TODO implemant Font
 	background->SetOriginAtMiddle();
 	background->SetPosition(windowSize / 2.0f);
 	background->SetScale({ 1.2f, 2.0f });
@@ -330,4 +321,18 @@ pair<string, Keyboard::Key> BeatMapLevel::GetKey(const NoteType& _noteType)
 	default:
 		return make_pair("", Keyboard::Key::Unknown);
 	}
+}
+
+void BeatMapLevel::InitLevel()
+{
+	windowSize = GetWindowSize();
+	//cameraManager.<CameraActor>(FloatRect({}, CAST(Vector2f, windowSize)), "DefaultCamera");
+	//M_HUD.AddToViewport(comboData.get()->label);
+	InitLevelAspect();
+	InitTopBar();
+	InitNoteTriggerAndSpawner();
+
+	track->Start(difficulty);
+
+	new Timer<Seconds>([&]() { UpdateTime(); }, milliseconds(1000), true, true);
 }

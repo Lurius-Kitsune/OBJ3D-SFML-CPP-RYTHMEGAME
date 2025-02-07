@@ -41,6 +41,10 @@ public:
 	{
 		return type;
 	}
+	FORCEINLINE NoteMouvementComponent* GetMouvementComponent() const
+	{
+		return mouvementComponent;
+	}
 public:
 	Note() = default;
 	Note(Level* _level, const NoteType _type, NoteDetector* _actor = nullptr);

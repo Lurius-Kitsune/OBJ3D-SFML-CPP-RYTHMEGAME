@@ -32,56 +32,56 @@ SelectLevel::~SelectLevel()
 
 void SelectLevel::InitSeparator()
 {
-	RectangleActor* _topSeparation = Level::SpawnActor<RectangleActor>(RectangleActor(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background"))); //TODO implemant Font
+	RectangleActor* _topSeparation = Level::SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background")); //TODO implemant Font
 	//_topSeparation->SetFillColor(Color(255, 255, 255, 150));
 	_topSeparation->SetPosition(Vector2f(0.0f, 60.0f));
 
-	RectangleActor* _levelSeparation = Level::SpawnActor<RectangleActor>(RectangleActor(RectangleShapeData(Vector2f(5.0f, windowSize.y - 120.0f), "background"))); //TODO implemant Font
+	RectangleActor* _levelSeparation = Level::SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 120.0f), "background")); //TODO implemant Font
 	//_levelSeparation->SetFillColor(Color(255, 255, 255, 150));
 	_levelSeparation->SetPosition(Vector2f(windowSize.x * 0.6f, _topSeparation->GetPosition().y));
 
-	RectangleActor* _bottomSeparation = Level::SpawnActor<RectangleActor>(RectangleActor(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background"))); //TODO implemant Font
+	RectangleActor* _bottomSeparation = Level::SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background")); //TODO implemant Font
 	//_bottomSeparation->SetFillColor(Color(255, 255, 255, 150));
 	_bottomSeparation->SetPosition(Vector2f(0.0f, windowSize.y - 60.0f));
 }
 
 void SelectLevel::InitLabel()
 {
-	LabelWidget* _label = M_HUD.CreateWidget<LabelWidget>("Select Level", "SelectLevelLabel"); //TODO implemant Font
+	LabelWidget* _label = SpawnWidget<LabelWidget>("Select Level", "SelectLevelLabel"); //TODO implemant Font
 	_label->SetCharacterSize(35);
 	_label->SetZOrder(2);
 	_label->SetPosition(Vector2f(windowSize.x * 0.05f, 10.0f));
 
 	//TODO Replace with button
-	LabelWidget* _play = M_HUD.CreateWidget<LabelWidget>("PLAY", "PlayLabel"); //TODO implemant Font
+	LabelWidget* _play = SpawnWidget<LabelWidget>("PLAY", "PlayLabel"); //TODO implemant Font
 	_play->SetCharacterSize(30);
 	_play->SetZOrder(2);
 	_play->SetPosition(Vector2f(windowSize.x * 0.875f, windowSize.y - 45.0f));
 
-	M_HUD.AddToViewport(_label);
-	M_HUD.AddToViewport(_play);
+	//M_HUD.AddToViewport(_label);
+	//M_HUD.AddToViewport(_play);
 }
 
 void SelectLevel::InitDescription()
 {
-	description = M_HUD.CreateWidget<CanvasWidget>("Description", Screen);
-	LabelWidget* _title = M_HUD.CreateWidget<LabelWidget>("TrackTitle","TrackTitleLabel"); //TODO implemant Font
+	description = SpawnWidget<CanvasWidget>("Description", Screen);
+	LabelWidget* _title = SpawnWidget<LabelWidget>("TrackTitle","TrackTitleLabel"); //TODO implemant Font
 	_title->SetCharacterSize(50);
 	_title->SetZOrder(2);
 	_title->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.2f));
 
-	LabelWidget* _artist = M_HUD.CreateWidget<LabelWidget>("TrackTitle","TrackTitleLabel2"); //TODO implemant Font
+	LabelWidget* _artist = SpawnWidget<LabelWidget>("TrackTitle","TrackTitleLabel2"); //TODO implemant Font
 	_artist->SetCharacterSize(25);
 	_artist->SetZOrder(2);
 	_artist->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.3f));
 
-	LabelWidget* _duration = M_HUD.CreateWidget<LabelWidget>("TrackDuration", "TrackDurationLabel"); //TODO implemant Font
+	LabelWidget* _duration = SpawnWidget<LabelWidget>("TrackDuration", "TrackDurationLabel"); //TODO implemant Font
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
 	_duration->SetPosition(Vector2f(windowSize.x * 0.8f, windowSize.y * 0.4f));
 
 	//TODO Dificulty
-	LabelWidget* _easy = M_HUD.CreateWidget<LabelWidget>("TrackDifficulty", "TrackDifficultyLabel"); //TODO implemant Font
+	LabelWidget* _easy = SpawnWidget<LabelWidget>("TrackDifficulty", "TrackDifficultyLabel"); //TODO implemant Font
 	_easy->SetCharacterSize(20);
 	_easy->SetZOrder(2);
 	_easy->SetFillColor(Color(50, 189, 22));
@@ -96,7 +96,7 @@ void SelectLevel::InitDescription()
 	infoLabel.insert(make_pair(TI_DURATION, _duration));
 	description->AddChild(_easy);
 
-	M_HUD.AddToViewport(description);
+	//M_HUD.AddToViewport(description);
 }
 
 void SelectLevel::InitInput()
@@ -120,22 +120,22 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 {
 	if (allTracksCanvas.contains(_track)) return;
 
-	CanvasWidget* _trackInfo = M_HUD.CreateWidget<CanvasWidget>("TrackSelection", Screen);
-	UI::ImageWidget* _background = M_HUD.CreateWidget<UI::ImageWidget>("background", RectangleShapeData(Vector2f(windowSize.x * 0.58f, 50.0f), "background"), World); //TODO implemant Font
+	CanvasWidget* _trackInfo = SpawnWidget<CanvasWidget>("TrackSelection", Screen);
+	ImageWidget* _background = SpawnWidget<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x * 0.58f, 50.0f), "background"),"background", World); //TODO implemant Font
 	const Vector2f& _backgroundSize = _background->GetSize();
 	_background->SetZOrder(0);
 
-	LabelWidget* _title = M_HUD.CreateWidget<LabelWidget>(_track->GetTitle(),"TitleLabel"); //TODO implemant Font
+	LabelWidget* _title = SpawnWidget<LabelWidget>(_track->GetTitle(),"TitleLabel"); //TODO implemant Font
 	_title->SetCharacterSize(20);
 	_title->SetZOrder(2);
 	_title->SetPosition(Vector2f(_backgroundSize.x * 0.01f, 0.0f));
 
-	LabelWidget* _artist = M_HUD.CreateWidget<LabelWidget>(_track->GetArtist(),"ArtistLabel"); //TODO implemant Font
+	LabelWidget* _artist = SpawnWidget<LabelWidget>(_track->GetArtist(),"ArtistLabel"); //TODO implemant Font
 	_artist->SetCharacterSize(20);
 	_artist->SetZOrder(2);
 	_artist->SetPosition(Vector2f(_backgroundSize.x * 0.01f, _backgroundSize.y * 0.5f));
 
-	LabelWidget* _duration = M_HUD.CreateWidget<LabelWidget>(_track->GetDurationAsString(), "DurationLabel"); //TODO implemant Font
+	LabelWidget* _duration = SpawnWidget<LabelWidget>(_track->GetDurationAsString(), "DurationLabel"); //TODO implemant Font
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
 	_duration->SetPosition(Vector2f(_backgroundSize.x * 0.5f, _backgroundSize.y * 0.25f));
@@ -148,7 +148,7 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	_trackInfo->SetVisibility(VisibilityType::Hidden);
 	allTracksCanvas.insert(make_pair(_track, _trackInfo));
 	
-	M_HUD.AddToViewport(_trackInfo);
+	//M_HUD.AddToViewport(_trackInfo);
 }
 
 void SelectLevel::SetDescription(Track* _track)
@@ -241,16 +241,16 @@ void SelectLevel::Load()
 {
 	Super::Load();
 
-	cameraManager.AddCamera(new CameraActor(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera"));
+	//cameraManager.AddCamera(new CameraActor(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera"));
 	windowSize = GetWindowSize();
-	background = SpawnActor<MeshActor>(MeshActor(RectangleShapeData(windowSize, "background"))); //TODO implemant Font
+	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
 	background->SetOriginAtMiddle();
 	background->SetPosition(windowSize / 2.0f);
 	background->SetScale({ 1.2f, 2.0f });
 	background->SetRotation(degrees(45));
 	//background->SetFillColor(Color(255, 255, 255, 100));
 
-	allTracks = M_FILE.ReadFolder<Track>("Assets\\Tracks");
+	allTracks = M_FILE.ReadFolder<Track>(this, "Assets\\Tracks");
 	Track* _track = allTracks[trackIndex];
 
 	//allButtons.push_back(new ButtonWidget("ButtonOkay", Screen));
@@ -283,14 +283,14 @@ void SelectLevel::InitLevel()
 
 	////M_CAMERA.CreateCamera<CameraActor>(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera");
 
-	background = Level::SpawnActor<MeshActor>(MeshActor(RectangleShapeData(windowSize, "background"))); //TODO implemant Font
+	background = Level::SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
 	background->SetOriginAtMiddle();
 	background->SetPosition(windowSize / 2.0f);
 	background->SetScale({ 1.2f, 2.0f });
 	background->SetRotation(degrees(45));
 	//background->SetFillColor(Color(255, 255, 255, 100));
 
-	allTracks = M_FILE.ReadFolder<Track>("Assets\\Tracks");
+	allTracks = M_FILE.ReadFolder<Track>(this, "Assets\\Tracks");
 	Track* _track = allTracks[trackIndex];
 
 	//allButtons.push_back(new ButtonWidget("Button", Screen, _track));

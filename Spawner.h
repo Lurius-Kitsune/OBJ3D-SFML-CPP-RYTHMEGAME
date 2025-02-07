@@ -11,10 +11,10 @@ class Spawner : public Actor
 	float spawnRange;
 
 protected:
-	SubclassOf<T>* ref;
+	T* ref;
 
 public:
-	Spawner(Level* _level, SubclassOf<T>* _ref) : Actor(_level, "Spawner")
+	Spawner(Level* _level, T* _ref) : Actor(_level, "Spawner")
 	{
 		spawnRate = 1.0f;
 		spawnRange = 200.0f;
@@ -41,13 +41,13 @@ private:
 
 	virtual void Spawn()
 	{
-		const Vector2f& _spawnPosition =
+		/*const Vector2f& _spawnPosition =
 		{
 			GetRandomNumberInRange(0.0f, spawnRange),
 			GetRandomNumberInRange(0.0f, spawnRange),
 		};
 		ref->GetObject().SetPosition(_spawnPosition);
 
-		M_LEVEL.GetCurrentLevel()->SpawnActor<T>(*ref);
+		M_LEVEL.GetCurrentLevel()->SpawnActor<T>(*ref);*/
 	}
 };

@@ -198,5 +198,7 @@ private:
 	void AddScore(const NoteResult& _noteResult);
 
 	pair<string, Keyboard::Key> GetKey(const NoteType& _noteType);
+
+	virtual void InitLevel() override;
 };
 

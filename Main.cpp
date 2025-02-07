@@ -21,19 +21,19 @@ int main()
 	M_LEVEL.SetLevel(_level);*/
 
 	//new BeatMapLevel(*allTracks.begin[0], "Medium")
-	/*vector<Track*> allTracks = File::M_FILE.ReadFolder<Track>(new Level("Demo"), "Assets\\Tracks");
+	vector<Track*> allTracks = File::M_FILE.ReadFolder<Track>(new Level("Demo"), "Assets\\Tracks");
 	BeatMapLevel* _beatMapLevel = new BeatMapLevel(allTracks[0], "Medium");
 
 
 
-	M_LEVEL.SetLevel(_beatMapLevel);*/
+	M_LEVEL.SetLevel(_beatMapLevel);
 
 	Engine::GetInstance().Start();
 
-	//for (Track* _track : allTracks)
-	//{
-	//	delete _track;
-	//}
+	for (Track* _track : allTracks)
+	{
+		delete _track;
+	}
 
 	return EXIT_SUCCESS;
 }

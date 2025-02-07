@@ -13,6 +13,12 @@ class NoteMouvementComponent : public Component
 	Vector2f direction;
 
 public:
+	FORCEINLINE NoteDetector* GetTriggerNote() const
+	{
+		return triggerNote;
+	}
+
+public:
 	NoteMouvementComponent(Actor* _owner, NoteDetector* _triggerNote = nullptr,const float _speed = 1.0f);
 	NoteMouvementComponent(Actor* _owner, const NoteMouvementComponent& _other);
 
