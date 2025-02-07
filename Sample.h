@@ -1,7 +1,7 @@
 #pragma once
-#include "CoreMinimal.h"
+#include "Actor.h"
 
-class Sample
+class Sample : public Actor
 {
 	float volume;
 	string path;
@@ -35,7 +35,7 @@ public:
 	}
 	
 public:
-	Sample(const string& _path);
+	Sample(Level* _level, const string& _path);
 	virtual ~Sample() = default;
 
 public:

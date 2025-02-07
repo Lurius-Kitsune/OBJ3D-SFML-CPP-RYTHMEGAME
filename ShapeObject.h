@@ -133,6 +133,10 @@ public:
 	{
 		return texture;
 	}
+	FORCEINLINE ShapeObjectData GetData() const
+	{
+		return objectData;
+	}
 	FORCEINLINE virtual Shape* GetDrawable() const override
 	{
 		return shape;
@@ -174,8 +178,8 @@ public:
 	}
 
 public:
-	ShapeObject(const CircleShapeData& _data); // Circle
-	ShapeObject(const RectangleShapeData& _data); // Rectangle
+	ShapeObject(const CircleShapeData& _data);
+	ShapeObject(const RectangleShapeData& _data);
 	ShapeObject(const ShapeObject& _other);
 	~ShapeObject();
 

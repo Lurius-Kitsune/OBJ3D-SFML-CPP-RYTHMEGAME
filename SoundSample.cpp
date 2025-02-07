@@ -2,7 +2,7 @@
 #include "AudioManager.h"
 #include "TimerManager.h"
 
-SoundSample::SoundSample(const string& _path) : Sample(_path)
+SoundSample::SoundSample(Level* _level, const string& _path) : Sample(_level, _path)
 {
 	const string& _finalPath = "Assets/Sounds/" + _path;
 
@@ -14,7 +14,6 @@ SoundSample::SoundSample(const string& _path) : Sample(_path)
 	}
 
 	sound = new Sound(buffer);
-	M_AUDIO.RegisterSample(this);
 }
 
 SoundSample::~SoundSample()

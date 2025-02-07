@@ -1,7 +1,7 @@
 #include "ButtonWidget.h"
 
-UI::ButtonWidget::ButtonWidget(Level* _level, const string _name, const RectangleShapeData& _data, const RenderType& _renderType)
-							 : ImageWidget(_level, _name, _data, _renderType)
+UI::ButtonWidget::ButtonWidget(Level* _level, const RectangleShapeData& _data, const string _name, const RenderType& _renderType)
+							 : ImageWidget(_level, _data, _name, _renderType)
 {
 	isPressed = false;
 	isHovered = false;

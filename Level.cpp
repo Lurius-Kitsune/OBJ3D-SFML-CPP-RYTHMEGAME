@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "LevelManager.h"
+#include "ImageWidget.h"
 
 Level::Level(const string& _name)
 {
@@ -9,6 +10,7 @@ Level::Level(const string& _name)
 	name = _name;
 	actorManager = ActorManager();
 	cameraManager = CameraManager();
+	audioManager = AudioManager();
 	gameModeRef = GameMode(this);
 	gameMode = nullptr;
 
@@ -54,4 +56,6 @@ void Level::Unload()
 void Level::InitLevel()
 {
 	isLoaded = true;
+	ImageWidget* _widget = SpawnWidget<ImageWidget>(RectangleShapeData(Vector2f(800.0f, 600.0f)));
+	GetHUD()->AddToViewport(_widget);
 }

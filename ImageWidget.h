@@ -111,8 +111,9 @@ namespace UI
 		}
 
 	public:
-		ImageWidget(Level* _level, const string& _name, const RectangleShapeData& _data, const RenderType& _type = Screen);
-		ImageWidget(Level* _level, const string& _name, const CircleShapeData& _data, const RenderType& _type = Screen);
+		ImageWidget(Level* _level, const RectangleShapeData& _data, const string& _name = "Image", const RenderType& _type = Screen);
+		ImageWidget(Level* _level, const CircleShapeData& _data, const string& _name = "Image", const RenderType& _type = Screen);
+		ImageWidget(const ImageWidget& _other);
 
 	private:
 		void UpdateGradient();

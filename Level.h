@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "ActorManager.h"
 #include "CameraManager.h"
+#include "AudioManager.h"
 #include "GameMode.h"
 #include "Widget.h"
 
@@ -17,6 +18,7 @@ protected:
 	string name;
 	ActorManager actorManager;
 	CameraManager cameraManager;
+	AudioManager audioManager;
 	SubclassOf<GameMode> gameModeRef;
 	GameMode* gameMode;
 
@@ -118,12 +120,44 @@ public:
 	}
 
 	template <typename Type = Widget, IS_BASE_OF(Widget, Type)>
-	FORCEINLINE Widget* SpawnWidget(const SubclassOf<Widget> _widgetRef)
+	FORCEINLINE Type* SpawnWidget(const SubclassOf<Widget> _widgetRef)
 	{
 		Type* _widget = SpawnActor<Type>(_widgetRef);
 		GetHUD()->RegisterWidget(_widget);
 		return _widget;
 	}
+
+	#pragma endregion
+
+	#pragma region SpawnSample
+
+	//template <typename Type = Sample, typename ...Args, IS_BASE_OF(Sample, Type)>
+	//FORCEINLINE Type* SpawnSample(const string& _path, const AudioExtensionType& _type = MP3,
+	//							  const Time& _time = Time(), const Time& _duration = Time())
+	//{
+	//	const string& _finalPath = _path + audioManager.GetExtension(_type);
+	//	Sample* _sample = audioManager.GetAvailable(_finalPath);
+
+	//	if (_sample)
+	//	{
+	//		audioManager.PlaySample(_sample);
+	//		return _sample;
+	//	}
+
+	//	_sample = SpawnActor<Type>(_finalPath);
+	//	audioManager.RegisterSample(_sample);
+	//	return _sample;
+	//}
+
+	/*template <typename Type = Sample, IS_BASE_OF(Sample, Type)>
+	FORCEINLINE Type* SpawnSample(const SubclassOf<Sample> _sampleRef)
+	{
+		Type* _sample = SpawnActor<Type>(_sampleRef);
+		audioManager.RegisterSample(_sample);
+		const Sample& _objectRef = _sampleRef.GetObject();
+		audioManager.PlaySample(_sample, _objectRef.time, _objectRef.duration);
+		return _sample;
+	}*/
 
 	#pragma endregion
 

@@ -21,11 +21,15 @@ UI::Widget::~Widget()
 
 void UI::Widget::Construct()
 {
+	Super::Construct();
+
 	const RenderData& _data = RenderData(bind(&Widget::Render, this, _1), type);
 	renderToken = level->GetCameraManager().BindOnRenderWindow(_data, zOrder);
 }
 
 void UI::Widget::Deconstruct()
 {
+	Super::Deconstruct();
+
 	level->GetCameraManager().UnbindOnRenderWindow(renderToken);
 }

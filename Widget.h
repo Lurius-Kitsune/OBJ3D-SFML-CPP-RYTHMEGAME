@@ -25,6 +25,10 @@ namespace UI
 		int zOrder;
 
 	public:
+		FORCEINLINE RenderType GetType() const
+		{
+			return type;
+		}
 		FORCEINLINE virtual void AddSlot(Slot* _slot)
 		{
 			slot = _slot;
@@ -52,7 +56,7 @@ namespace UI
 		FORCEINLINE virtual Vector2f GetSize() const = 0;
 
 	public:
-		Widget(Level* _level, const string& _name, const RenderType& _type = Screen);
+		Widget(Level* _level, const string& _name = "Widget", const RenderType& _type = Screen);
 		~Widget();
 
 		virtual void Construct() override;

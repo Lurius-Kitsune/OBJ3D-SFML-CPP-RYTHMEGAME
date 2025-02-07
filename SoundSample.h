@@ -45,7 +45,7 @@ public:
 	}
 
 public:
-	SoundSample(const string& _path);
+	SoundSample(Level* _level, const string& _path);
 	~SoundSample();
 
 	virtual void Play(const Time& _time = Time(), const Time& _duration = Time()) override;

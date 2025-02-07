@@ -74,7 +74,7 @@ namespace UI
 		}
 
 	public:
-		CheckBoxWidget(Level* _level, const string& _name, const float _size, const RenderType& _type = Screen);
+		CheckBoxWidget(Level* _level, const float _size, const string& _name = "CheckBox", const RenderType& _type = Screen);
 	
 	public:
 		virtual void OnClick() override;

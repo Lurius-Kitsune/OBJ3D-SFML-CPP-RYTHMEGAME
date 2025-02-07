@@ -139,7 +139,7 @@ namespace UI
 		}
 
 	public:
-		PanelWidget(Level* _level, const string& _name, const RenderType& _type);
+		PanelWidget(Level* _level, const string& _name = "Panel", const RenderType& _type = Screen);
 
 	private:
 		void UpdateDebugFrame();

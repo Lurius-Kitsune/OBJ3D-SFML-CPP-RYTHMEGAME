@@ -9,12 +9,15 @@
 class Level;
 struct CollisionData;
 
+using namespace Layer;
+
 class Actor : public Core, public ITransformableModifier, public ITransformableViewer
 {
 	bool isToDelete;
 	u_int id;
 protected:
 	float lifeSpan;
+	LayerType layer;
 private:
 	string name;
 	string displayName;
@@ -26,16 +29,8 @@ private:
 protected:
 	Level* level;
 
-protected:
-	template <typename Type, typename ...Args, IS_BASE_OF(Component, Type)>
-	FORCEINLINE Type* CreateComponent(Args&&... _args)
-	{
-		Type* _component = new Type(this, forward<Args>(_args)...);
-		AddComponent(_component);
-		return _component;
-	}
-
 public:
+	#pragma region Delete
 	FORCEINLINE void SetToDelete()
 	{
 		isToDelete = true;
@@ -44,6 +39,9 @@ public:
 	{
 		return isToDelete;
 	}
+	#pragma endregion
+
+	#pragma region ID/Name
 	FORCEINLINE u_int GetID() const
 	{
 		return id;
@@ -56,6 +54,18 @@ public:
 	{
 		return displayName;
 	}
+	#pragma endregion
+
+	#pragma region Layer
+	FORCEINLINE void SetLayerType(const LayerType& _layer)
+	{
+		layer = _layer;
+	}
+	FORCEINLINE LayerType GetLayerType() const
+	{
+		return layer;
+	}
+	#pragma endregion
 
 	#pragma region Level
 	
@@ -288,6 +298,17 @@ public:
 
 	#pragma endregion
 
+	#pragma endregion
+
+	#pragma region Component
+protected:
+	template <typename Type, typename ...Args, IS_BASE_OF(Component, Type)>
+	FORCEINLINE Type* CreateComponent(Args&&... _args)
+	{
+		Type* _component = new Type(this, forward<Args>(_args)...);
+		AddComponent(_component);
+		return _component;
+	}
 	#pragma endregion
 
 public:

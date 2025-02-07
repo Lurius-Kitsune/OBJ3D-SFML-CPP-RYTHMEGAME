@@ -4,22 +4,57 @@
 
 #include "PanelWidget.h"
 
-UI::ImageWidget::ImageWidget(Level* _level, const string& _name, const RectangleShapeData& _data, const RenderType& _type)
+UI::ImageWidget::ImageWidget(Level* _level, const RectangleShapeData& _data, const string& _name, const RenderType& _type)
 						   : Widget(_level, _name, _type)
 {
+	image = level->SpawnActor<MeshActor>(_data, _name);
 	sizeToContent = false;
 	initialSize = GetSize();
 	gradient = VertexArray();
 	colorGradient = Gradient();
-	image = level->SpawnActor<MeshActor>(_data, _name);
 	SetTexture(_data.path);
 }
 
-UI::ImageWidget::ImageWidget(Level* _level, const string& _name, const CircleShapeData& _data, const RenderType& _type)
+UI::ImageWidget::ImageWidget(Level* _level, const CircleShapeData& _data, const string& _name, const RenderType& _type)
 						   : Widget(_level, _name, _type)
 {
 	image = level->SpawnActor<MeshActor>(_data, _name);
+	sizeToContent = false;
+	initialSize = GetSize();
+	gradient = VertexArray();
+	colorGradient = Gradient();
 	SetTexture(_data.path);
+}
+
+UI::ImageWidget::ImageWidget(const ImageWidget& _other) : Widget(_other)
+{
+	sizeToContent = _other.sizeToContent;
+	initialSize = _other.initialSize;
+	gradient = _other.gradient;
+	colorGradient = _other.colorGradient;
+
+	const ShapeObjectData& _data = _other.image->GetMesh()->GetShape()->GetData();
+	const ShapeObjectType& _type = _data.type;
+
+	if (_type == SOT_CIRCLE)
+	{
+		const CircleShapeData* _circleData = _data.data.circleData;
+		image = level->SpawnActor<MeshActor>(*_circleData, _other.GetName());
+		SetTexture(_circleData->path);
+	}
+
+	else if (_type == SOT_RECTANGLE)
+	{
+		const RectangleShapeData* _rectangleData = _data.data.rectangleData;
+		image = level->SpawnActor<MeshActor>(*_rectangleData, _other.GetName());
+		SetTexture(_rectangleData->path);
+	}
+
+	else
+	{
+		image = nullptr;
+		LOG(Fatal, "Alors oui, euh.. Bah c'était pas censé arriver..");
+	}
 }
 
 

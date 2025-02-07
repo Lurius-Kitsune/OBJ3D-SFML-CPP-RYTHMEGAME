@@ -95,7 +95,7 @@ namespace UI
 
 
 	public:
-		LabelWidget(Level* _level, const string& _text, const string& _name, const RenderType& _type = Screen);
+		LabelWidget(Level* _level, const string& _text = "Unknown", const string& _name = "Label", const RenderType& _type = Screen);
 		~LabelWidget();
 
 	private:

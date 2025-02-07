@@ -2,7 +2,6 @@
 
 namespace Layer
 {
-
 	enum LayerType
 	{
 		WORLD_STATIC,

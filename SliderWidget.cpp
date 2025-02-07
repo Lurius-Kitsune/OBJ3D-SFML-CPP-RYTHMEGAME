@@ -7,8 +7,8 @@ UI::SliderWidget::SliderWidget(Level* _level, const string _name, const RenderTy
 	minValue = 0.0f;
 	maxValue = 100.0f;
 	step = 1.0f;
-	sliderBar = level->SpawnWidget<ImageWidget>(_name + "_Bar", RectangleShapeData(Vector2f(100.0f, 10.0f), "sliderBar"), _renderType);
-	sliderButton = level->SpawnWidget<ButtonWidget>(_name + "_Button", RectangleShapeData(Vector2f(10.0f, 25.0f), "sliderButton"), _renderType);
+	sliderBar = level->SpawnWidget<ImageWidget>(RectangleShapeData(Vector2f(100.0f, 10.0f), "sliderBar"), _name + "_Bar", _renderType);
+	sliderButton = level->SpawnWidget<ButtonWidget>(RectangleShapeData(Vector2f(10.0f, 25.0f), "sliderButton"), _name + "_Button", _renderType);
 
 	Init();
 }

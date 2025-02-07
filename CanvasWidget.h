@@ -16,7 +16,7 @@ namespace UI
 		}
 
 	public:
-		CanvasWidget(Level* _level, const string& _name, const RenderType& _type);
+		CanvasWidget(Level* _level, const string& _name = "Canvas", const RenderType& _type = Screen);
 
 	public:
 		virtual void Construct() override;
