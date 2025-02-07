@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "BeatMap.h"
 #include "MusicSample.h"
+#include "Level.h"
 
 
 struct TrackData

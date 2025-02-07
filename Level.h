@@ -52,6 +52,10 @@ public:
 	{
 		return cameraManager;
 	}
+	FORCEINLINE AudioManager& GetAudioManager()
+	{
+		return audioManager;
+	}
 	FORCEINLINE GameMode* GetGameMode()
 	{
 		if (!gameMode)

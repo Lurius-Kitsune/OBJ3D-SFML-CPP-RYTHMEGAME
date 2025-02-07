@@ -8,7 +8,7 @@ Track::Track(Level* _level, const string& _path)
 	: Actor(_level, _path)
 {
 	path = _path;
-	music = new MusicSample("..\\..\\" + _path + "\\music.mp3");
+	music = new MusicSample(_level,"..\\..\\" + _path + "\\music.mp3");
 	music->Stop();
 	currentBeatMap = nullptr;
 	info = TrackData();
@@ -32,7 +32,7 @@ Track::~Track()
 
 void Track::PlayExtrait() const
 {
-	M_AUDIO.PlaySample<SoundSample>(music->GetPath(), MP3, music->GetDuration() / 2.0f, seconds(10.0f));
+	GetLevel()->GetAudioManager().PlaySample(new SoundSample(level,music->GetPath()), music->GetDuration() / 2.0f, seconds(10.0f));
 }
 
 void Track::Start(const string& _difficulty)
