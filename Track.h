@@ -77,6 +77,7 @@ public:
 
 public:
 	Track(const string& _path = "default");
+	Track(const Track& _other);
 	~Track();
 
 public:

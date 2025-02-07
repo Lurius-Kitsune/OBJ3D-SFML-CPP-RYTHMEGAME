@@ -44,7 +44,7 @@ void NoteMouvementComponent::Move(const float _deltaTime)
 	else if (isInteractable && !triggerRect.contains(owner->GetPosition()))
 	{
 		Note* _note = _level->GetNote();
-		_note->SetL(1.0f);
+		// _note->SetLife(1.0f);
 		_level->ComputeNoteResult(NR_MISS, triggerNote);
 		isInteractable = false;
 	}

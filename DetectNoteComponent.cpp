@@ -1,4 +1,5 @@
 #include "DetectNoteComponent.h"
+#include "LevelManager.h"
 #include "BeatMapLevel.h"
 
 DetectNoteComponent::DetectNoteComponent(Actor* _owner, const NoteType _type)
@@ -20,7 +21,8 @@ void DetectNoteComponent::Tick(const float _deltaTime)
 void DetectNoteComponent::DetectNote()
 {
 	//Savoir ou est la flêche
-	Note* _note = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNote();
+	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
+	Note* _note = _level->GetNote();
 	if (!_note)
 	{
 		InterpretResult(-1.0f, false);
@@ -48,7 +50,7 @@ void DetectNoteComponent::DetectNote()
 
 void DetectNoteComponent::InterpretResult(const float _precision, const bool _isAfter)
 {
-	BeatMapLevel* _level = Cast<BeatMapLevel>(M_GAME.GetCurrent());
+	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
 	NoteDetector* _detector = Cast<NoteDetector>(owner);
 	if (_precision >= 0.0f && _precision <= 0.1f)
 	{

@@ -8,11 +8,21 @@ Track::Track(const string& _path)
 	: Actor(_path)
 {
 	path = _path;
-	music = new MusicSample(_path + "\\music.mp3");
+	music = new MusicSample("..\\..\\" + _path + "\\music.mp3");
 	music->Stop();
 	currentBeatMap = nullptr;
 	info = TrackData();
 	Init();
+}
+
+Track::Track(const Track& _other)
+{
+	path = _other.path;
+	info = _other.info;
+	music = new MusicSample(*_other.music);
+	currentBeatMap = _other.currentBeatMap;
+	beatMaps = _other.beatMaps;
+	info = _other.info;
 }
 
 Track::~Track()
