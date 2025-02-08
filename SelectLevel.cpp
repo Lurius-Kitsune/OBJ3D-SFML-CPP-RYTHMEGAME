@@ -184,7 +184,7 @@ void SelectLevel::ChangeIterator(bool _isUp)
 		}
 	}
 	(*musicIterator).first->PlayExtrait();
-	WheelCanvas();
+	//WheelCanvas();
 
 }
 
@@ -241,32 +241,22 @@ void SelectLevel::Load()
 {
 	Super::Load();
 
-	//cameraManager.AddCamera(new CameraActor(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera"));
-	windowSize = GetWindowSize();
-	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
-	background->SetOriginAtMiddle();
-	background->SetPosition(windowSize / 2.0f);
-	background->SetScale({ 1.2f, 2.0f });
-	background->SetRotation(degrees(45));
-	//background->SetFillColor(Color(255, 255, 255, 100));
-	Track* _track = allTracks[trackIndex];
+	////cameraManager.AddCamera(new CameraActor(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera"));
+	//background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
+	//background->SetOriginAtMiddle();
+	//background->SetPosition(windowSize / 2.0f);
+	//background->SetScale({ 1.2f, 2.0f });
+	//background->SetRotation(degrees(45));
+	////background->SetFillColor(Color(255, 255, 255, 100));
+	//Track* _track = allTracks[trackIndex];
 
-	//allButtons.push_back(new ButtonWidget("ButtonOkay", Screen));
+	////allButtons.push_back(new ButtonWidget("ButtonOkay", Screen));
 
-	InitSeparator();
-	InitLabel();
-	InitDescription();
-
-	for (Track* _track : allTracks)
-	{
-		InitRectangleTrackInfo(_track);
-	}
-
-	musicIterator = allTracksCanvas.begin();
-	//M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
-	//M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
-	(*musicIterator).first->PlayExtrait();
-	WheelCanvas();
+	//musicIterator = allTracksCanvas.begin();
+	////M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
+	////M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
+	////(*musicIterator).first->PlayExtrait();
+	//WheelCanvas();
 }
 
 void SelectLevel::Unload()
@@ -277,7 +267,7 @@ void SelectLevel::Unload()
 
 void SelectLevel::InitLevel()
 {
-	////windowSize = CAST(Vector2f, M_GAME.GetCurrent()->GetWindowSize());
+	windowSize = GetWindowSize();
 
 	////M_CAMERA.CreateCamera<CameraActor>(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera");
 
