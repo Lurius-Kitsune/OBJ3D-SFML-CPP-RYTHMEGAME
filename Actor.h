@@ -21,7 +21,7 @@ protected:
 private:
 	string name;
 	string displayName;
-	set<Component*> components;
+	map<type_index, Component*> components;
 	RootComponent* root;
 	Actor* parent;
 	AttachmentType attachment;
@@ -306,7 +306,7 @@ protected:
 	FORCEINLINE Type* CreateComponent(Args&&... _args)
 	{
 		Type* _component = new Type(this, forward<Args>(_args)...);
-		AddComponent(_component);
+		AddComponent(TYPE_ID(Type), _component);
 		return _component;
 	}
 	#pragma endregion
@@ -329,17 +329,14 @@ public:
 
 	#pragma region Components
 
-	void AddComponent(Component* _component);
+	void AddComponent(const type_index& _type, Component* _component);
 	void RemoveComponent(Component* _component);
 	template <typename Type, IS_BASE_OF(Component, Type)>
 	Type* GetComponent()
 	{
-		for (Component* _component : components)
-		{
-			if (Type* _result = Cast<Type>(_component)) return _result;
-		}
-
-		return nullptr;
+		const type_index& _type = TYPE_ID(Type);
+		if (!components.contains(_type)) return nullptr;
+		return Cast<Type>(components[_type]);
 	}
 
 	#pragma endregion

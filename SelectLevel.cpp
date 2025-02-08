@@ -146,8 +146,8 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	_trackInfo->AddChild(_duration);
 
 	_trackInfo->SetVisibility(VisibilityType::Hidden);
+	_trackInfo->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * allTracksCanvas.size()));
 	allTracksCanvas.insert(make_pair(_track, _trackInfo));
-	
 	//M_HUD.AddToViewport(_trackInfo);
 }
 
@@ -249,8 +249,6 @@ void SelectLevel::Load()
 	background->SetScale({ 1.2f, 2.0f });
 	background->SetRotation(degrees(45));
 	//background->SetFillColor(Color(255, 255, 255, 100));
-
-	allTracks = M_FILE.ReadFolder<Track>(this, "Assets\\Tracks");
 	Track* _track = allTracks[trackIndex];
 
 	//allButtons.push_back(new ButtonWidget("ButtonOkay", Screen));
@@ -290,7 +288,11 @@ void SelectLevel::InitLevel()
 	background->SetRotation(degrees(45));
 	//background->SetFillColor(Color(255, 255, 255, 100));
 
-	allTracks = M_FILE.ReadFolder<Track>(this, "Assets\\Tracks");
+	vector<string> _trackFolder = M_FILE.ReadFolder("Assets\\Tracks");
+	for (string _track : _trackFolder)
+	{
+		allTracks.push_back(SpawnActor<Track>(_track));
+	}
 	Track* _track = allTracks[trackIndex];
 
 	//allButtons.push_back(new ButtonWidget("Button", Screen, _track));
@@ -318,7 +320,7 @@ void SelectLevel::InitLevel()
 	//M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
 	//M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
 	(*musicIterator).first->PlayExtrait();
-	WheelCanvas();
+	//WheelCanvas();
 }
 
 //bool SelectLevel::Update()

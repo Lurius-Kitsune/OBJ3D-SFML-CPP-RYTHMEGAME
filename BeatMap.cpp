@@ -11,7 +11,7 @@ BeatMap::BeatMap(const string& _path)
 	path = _path;
 	isLoaded = false;
 
-	vector<string> _contentFile = M_FILE.ReadFile<string>(string(path).c_str());
+	vector<string> _contentFile = M_FILE.ReadFile(string(path).c_str());
 	vector<string> _content = SplitString(_contentFile[0], '|');
 	missDamage = stoi(_content[1]);
 	difficulty = _content[0];
@@ -77,7 +77,7 @@ void BeatMap::LoadBeatMap()
 {
 	if (!isLoaded)
 	{
-		vector<string> _contentFile = M_FILE.ReadFile<string>(string(path).c_str());
+		vector<string> _contentFile = M_FILE.ReadFile(string(path).c_str());
 		
 		//Nombre de ligne total
 		const u_int _totalLine = CAST(u_int, _contentFile.size() - 1);

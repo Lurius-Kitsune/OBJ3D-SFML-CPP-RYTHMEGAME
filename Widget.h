@@ -57,7 +57,6 @@ namespace UI
 
 	public:
 		Widget(Level* _level, const string& _name = "Widget", const RenderType& _type = Screen);
-		Widget(const Widget& _other);
 		~Widget();
 
 		virtual void Construct() override;

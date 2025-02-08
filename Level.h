@@ -12,15 +12,15 @@ using namespace UI;
 class Level
 {
 	bool isLoaded;
-
-protected:
-	RenderWindow window;
 	string name;
 	ActorManager actorManager;
 	CameraManager cameraManager;
 	AudioManager audioManager;
-	SubclassOf<GameMode> gameModeRef;
 	GameMode* gameMode;
+
+protected:
+	RenderWindow window;
+	SubclassOf<GameMode> gameModeRef;
 
 public:
 	#pragma region Window
@@ -135,23 +135,23 @@ public:
 
 	#pragma region SpawnSample
 
-	//template <typename Type = Sample, typename ...Args, IS_BASE_OF(Sample, Type)>
-	//FORCEINLINE Type* SpawnSample(const string& _path, const AudioExtensionType& _type = MP3,
-	//							  const Time& _time = Time(), const Time& _duration = Time())
-	//{
-	//	const string& _finalPath = _path + audioManager.GetExtension(_type);
-	//	Sample* _sample = audioManager.GetAvailable(_finalPath);
+	template <typename Type = Sample, typename ...Args, IS_BASE_OF(Sample, Type)>
+	FORCEINLINE Type* SpawnSample(const string& _path, const AudioExtensionType& _type = MP3,
+								  const Time& _time = Time(), const Time& _duration = Time())
+	{
+		const string& _finalPath = _path + audioManager.GetExtension(_type);
+		Sample* _sample = audioManager.GetAvailable(_finalPath);
 
-	//	if (_sample)
-	//	{
-	//		audioManager.PlaySample(_sample);
-	//		return _sample;
-	//	}
+		if (_sample)
+		{
+			audioManager.PlaySample(_sample);
+			return _sample;
+		}
 
-	//	_sample = SpawnActor<Type>(_finalPath);
-	//	audioManager.RegisterSample(_sample);
-	//	return _sample;
-	//}
+		_sample = SpawnActor<Type>(_finalPath);
+		audioManager.RegisterSample(_sample);
+		return _sample;
+	}
 
 	/*template <typename Type = Sample, IS_BASE_OF(Sample, Type)>
 	FORCEINLINE Type* SpawnSample(const SubclassOf<Sample> _sampleRef)

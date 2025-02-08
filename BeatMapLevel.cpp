@@ -32,7 +32,7 @@ BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 void BeatMapLevel::Load()
 {
 	Super::Load();
-	actorManager.AddActor(track);
+	GetActorManager().AddActor(track);
 	track->SetActive(true);
 }
 

@@ -1,18 +1,18 @@
 #include "Level.h"
 #include "LevelManager.h"
-#include "ImageWidget.h"
 
 Level::Level(const string& _name)
 {
 	isLoaded = false;
-	window.create(VideoMode({ 1200, 600 }), _name);
-	window.setVisible(false);
 	name = _name;
 	actorManager = ActorManager();
 	cameraManager = CameraManager();
 	audioManager = AudioManager();
-	gameModeRef = GameMode(this);
 	gameMode = nullptr;
+
+	window.create(VideoMode({ 1200, 600 }), _name);
+	window.setVisible(false);
+	gameModeRef = GameMode(this);
 
 	M_LEVEL.RegisterLevel(_name, this);
 }
@@ -56,6 +56,4 @@ void Level::Unload()
 void Level::InitLevel()
 {
 	isLoaded = true;
-	ImageWidget* _widget = SpawnWidget<ImageWidget>(RectangleShapeData(Vector2f(800.0f, 600.0f)));
-	GetHUD()->AddToViewport(_widget);
 }

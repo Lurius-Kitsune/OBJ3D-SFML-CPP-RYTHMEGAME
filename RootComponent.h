@@ -5,10 +5,10 @@
 
 enum AttachmentType
 {
-	AT_NONE,
 	AT_KEEP_RELATIVE,
 	AT_KEEP_WORLD,
 	AT_SNAP_TO_TARGET,
+	AT_NONE,
 };
 
 class RootComponent : public Component, public ITransformableModifier, public ITransformableViewer

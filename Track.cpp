@@ -69,7 +69,7 @@ void Track::Stop()
 
 void Track::Init()
 {
-	vector<string> _info = M_FILE.ReadFile<string>(string(path + "\\info").c_str());
+	vector<string> _info = M_FILE.ReadFile(string(path + "\\info").c_str());
 	if (_info.size() < 3)
 	{
 		LOG(Error, "Missing Information" + path);

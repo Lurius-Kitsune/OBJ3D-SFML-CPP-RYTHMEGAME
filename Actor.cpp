@@ -12,7 +12,7 @@ Actor::Actor(Level* _level, const string& _name, const TransformData& _transform
 	lifeSpan = 0.0f;
 	name = _name;
 	displayName = "Unknown";
-	components = set<Component*>();
+	components = map<type_index, Component*>();
 	root = CreateComponent<RootComponent>(_transform);
 	parent = nullptr;
 	attachment = AT_NONE;
@@ -26,10 +26,13 @@ Actor::Actor(const Actor& _other)
 	lifeSpan = _other.lifeSpan;
 	name = _other.name;
 	displayName = _other.displayName;
-	for (Component* _component : _other.components)
+
+	for (const pair<type_index, Component*>& _pair : components)
 	{
-		CreateComponent<TYPE(*_component)>(*_component);
+		//CreateComponent<CameraComponent>(*_pair.second);
+		//CreateComponent<TYPE(_pair.first)>(*_pair.second);
 	}
+
 	root = GetComponent<RootComponent>();
 	parent = _other.parent;
 	attachment = _other.attachment;
@@ -43,9 +46,9 @@ Actor::Actor(const Actor& _other)
 
 Actor::~Actor()
 {
-	for (Component* _component : components)
+	for (const pair<type_index, Component*>& _pair : components)
 	{
-		delete _component;
+		delete _pair.second;
 	}
 }
 
@@ -77,26 +80,27 @@ void Actor::BeginPlay()
 		new Timer(bind(&Actor::Destroy, this), seconds(lifeSpan), true);
 	}
 
-	for (Component* _component : components)
+	for (const pair<type_index, Component*>& _pair : components)
 	{
-		_component->BeginPlay();
+		_pair.second->BeginPlay();
 	}
 }
 
 void Actor::Tick(const float _deltaTime)
 {
 	Super::Tick(_deltaTime);
-	for (Component* _component : components)
+
+	for (const pair<type_index, Component*>& _pair : components)
 	{
-		_component->Tick(_deltaTime);
+		_pair.second->Tick(_deltaTime);
 	}
 }
 
 void Actor::BeginDestroy()
 {
-	for (Component* _component : components)
+	for (const pair<type_index, Component*>& _pair : components)
 	{
-		_component->BeginDestroy();
+		_pair.second->BeginDestroy();
 	}
 }
 
@@ -119,12 +123,12 @@ void Actor::Destroy()
 	SetToDelete();
 }
 
-void Actor::AddComponent(Component* _component)
+void Actor::AddComponent(const type_index& _type, Component* _component)
 {
-	components.insert(_component);
+	components.insert({ _type, _component });
 }
 
 void Actor::RemoveComponent(Component* _component)
 {
-	components.erase(_component);
+	components.erase(TYPE_ID(_component));
 }

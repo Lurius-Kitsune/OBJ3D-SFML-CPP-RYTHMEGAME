@@ -13,16 +13,6 @@ UI::Widget::Widget(Level* _level, const string& _name, const RenderType& _type) 
 	slot = nullptr;
 }
 
-UI::Widget::Widget(const Widget& _other)
-	: Actor(_other)
-{
-	type = _other.type;
-	visibility = _other.visibility;
-	renderToken = 0;
-	zOrder = _other.zOrder;
-	slot = nullptr;
-}
-
 UI::Widget::~Widget()
 {
 	delete slot;
