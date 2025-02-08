@@ -172,6 +172,7 @@ public:
 		if (notes.empty()) return nullptr;
 		Note* _note = notes.front();
 		notes.pop();
+		LOG(Display, "Note poped");
 		return _note;
 	}
 

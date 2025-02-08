@@ -32,7 +32,8 @@ BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 void BeatMapLevel::Load()
 {
 	Super::Load();
-	
+	actorManager.AddActor(track);
+	track->SetActive(true);
 }
 
 //
@@ -225,7 +226,7 @@ void BeatMapLevel::InitTopBar()
 
 void BeatMapLevel::InitNoteTriggerAndSpawner()
 {
-	ActionMap* _actMap = M_INPUT.CreateActionMap("NoteTrigger");
+	ActionMap* _actMap = GetGameMode()->GetPlayerController()->GetInputManager().CreateActionMap("NoteTrigger");
 	for (u_int _i = 0; _i < 4; _i++)
 	{
 		/*Note* _note = Level::SpawnActor(Note(NoteType(_i)));
@@ -233,14 +234,14 @@ void BeatMapLevel::InitNoteTriggerAndSpawner()
 		_note->SetPosition(Vector2f(400.0f + 120.0f * _i, 0));*/
 		NoteDetector* _noteDetect = SpawnActor<NoteDetector>(NoteType(_i));
 		triggers[NoteType(_i)] = _noteDetect;
-		triggers[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 700));
+		triggers[NoteType(_i)]->SetPosition(Vector2f(windowSize.x / 3 + 120.0f * _i, 500));
 		triggers[NoteType(_i)]->SetOriginAtMiddle();
 		pair<string, Keyboard::Key> _key = GetKey(NoteType(_i));
 		ActionData _actData = ActionData(KeyPressed, _key.second);
 		_actMap->AddAction(_key.first, _actData, [_noteDetect]() {_noteDetect->GetDetectComponent()->DetectNote(); });
 
 		noteSpawners[NoteType(_i)] = SpawnActor<NoteSpawner>(NoteType(_i), triggers[NoteType(_i)]);
-		noteSpawners[NoteType(_i)]->SetPosition(Vector2f(GetWindowSize().x / 3 + 120.0f * _i, 0));
+		noteSpawners[NoteType(_i)]->SetPosition(Vector2f(windowSize.x / 3 + 120.0f * _i, 0));
 		
 	}
 	_actMap->Enable();
@@ -331,7 +332,6 @@ void BeatMapLevel::InitLevel()
 	InitLevelAspect();
 	InitTopBar();
 	InitNoteTriggerAndSpawner();
-
 	track->Start(difficulty);
 
 	new Timer<Seconds>([&]() { UpdateTime(); }, milliseconds(1000), true, true);

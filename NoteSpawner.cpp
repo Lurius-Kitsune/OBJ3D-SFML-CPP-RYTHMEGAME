@@ -21,7 +21,7 @@ void NoteSpawner::BeginPlay()
 
 void NoteSpawner::Spawn()
 {
-	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
+	BeatMapLevel* _level = Cast<BeatMapLevel>(level);
 	Note* _note = _level->SpawnActor<Note>(ref->GetType(), ref->GetMouvementComponent()->GetTriggerNote());
 	_note->SetPosition(GetPosition());
 	_level->AddNoteToQueue(_note);
