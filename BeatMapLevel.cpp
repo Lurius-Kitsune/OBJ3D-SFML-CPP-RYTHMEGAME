@@ -40,7 +40,6 @@ void BeatMapLevel::Load()
 //bool BeatMapLevel::Update()
 //{
 //	track->Update();
-//	comboData->Animate();
 //	background->Rotate(degrees(M_TIMER.GetDeltaTime().asSeconds() * 10));
 //	AnimateBackground();
 //	if (track->IsFinished())

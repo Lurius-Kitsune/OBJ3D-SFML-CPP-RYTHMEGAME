@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "HUD.h"
 #include "ScoreLabel.h"
+#include "TimerManager.h"
 #include "Track.h"
 #include "NoteDetector.h"
 #include "NoteSpawner.h"
@@ -14,12 +15,14 @@ struct ComboData
 	u_int count;
 	bool finishedAnimation;
 	Vector2f minScale;
+	Timer<Seconds>* timer;
 
 	ComboData(Level* _level)
 	{
 		count = 0;
 		label = _level->SpawnWidget<LabelWidget>("X " + to_string(count), "ComboCount");
 		label->SetVisibility(Hidden);
+		timer = new Timer<Seconds>([&]() {Animate(); }, seconds(0.0001f), false, true);
 		finishedAnimation = false;
 		minScale = { 1.0f, 1.0f };
 	}
@@ -53,6 +56,7 @@ struct ComboData
 		label->SetVisibility(_count == 0 ? Hidden : Visible);
 		count = _count;
 		label->SetText("X " + to_string(count));
+		timer->Start();
 	}
 	FORCEINLINE void IncrementScale()
 	{
@@ -72,6 +76,11 @@ struct ComboData
 
 			if (label->GetScale().x <= minScale.x || label->GetScale().y <= minScale.y)
 				finishedAnimation = true;
+		}
+		else
+		{
+			timer->Pause();
+			timer->Reset();
 		}
 	}
 };
