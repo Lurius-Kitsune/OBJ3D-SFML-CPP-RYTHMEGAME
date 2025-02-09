@@ -55,6 +55,18 @@ void SelectLevel::InitLabel()
 	_label->SetPosition(Vector2f(windowSize.x * 0.05f, 10.0f));
 
 	//TODO Replace with button
+	ButtonWidget* _button = SpawnWidget<ButtonWidget>(RectangleShapeData(Vector2f(100.0f, 50.0f), "background"), "PlayButton", Screen);
+	_button->SetPosition(Vector2f(windowSize.x * 0.875f, windowSize.y - 45.0f));
+	_button->BindOnClickAction([&]()
+		{
+			M_LEVEL.SetLevel(new BeatMapLevel((*musicIterator).first, "Medium"));
+		});
+	ActionMap* _actionMap = GetGameMode()->GetPlayerController()->GetInputManager().CreateActionMap("SelectLevel");
+	Action* _upAction = new Action("PlayButton", ActionData(MouseButtonPressed, Mouse::Button::Left), [_button, this]()
+		{
+			_button->OnClick();
+		});
+	_actionMap->AddAction(_upAction);
 	LabelWidget* _play = SpawnWidget<LabelWidget>("PLAY", "PlayLabel"); //TODO implemant Font
 	_play->SetCharacterSize(30);
 	_play->SetZOrder(2);
@@ -108,7 +120,7 @@ void SelectLevel::InitDescription()
 
 void SelectLevel::InitInput()
 {
-	ActionMap* _actionMap = GetGameMode()->GetPlayerController()->GetInputManager().CreateActionMap("SelectLevel");
+	ActionMap* _actionMap = GetGameMode()->GetPlayerController()->GetInputManager().GetActionMapByName("SelectLevel");
 	Action* _upAction = new Action("GoUp", ActionData(KeyHold, Key::Z), [&]()
 		{
 			ChangeIterator(true);

@@ -30,7 +30,7 @@ class SelectLevel : public Level
 	// Right Info
 	CanvasWidget* description;
 	map<TrackInfo, LabelWidget*> infoLabel;
-	u_int trackIndex;
+	u_int trackIndex; //. TODO Remove
 
 public:
 	SelectLevel();

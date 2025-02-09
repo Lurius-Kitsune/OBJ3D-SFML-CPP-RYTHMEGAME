@@ -102,6 +102,7 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 
 
 	LabelWidget* _noteResultLabel = SpawnWidget<LabelWidget>(_text, "NoteResultLabel");
+	_noteResultLabel->SetFont("Pixel", TTF);
 	_noteResultLabel->SetOriginAtMiddle();
 	_noteResultLabel->SetPosition(_textPosition);
 	_noteResultLabel->SetCharacterSize(25);
@@ -156,26 +157,31 @@ void BeatMapLevel::InitLevelAspect()
 	_separatorBottomNote->SetPosition(Vector2f(_separatorLeft->GetPosition().x, 760.0f));
 
 	LabelWidget* _scoreText = SpawnWidget<LabelWidget>("Score :", "Score Text");
+	_scoreText->SetFont("Pixel", TTF);
 	_scoreText->SetPosition(Vector2f((_separatorLeft->GetPosition().x - _scoreText->GetSize().x) / 2.0f, windowSize.y * 0.25));
 	_scoreText->SetCharacterSize(25);
 	_scoreText->SetZOrder(3);
 
 	score = SpawnWidget<ScoreLabel>("Score"); //TODO implemant Font
+	score->SetFont("Pixel", TTF);
 	score->SetPosition(Vector2f((_separatorLeft->GetPosition().x - score->GetSize().x) / 2.0f, _scoreText->GetPosition().y + _scoreText->GetSize().y + 10.0f));
 	score->SetCharacterSize(25);
 	score->SetZOrder(1);
 
 	LabelWidget* _rankText= SpawnWidget<LabelWidget>("Rang :", "RankLabelInfo");
+	_rankText->SetFont("Pixel", TTF);
 	_rankText->SetPosition(Vector2f((_separatorLeft->GetPosition().x - _rankText->GetSize().x) / 2.0f, windowSize.y * 0.6));
 	_rankText->SetCharacterSize(25);
 	_rankText->SetZOrder(3);
 
 	LabelWidget* _rang = SpawnWidget<LabelWidget>("F", "Rank"); //TODO Implement Rang
+	_rang->SetFont("Pixel", TTF);
 	_rang->SetPosition(Vector2f(windowSize.x * 0.1f, windowSize.y * 0.625));
 	_rang->SetCharacterSize(100);
 	_rang->SetZOrder(3);
 
 	time = SpawnWidget<LabelWidget>("0:00 / 0:00", "TimeLabel");
+	time->SetFont("Pixel", TTF);
 	time->SetPosition(Vector2f((_separatorRight->GetPosition().x + (windowSize.x - _separatorRight->GetPosition().x) / 2.0f) - time->GetSize().x / 2.0f, windowSize.y * 0.8f));
 	time->SetCharacterSize(25);
 	time->SetZOrder(3);
@@ -203,11 +209,13 @@ void BeatMapLevel::InitTopBar()
 
 	//new Timer<Seconds>([&]() {IncrementCombo(); }, seconds(5), true, true);
 	LabelWidget* _levelDifficulty = SpawnWidget<LabelWidget>("Difficulty: " + difficulty, "DifficultyInfoLabel"); //TODO implemant Font
+	_levelDifficulty->SetFont("Pixel", TTF);
 	_levelDifficulty->SetPosition(Vector2f(10.0f, 15.0f));
 	_levelDifficulty->SetCharacterSize(25);
 	_levelDifficulty->SetZOrder(2);
 
 	LabelWidget* _levelName = SpawnWidget<LabelWidget>("Title:" +trackInfo.title, "TrackInfoLabel"); //TODO implemant Font
+	_levelName->SetFont("Pixel", TTF);
 	_levelName->SetPosition(Vector2f(((windowSize.x - _levelName->GetSize().x) / 2.0f), 15.0f));
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
