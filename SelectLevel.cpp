@@ -20,6 +20,7 @@ SelectLevel::SelectLevel() : Level("level") //Todo trouver un nom
 	background = nullptr;
 	windowSize = Vector2f();
 	trackIndex = 0;
+	description = nullptr;
 }
 
 SelectLevel::~SelectLevel()
@@ -48,6 +49,7 @@ void SelectLevel::InitSeparator()
 void SelectLevel::InitLabel()
 {
 	LabelWidget* _label = SpawnWidget<LabelWidget>("Select Level", "SelectLevelLabel"); //TODO implemant Font
+	_label->SetFont("Pixel", TTF);
 	_label->SetCharacterSize(35);
 	_label->SetZOrder(2);
 	_label->SetPosition(Vector2f(windowSize.x * 0.05f, 10.0f));
@@ -57,6 +59,7 @@ void SelectLevel::InitLabel()
 	_play->SetCharacterSize(30);
 	_play->SetZOrder(2);
 	_play->SetPosition(Vector2f(windowSize.x * 0.875f, windowSize.y - 45.0f));
+	_play->SetFont("Pixel", TTF);
 
 	//M_HUD.AddToViewport(_label);
 	//M_HUD.AddToViewport(_play);
@@ -66,22 +69,26 @@ void SelectLevel::InitDescription()
 {
 	description = SpawnWidget<CanvasWidget>("Description", Screen);
 	LabelWidget* _title = SpawnWidget<LabelWidget>("TrackTitle","TrackTitleLabel"); //TODO implemant Font
+	_title->SetFont("Pixel", TTF);
 	_title->SetCharacterSize(50);
 	_title->SetZOrder(2);
 	_title->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.2f));
 
 	LabelWidget* _artist = SpawnWidget<LabelWidget>("TrackTitle","TrackTitleLabel2"); //TODO implemant Font
+	_artist->SetFont("Pixel", TTF);
 	_artist->SetCharacterSize(25);
 	_artist->SetZOrder(2);
 	_artist->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.3f));
 
 	LabelWidget* _duration = SpawnWidget<LabelWidget>("TrackDuration", "TrackDurationLabel"); //TODO implemant Font
+	_duration->SetFont("Pixel", TTF);
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
 	_duration->SetPosition(Vector2f(windowSize.x * 0.8f, windowSize.y * 0.4f));
 
 	//TODO Dificulty
 	LabelWidget* _easy = SpawnWidget<LabelWidget>("TrackDifficulty", "TrackDifficultyLabel"); //TODO implemant Font
+	_easy->SetFont("Pixel", TTF);
 	_easy->SetCharacterSize(20);
 	_easy->SetZOrder(2);
 	_easy->SetFillColor(Color(50, 189, 22));
@@ -101,7 +108,7 @@ void SelectLevel::InitDescription()
 
 void SelectLevel::InitInput()
 {
-	ActionMap* _actionMap = M_INPUT.CreateActionMap("SelectLevel");
+	ActionMap* _actionMap = GetGameMode()->GetPlayerController()->GetInputManager().CreateActionMap("SelectLevel");
 	Action* _upAction = new Action("GoUp", ActionData(KeyHold, Key::Z), [&]()
 		{
 			ChangeIterator(true);
@@ -126,16 +133,19 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	_background->SetZOrder(0);
 
 	LabelWidget* _title = SpawnWidget<LabelWidget>(_track->GetTitle(),"TitleLabel"); //TODO implemant Font
+	_title->SetFont("Pixel", TTF);
 	_title->SetCharacterSize(20);
 	_title->SetZOrder(2);
 	_title->SetPosition(Vector2f(_backgroundSize.x * 0.01f, 0.0f));
 
 	LabelWidget* _artist = SpawnWidget<LabelWidget>(_track->GetArtist(),"ArtistLabel"); //TODO implemant Font
+	_artist->SetFont("Pixel", TTF);
 	_artist->SetCharacterSize(20);
 	_artist->SetZOrder(2);
 	_artist->SetPosition(Vector2f(_backgroundSize.x * 0.01f, _backgroundSize.y * 0.5f));
 
 	LabelWidget* _duration = SpawnWidget<LabelWidget>(_track->GetDurationAsString(), "DurationLabel"); //TODO implemant Font
+	_duration->SetFont("Pixel", TTF);
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
 	_duration->SetPosition(Vector2f(_backgroundSize.x * 0.5f, _backgroundSize.y * 0.25f));
@@ -191,7 +201,6 @@ void SelectLevel::SelectTrack()
 	CanvasWidget* _selectCanvas = (*musicIterator).second;
 	_selectCanvas->SetVisibility(VisibilityType::Visible);
 	_selectCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 140.0f));
-	//_selectCanvas->UpdateWidgets();
 	//_selectCanvas->GetFirstWidgetOf<UI::ImageWidget>()->SetOutline(2.0f, Color(255, 255, 255)); //TODO trouver solution
 }
 
@@ -220,7 +229,6 @@ void SelectLevel::WheelCanvas()
 		//_currentCanvas->GetFirstWidgetOf<UI::ImageWidget>()->SetOutline(2.0f, Color(255, 255, 255, 0));
 		_currentCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * _index));
 		SetDescription((*musicIterator).first);
-		//_currentCanvas->UpdateWidgets();
 		_currentCanvas->SetVisibility(VisibilityType::Visible);
 	}
 	
@@ -261,14 +269,12 @@ void SelectLevel::Load()
 void SelectLevel::Unload()
 {
 	Super::Unload();
-	M_INPUT.GetActionMapByName("SelectLevel")->Disable();
+	GetGameMode()->GetPlayerController()->GetInputManager().GetActionMapByName("SelectLevel")->Disable();
 }
 
 void SelectLevel::InitLevel()
 {
 	windowSize = GetWindowSize();
-
-	////M_CAMERA.CreateCamera<CameraActor>(FloatRect({ 0.0f, 0.0f }, windowSize), "DefaultCamera");
 
 	background = Level::SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
 	background->SetOriginAtMiddle();
