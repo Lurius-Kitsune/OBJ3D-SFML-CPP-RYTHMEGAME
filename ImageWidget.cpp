@@ -13,6 +13,7 @@ UI::ImageWidget::ImageWidget(Level* _level, const RectangleShapeData& _data, con
 	gradient = VertexArray();
 	colorGradient = Gradient();
 	SetTexture(_data.path);
+	image->Deconstruct();
 }
 
 UI::ImageWidget::ImageWidget(Level* _level, const CircleShapeData& _data, const string& _name, const RenderType& _type)
@@ -77,9 +78,9 @@ void UI::ImageWidget::UpdatePosition(const Vector2f& _position)
 {
 	if (slot)
 	{
-		slot->SetPosition(slot->GetParent()->GetPosition() + _position);
+		slot->SetPosition(_position);
 		Super::SetPosition(slot->GetPosition());
-		image->SetPosition(slot->GetPosition());
+		image->SetPosition(_position);
 	}
 
 	else

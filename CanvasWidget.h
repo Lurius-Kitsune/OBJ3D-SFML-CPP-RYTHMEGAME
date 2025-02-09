@@ -15,6 +15,14 @@ namespace UI
 			return true;
 		}
 
+		FORCEINLINE virtual void SetVisibility(const VisibilityType& _visibility) override
+		{
+			Super::SetVisibility(_visibility);
+			for (Slot* _slot : GetSlots())
+			{
+				_slot->GetContent()->SetVisibility(_visibility);
+			}
+		}
 	public:
 		CanvasWidget(Level* _level, const string& _name = "Canvas", const RenderType& _type = Screen);
 

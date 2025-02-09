@@ -146,9 +146,7 @@ void SelectLevel::InitRectangleTrackInfo(Track* _track)
 	_trackInfo->AddChild(_duration);
 
 	_trackInfo->SetVisibility(VisibilityType::Hidden);
-	_trackInfo->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * allTracksCanvas.size()));
 	allTracksCanvas.insert(make_pair(_track, _trackInfo));
-	//M_HUD.AddToViewport(_trackInfo);
 }
 
 void SelectLevel::SetDescription(Track* _track)
@@ -184,7 +182,7 @@ void SelectLevel::ChangeIterator(bool _isUp)
 		}
 	}
 	(*musicIterator).first->PlayExtrait();
-	//WheelCanvas();
+	WheelCanvas();
 
 }
 
@@ -221,6 +219,7 @@ void SelectLevel::WheelCanvas()
 		CanvasWidget* _currentCanvas = (*_current).second;
 		//_currentCanvas->GetFirstWidgetOf<UI::ImageWidget>()->SetOutline(2.0f, Color(255, 255, 255, 0));
 		_currentCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * _index));
+		SetDescription((*musicIterator).first);
 		//_currentCanvas->UpdateWidgets();
 		_currentCanvas->SetVisibility(VisibilityType::Visible);
 	}
@@ -310,7 +309,7 @@ void SelectLevel::InitLevel()
 	//M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
 	//M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
 	(*musicIterator).first->PlayExtrait();
-	//WheelCanvas();
+	WheelCanvas();
 }
 
 //bool SelectLevel::Update()
