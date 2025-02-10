@@ -115,8 +115,6 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 			GetHUD()->RemoveFromViewport(_noteResultLabel);
 		}, seconds(1), true, false);
 
-	GetHUD()->AddToViewport(_noteResultLabel);
-
 }
 
 void BeatMapLevel::InitLevelAspect()
