@@ -33,15 +33,15 @@ SelectLevel::~SelectLevel()
 
 void SelectLevel::InitSeparator()
 {
-	RectangleActor* _topSeparation = Level::SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background")); //TODO implemant Font
+	ImageWidget* _topSeparation = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background")); //TODO implemant Font
 	//_topSeparation->SetFillColor(Color(255, 255, 255, 150));
 	_topSeparation->SetPosition(Vector2f(0.0f, 60.0f));
 
-	RectangleActor* _levelSeparation = Level::SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 120.0f), "background")); //TODO implemant Font
+	ImageWidget* _levelSeparation = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 120.0f), "background")); //TODO implemant Font
 	//_levelSeparation->SetFillColor(Color(255, 255, 255, 150));
 	_levelSeparation->SetPosition(Vector2f(windowSize.x * 0.6f, _topSeparation->GetPosition().y));
 
-	RectangleActor* _bottomSeparation = Level::SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background")); //TODO implemant Font
+	ImageWidget* _bottomSeparation = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background")); //TODO implemant Font
 	//_bottomSeparation->SetFillColor(Color(255, 255, 255, 150));
 	_bottomSeparation->SetPosition(Vector2f(0.0f, windowSize.y - 60.0f));
 }
@@ -54,7 +54,6 @@ void SelectLevel::InitLabel()
 	_label->SetZOrder(2);
 	_label->SetPosition(Vector2f(windowSize.x * 0.05f, 10.0f));
 
-	//TODO Replace with button
 	ButtonWidget* _button = SpawnWidget<ButtonWidget>(RectangleShapeData(Vector2f(100.0f, 50.0f), "background"), "PlayButton", Screen);
 	_button->SetPosition(Vector2f(windowSize.x * 0.875f, windowSize.y - 45.0f));
 	_button->BindOnClickAction([&]()
@@ -74,9 +73,6 @@ void SelectLevel::InitLabel()
 	_play->SetZOrder(2);
 	_play->SetPosition(Vector2f(windowSize.x * 0.875f, windowSize.y - 45.0f));
 	_play->SetFont("Pixel", TTF);
-
-	//M_HUD.AddToViewport(_label);
-	//M_HUD.AddToViewport(_play);
 }
 
 void SelectLevel::InitDescription()
@@ -222,30 +218,24 @@ void SelectLevel::WheelCanvas()
 {
 	Iterator _current = musicIterator;
 	SelectTrack();
-	const u_int& _allTracksCanvasSize = CAST(u_int, allTracksCanvas.size()); 
-	for (u_int _index = 1; _index < _allTracksCanvasSize + 1; _index++)
+	const u_int& _allTracksCanvasSize = static_cast<u_int>(allTracksCanvas.size());
+	u_int _index = 1;
+	for (u_int i = 0; i < _allTracksCanvasSize; ++i)
 	{
-		if(!CrampIterator(_current)) ++_current;
-		if (_index == 2)
+		if (_current == allTracksCanvas.end())
 		{
-			++_index;
-			if (_current == musicIterator)
-			{
-				if (!CrampIterator(_current))
-				{
-					++_current;
-					++_index;
-				}
-			}
-			
+			_current = allTracksCanvas.begin();
 		}
-		CanvasWidget* _currentCanvas = (*_current).second;
-		//_currentCanvas->GetFirstWidgetOf<UI::ImageWidget>()->SetOutline(2.0f, Color(255, 255, 255, 0));
-		_currentCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 70.0f * _index));
-		SetDescription((*musicIterator).first);
-		_currentCanvas->SetVisibility(VisibilityType::Visible);
+		if (_current != musicIterator)
+		{
+			CanvasWidget* _currentCanvas = (*_current).second;
+			_currentCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 140.0f + 70.0f * _index));
+			_currentCanvas->SetVisibility(VisibilityType::Visible);
+			++_index;
+		}
+		++_current;
 	}
-	
+	SetDescription((*musicIterator).first);
 }
 
 bool SelectLevel::CrampIterator(Iterator& _current)
@@ -274,8 +264,6 @@ void SelectLevel::Load()
 	////allButtons.push_back(new ButtonWidget("ButtonOkay", Screen));
 
 	//musicIterator = allTracksCanvas.begin();
-	////M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
-	////M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
 	////(*musicIterator).first->PlayExtrait();
 	//WheelCanvas();
 }
@@ -289,10 +277,10 @@ void SelectLevel::InitLevel()
 {
 	windowSize = GetWindowSize();
 
-	background = Level::SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
+	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
 	background->SetOriginAtMiddle();
 	background->SetPosition(windowSize / 2.0f);
-	background->SetScale({ 1.2f, 2.0f });
+	background->SetScale({ 3.0f, 3.0f });
 	background->SetRotation(degrees(45));
 	//background->SetFillColor(Color(255, 255, 255, 100));
 
@@ -324,9 +312,6 @@ void SelectLevel::InitLevel()
 
 	musicIterator = allTracksCanvas.begin();
 
-
-	//M_INPUT.BindAction([&]() { ChangeIterator(true); }, Code::Z);
-	//M_INPUT.BindAction([&]() { ChangeIterator(false); }, Code::S);
 	(*musicIterator).first->PlayExtrait();
 	WheelCanvas();
 }
@@ -337,8 +322,6 @@ void SelectLevel::InitLevel()
 //	// Background
 //	background->Rotate(degrees(M_TIMER.GetDeltaTime().asSeconds() * 10));
 //	// Description
-//	SetDescription((*musicIterator).first);
-//	// Wheel
 //	
 //
 //	return IsOver();

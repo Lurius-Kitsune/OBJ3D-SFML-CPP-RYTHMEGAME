@@ -61,6 +61,10 @@ public:
 
 		return gameMode;
 	}
+	FORCEINLINE AudioManager& GetAudioManager()
+	{
+		return audioManager;
+	}
 	template <typename Type = UI::HUD, IS_BASE_OF(Type, UI::HUD)>
 	FORCEINLINE Type* GetHUD()
 	{
@@ -140,7 +144,7 @@ public:
 
 		if (_sample)
 		{
-			audioManager.PlaySample(_sample);
+			audioManager.PlaySample(_sample, _time, _duration);
 			return Cast<Type>(_sample);
 		}
 

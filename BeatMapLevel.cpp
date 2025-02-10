@@ -4,8 +4,8 @@
 #include "InputManager.h"
 #include "MeshActor.h"
 #include "RectangleActor.h"
+#include "ImageWidget.h"
 #include "CameraManager.h"
-#include "HUD.h"
 #include "FileManager.h"
 #include "DetectNoteComponent.h"
 
@@ -37,21 +37,6 @@ void BeatMapLevel::Load()
 	updateTimeTimer->Reset();
 	updateTimeTimer->Start();
 }
-
-//
-//bool BeatMapLevel::Update()
-//{
-//	track->Update();
-//	background->Rotate(degrees(M_TIMER.GetDeltaTime().asSeconds() * 10));
-//	AnimateBackground();
-//	if (track->IsFinished())
-//	{
-//		track->Stop();
-//		score->SetScore(0);
-//		comboData->SetCount(0);
-//	}
-//	return Super::Update();
-//}
 
 void BeatMapLevel::Unload()
 {
@@ -126,42 +111,49 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 
 void BeatMapLevel::InitLevelAspect()
 {
-	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "Background")); //TODO implemant Font
+	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "Background"));
 	background->SetOriginAtMiddle();
 	background->SetPosition(windowSize / 2.0f);
-	background->SetScale({ 1.2f, 2.0f });
-	background->SetRotation(degrees(45));
+	background->SetScale({ 2.0f, 2.0f });
+	background->SetRotation(degrees(90));
 	//background->SetFillColor(Color(255, 255, 255, 100));
 
+	function<Vector2f(const int)> _lambdaPosition = [&](const int _i) {
+		return Vector2f(windowSize.x / 3 + 120.0f * _i -  55.0f , 60.0f);
+		};
 
+	const Vector2f& _size = _lambdaPosition(4) - _lambdaPosition(0) + Vector2f(0.0f, windowSize.y - 60.0f);
+	ImageWidget* _layerDark = SpawnActor<ImageWidget>(RectangleShapeData(_size, "Background"));
+	_layerDark->SetPosition(_lambdaPosition(0));
+	_layerDark->SetFillColor(Color(0, 0, 0, 25));
 
-	RectangleActor* _separatorLeft = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); //TODO implemant Font
-	//_separatorLeft->SetFillColor(Color(255, 255, 255, 150));
-	_separatorLeft->SetPosition(Vector2f(330.0f, 60.0f));
+	ImageWidget* _separatorLeft = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); 
+	_separatorLeft->SetFillColor(Color(255, 255, 255, 150));
+	_separatorLeft->SetPosition(_lambdaPosition(0));
 
-	RectangleActor* _separatorMiddleLeft = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); //TODO implemant Font
-	//_separatorMiddleLeft->SetFillColor(Color(255, 255, 255, 150));
-	_separatorMiddleLeft->SetPosition(Vector2f(460.0f, 60.0f));
+	ImageWidget* _separatorMiddleLeft = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); 
+	_separatorMiddleLeft->SetFillColor(Color(255, 255, 255, 150));
+	_separatorMiddleLeft->SetPosition(_lambdaPosition(1));
 
-	RectangleActor* _separatorMiddle = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); //TODO implemant Font
-	//_separatorMiddle->SetFillColor(Color(255, 255, 255, 150));
-	_separatorMiddle->SetPosition(Vector2f(570.0f, 60.0f));
+	ImageWidget* _separatorMiddle = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); 
+	_separatorMiddle->SetFillColor(Color(255, 255, 255, 150));
+	_separatorMiddle->SetPosition(_lambdaPosition(2));
 
-	RectangleActor* _separatorMiddleRight = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); //TODO implemant Font
-	//_separatorMiddleRight->SetFillColor(Color(255, 255, 255, 150));
-	_separatorMiddleRight->SetPosition(Vector2f(700.0f, 60.0f));
+	ImageWidget* _separatorMiddleRight = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); 
+	_separatorMiddleRight->SetFillColor(Color(255, 255, 255, 150));
+	_separatorMiddleRight->SetPosition(_lambdaPosition(3));
 
-	RectangleActor* _separatorRight = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); //TODO implemant Font
-	//_separatorRight->SetFillColor(Color(255, 255, 255, 150));
-	_separatorRight->SetPosition(Vector2f(830.0f, 60.0f));
+	ImageWidget* _separatorRight = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 60.0f), "Background")); 
+	_separatorRight->SetFillColor(Color(255, 255, 255, 150));
+	_separatorRight->SetPosition(_lambdaPosition(4));
 
-	RectangleActor* _separatorTopNote = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(_separatorRight->GetPosition().x - _separatorLeft->GetPosition().x, 5.0f), "Background")); //TODO implemant Font
-	//_separatorTopNote->SetFillColor(Color(255, 255, 255, 150));
-	_separatorTopNote->SetPosition(Vector2f(_separatorLeft->GetPosition().x, 630.0f));
+	ImageWidget* _separatorTopNote = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(_separatorRight->GetPosition().x - _separatorLeft->GetPosition().x, 5.0f), "Background")); 
+	_separatorTopNote->SetFillColor(Color(255, 255, 255, 150));
+	_separatorTopNote->SetPosition(Vector2f(_separatorLeft->GetPosition().x, 430.0f));
 
-	RectangleActor* _separatorBottomNote = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(_separatorRight->GetPosition().x - _separatorLeft->GetPosition().x, 5.0f), "Background")); //TODO implemant Font
-	//_separatorBottomNote->SetFillColor(Color(255, 255, 255, 150));
-	_separatorBottomNote->SetPosition(Vector2f(_separatorLeft->GetPosition().x, 760.0f));
+	ImageWidget* _separatorBottomNote = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(_separatorRight->GetPosition().x - _separatorLeft->GetPosition().x, 5.0f), "Background")); 
+	_separatorBottomNote->SetFillColor(Color(255, 255, 255, 150));
+	_separatorBottomNote->SetPosition(Vector2f(_separatorLeft->GetPosition().x, 560.0f));
 
 	LabelWidget* _scoreText = SpawnWidget<LabelWidget>("Score :", "Score Text");
 	_scoreText->SetFont("Pixel", TTF);
@@ -169,7 +161,7 @@ void BeatMapLevel::InitLevelAspect()
 	_scoreText->SetCharacterSize(25);
 	_scoreText->SetZOrder(3);
 
-	score = SpawnWidget<ScoreLabel>("Score"); //TODO implemant Font
+	score = SpawnWidget<ScoreLabel>("Score"); 
 	score->SetFont("Pixel", TTF);
 	score->SetPosition(Vector2f((_separatorLeft->GetPosition().x - score->GetSize().x) / 2.0f, _scoreText->GetPosition().y + _scoreText->GetSize().y + 10.0f));
 	score->SetCharacterSize(25);
@@ -192,50 +184,34 @@ void BeatMapLevel::InitLevelAspect()
 	time->SetPosition(Vector2f((_separatorRight->GetPosition().x + (windowSize.x - _separatorRight->GetPosition().x) / 2.0f) - time->GetSize().x / 2.0f, windowSize.y * 0.8f));
 	time->SetCharacterSize(25);
 	time->SetZOrder(3);
-
-	HUD* _hud = GetHUD();
-
-	_hud->AddToViewport(score);
-	_hud->AddToViewport(_scoreText);
-	_hud->AddToViewport(_rankText);
-	_hud->AddToViewport(_rang);
-	_hud->AddToViewport(time);
 }
 
 void BeatMapLevel::InitTopBar()
 {
-	HUD* _hud = GetHUD();
 
 	//_layer->SetOutlineColor(Color(, 0, 0, 25));
-	Actor* _layerDark = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(windowSize.x * 1.0f, 60.0f), "Background")); //TODO implemant Font
-	//_layerDark->SetFillColor(Color(0, 0, 0, 50));
+	ImageWidget* _layerDark = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x * 1.0f, 60.0f), "Background")); 
+	_layerDark->SetFillColor(Color(0, 0, 0, 75));
 
-	Actor* _separation = SpawnActor<RectangleActor>(RectangleShapeData(Vector2f(windowSize.x * 1.0f, 5.0f), "Background")); //TODO implemant Font
-	//_separation->SetFillColor(Color(255, 255, 255, 150));
+	ImageWidget* _separation = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x * 1.0f, 5.0f), "Background")); 
+	_separation->SetFillColor(Color(255, 255, 255, 150));
 	_separation->SetPosition(Vector2f(0.0f, 60.0f));
 
-	//new Timer<Seconds>([&]() {IncrementCombo(); }, seconds(5), true, true);
-	LabelWidget* _levelDifficulty = SpawnWidget<LabelWidget>("Difficulty: " + difficulty, "DifficultyInfoLabel"); //TODO implemant Font
+	LabelWidget* _levelDifficulty = SpawnWidget<LabelWidget>("Difficulty: " + difficulty, "DifficultyInfoLabel"); 
 	_levelDifficulty->SetFont("Pixel", TTF);
 	_levelDifficulty->SetPosition(Vector2f(10.0f, 15.0f));
 	_levelDifficulty->SetCharacterSize(25);
 	_levelDifficulty->SetZOrder(2);
 
-	LabelWidget* _levelName = SpawnWidget<LabelWidget>("Title:" +trackInfo.title, "TrackInfoLabel"); //TODO implemant Font
+	LabelWidget* _levelName = SpawnWidget<LabelWidget>("Title:" +trackInfo.title, "TrackInfoLabel"); 
 	_levelName->SetFont("Pixel", TTF);
 	_levelName->SetPosition(Vector2f(((windowSize.x - _levelName->GetSize().x) / 2.0f), 15.0f));
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
 
-	//ProgressBar* _progressBar = M_HUD.CreateWidget<ProgressBar>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), "Test", 100.0f, Screen); //TODO implemant Font
+	//ProgressBar* _progressBar = M_HUD.CreateWidget<ProgressBar>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), "Test", 100.0f, Screen); 
 	//_progressBar->SetFillColor(Color(0, 255, 0, 255));
 	//_progressBar->ChangeValue(50.0f);
-
-	
-
-	//M_HUD.AddToViewport(_progressBar);
-	_hud->AddToViewport(_levelDifficulty);
-	_hud->AddToViewport(_levelName);
 }
 
 void BeatMapLevel::InitNoteTriggerAndSpawner()
@@ -348,5 +324,10 @@ void BeatMapLevel::InitLevel()
 	InitNoteTriggerAndSpawner();
 	track->Start(difficulty);
 
-	updateTimeTimer = new Timer<Seconds>([&]() { UpdateTime(); }, milliseconds(1000), true, true);
+	updateTimeTimer = new Timer<Seconds>([&]() 
+		{ 
+			UpdateTime(); 
+			background->Rotate(degrees(M_TIMER.GetDeltaTime().asSeconds() * 10));
+			AnimateBackground();
+		}, milliseconds(1000), true, true);
 }
