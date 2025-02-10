@@ -252,9 +252,6 @@
     <ClCompile Include="CameraManager.cpp">
       <Filter>Scripts\Managers\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Spawner.cpp">
-      <Filter>Scripts\Core\Actors\Spawner</Filter>
-    </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Scripts\GameLoop</Filter>
     </ClCompile>
@@ -288,17 +285,11 @@
     <ClCompile Include="NoteMouvementComponent.cpp">
       <Filter>MargeuRythme\Note\Mouvement</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Scripts\Core\Actors\Widget\Image</Filter>
-    </ClCompile>
     <ClCompile Include="Track.cpp">
       <Filter>MargeuRythme\Track</Filter>
     </ClCompile>
     <ClCompile Include="NoteSpawner.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ProgressBar.cpp">
-      <Filter>Scripts\Core\Actors\Widget\ProgressBar</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Source Files</Filter>
@@ -311,9 +302,6 @@
     </ClCompile>
     <ClCompile Include="ActionMap.cpp">
       <Filter>Scripts\Managers\InputManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Canvas.cpp">
-      <Filter>Scripts\Core\Actors\Widget\Canvas</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Scripts</Filter>
@@ -332,6 +320,60 @@
     </ClCompile>
     <ClCompile Include="Slot.cpp">
       <Filter>Scripts\Core\Actors\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CanvasSlot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CanvasWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckBoxWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DetectNoteComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HorizontalBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBarWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SliderWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformableObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexActor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VerticalBox.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -488,9 +530,6 @@
     <ClInclude Include="SelectLevel.h">
       <Filter>MargeuRythme</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>Scripts\Core\Actors\Widget\Image</Filter>
-    </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -499,9 +538,6 @@
     </ClInclude>
     <ClInclude Include="NoteSpawner.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ProgressBar.h">
-      <Filter>Scripts\Core\Actors\Widget\ProgressBar</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>Header Files</Filter>
@@ -515,9 +551,6 @@
     <ClInclude Include="ActionMap.h">
       <Filter>Scripts\Managers\InputManager</Filter>
     </ClInclude>
-    <ClInclude Include="Canvas.h">
-      <Filter>Scripts\Core\Actors\Widget\Canvas</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Scripts</Filter>
     </ClInclude>
@@ -530,14 +563,65 @@
     <ClInclude Include="PlayerController.h">
       <Filter>Scripts\Core\Actors\Player</Filter>
     </ClInclude>
-    <ClInclude Include="GameInput.h">
-      <Filter>MargeuRythme</Filter>
-    </ClInclude>
     <ClInclude Include="LabelWidget.h">
       <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
     </ClInclude>
     <ClInclude Include="Slot.h">
       <Filter>Scripts\Core\Actors\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CanvasSlot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CanvasWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckBoxWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBarWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SliderWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformableObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexActor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VerticalBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DetectNoteComponent.h">
+      <Filter>MargeuRythme\Note\Mouvement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

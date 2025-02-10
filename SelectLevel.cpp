@@ -61,12 +61,14 @@ void SelectLevel::InitLabel()
 		{
 			M_LEVEL.SetLevel(new BeatMapLevel((*musicIterator).first, "Medium"));
 		});
-	ActionMap* _actionMap = GetGameMode()->GetPlayerController()->GetInputManager().CreateActionMap("SelectLevel");
-	Action* _upAction = new Action("PlayButton", ActionData(MouseButtonPressed, Mouse::Button::Left), [_button, this]()
+	_button->BindOnHoverAction([_button]()
 		{
-			_button->OnClick();
+			_button->SetOutline(2.0f, Color(255, 255, 255, 255));
 		});
-	_actionMap->AddAction(_upAction);
+	_button->BindOnUnhoverAction([_button]()
+		{
+			_button->SetOutline(0.0f, Color(255, 255, 255, 255));
+		});
 	LabelWidget* _play = SpawnWidget<LabelWidget>("PLAY", "PlayLabel"); //TODO implemant Font
 	_play->SetCharacterSize(30);
 	_play->SetZOrder(2);
@@ -120,7 +122,7 @@ void SelectLevel::InitDescription()
 
 void SelectLevel::InitInput()
 {
-	ActionMap* _actionMap = GetGameMode()->GetPlayerController()->GetInputManager().GetActionMapByName("SelectLevel");
+	ActionMap* _actionMap = GetGameMode()->GetPlayerController()->GetInputManager().CreateActionMap("UI");
 	Action* _upAction = new Action("GoUp", ActionData(KeyHold, Key::Z), [&]()
 		{
 			ChangeIterator(true);
@@ -281,7 +283,6 @@ void SelectLevel::Load()
 void SelectLevel::Unload()
 {
 	Super::Unload();
-	GetGameMode()->GetPlayerController()->GetInputManager().GetActionMapByName("SelectLevel")->Disable();
 }
 
 void SelectLevel::InitLevel()
