@@ -150,6 +150,7 @@ class BeatMapLevel : public Level
 	string difficulty;
 	
 	bool finishedBackgroundAnimation;
+	Timer<Seconds>* updateTimeTimer;
 	//float advancementPercent;
 
 public:

@@ -14,7 +14,7 @@ using namespace UI;
 using namespace File;
 using namespace Input;
 
-SelectLevel::SelectLevel() : Level("level") //Todo trouver un nom
+SelectLevel::SelectLevel() : Level("SelectLevel") //Todo trouver un nom
 {
 	allTracks = {};
 	background = nullptr;

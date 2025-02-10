@@ -34,6 +34,8 @@ void BeatMapLevel::Load()
 	Super::Load();
 	GetActorManager().AddActor(track);
 	track->SetActive(true);
+	updateTimeTimer->Reset();
+	updateTimeTimer->Start();
 }
 
 //
@@ -54,11 +56,16 @@ void BeatMapLevel::Load()
 void BeatMapLevel::Unload()
 {
 	Super::Unload();
-	track->Stop();
-	track->SetActive(false);
+	if (track)
+	{
+		track->Stop();
+		track->SetActive(false);
+	}
 	track = nullptr;
-	//score->SetScore(0);
+	score->SetScore(0);
 	comboData->SetCount(0);
+	updateTimeTimer->Pause();
+	//M_LEVEL.SetLevel("SelectLevel");
 }
 
 void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector* _noteDetector)
@@ -341,5 +348,5 @@ void BeatMapLevel::InitLevel()
 	InitNoteTriggerAndSpawner();
 	track->Start(difficulty);
 
-	new Timer<Seconds>([&]() { UpdateTime(); }, milliseconds(1000), true, true);
+	updateTimeTimer = new Timer<Seconds>([&]() { UpdateTime(); }, milliseconds(1000), true, true);
 }
