@@ -8,6 +8,7 @@ UI::ImageWidget::ImageWidget(Level* _level, const RectangleShapeData& _data, con
 						   : Widget(_level, _name, _type)
 {
 	image = level->SpawnActor<MeshActor>(_data, _name);
+	image->Deconstruct();
 	sizeToContent = false;
 	initialSize = GetSize();
 	gradient = VertexArray();
@@ -20,6 +21,7 @@ UI::ImageWidget::ImageWidget(Level* _level, const CircleShapeData& _data, const 
 						   : Widget(_level, _name, _type)
 {
 	image = level->SpawnActor<MeshActor>(_data, _name);
+	image->Deconstruct();
 	sizeToContent = false;
 	initialSize = GetSize();
 	gradient = VertexArray();
@@ -56,6 +58,7 @@ UI::ImageWidget::ImageWidget(const ImageWidget& _other) : Widget(_other)
 		image = nullptr;
 		LOG(Fatal, "Alors oui, euh.. Bah c'était pas censé arriver..");
 	}
+	image->Deconstruct();
 }
 
 
