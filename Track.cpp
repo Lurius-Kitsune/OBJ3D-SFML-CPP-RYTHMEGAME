@@ -32,7 +32,7 @@ Track::~Track()
 
 void Track::PlayExtrait() const
 {
-	GetLevel()->GetAudioManager().PlaySample(new SoundSample(level,music->GetPath()), music->GetDuration() / 2.0f, seconds(10.0f));
+	GetLevel()->SpawnSample<SoundSample>(music->GetPath()),MP3,  music->GetDuration() / 2.0f, seconds(10.0f);
 }
 
 void Track::Start(const string& _difficulty)

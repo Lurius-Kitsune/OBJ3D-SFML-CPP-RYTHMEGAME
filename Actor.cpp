@@ -12,7 +12,7 @@ Actor::Actor(Level* _level, const string& _name, const TransformData& _transform
 	lifeSpan = 0.0f;
 	name = _name;
 	displayName = "Unknown";
-	components = map<type_index, Component*>();
+	components = set<Component*>();
 	root = CreateComponent<RootComponent>(_transform);
 	parent = nullptr;
 	attachment = AT_NONE;
@@ -27,10 +27,9 @@ Actor::Actor(const Actor& _other)
 	name = _other.name;
 	displayName = _other.displayName;
 
-	for (const pair<type_index, Component*>& _pair : components)
+	for (Component* _component : _other.components)
 	{
-		//CreateComponent<CameraComponent>(*_pair.second);
-		//CreateComponent<TYPE(_pair.first)>(*_pair.second);
+		AddComponent(_component->Clone(this));
 	}
 
 	root = GetComponent<RootComponent>();
@@ -46,9 +45,9 @@ Actor::Actor(const Actor& _other)
 
 Actor::~Actor()
 {
-	for (const pair<type_index, Component*>& _pair : components)
+	for (Component* _component : components)
 	{
-		delete _pair.second;
+		delete _component;
 	}
 }
 
@@ -80,9 +79,9 @@ void Actor::BeginPlay()
 		new Timer(bind(&Actor::Destroy, this), seconds(lifeSpan), true);
 	}
 
-	for (const pair<type_index, Component*>& _pair : components)
+	for (Component* _component : components)
 	{
-		_pair.second->BeginPlay();
+		_component->BeginPlay();
 	}
 }
 
@@ -90,17 +89,17 @@ void Actor::Tick(const float _deltaTime)
 {
 	Super::Tick(_deltaTime);
 
-	for (const pair<type_index, Component*>& _pair : components)
+	for (Component* _component : components)
 	{
-		_pair.second->Tick(_deltaTime);
+		_component->Tick(_deltaTime);
 	}
 }
 
 void Actor::BeginDestroy()
 {
-	for (const pair<type_index, Component*>& _pair : components)
+	for (Component* _component : components)
 	{
-		_pair.second->BeginDestroy();
+		_component->BeginDestroy();
 	}
 }
 
@@ -123,12 +122,17 @@ void Actor::Destroy()
 	SetToDelete();
 }
 
-void Actor::AddComponent(const type_index& _type, Component* _component)
+void Actor::AddComponent(Component* _component)
 {
-	components.insert({ _type, _component });
+	components.insert(_component);
 }
 
 void Actor::RemoveComponent(Component* _component)
 {
-	components.erase(TYPE_ID(_component));
+	components.erase(components.find(_component));
+}
+
+void Actor::SetupInputController(ActionMap* _actionMap)
+{
+	_actionMap->Enable();
 }

@@ -2,6 +2,7 @@
 #include "Core.h"
 #include "TransformableModifier.h"
 #include "TransformableViewer.h"
+#include "ActionMap.h"
 #include "Component.h"
 #include "RootComponent.h"
 #include "Layer.h"
@@ -10,6 +11,7 @@ class Level;
 struct CollisionData;
 
 using namespace Layer;
+using namespace Input;
 
 class Actor : public Core, public ITransformableModifier, public ITransformableViewer
 {
@@ -21,7 +23,7 @@ protected:
 private:
 	string name;
 	string displayName;
-	map<type_index, Component*> components;
+	set<Component*> components;
 	RootComponent* root;
 	Actor* parent;
 	AttachmentType attachment;
@@ -306,7 +308,7 @@ protected:
 	FORCEINLINE Type* CreateComponent(Args&&... _args)
 	{
 		Type* _component = new Type(this, forward<Args>(_args)...);
-		AddComponent(TYPE_ID(Type), _component);
+		AddComponent(_component);
 		return _component;
 	}
 	#pragma endregion
@@ -329,14 +331,17 @@ public:
 
 	#pragma region Components
 
-	void AddComponent(const type_index& _type, Component* _component);
+	void AddComponent(Component* _component);
 	void RemoveComponent(Component* _component);
 	template <typename Type, IS_BASE_OF(Component, Type)>
 	Type* GetComponent()
 	{
-		const type_index& _type = TYPE_ID(Type);
-		if (!components.contains(_type)) return nullptr;
-		return Cast<Type>(components[_type]);
+		for (Component* _component : components)
+		{
+			if (Type* _result = dynamic_cast<Type*>(_component)) return _result;
+		}
+
+		return nullptr;
 	}
 
 	#pragma endregion
@@ -348,4 +353,7 @@ public:
 	virtual void CollisionExit(const CollisionData& _data) {}
 
 	#pragma endregion
+
+protected:
+	virtual void SetupInputController(ActionMap* _actionMap);
 };

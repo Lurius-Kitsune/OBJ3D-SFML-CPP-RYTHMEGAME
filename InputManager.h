@@ -45,8 +45,7 @@ namespace Input
 		{
 			if (actionsMaps.contains(_name))
 			{
-				LOG(Error, "This ActionMap's name (" + _name + ") already used !");
-				return nullptr;
+				return actionsMaps[_name];
 			}
 
 			ActionMap* _actionMap = new ActionMap(_name);

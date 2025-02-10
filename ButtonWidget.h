@@ -1,7 +1,7 @@
 #pragma once
 #include "ImageWidget.h"
 
-using MouseMouvement = Event::MouseMoved;
+class Actor;
 
 namespace UI
 {
@@ -11,7 +11,7 @@ namespace UI
 		vector<function<void()>> onRealeaseActions;
 		vector<function<void()>> onHoverActions;
 		vector<function<void()>> onUnhoversActions;
-		vector<function<void(const MouseMouvement*)>> onDragActions;
+		vector<function<void(const Vector2f&)>> onDragActions;
 	};
 
 	class ButtonWidget : public ImageWidget
@@ -60,7 +60,7 @@ namespace UI
 		{
 			callbackData.get()->onUnhoversActions.push_back(_action);
 		}
-		FORCEINLINE virtual void BindOnDragAction(const function<void(const MouseMouvement*)>& _action)
+		FORCEINLINE virtual void BindOnDragAction(const function<void(const Vector2f&)>& _action)
 		{
 			callbackData.get()->onDragActions.push_back(_action);
 		}
@@ -74,7 +74,10 @@ namespace UI
 		virtual void OnRelease();
 		virtual void OnHover();
 		virtual void OnUnhover();
-		virtual void OnDrag(const MouseMouvement* _mouseMovement);
+		virtual void OnDrag(const Vector2f& _mousePosition);
 		virtual void Render(RenderWindow& _window) override;
+
+	protected:
+		virtual void SetupInputController(ActionMap* _actionMap) override;
 	};
 };

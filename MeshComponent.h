@@ -18,6 +18,11 @@ public:
 		shape = _shape;
 	}
 
+	FORCEINLINE Component* Clone(Actor* _owner) const override
+	{
+		return new MeshComponent(_owner, *this);
+	}
+
 public:
 	MeshComponent(Actor* _owner, const CircleShapeData& _data);
 	MeshComponent(Actor* _owner, const RectangleShapeData& _data);

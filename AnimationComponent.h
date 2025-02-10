@@ -27,6 +27,11 @@ public:
 		current->Stop();
 	}
 
+	FORCEINLINE Component* Clone(Actor* _owner) const override
+	{
+		return new AnimationComponent(_owner, this);
+	}
+
 public:
 	AnimationComponent(Actor* _owner);
 	AnimationComponent(Actor* _owner, const AnimationComponent* _other);

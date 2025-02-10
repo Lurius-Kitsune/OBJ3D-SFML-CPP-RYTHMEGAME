@@ -21,8 +21,7 @@ void UI::SliderWidget::Init()
 	UpdateCursorPosition();
 
 	//Bind
-	sliderButton->BindOnDragAction([&] (const MouseMouvement* _mouseMovement) {
-		const Vector2i& _mousePosition = _mouseMovement->position;
+	sliderButton->BindOnDragAction([&] (const Vector2f& _mousePosition) {
 		const Vector2f& _position = sliderBar->GetPosition();
 		const Vector2f& _size = sliderBar->GetSize();
 		const float _normaliseValue = (_mousePosition.x - _position.x) / _size.x;
@@ -31,7 +30,6 @@ void UI::SliderWidget::Init()
 		const float _stepValue = round(_value / step) * step;
 		SetValue(_stepValue);
 		UpdateCursorPosition();
-		LOG(Display, "Value : " + to_string(value));
 	});
 }
 

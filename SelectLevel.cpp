@@ -288,6 +288,19 @@ void SelectLevel::InitLevel()
 {
 	windowSize = GetWindowSize();
 
+	LabelWidget* _noteResultLabel = SpawnWidget<LabelWidget>("_text", "NoteResultLabel");
+	_noteResultLabel->SetFont("Pixel", TTF);
+	_noteResultLabel->SetOriginAtMiddle();
+	_noteResultLabel->SetCharacterSize(25);
+	_noteResultLabel->SetZOrder(3);
+	//_noteResultLabel->SetFillColor(_color);
+	new Timer([_noteResultLabel, this]()
+		{
+			GetHUD()->RemoveFromViewport(_noteResultLabel);
+		}, seconds(1), true, false);
+
+	GetHUD()->AddToViewport(_noteResultLabel);
+
 	background = Level::SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
 	background->SetOriginAtMiddle();
 	background->SetPosition(windowSize / 2.0f);

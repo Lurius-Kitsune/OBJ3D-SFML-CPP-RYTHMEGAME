@@ -48,6 +48,11 @@ void DetectNoteComponent::DetectNote()
 
 }
 
+Component* DetectNoteComponent::Clone(Actor* _owner) const
+{
+	return new DetectNoteComponent(_owner, *this);
+}
+
 void DetectNoteComponent::InterpretResult(const float _precision, const bool _isAfter)
 {
 	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());

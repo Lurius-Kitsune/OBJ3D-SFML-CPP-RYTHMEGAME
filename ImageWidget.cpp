@@ -14,7 +14,6 @@ UI::ImageWidget::ImageWidget(Level* _level, const RectangleShapeData& _data, con
 	gradient = VertexArray();
 	colorGradient = Gradient();
 	SetTexture(_data.path);
-	image->Deconstruct();
 }
 
 UI::ImageWidget::ImageWidget(Level* _level, const CircleShapeData& _data, const string& _name, const RenderType& _type)

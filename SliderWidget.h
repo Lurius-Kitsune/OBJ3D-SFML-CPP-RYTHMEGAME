@@ -57,6 +57,11 @@ namespace UI
 			Super::Scale(_factor);
 			sliderBar->Scale(_factor);
 		}
+
+		FORCEINLINE virtual Vector2f GetSize() const
+		{
+			return sliderBar->GetSize() + sliderButton->GetSize();
+		}
 		#pragma endregion
 
 		#pragma region SliderSettings

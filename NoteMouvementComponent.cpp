@@ -30,6 +30,11 @@ void NoteMouvementComponent::Tick(const float _deltaTime)
 	Move(_deltaTime);
 }
 
+Component* NoteMouvementComponent::Clone(Actor* _owner) const
+{
+	return new NoteMouvementComponent(_owner, *this);
+}
+
 void NoteMouvementComponent::Move(const float _deltaTime)
 {
 	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());

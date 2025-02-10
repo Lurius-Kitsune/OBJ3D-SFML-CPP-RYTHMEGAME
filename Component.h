@@ -20,4 +20,5 @@ public:
 public:
 	virtual void BeginPlay() override {};
 	virtual void BeginDestroy() override {};
+	virtual Component* Clone(Actor* _owner) const = 0;
 };

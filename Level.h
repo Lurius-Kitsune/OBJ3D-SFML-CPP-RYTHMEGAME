@@ -52,10 +52,6 @@ public:
 	{
 		return cameraManager;
 	}
-	FORCEINLINE AudioManager& GetAudioManager()
-	{
-		return audioManager;
-	}
 	FORCEINLINE GameMode* GetGameMode()
 	{
 		if (!gameMode)
@@ -145,12 +141,12 @@ public:
 		if (_sample)
 		{
 			audioManager.PlaySample(_sample);
-			return _sample;
+			return Cast<Type>(_sample);
 		}
 
 		_sample = SpawnActor<Type>(_finalPath);
 		audioManager.RegisterSample(_sample);
-		return _sample;
+		return Cast<Type>(_sample);
 	}
 
 	/*template <typename Type = Sample, IS_BASE_OF(Sample, Type)>

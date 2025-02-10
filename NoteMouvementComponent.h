@@ -26,9 +26,9 @@ public:
 
 public:
 	virtual void Tick(const float _deltaTime) override;
+	virtual Component* Clone(Actor* _owner) const override;
 
 private:
 	void Move(const float _deltaTime);
-
 };
 

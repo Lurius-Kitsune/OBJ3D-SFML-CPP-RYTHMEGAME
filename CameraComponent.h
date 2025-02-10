@@ -47,6 +47,11 @@ public:
 		view->zoom(_factor);
 	}
 
+	FORCEINLINE Component* Clone(Actor* _owner) const override
+	{
+		return new CameraComponent(_owner, this);
+	}
+
 public:
 	CameraComponent(Actor* _owner);
 	CameraComponent(Actor* _owner, const Vector2f& _center, const Vector2f& _size);
