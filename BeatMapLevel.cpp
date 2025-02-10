@@ -55,6 +55,8 @@ void BeatMapLevel::Unload()
 {
 	Super::Unload();
 	track->Stop();
+	track->SetActive(false);
+	track = nullptr;
 	//score->SetScore(0);
 	comboData->SetCount(0);
 }
