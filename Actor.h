@@ -2,7 +2,6 @@
 #include "Core.h"
 #include "TransformableModifier.h"
 #include "TransformableViewer.h"
-#include "ActionMap.h"
 #include "Component.h"
 #include "RootComponent.h"
 #include "Layer.h"
@@ -11,13 +10,13 @@ class Level;
 struct CollisionData;
 
 using namespace Layer;
-using namespace Input;
 
 class Actor : public Core, public ITransformableModifier, public ITransformableViewer
 {
 	bool isToDelete;
 	u_int id;
 protected:
+	int zOrder;
 	float lifeSpan;
 	LayerType layer;
 private:
@@ -28,6 +27,8 @@ private:
 	Actor* parent;
 	AttachmentType attachment;
 	set<Actor*> children;
+	TransformData oldTransform;
+
 protected:
 	Level* level;
 
@@ -42,7 +43,7 @@ public:
 		return isToDelete;
 	}
 	#pragma endregion
-
+	
 	#pragma region ID/Name
 	FORCEINLINE u_int GetID() const
 	{
@@ -71,11 +72,25 @@ public:
 
 	#pragma region Level
 	
-	FORCEINLINE Level* GetLevel() const
+	template<typename Type = Level, IS_BASE_OF(Level, Type)>
+	FORCEINLINE Type* GetLevel()
 	{
-		return level;
+		if (InstanceOf<Type>(level))
+		{
+			return level;
+		}
+
+		return Cast<Type>(level);
 	}
-	
+	FORCEINLINE virtual int GetZOrder() const
+	{
+		return zOrder;
+	}
+	FORCEINLINE virtual void SetZOrder(const int _zOrder)
+	{
+		zOrder = _zOrder;
+	}
+
 	#pragma endregion
 
 	#pragma region Children
@@ -90,13 +105,14 @@ private:
 		UpdateChildPosition(_child);
 		UpdateChildRotation(_child);
 		UpdateChildScale(_child);
+		UpdateChildOrigin(_child);
 	}
 	FORCEINLINE void UpdateChildPosition(Actor* _child)
 	{
 		const vector<function<Vector2f()>>& _computePosition =
 		{
 			// Keep the child’s relative position to the parent.
-			[&]() { return _child->GetPosition() + GetPosition(); },
+			[&]() { return _child->GetPosition() + GetPosition() - oldTransform.position; },
 			// Keep the child’s world position.
 			[&]() { return _child->GetPosition(); },
 			// Snap the child to the parent's position.
@@ -111,7 +127,7 @@ private:
 		const vector<function<Angle()>>& _computeRotation =
 		{
 			// Keep the child’s relative rotation to the parent.
-			[&]() { return _child->GetRotation() + GetRotation(); },
+			[&]() { return _child->GetRotation() + GetRotation() - oldTransform.rotation; },
 			// Keep the child’s world rotation.
 			[&]() { return _child->GetRotation(); },
 			// Snap the child to the parent's rotation.
@@ -138,6 +154,21 @@ private:
 
 		const AttachmentType& _type = _child->GetAttachmentType();
 		_child->SetScale(_computeScale[_type]());
+	}
+	FORCEINLINE void UpdateChildOrigin(Actor* _child)
+	{
+		const vector<function<Vector2f()>>& _computePosition =
+		{
+			// Keep the child’s relative position to the parent.
+			[&]() { return _child->GetOrigin() + GetOrigin() - oldTransform.origin; },
+			// Keep the child’s world position.
+			[&]() { return _child->GetOrigin(); },
+			// Snap the child to the parent's position.
+			[&]() { return GetOrigin(); },
+		};
+
+		const AttachmentType& _type = _child->GetAttachmentType();
+		_child->SetPosition(_computePosition[_type]());
 	}
 
 public:
@@ -241,6 +272,7 @@ public:
 
 	FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
 	{
+		oldTransform.position = GetPosition();
 		root->SetPosition(_position);
 
 		for (Actor* _child : children)
@@ -250,6 +282,7 @@ public:
 	}
 	FORCEINLINE virtual void SetRotation(const Angle& _rotation) override
 	{
+		oldTransform.rotation = GetRotation();
 		root->SetRotation(_rotation);
 
 		for (Actor* _child : children)
@@ -259,6 +292,7 @@ public:
 	}
 	FORCEINLINE virtual void SetScale(const Vector2f& _scale) override
 	{
+		oldTransform.scale = GetScale();
 		root->SetScale(_scale);
 
 		for (Actor* _child : children)
@@ -268,7 +302,13 @@ public:
 	}
 	FORCEINLINE virtual void SetOrigin(const Vector2f& _origin) override
 	{
+		oldTransform.origin = GetOrigin();
 		root->SetOrigin(_origin);
+
+		for (Actor* _child : children)
+		{
+			UpdateChildOrigin(_child);
+		}
 	}
 	FORCEINLINE virtual void Move(const Vector2f& _offset) override
 	{
@@ -319,12 +359,14 @@ public:
 	virtual ~Actor();
 
 public:
-	virtual void Construct();
-	virtual void Deconstruct();
+	virtual void Construct() override;
+	virtual void Deconstruct() override;
 	virtual void BeginPlay() override;
 	virtual void Tick(const float _deltaTime) override;
 	virtual void BeginDestroy() override;
 
+	void Register();
+	void Unregister();
 	void SetName(const string& _name);
 	void CreateSocket(const string& _name, const TransformData& _transform = TransformData(), const AttachmentType& _type = AT_SNAP_TO_TARGET);
 	void Destroy();
@@ -353,7 +395,4 @@ public:
 	virtual void CollisionExit(const CollisionData& _data) {}
 
 	#pragma endregion
-
-protected:
-	virtual void SetupInputController(ActionMap* _actionMap);
 };

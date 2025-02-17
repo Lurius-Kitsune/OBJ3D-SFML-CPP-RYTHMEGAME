@@ -1,5 +1,6 @@
 #pragma once
 #include "Macro.h"
+#include "SubclassOf.h"
 
 u_int GetUniqueID();
 int GetRandomNumberInRange(const int _min, const int _max);
@@ -16,6 +17,18 @@ float Distance(const float _first, const float _second);
 float Distance(const Vector2f& _first, const Vector2f& _second);
 Vector2f ComputeNormal(const FloatRect& _rect);
 vector<string> SplitString(const string& _string, const char _delimiter);
+
+template <typename Type, typename ...Args>
+Type* Spawn(Args&&... _args)
+{
+    return new Type(forward<Args>(_args)...);
+}
+
+template <typename Type>
+Type* Spawn(const SubclassOf<Type>& _ref)
+{
+    return new Type(_ref.GetObject());
+}
 
 template <typename T>
 T GetRandomNumberInRange(const T& _min, const T& _max)

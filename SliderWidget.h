@@ -40,7 +40,7 @@ namespace UI
 		}
 		FORCEINLINE void SetOriginAtMiddle()
 		{
-			SetOrigin(sliderBar->GetMeshActor()->GetMesh()->GetShape()->GetDrawable()->getGeometricCenter());
+			SetOrigin(sliderBar->GetComponent<MeshComponent>()->GetShape()->GetDrawable()->getGeometricCenter());
 		}
 		FORCEINLINE virtual void Move(const Vector2f& _offset) override
 		{
@@ -114,6 +114,16 @@ namespace UI
 		FORCEINLINE ButtonWidget* GetButton() const
 		{
 			return sliderButton;
+		}
+		FORCEINLINE ImageWidget* GetSliderBar() const
+		{
+			return sliderBar;
+		}
+
+		FORCEINLINE virtual void SetTransparency(const u_int& _alpha)
+		{
+			sliderBar->SetTransparency(_alpha);
+			sliderButton->SetTransparency(_alpha);
 		}
 		
 	public:

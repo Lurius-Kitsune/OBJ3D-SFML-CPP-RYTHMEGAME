@@ -6,9 +6,9 @@ VertexComponent::VertexComponent(Actor* _owner, const u_int& _count, const Primi
 	vertex = new VertexObject(_count, _type);
 }
 
-VertexComponent::VertexComponent(Actor* _owner, const VertexComponent* _other) : Component(_owner)
+VertexComponent::VertexComponent(Actor* _owner, const VertexComponent& _other) : Component(_owner)
 {
-	vertex = new VertexObject(*_other->vertex);
+	vertex = new VertexObject(*_other.vertex);
 }
 
 VertexComponent::~VertexComponent()

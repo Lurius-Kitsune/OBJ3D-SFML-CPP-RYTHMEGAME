@@ -1,14 +1,15 @@
 #include "ButtonWidget.h"
 #include "Level.h"
 
+using namespace Input;
+
 UI::ButtonWidget::ButtonWidget(Level* _level, const RectangleShapeData& _data, const string _name, const RenderType& _renderType)
 							 : ImageWidget(_level, _data, _name, _renderType)
 {
 	isPressed = false;
 	isHovered = false;
 	callbackData = make_unique<CallbackData>();
-	ActionMap* _actionMap = level->GetGameMode()->GetPlayerController()->GetInputManager().CreateActionMap("UI");
-	SetupInputController(_actionMap);
+	inputManager = nullptr;
 }
 
 
@@ -67,11 +68,13 @@ void UI::ButtonWidget::Render(RenderWindow& _window)
 	Super::Render(_window);
 }
 
-void UI::ButtonWidget::SetupInputController(ActionMap* _actionMap)
+void UI::ButtonWidget::BindActions(Input::InputManager& _inputManager)
 {
-	Super::SetupInputController(_actionMap);
+	const string& _name = GetName();
+	LOG(Display, _name);
+	ActionMap* _actionMap = _inputManager.CreateActionMap("UI_" + _name);
 
-	_actionMap->AddAction("OnClick", ActionData(MouseButtonPressed, Mouse::Button::Left), [&]()
+	_actionMap->AddAction("OnClick_" + _name, ActionData(MouseButtonPressed, Mouse::Button::Left), [&]()
 	{
 		if (isHovered)
 		{
@@ -79,8 +82,8 @@ void UI::ButtonWidget::SetupInputController(ActionMap* _actionMap)
 			OnClick();
 		}
 	});
-
-	_actionMap->AddAction("OnRealeased",ActionData(MouseButtonReleased, Mouse::Button::Left), [&]()
+		
+	_actionMap->AddAction("OnRealeased_" + _name, ActionData(MouseButtonReleased, Mouse::Button::Left), [&]()
 	{
 		if (isPressed)
 		{
@@ -88,8 +91,8 @@ void UI::ButtonWidget::SetupInputController(ActionMap* _actionMap)
 		}
 		isPressed = false;
 	});
-
-	_actionMap->AddAction("OnHover", MouseMoved, [&](const Vector2f& _mousePosition)
+		
+	_actionMap->AddAction("OnHover_" + _name, MouseMoved, [&](const Vector2f& _mousePosition)
 	{
 		if (GetGlobalBox().contains(_mousePosition))
 		{
@@ -108,14 +111,14 @@ void UI::ButtonWidget::SetupInputController(ActionMap* _actionMap)
 			isHovered = false;
 		}
 	});
-
-	_actionMap->AddAction("OnDrag", MouseMoved, [&](const Vector2f& _mousePosition)
+		
+	_actionMap->AddAction("OnDrag_" + _name, MouseMoved, [&](const Vector2f& _mousePosition)
 	{
 		if (isPressed)
 		{
 			OnDrag(_mousePosition);
 		}
 	});
-
+		
+	_actionMap->Enable();
 }
-

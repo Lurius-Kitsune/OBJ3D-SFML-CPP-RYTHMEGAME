@@ -1,5 +1,5 @@
 #pragma once
-#include "Actor.h"
+#include "PlayerController.h"
 #include "RenderType.h"
 #include "Slot.h"
 
@@ -15,14 +15,16 @@ namespace UI
 		Visible,
 	};
 
+	class HUD;
+
 	class Widget : public Actor
 	{
 		u_int renderToken;
 		RenderType type;
 	protected:
-		Slot* slot;
 		VisibilityType visibility;
-		int zOrder;
+		Slot* slot;
+		HUD* hud;
 
 	public:
 		FORCEINLINE RenderType GetType() const
@@ -45,14 +47,7 @@ namespace UI
 		{
 			visibility = _visibility;
 		}
-		FORCEINLINE virtual int GetZOrder() const
-		{
-			return zOrder;
-		}
-		FORCEINLINE virtual void SetZOrder(const int _zOrder)
-		{
-			zOrder = _zOrder;
-		}
+		FORCEINLINE virtual void SetZOrder(const int _zOrder) override;
 		FORCEINLINE virtual Vector2f GetSize() const = 0;
 
 	public:
@@ -60,7 +55,9 @@ namespace UI
 		~Widget();
 
 		virtual void Construct() override;
-		virtual void Deconstruct() override;
 		virtual void Render(RenderWindow& _window) = 0;
+		virtual void BindActions(Input::InputManager& _inputManager) {};
+		virtual void BindViewport();
+		virtual void UnbindViewport();
 	};
 }

@@ -1,47 +1,37 @@
 #include "GameMode.h"
 #include "Level.h"
+#include "Pawn.h"
 
 GameMode::GameMode(Level* _level, const string& _name) : Actor(_level, _name)
 {
-	controllerRef = PlayerController(_level);
 	controller = nullptr;
-	hudRef = HUD(_level);
 	hud = nullptr;
+	isSplitScreen = false;
 }
 
 GameMode::GameMode(const GameMode& _other) : Actor(_other)
 {
-	controllerRef = _other.controllerRef;
 	controller = nullptr;
-	hudRef = _other.hudRef;
 	hud = nullptr;
+	isSplitScreen = false;
 }
 
 
-void GameMode::Construct()
+void GameMode::Possess(Pawn* _pawn)
 {
-	Super::Construct();
-
-	controller = GetPlayerController();
-	hud = GetHUD();
-}
-
-PlayerController* GameMode::GetPlayerController()
-{
-	if (!controller)
+	if(controller)
 	{
-		controller = level->SpawnActor<PlayerController>(controllerRef);
+		controller->Disable();
 	}
-
-	return controller;
+	controller = _pawn->GetController();
+	controller->Enable();
 }
 
-UI::HUD* GameMode::GetHUD()
+void GameMode::Unpossess(Pawn* _pawn)
 {
-	if (!hud)
+	if (controller)
 	{
-		hud = level->SpawnActor<HUD>(hudRef);
+		controller->Disable();
+		controller = nullptr;
 	}
-
-	return hud;
 }

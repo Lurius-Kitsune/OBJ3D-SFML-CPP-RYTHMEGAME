@@ -1,15 +1,12 @@
 #pragma once
 #include "Actor.h"
 #include "MeshComponent.h"
-#include "CollisionComponent.h"
 #include "TextureManager.h"
 
 class MeshActor : public Actor
 {
-	u_int renderMeshToken;
-	MeshComponent* mesh;
 protected:
-	CollisionComponent* collision;
+	MeshComponent* mesh;
 
 public:
 	FORCEINLINE MeshComponent* GetMesh() const
@@ -30,7 +27,6 @@ public:
 	}
 
 	#pragma region Modifier
-
 	FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
 	{
 		Super::SetPosition(_position);
@@ -51,10 +47,7 @@ public:
 		Super::SetOrigin(_origin);
 		mesh->GetShape()->SetOrigin(_origin);
 	}
-	FORCEINLINE void SetOriginAtMiddle()
-	{
-		SetOrigin(mesh->GetShape()->GetDrawable()->getGeometricCenter());
-	}
+
 	FORCEINLINE virtual void Move(const Vector2f& _offset) override
 	{
 		Super::Move(_offset);
@@ -70,7 +63,6 @@ public:
 		Super::Scale(_factor);
 		mesh->GetShape()->Scale(_factor);
 	}
-
 	#pragma endregion
 
 public:
@@ -79,10 +71,6 @@ public:
 	MeshActor(Level* _level, const RectangleShapeData& _data, const string& _name = "MeshActor");
 	MeshActor(const MeshActor& _other);
 
-protected:
-	virtual void RenderMesh(RenderWindow& _window);
-
 public:
-	virtual void Construct() override;
-	virtual void Deconstruct() override;
+	virtual void SetZOrder(const int _zOrder) override;
 };

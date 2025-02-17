@@ -1,22 +1,18 @@
 #include "Animation.h"
 #include "TextureManager.h"
 
-bool LinkedAnimation::TryToChange()
-{
-	if (!IsValid()) return false;
-
-	animation->Start(); // TODO implement
-	return true;
-}
-
-
 Animation::Animation(const string& _name, ShapeObject* _shape, const AnimationData& _data)
 {
 	currentIndex = 0;
 	name = _name;
 	data = _data;
 	shape = _shape;
-	timer = nullptr;
+	timer = new Timer(
+		[&]() { Update(); },
+		seconds(ComputeDuration()),
+		false,
+		true
+	);
 }
 
 Animation::Animation(const Animation& _other)
@@ -40,12 +36,13 @@ void Animation::Update()
 	{
 		if (!data.canLoop)
 		{
-			// transition
-
+			onAnimationEnded();
 			Stop();
 			return;
 		}
 
+		//TODO remove
+		onAnimationEnded();
 		Reset();
 	}
 
@@ -62,26 +59,16 @@ void Animation::Update()
 		_notifies[currentIndex]();
 	}
 
-	const SpriteData& _spriteData = data.sprites[currentIndex - 1];
-	UpdateTimer(data.duration / data.count * _spriteData.factor);
-	
+	const SpriteData& _spriteData = *GetSpriteData();
+	UpdateTimer(_spriteData);
 	M_TEXTURE.SetTextureRect(shape->GetDrawable(), _spriteData.start, _spriteData.size);
 }
 
-void Animation::UpdateTimer(const float _duration)
+void Animation::UpdateTimer(const SpriteData& _spriteData)
 {
-	delete timer;
-	timer = nullptr;
-
-	if (!timer)
-	{
-		timer = new Timer(
-			[&]() { Update(); },
-			seconds(_duration),
-			false,
-			true
-		);
-	}
+	const float _duration = ComputeDuration(_spriteData);
+	timer->SetDuration(_duration);
+	timer->Reset();
 }
 
 void Animation::Reset()

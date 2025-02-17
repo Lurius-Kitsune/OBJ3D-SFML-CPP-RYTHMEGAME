@@ -8,6 +8,15 @@ ActorManager::~ActorManager()
 	}
 }
 
+
+void ActorManager::BeginPlay()
+{
+	for (Actor* _actor : allActors)
+	{
+		_actor->BeginPlay();
+	}
+}
+
 void ActorManager::Update(const float _deltaTime)
 {
 	vector<Actor*> _garbage;
@@ -29,5 +38,13 @@ void ActorManager::Update(const float _deltaTime)
 	{
 		_actor->Deconstruct();
 		delete _actor;
+	}
+}
+
+void ActorManager::BeginDestroy()
+{
+	for (Actor* _actor : allActors)
+	{
+		_actor->BeginDestroy();
 	}
 }

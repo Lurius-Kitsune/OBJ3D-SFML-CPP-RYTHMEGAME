@@ -3,12 +3,10 @@
 #include "InputManager.h"
 #include "Level.h"
 
-using namespace Input;
-
 class Engine : public Singleton<Engine>
 {
 	RenderWindow window;
-	InputManager inputManager;
+	Input::InputManager inputManager;
 	Color backgroundColor;
 
 public:

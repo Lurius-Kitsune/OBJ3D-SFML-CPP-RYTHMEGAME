@@ -1,6 +1,8 @@
 #include "HUD.h"
 #include "CameraManager.h"
+#include "Level.h"
 
+using namespace UI;
 using namespace Camera;
 
 UI::HUD::HUD(Level* _level) : Actor(_level)
@@ -22,10 +24,23 @@ UI::HUD::HUD(const HUD& _other) : Actor(_other)
 
 void UI::HUD::AddToViewport(Widget* _widget)
 {
-	_widget->Construct();
+	for (Widget* _selectedWidget : allWidgets)
+	{
+		RemoveFromViewport(_selectedWidget);
+	}
+	currentWidget = _widget;
+	currentWidget->BindViewport();
 }
 
 void UI::HUD::RemoveFromViewport(Widget* _widget)
 {
-	_widget->Deconstruct();
+	for (Actor* _actor : _widget->GetChildren())
+	{
+		if (Widget* _selectedWidget = Cast<Widget>(_actor))
+		{
+			_selectedWidget->UnbindViewport();
+		}
+	}
+	_widget->UnbindViewport();
+	currentWidget = nullptr;
 }

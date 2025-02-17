@@ -26,6 +26,8 @@ void Input::InputManager::UpdateActionMaps(const EventInfo& _event)
 
 void Input::InputManager::Update(RenderWindow& _window)
 {
+    mousePosition = CAST(Vector2f, Mouse::getPosition(_window));
+
     while (const EventInfo& _event = _window.pollEvent())
     {
         if (_event->is<Event::Closed>())

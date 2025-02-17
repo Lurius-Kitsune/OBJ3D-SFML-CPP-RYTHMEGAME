@@ -6,10 +6,11 @@ namespace Input
 {
 	class InputManager : public Singleton<InputManager>
 	{
-		map<string, ActionMap*> actionsMaps;
 		bool isKeyHolding;
 		bool isButtonHolding;
 		bool isJoystickButtonHolding;
+		Vector2f mousePosition;
+		map<string, ActionMap*> actionsMaps;
 
 	private:
 		FORCEINLINE void AddActionMap(const pair<string, ActionMap*>& _actionMap)
@@ -29,6 +30,14 @@ namespace Input
 		{
 			return isJoystickButtonHolding;
 		}
+		FORCEINLINE Vector2f GetMousePosition() const
+		{
+			return mousePosition;
+		}
+		FORCEINLINE map<string, ActionMap*>& GetActionMaps()
+		{
+			return actionsMaps;
+		}
 		FORCEINLINE ActionMap* GetActionMapByName(const string& _name)
 		{
 			if (!actionsMaps.contains(_name)) return nullptr;
@@ -45,7 +54,8 @@ namespace Input
 		{
 			if (actionsMaps.contains(_name))
 			{
-				return actionsMaps[_name];
+				LOG(Error, "This ActionMap's name (" + _name + ") already used !");
+				return nullptr;
 			}
 
 			ActionMap* _actionMap = new ActionMap(_name);

@@ -1,13 +1,12 @@
 #include "Engine.h"
 #include "LevelManager.h"
+#include "InputManager.h"
 #include "TimerManager.h"
-
-using namespace Input;
 
 Engine::Engine()
 {
     window.create(VideoMode({ 800, 600 }), "Engine Window");
-    inputManager = InputManager();
+    inputManager = Input::InputManager();
     backgroundColor = Color::Blue;
 }                
                                                                                                                                                               

@@ -11,13 +11,21 @@ namespace UI
 		int maxChild;
 		Vector2f size;
 
-	public:
-		//Adds a new child widget to the container.
-		FORCEINLINE virtual bool AddChild(Widget* _widget)
+	protected:
+		FORCEINLINE bool RegisterSlot(Widget* _widget)
 		{
 			if (!CanAddMoreChildren()) return false;
 
 			Actor::AddChild(_widget, AT_KEEP_RELATIVE);
+			return true;
+		}
+
+	public:
+		//Adds a new child widget to the container.
+		FORCEINLINE virtual bool AddChild(Widget* _widget)
+		{
+			if (!RegisterSlot(_widget)) return false;
+
 			_widget->AddSlot(new Slot(this, _widget));
 			return true;
 		}
@@ -55,6 +63,20 @@ namespace UI
 			return CAST(int, GetChildren().size());
 		}
 
+		//Get all Widget Children
+		FORCEINLINE set<Widget*> GetChildren() const
+		{
+			set<Widget*> _widgets;
+			for (Actor* _actor : Actor::GetChildren())
+			{
+				if (Widget* _widget = Cast<Widget>(_actor))
+				{
+					_widgets.insert(_widget);
+				}
+			}
+			return _widgets;
+		}
+
 		//The slots in the widget holding the child widgets of this panel.
 		FORCEINLINE set<Slot*> GetSlots() const
 		{
@@ -69,7 +91,7 @@ namespace UI
 			return _slots;
 		}
 
-		//TODO QUENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+		//Return the Size of the Panel
 		FORCEINLINE virtual Vector2f GetSize() const override
 		{
 			return size;
@@ -110,28 +132,56 @@ namespace UI
 		//Removes a child by it's index.
 		FORCEINLINE void RemoveChildAtIndex(const int _index)
 		{
-			set<Actor*>::const_iterator _it = GetChildren().begin();
+			set<Actor*>::const_iterator _it = Actor::GetChildren().begin();
 			advance(_it, _index);
 			RemoveChild(Cast<Widget>(*_it));
 		}
 
-		//TODO QUENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+		//Display a Gradient Box to see the panel
+		//Warning : Doesn't work with Rotation
+		//Info : DebugMode can cause FPS drop
 		FORCEINLINE void SetDebugMode(const bool _status)
 		{
 			debugMode = _status;
 		}
 
-		//TODO QUENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+		//Set the Size of the Panel
 		FORCEINLINE virtual void SetSize(const Vector2f& _size)
 		{
 			size = _size;
+
+			if (debugMode)
+			{
+				UpdateDebugFrame();
+			}
 		}
 
-		//TODO QUENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+		//Set the Size of the Panel but with a multiplicator (ex : 0.5 = half the Initial Size)
 		FORCEINLINE virtual void SetScale(const Vector2f& _scale)
 		{
 			Super::SetScale(_scale);
+
 			SetSize(Vector2f(size.x * _scale.x, size.y * _scale.y));
+
+			if (debugMode)
+			{
+				UpdateDebugFrame();
+			}
+		}
+
+		FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
+		{
+			Super::SetPosition(_position);
+
+			if (debugMode)
+			{
+				UpdateDebugFrame();
+			}
+		}
+		FORCEINLINE virtual void Move(const Vector2f& _offset) override
+		{
+			Super::Move(_offset);
+
 			if (debugMode)
 			{
 				UpdateDebugFrame();
@@ -140,6 +190,10 @@ namespace UI
 
 	public:
 		PanelWidget(Level* _level, const string& _name = "Panel", const RenderType& _type = Screen);
+		virtual ~PanelWidget()
+		{
+			LOG(Display, "Destruction PanelWidget !");
+		}
 
 	private:
 		void UpdateDebugFrame();

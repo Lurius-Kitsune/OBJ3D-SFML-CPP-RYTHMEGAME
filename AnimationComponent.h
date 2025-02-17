@@ -16,9 +16,23 @@ public:
 		if (!allAnimations.contains(_name)) return;
 		current = allAnimations[_name];
 	}
+	FORCEINLINE void SetCurrentAnimation(Animation* _animation)
+	{
+		if (!_animation) return;
+		current = _animation;
+	}
 	FORCEINLINE void StartAnimation()
 	{
 		if (!current) return;
+
+		current->GetOnAnimationEnded() = [&]() 
+		{ 
+			if (Animation* _animation = current->GetNextAnimation())
+			{
+				SetCurrentAnimation(_animation);
+				StartAnimation();
+			}
+		};
 		current->Start();
 	}
 	FORCEINLINE void StopAnimation()
@@ -26,15 +40,14 @@ public:
 		if (!current) return;
 		current->Stop();
 	}
-
-	FORCEINLINE Component* Clone(Actor* _owner) const override
+	FORCEINLINE virtual Component* Clone(Actor* _owner) const override
 	{
-		return new AnimationComponent(_owner, this);
+		return new AnimationComponent(_owner, *this);
 	}
 
 public:
 	AnimationComponent(Actor* _owner);
-	AnimationComponent(Actor* _owner, const AnimationComponent* _other);
+	AnimationComponent(Actor* _owner, const AnimationComponent& _other);
 	~AnimationComponent();
 
 	void AddAnimation(Animation* _animation);

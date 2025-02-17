@@ -11,6 +11,7 @@ Actor::Actor(Level* _level, const string& _name, const TransformData& _transform
 	id = 0;
 	lifeSpan = 0.0f;
 	name = _name;
+	zOrder = 0;
 	displayName = "Unknown";
 	components = set<Component*>();
 	root = CreateComponent<RootComponent>(_transform);
@@ -26,7 +27,7 @@ Actor::Actor(const Actor& _other)
 	lifeSpan = _other.lifeSpan;
 	name = _other.name;
 	displayName = _other.displayName;
-
+	zOrder = _other.zOrder;
 	for (Component* _component : _other.components)
 	{
 		AddComponent(_component->Clone(this));
@@ -37,8 +38,7 @@ Actor::Actor(const Actor& _other)
 	attachment = _other.attachment;
 	for (Actor* _child : _other.children)
 	{
-		TYPE(_child)* _actor = new TYPE(_child)(_child);
-		children.insert(*_actor);
+		children.insert(new Actor(*_child));
 	}
 	level = _other.level;
 }
@@ -63,13 +63,22 @@ void Actor::Construct()
 	id = GetUniqueID();
 	displayName = level->GetActorManager().GetAvailableName(name);
 	SetActive(true);
-	level->GetActorManager().AddActor(this);
+
+	for (Component* _component : components)
+	{
+		_component->Construct();
+	}
  }
 
 void Actor::Deconstruct()
 {
+	for (Component* _component : components)
+	{
+		_component->Deconstruct();
+	}
+
 	SetActive(false);
-	level->GetActorManager().RemoveActor(this);
+	Unregister();
 }
 
 void Actor::BeginPlay()
@@ -87,8 +96,6 @@ void Actor::BeginPlay()
 
 void Actor::Tick(const float _deltaTime)
 {
-	Super::Tick(_deltaTime);
-
 	for (Component* _component : components)
 	{
 		_component->Tick(_deltaTime);
@@ -104,9 +111,20 @@ void Actor::BeginDestroy()
 }
 
 
+void Actor::Register()
+{
+	level->GetActorManager().AddActor(this);
+}
+
+void Actor::Unregister()
+{
+	level->GetActorManager().RemoveActor(this);
+}
+
 void Actor::SetName(const string& _name)
 {
 	if (name == _name) return;
+
 	name = _name;
 	displayName = level->GetActorManager().GetDisplayName(this);
 }
@@ -130,9 +148,4 @@ void Actor::AddComponent(Component* _component)
 void Actor::RemoveComponent(Component* _component)
 {
 	components.erase(components.find(_component));
-}
-
-void Actor::SetupInputController(ActionMap* _actionMap)
-{
-	_actionMap->Enable();
 }

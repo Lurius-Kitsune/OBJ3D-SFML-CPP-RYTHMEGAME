@@ -1,5 +1,10 @@
 #include "Level.h"
 #include "LevelManager.h"
+#include "ActorManager.h"
+#include "CameraManager.h"
+#include "InputManager.h"
+#include "AudioManager.h"
+#include "GameMode.h"
 
 Level::Level(const string& _name)
 {
@@ -7,12 +12,12 @@ Level::Level(const string& _name)
 	name = _name;
 	actorManager = ActorManager();
 	cameraManager = CameraManager();
+	collisionManager = CollisionManager();
 	audioManager = AudioManager();
 	gameMode = nullptr;
 
 	window.create(VideoMode({ 1200, 600 }), _name);
 	window.setVisible(false);
-	gameModeRef = GameMode(this);
 
 	M_LEVEL.RegisterLevel(_name, this);
 }
@@ -21,9 +26,7 @@ Level::Level(const string& _name)
 void Level::Update(const float _deltaTime)
 {
 	actorManager.Update(_deltaTime);
-	//TODO change
-	GetGameMode()->GetPlayerController()->GetInputManager().Update(window);
-
+	
 	if (!window.isOpen())
 	{
 		M_LEVEL.SetLevel(nullptr);
@@ -33,7 +36,7 @@ void Level::Update(const float _deltaTime)
 void Level::UpdateWindow()
 {
 	window.clear();
-	cameraManager.RenderAllCameras(window);
+	cameraManager.Render(window, GetGameMode()->IsSplitScreen());
 	window.display();
 }
 
@@ -42,18 +45,22 @@ void Level::Load()
 	if (!isLoaded)
 	{
 		InitLevel();
+		isLoaded = true;
 	}
 
 	window.setVisible(true);
+	actorManager.BeginPlay();
 }
 
 void Level::Unload()
 {
 	window.setVisible(false);
 	window.clear();
+	actorManager.BeginDestroy();
 }
 
 void Level::InitLevel()
 {
-	isLoaded = true;
+	CameraActor* _camera = SpawnActor<CameraActor>("DefaultCamera");
+	cameraManager.Register(_camera->GetCamera());
 }

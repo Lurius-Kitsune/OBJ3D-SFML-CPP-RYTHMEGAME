@@ -54,6 +54,11 @@ private:
 
 		return _durationCallback.at(typeid(DurationType))();
 	}
+	FORCEINLINE string ComputeTime(const int _value) const
+	{
+		if (_value >= 10) return to_string(_value);
+		return "0" + to_string(_value);
+	}
 public:
 	FORCEINLINE string GetCurrentRealTime() const
 	{
@@ -62,8 +67,8 @@ public:
 		tm _ltm;
 		localtime_s(&_ltm, &_now);
 
-		const string& _date = to_string(_ltm.tm_mday) + "/" + to_string(1 + _ltm.tm_mon) + "/" + to_string(1900 + _ltm.tm_year);
-		const string& _time = to_string(_ltm.tm_hour) + ":" + to_string(_ltm.tm_min) + ":" + to_string(_ltm.tm_sec);
+		const string& _date = ComputeTime(_ltm.tm_mday) + "/" + ComputeTime(1 + _ltm.tm_mon) + "/" + ComputeTime(1900 + _ltm.tm_year);
+		const string& _time = ComputeTime(_ltm.tm_hour) + ":" + ComputeTime(_ltm.tm_min) + ":" + ComputeTime(_ltm.tm_sec);
 
 		return _date + " " + _time;
 	}
@@ -191,6 +196,10 @@ class Timer
 	function<void()> callback;
 
 public:
+	FORCEINLINE void SetDuration(const DurationType& _duration)
+	{
+		duration = _duration;
+	}
 	FORCEINLINE bool IsToDelete() const
 	{
 		return isToDelete;

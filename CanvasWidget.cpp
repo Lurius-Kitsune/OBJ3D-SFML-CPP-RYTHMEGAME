@@ -10,14 +10,6 @@ void UI::CanvasWidget::Construct()
 {
 	Super::Construct();
 
-	for (Actor* _actor : GetChildren())
-	{
-		if (Widget* _widget = Cast<Widget>(_actor))
-		{
-			_widget->Construct();
-		}
-	}
-
 	if (debugMode)
 	{
 		LOG(Warning, "DebugMode enabled on Canvas \"" + GetName() + "\"");
@@ -27,4 +19,17 @@ void UI::CanvasWidget::Construct()
 void UI::CanvasWidget::Render(RenderWindow& _window)
 {
 	Super::Render(_window);
+}
+
+void UI::CanvasWidget::BindViewport()
+{
+	Super::BindViewport();
+
+	for (Actor* _actor : GetChildren())
+	{
+		if (Widget* _widget = Cast<Widget>(_actor))
+		{
+			_widget->BindViewport();
+		}
+	}
 }

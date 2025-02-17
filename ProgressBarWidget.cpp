@@ -9,14 +9,14 @@ UI::ProgressBarWidget::ProgressBarWidget(Level* _level, const ProgressType& _typ
     maxValue = _maxValue;
     size = _data.size;
     type = _type;
-    foreground = level->SpawnWidget<ImageWidget>(_data, _name + "_Foreground", _renderType);
+    foreground = hud->SpawnWidget<ImageWidget>(_data, _name + "_Foreground", _renderType);
     UpdateOriginAndPosition(size);
 }
 
 
 void UI::ProgressBarWidget::Update()
 {
-    Shape* _fgShape = foreground->GetMeshActor()->GetMesh()->GetShape()->GetDrawable();
+    Shape* _fgShape = foreground->GetComponent<MeshComponent>()->GetShape()->GetDrawable();
 
     const float _fillPercent = currentValue / maxValue;
     const IntRect& _rect = MakeRect(_fillPercent);
@@ -38,7 +38,7 @@ void UI::ProgressBarWidget::Update()
 
 void UI::ProgressBarWidget::UpdateOriginAndPosition(const Vector2f& _size)
 {
-	Shape* _fgShape = foreground->GetMeshActor()->GetMesh()->GetShape()->GetDrawable();
+    Shape* _fgShape = foreground->GetComponent<MeshComponent>()->GetShape()->GetDrawable();
     const Vector2f& _barPosition = GetPosition();
     const Vector2f& _originOffset = _fgShape->getOrigin() - GetOrigin();
 
@@ -75,7 +75,7 @@ void UI::ProgressBarWidget::UpdateOriginAndPosition(const Vector2f& _size)
 
 IntRect UI::ProgressBarWidget::MakeRect(const float _percent)
 {
-    const Texture* _bgTexture = foreground->GetMeshActor()->GetMesh()->GetShape()->GetDrawable()->getTexture();
+    const Texture* _bgTexture = foreground->GetComponent<MeshComponent>()->GetShape()->GetDrawable()->getTexture();
     const Vector2f& _textureSize = Vector2f(_bgTexture->getSize());
     FloatRect _rect;
 

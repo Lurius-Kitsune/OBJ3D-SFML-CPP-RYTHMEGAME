@@ -78,12 +78,12 @@ public:
 
 	#pragma endregion
 
-	FORCEINLINE Component* Clone(Actor* _owner) const override
+	FORCEINLINE virtual Component* Clone(Actor* _owner) const override
 	{
-		return new RootComponent(_owner, this);
+		return new RootComponent(_owner, *this);
 	}
 
 public:
 	RootComponent(Actor* _owner, const TransformData& _transform = {});
-	RootComponent(Actor* _owner, const RootComponent* _other);
+	RootComponent(Actor* _owner, const RootComponent& _other);
 };

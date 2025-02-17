@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "Bounds.h"
 
 enum InteractStatus
 {
@@ -27,24 +28,21 @@ struct CollisionData
 {
 	Actor* other;
 	CollisionType response;
-	FloatRect impactRect;
+	Bounds impact;
 	CollisionStep step;
+	string channelName;
 };
 
 class CollisionComponent : public Component
 {
-	string channelName;
 	int status;
+	string channelName;
 	CollisionType type;						 
 	map<string, CollisionType> responses;	
 	map<Actor*, CollisionStep> othersStep;
-	bool enable;
+	Bounds* bounds;
 
 public:
-	FORCEINLINE string GetChannelName() const
-	{
-		return channelName;
-	}
 	FORCEINLINE void AddResponses(const vector<pair<string, CollisionType>>& _responses)
 	{
 		for (pair<string, CollisionType> _pair : _responses)
@@ -52,15 +50,23 @@ public:
 			responses.insert(_pair);
 		}
 	}
-	FORCEINLINE void SetInformation(const string& _channelName, const int _status, const CollisionType& _type, const bool _enable = false)
+	FORCEINLINE void SetInformation(const string& _channelName, const int _status, const CollisionType& _type)
 	{
 		channelName = _channelName;
 		type = _type;
 		status = _status;
-		enable = _enable;
+	}
+	FORCEINLINE string GetChannelName() const
+	{
+		return channelName;
 	}
 
-	FORCEINLINE Component* Clone(Actor* _owner) const override
+	FORCEINLINE Bounds* GetBounds() const
+	{
+		return bounds;
+	}
+
+	FORCEINLINE virtual Component* Clone(Actor* _owner) const override
 	{
 		return new CollisionComponent(_owner, *this);
 	}
@@ -68,11 +74,15 @@ public:
 public:
 	CollisionComponent(Actor* _owner, const string& _channelName = "NONE", const int _status = IS_NONE, const CollisionType& _type = CT_NONE);
 	CollisionComponent(Actor* _owner, const CollisionComponent& _other);
+	~CollisionComponent();
 
 protected:
+	virtual void Construct() override;
+	virtual void Deconstruct() override;
 	virtual void Tick(const float _deltaTime) override;
 
 private:
-	void CheckCollision();
-	CollisionStep ComputeOthersStep(Actor* _other, const CollisionStep& _step);
+	void ComputeCollisions();
+	CollisionStep ComputeStep(Actor* _other, const CollisionStep& _step);
+	void UpdateBounds();
 };

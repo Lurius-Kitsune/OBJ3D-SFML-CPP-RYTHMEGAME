@@ -2,7 +2,6 @@
 #include "Utilities.h"
 #include "Logger.h"
 #include "CustomException.h"
-#include "SubclassOf.h"
 #include "Kismet.h"
 
 #define M_TIMER TM_Seconds::GetInstance()

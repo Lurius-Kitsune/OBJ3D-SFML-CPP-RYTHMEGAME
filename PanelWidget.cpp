@@ -9,8 +9,8 @@ UI::PanelWidget::PanelWidget(Level* _level, const string& _name, const RenderTyp
 	debugFrame[0].color = Color(255, 0, 0);
 	debugFrame[1].color = Color(255, 255, 0);
 	debugFrame[2].color = Color(0, 255, 0);
-	debugFrame[3].color = Color(255, 255, 0);
-	debugFrame[4].color = Color(255, 0, 0);
+	debugFrame[3].color = Color(0, 255, 255);
+	debugFrame[4].color = Color(0, 0, 255);
 
 	UpdateDebugFrame();
 }

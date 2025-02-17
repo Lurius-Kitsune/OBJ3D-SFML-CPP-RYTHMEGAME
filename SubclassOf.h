@@ -11,7 +11,10 @@ public:
 	{
 		return *objectRef;
 	}
-
+	FORCEINLINE Type* GetObjectPtr() const
+	{
+		return objectRef;
+	}
 public:
 	SubclassOf() = default;
 	SubclassOf(const Type& _objectRef)

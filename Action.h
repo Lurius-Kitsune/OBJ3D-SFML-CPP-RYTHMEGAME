@@ -3,7 +3,7 @@
 
 namespace Input
 {
-#pragma region Typedef & Using
+	#pragma region Typedef & Using
 	typedef optional<Event> EventInfo;
 	using TypeIndex = type_index;
 	using Key = Keyboard::Key;
@@ -444,24 +444,6 @@ namespace Input
 
 	public:
 		/// <summary>
-		/// Constructeur d'action dont la ValueType est Axis2 !
-		/// </summary>
-		/// <param name="_name">nom de l'action</param>
-		/// <param name="_data">ActionData dont la ValueType est Axis2</param>
-		/// <param name="_callback"></param>
-		Action(const string& _name, const ActionData& _data, const function<void(const Vector2f& _parameter)>& _callback);
-		
-
-		/// <summary>
-		/// Constructeur d'action dont la ValueType est Axis !
-		/// </summary>
-		/// <param name="_name">nom de l'action</param>
-		/// <param name="_data">ActionData dont la ValueType est Axis</param>
-		/// <param name="_callback"></param>
-		Action(const string& _name, const ActionData& _data, const function<void(const float _parameter)>& _callback);
-		
-
-		/// <summary>
 		/// Constructeur d'action dont la ValueType est Digital !
 		/// </summary>
 		/// <param name="_name">nom de l'action</param>
@@ -469,6 +451,22 @@ namespace Input
 		/// <param name="_callback"></param>
 		Action(const string& _name, const ActionData& _data, const function<void()>& _callback);
 		
+		/// <summary>
+		/// Constructeur d'action dont la ValueType est Axis !
+		/// </summary>
+		/// <param name="_name">nom de l'action</param>
+		/// <param name="_data">ActionData dont la ValueType est Axis</param>
+		/// <param name="_callback"></param>
+		Action(const string& _name, const ActionData& _data, const function<void(const float _parameter)>& _callback);
+
+		/// <summary>
+		/// Constructeur d'action dont la ValueType est Axis2 !
+		/// </summary>
+		/// <param name="_name">nom de l'action</param>
+		/// <param name="_data">ActionData dont la ValueType est Axis2</param>
+		/// <param name="_callback"></param>
+		Action(const string& _name, const ActionData& _data, const function<void(const Vector2f& _parameter)>& _callback);
+
 		/// <summary>
 		/// Constructeur d'actions dont les ValueTypes sont Digital !
 		/// </summary>
@@ -478,6 +476,14 @@ namespace Input
 		Action(const string& _name, const vector<ActionData>& _allData, const function<void()>& _callback);
 		
 		/// <summary>
+		/// Constructeur d'actions dont les ValueTypes sont Axis !
+		/// </summary>
+		/// <param name="_name">nom de l'action</param>
+		/// <param name="_data">ActionData dont la ValueType est Axis</param>
+		/// <param name="_callback"></param>
+		Action(const string& _name, const vector<ActionData>& _allData, const function<void(const float _parameter)>& _callback);
+
+		/// <summary>
 		/// Constructeur d'actions dont les ValueTypes sont Axis2 !
 		/// </summary>
 		/// <param name="_name">nom de l'action</param>
@@ -485,19 +491,10 @@ namespace Input
 		/// <param name="_callback"></param>
 		Action(const string& _name, const vector<ActionData>& _allData, const function<void(const Vector2f& _parameter)>& _callback);
 		
-		/// <summary>
-		/// Constructeur d'actions dont les ValueTypes sont Axis !
-		/// </summary>
-		/// <param name="_name">nom de l'action</param>
-		/// <param name="_data">ActionData dont la ValueType est Axis</param>
-		/// <param name="_callback"></param>
-		Action(const string& _name, const vector<ActionData>& _allData, const function<void(const float _parameter)>& _callback);
-		
-	public:
-		void TryToExecute(const EventInfo& _event);
-
 	private:
 		TypeIndex ComputeTypeIndexByActionType(const ActionType& _typeIndex);
-		
+
+	public:
+		void TryToExecute(const EventInfo& _event);
 	};
 }

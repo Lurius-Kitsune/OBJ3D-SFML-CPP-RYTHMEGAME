@@ -1,7 +1,7 @@
 #pragma once
 #include "ImageWidget.h"
-
-class Actor;
+#include "PlayerController.h"
+#include "InputManager.h"
 
 namespace UI
 {
@@ -19,11 +19,12 @@ namespace UI
 		bool isPressed;
 		bool isHovered;
 		unique_ptr<CallbackData> callbackData;
+		Input::InputManager* inputManager;
 
 	public:
 		FORCEINLINE FloatRect GetGlobalBox() const
 		{
-			return image->GetHitbox();
+			return image->GetShape()->GetDrawable()->getGlobalBounds();
 		}
 
 		#pragma region ButtonWidget
@@ -76,8 +77,6 @@ namespace UI
 		virtual void OnUnhover();
 		virtual void OnDrag(const Vector2f& _mousePosition);
 		virtual void Render(RenderWindow& _window) override;
-
-	protected:
-		virtual void SetupInputController(ActionMap* _actionMap) override;
+		virtual void BindActions(Input::InputManager& _inputManager) override;
 	};
 };

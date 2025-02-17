@@ -5,7 +5,7 @@ RootComponent::RootComponent(Actor* _owner, const TransformData& _transform) : C
 	transform = _transform;
 }
 
-RootComponent::RootComponent(Actor* _owner, const RootComponent* _other) : Component(_owner)
+RootComponent::RootComponent(Actor* _owner, const RootComponent& _other) : Component(_owner)
 {
-	transform = _other->transform;
+	transform = _other.transform;
 }

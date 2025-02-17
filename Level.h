@@ -2,9 +2,9 @@
 #include "CoreMinimal.h"
 #include "ActorManager.h"
 #include "CameraManager.h"
+#include "CollisionManager.h"
 #include "AudioManager.h"
 #include "GameMode.h"
-#include "Widget.h"
 
 using namespace Camera;
 using namespace UI;
@@ -15,12 +15,12 @@ class Level
 	string name;
 	ActorManager actorManager;
 	CameraManager cameraManager;
+	CollisionManager collisionManager;
 	AudioManager audioManager;
-	GameMode* gameMode;
 
 protected:
 	RenderWindow window;
-	SubclassOf<GameMode> gameModeRef;
+	GameMode* gameMode;
 
 public:
 	#pragma region Window
@@ -52,105 +52,94 @@ public:
 	{
 		return cameraManager;
 	}
-	FORCEINLINE GameMode* GetGameMode()
+	FORCEINLINE CollisionManager& GetCollisionManager()
 	{
+		return collisionManager;
+	}
+
+	#pragma region GameMode
+
+	template<typename Type = GameMode, IS_BASE_OF(GameMode, Type)>
+	FORCEINLINE Type* GetGameMode()
+	{ 
 		if (!gameMode)
 		{
-			gameMode = SpawnActor<GameMode>(gameModeRef);
+			Type* _type = SpawnGameMode<Type>();
+			gameMode = _type;
+			return _type;
 		}
 
-		return gameMode;
+		return Cast<Type>(gameMode);
 	}
-	FORCEINLINE AudioManager& GetAudioManager()
+
+	template<typename Type = GameMode, IS_BASE_OF(GameMode, Type)>
+	FORCEINLINE Type* SpawnGameMode()
 	{
-		return audioManager;
+		GameMode* _gameMode = GetGameModeRef();
+		Type* _type = nullptr;
+
+		if (Type* _gameModeCasted = Cast<Type>(_gameMode))
+		{
+			const SubclassOf<Type>& _gameModeRef = *_gameModeCasted;
+			_type = SpawnActor<Type>(_gameModeRef);
+		}
+
+		delete _gameMode;
+		return _type;
 	}
-	template <typename Type = UI::HUD, IS_BASE_OF(Type, UI::HUD)>
-	FORCEINLINE Type* GetHUD()
+
+	FORCEINLINE virtual GameMode* GetGameModeRef()
 	{
-		return Cast<Type>(GetGameMode()->GetHUD());
+		return new GameMode(this);
 	}
+
+	#pragma endregion
 
 	#pragma region Spawn
 
 	#pragma region SpawnActor
 
-	template <typename Type = Actor, typename ...Args, IS_BASE_OF(Actor, Type)>
+	template <typename Type, typename ...Args, IS_BASE_OF(Actor, Type)>
 	FORCEINLINE Type* SpawnActor(Args&&... _args)
 	{
-		Type* _actor = new Type(this, forward<Args>(_args)...);
+		Type* _actor = Spawn<Type>(this, forward<Args>(_args)...);
 		_actor->Construct();
+		_actor->Register();
+
 		return _actor;
 	}
 
-	template <typename Type = Actor, typename ...Args, IS_BASE_OF(Actor, Type)>
-	FORCEINLINE Type* SpawnActor(const SubclassOf<Type> _actorRef)
+	template <typename Type, IS_BASE_OF(Actor, Type)>
+	FORCEINLINE Type* SpawnActor(const SubclassOf<Type>& _actorRef)
 	{
-		Type* _actor = new Type(_actorRef.GetObject());
+		Type* _actor = Spawn<Type>(_actorRef);
 		_actor->Construct();
+		_actor->Register();
+
 		return _actor;
 	}
 
 	#pragma endregion
 
-	#pragma region SpawnCamera
-
-	template <typename Type = CameraActor, typename ...Args, IS_BASE_OF(CameraActor, Type)>
-	FORCEINLINE Type* SpawnCamera(Args&&... _args)
-	{
-		Type* _camera = SpawnActor<Type>(forward<Args>(_args)...);
-		cameraManager.AddCamera(_camera);
-		return _camera;
-	}
-
-	template <typename Type = CameraActor, IS_BASE_OF(CameraActor, Type)>
-	FORCEINLINE Type* SpawnCamera(const SubclassOf<Type> _actorRef)
-	{
-		Type* _camera = SpawnActor<Type>(_actorRef);
-		cameraManager.AddCamera(_camera);
-		return _camera;
-	}
-
-	#pragma endregion
-
-	#pragma region SpawnWidget
-
-	template <typename Type = Widget, typename ...Args, IS_BASE_OF(Widget, Type)>
-	FORCEINLINE Type* SpawnWidget(Args&&... _args)
-	{
-		Type* _widget = SpawnActor<Type>(forward<Args>(_args)...);
-		GetHUD()->RegisterWidget(_widget);
-		return _widget;
-	}
-
-	template <typename Type = Widget, IS_BASE_OF(Widget, Type)>
-	FORCEINLINE Type* SpawnWidget(const SubclassOf<Widget> _widgetRef)
-	{
-		Type* _widget = SpawnActor<Type>(_widgetRef);
-		GetHUD()->RegisterWidget(_widget);
-		return _widget;
-	}
-
-	#pragma endregion
-
+	//TODO move into AudioManager
 	#pragma region SpawnSample
 
 	template <typename Type = Sample, typename ...Args, IS_BASE_OF(Sample, Type)>
 	FORCEINLINE Type* SpawnSample(const string& _path, const AudioExtensionType& _type = MP3,
-								  const Time& _time = Time(), const Time& _duration = Time())
+		const Time& _time = Time(), const Time& _duration = Time())
 	{
 		const string& _finalPath = _path + audioManager.GetExtension(_type);
 		Sample* _sample = audioManager.GetAvailable(_finalPath);
 
 		if (_sample)
 		{
-			audioManager.PlaySample(_sample, _time, _duration);
-			return Cast<Type>(_sample);
+			audioManager.PlaySample(_sample);
+			return _sample;
 		}
 
 		_sample = SpawnActor<Type>(_finalPath);
 		audioManager.RegisterSample(_sample);
-		return Cast<Type>(_sample);
+		return _sample;
 	}
 
 	/*template <typename Type = Sample, IS_BASE_OF(Sample, Type)>
@@ -162,6 +151,8 @@ public:
 		audioManager.PlaySample(_sample, _objectRef.time, _objectRef.duration);
 		return _sample;
 	}*/
+
+	#pragma endregion
 
 	#pragma endregion
 

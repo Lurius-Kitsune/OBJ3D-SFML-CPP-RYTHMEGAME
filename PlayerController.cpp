@@ -1,31 +1,46 @@
 #include "PlayerController.h"
 #include "Level.h"
+#include "Pawn.h"
+
+using namespace Input;
 
 PlayerController::PlayerController(Level* _level, const string& _name) : Actor(_level, _name)
 {
-	cameraRef = CameraActor(_level, Vector2f(1200.0f, 600.0f), "PlayerCamera");
-	camera = nullptr;
+	window = &_level->GetRenderWindow();
+	pawn = nullptr;
 }
 
 PlayerController::PlayerController(const PlayerController& _other) : Actor(_other)
 {
-	cameraRef = _other.cameraRef;
-	camera = nullptr;
-}
-
-void PlayerController::Construct()
-{
-	Super::Construct();
-	camera = level->SpawnCamera(cameraRef);
+	window = _other.window;
+	pawn = _other.pawn;
 }
 
 
-CameraActor* PlayerController::GetCamera()
+void PlayerController::Tick(const float _deltaTime)
 {
-	if (!camera)
+	inputManager.Update(*window);
+}
+
+void PlayerController::Enable()
+{
+	for (const pair<string, ActionMap*>& _pair : inputManager.GetActionMaps())
 	{
-		camera = level->SpawnCamera(cameraRef);
+		ActionMap* _actionMap = _pair.second;
+		_actionMap->Enable();
 	}
+}
 
-	return camera;
+void PlayerController::Disable()
+{
+	for (const pair<string, ActionMap*>& _pair : inputManager.GetActionMaps())
+	{
+		ActionMap* _actionMap = _pair.second;
+		_actionMap->Disable();
+	}
+}
+
+Pawn* PlayerController::GetPawnRef() const
+{
+	return new Pawn(level);
 }

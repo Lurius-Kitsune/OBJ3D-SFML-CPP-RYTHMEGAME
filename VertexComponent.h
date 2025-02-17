@@ -14,14 +14,14 @@ public:
 		return vertex;
 	}
 
-	FORCEINLINE Component* Clone(Actor* _owner) const override
+	FORCEINLINE virtual Component* Clone(Actor* _owner) const override
 	{
-		return new VertexComponent(_owner, this);
+		return new VertexComponent(_owner, *this);
 	}
 
 public:
 	VertexComponent(Actor* _owner, const u_int& _count, const PrimitiveType& _type = PrimitiveType::Points);
-	VertexComponent(Actor* _owner, const VertexComponent* _other);
+	VertexComponent(Actor* _owner, const VertexComponent& _other);
 	~VertexComponent();
 
 };

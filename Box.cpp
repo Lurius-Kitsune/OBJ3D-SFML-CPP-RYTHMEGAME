@@ -15,7 +15,7 @@ void UI::Box::AddWidget(Widget* _widget)
 	AddChild(_widget, AT_KEEP_RELATIVE);
 	Update();
 
-	level->GetHUD()->AddToViewport(_widget);
+	hud->AddToViewport(_widget);
 }
 
 void UI::Box::RemoveWidget(Widget* _widget)
@@ -33,5 +33,5 @@ void UI::Box::RemoveWidget(Widget* _widget)
 	RemoveChild(_widget);
 	Update();
 
-	level->GetHUD()->RemoveFromViewport(_widget);
+	hud->RemoveFromViewport(_widget);
 }

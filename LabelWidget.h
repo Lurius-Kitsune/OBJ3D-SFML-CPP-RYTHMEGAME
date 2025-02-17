@@ -16,8 +16,7 @@ namespace UI
 
 		FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
 		{
-			Super::SetPosition(_position);
-			text->SetPosition(_position);
+			UpdatePosition(_position);
 		}
 		FORCEINLINE virtual void SetRotation(const Angle& _rotation) override
 		{
@@ -36,8 +35,7 @@ namespace UI
 		}
 		FORCEINLINE virtual void Move(const Vector2f& _offset) override
 		{
-			Super::Move(_offset);
-			text->Move(_offset);
+			UpdateMove(_offset);
 		}
 		FORCEINLINE virtual void Rotate(const Angle& _angle) override
 		{
@@ -103,5 +101,7 @@ namespace UI
 
 	public:
 		virtual void Render(RenderWindow& _window) override;
+		void UpdatePosition(const Vector2f _position);
+		void UpdateMove(const Vector2f& _offset);
 	};
 }

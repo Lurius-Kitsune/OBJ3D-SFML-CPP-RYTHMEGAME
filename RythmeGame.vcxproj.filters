@@ -8,120 +8,8 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{625b7062-d7fa-407c-9303-a3913fb51935}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Scripts\Objects">
-      <UniqueIdentifier>{86305f3d-9461-4ee5-8ed0-ae9bd0ca5c75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Objects\ShapeObjects">
-      <UniqueIdentifier>{943a71c5-b6a5-4c5d-8ec2-9099e960f252}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Objects\TextObjects">
-      <UniqueIdentifier>{c2bec6b1-550c-4e1c-b537-729c8bf2369d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers">
-      <UniqueIdentifier>{b2916959-0e2d-476e-9b22-9076da6f0fec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Texture">
-      <UniqueIdentifier>{6d5fb1c0-b561-4431-8320-87df10db64ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\GameLoop">
-      <UniqueIdentifier>{7b153ce2-c5f6-4445-9b4a-45d25a9cba11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core">
-      <UniqueIdentifier>{9ae3e0d7-674a-4a36-8b73-6870c38f6f68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors">
-      <UniqueIdentifier>{89a5cd57-b53f-4c91-96a2-4e6772b10d20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Components">
-      <UniqueIdentifier>{f25e24e6-b4b3-4ac0-b95c-45c2dfaa8292}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Actor">
-      <UniqueIdentifier>{f1589cba-120c-4b4f-892e-87eaba47791a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Timer">
-      <UniqueIdentifier>{4efce1d3-6413-4bf9-bbd8-c134d8a7938e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Resource Files\Logger">
-      <UniqueIdentifier>{5f94f2c9-17a6-46af-a08d-932e1102517d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors\Shapes">
-      <UniqueIdentifier>{d7a6af57-adf9-4ffc-affb-ad21bcfb6ce1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Resource Files\Utility">
-      <UniqueIdentifier>{0c1939bc-0357-469e-944a-c1fdf4075fe9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Resource Files\Exception">
-      <UniqueIdentifier>{351b38c9-5026-4155-8920-9b10fcdfffb9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Resource Files\Color">
-      <UniqueIdentifier>{bf823de7-edd2-4d74-ae9b-2c9d09a6b7c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Components\Collision">
-      <UniqueIdentifier>{ccbd1e60-b2d7-4a41-84fb-779ba97d390d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Components\Mesh">
-      <UniqueIdentifier>{1c76df5b-7237-4d65-b03b-1568c80432ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Components\Root">
-      <UniqueIdentifier>{2722f0ba-c4d7-4e56-a5bc-cf7b721bb8a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Font">
-      <UniqueIdentifier>{a27c8130-50ec-4ebf-bfa7-ed2ba11c894b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Components\Animation">
-      <UniqueIdentifier>{486f8b75-db00-4b39-9f9f-f217ee614670}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Components\Root\Transform">
-      <UniqueIdentifier>{777c360b-720c-48d7-aa5d-39806b673363}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors\Shapes\Primitives">
-      <UniqueIdentifier>{7f8c3452-6650-4bd3-865f-37ca67ab34bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Audio">
-      <UniqueIdentifier>{2d7b5c28-6243-462f-9a7c-c0cd1ddfc504}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Audio\Samples">
-      <UniqueIdentifier>{97c562bd-c8e1-44b1-b04c-336d58c919f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Audio\Samples\Sound">
-      <UniqueIdentifier>{5be43bb8-9156-4d55-9a04-b5e7f9fd0d8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Audio\Samples\Music">
-      <UniqueIdentifier>{85485f9e-767e-4a95-833d-840f8602da7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors\Camera">
-      <UniqueIdentifier>{5cc3f15c-39c0-4b83-98f4-a30fed6be792}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Components\Camera">
-      <UniqueIdentifier>{76e88600-4b35-4c78-8a8b-9b3863bee03f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\Camera">
-      <UniqueIdentifier>{ad246227-2594-4a00-ab58-6b357858850e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors\Spawner">
-      <UniqueIdentifier>{b091efd0-aff1-4015-9200-761743303927}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MargeuRythme">
       <UniqueIdentifier>{2c44e566-c4e2-4a6e-be95-f287b9a1c054}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\HUD">
-      <UniqueIdentifier>{5c1eccc7-98a4-42d0-a700-28e27de99264}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors\Widget">
-      <UniqueIdentifier>{7cae45e0-1932-4251-9f42-f7efbcc66589}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors\Widget\Texts">
-      <UniqueIdentifier>{3a236a4d-3434-4099-898c-b9f32bc86ba4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors\Widget\Button">
-      <UniqueIdentifier>{84eb812d-d6db-43c6-afa5-cc63278ec5d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Managers\InputManager">
-      <UniqueIdentifier>{73cce3d3-dd87-452d-96fc-c216dad38e82}</UniqueIdentifier>
     </Filter>
     <Filter Include="MargeuRythme\Track">
       <UniqueIdentifier>{180aee18-1036-41e4-a6c5-8eb92661823a}</UniqueIdentifier>
@@ -129,499 +17,767 @@
     <Filter Include="MargeuRythme\Track\BeatMap">
       <UniqueIdentifier>{6b5d2d25-4a12-4aa3-9ab7-62a843474d02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MargeuRythme\Note">
-      <UniqueIdentifier>{bf9aed3a-040f-49f5-b4a8-b9e1f354fd96}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MargeuRythme\Note\Mouvement">
-      <UniqueIdentifier>{f1eec3c8-2154-4681-a54f-7946ca955e67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scripts\Core\Actors\Widget\Image">
-      <UniqueIdentifier>{3f52a399-1a9c-46a4-b394-0cd02a6b076c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Scripts\Core\Actors\Widget\ProgressBar">
-      <UniqueIdentifier>{f214b1ca-12e0-4436-af2e-5708d510ac49}</UniqueIdentifier>
+    <Filter Include="Scripts\Engine">
+      <UniqueIdentifier>{2f37ef2d-0400-42d3-8436-ad44a82effa6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Managers\Level">
-      <UniqueIdentifier>{4f699a93-53e7-45c8-834c-5884b2c0f124}</UniqueIdentifier>
+    <Filter Include="Scripts\Engine\Core">
+      <UniqueIdentifier>{9ae3e0d7-674a-4a36-8b73-6870c38f6f68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Core\Actors\Widget\Canvas">
-      <UniqueIdentifier>{9a326a99-165a-44dd-9998-77783f537845}</UniqueIdentifier>
+    <Filter Include="Scripts\Engine\Core\Actors">
+      <UniqueIdentifier>{89a5cd57-b53f-4c91-96a2-4e6772b10d20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Resource Files\Kismet">
+    <Filter Include="Scripts\Engine\Core\Actors\Shapes">
+      <UniqueIdentifier>{d7a6af57-adf9-4ffc-affb-ad21bcfb6ce1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Shapes\Primitives">
+      <UniqueIdentifier>{7f8c3452-6650-4bd3-865f-37ca67ab34bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Camera">
+      <UniqueIdentifier>{5cc3f15c-39c0-4b83-98f4-a30fed6be792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Spawner">
+      <UniqueIdentifier>{b091efd0-aff1-4015-9200-761743303927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget">
+      <UniqueIdentifier>{7cae45e0-1932-4251-9f42-f7efbcc66589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Texts">
+      <UniqueIdentifier>{3a236a4d-3434-4099-898c-b9f32bc86ba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Image">
+      <UniqueIdentifier>{3f52a399-1a9c-46a4-b394-0cd02a6b076c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Player">
+      <UniqueIdentifier>{7476fc9c-adea-41f5-95b6-10630ca69f1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Components">
+      <UniqueIdentifier>{f25e24e6-b4b3-4ac0-b95c-45c2dfaa8292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Components\Collision">
+      <UniqueIdentifier>{ccbd1e60-b2d7-4a41-84fb-779ba97d390d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Components\Mesh">
+      <UniqueIdentifier>{1c76df5b-7237-4d65-b03b-1568c80432ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Components\Root">
+      <UniqueIdentifier>{2722f0ba-c4d7-4e56-a5bc-cf7b721bb8a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Components\Root\Transform">
+      <UniqueIdentifier>{777c360b-720c-48d7-aa5d-39806b673363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Components\Animation">
+      <UniqueIdentifier>{486f8b75-db00-4b39-9f9f-f217ee614670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Components\Camera">
+      <UniqueIdentifier>{76e88600-4b35-4c78-8a8b-9b3863bee03f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Objects">
+      <UniqueIdentifier>{86305f3d-9461-4ee5-8ed0-ae9bd0ca5c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Scripts\Engine\Resource Files\Logger">
+      <UniqueIdentifier>{5f94f2c9-17a6-46af-a08d-932e1102517d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Resource Files\Utility">
+      <UniqueIdentifier>{0c1939bc-0357-469e-944a-c1fdf4075fe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Resource Files\Exception">
+      <UniqueIdentifier>{351b38c9-5026-4155-8920-9b10fcdfffb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Resource Files\Color">
+      <UniqueIdentifier>{bf823de7-edd2-4d74-ae9b-2c9d09a6b7c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Resource Files\Kismet">
       <UniqueIdentifier>{295d6410-2bf5-4024-9eae-85f08b7c3ed9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scripts\Core\Actors\Player">
-      <UniqueIdentifier>{7476fc9c-adea-41f5-95b6-10630ca69f1f}</UniqueIdentifier>
+    <Filter Include="Scripts\Engine\Managers">
+      <UniqueIdentifier>{b2916959-0e2d-476e-9b22-9076da6f0fec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Texture">
+      <UniqueIdentifier>{6d5fb1c0-b561-4431-8320-87df10db64ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Actor">
+      <UniqueIdentifier>{f1589cba-120c-4b4f-892e-87eaba47791a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Timer">
+      <UniqueIdentifier>{4efce1d3-6413-4bf9-bbd8-c134d8a7938e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Font">
+      <UniqueIdentifier>{a27c8130-50ec-4ebf-bfa7-ed2ba11c894b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Audio">
+      <UniqueIdentifier>{2d7b5c28-6243-462f-9a7c-c0cd1ddfc504}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Audio\Samples">
+      <UniqueIdentifier>{97c562bd-c8e1-44b1-b04c-336d58c919f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Audio\Samples\Sound">
+      <UniqueIdentifier>{5be43bb8-9156-4d55-9a04-b5e7f9fd0d8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Audio\Samples\Music">
+      <UniqueIdentifier>{85485f9e-767e-4a95-833d-840f8602da7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Camera">
+      <UniqueIdentifier>{ad246227-2594-4a00-ab58-6b357858850e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\HUD">
+      <UniqueIdentifier>{5c1eccc7-98a4-42d0-a700-28e27de99264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\InputManager">
+      <UniqueIdentifier>{73cce3d3-dd87-452d-96fc-c216dad38e82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Level">
+      <UniqueIdentifier>{4f699a93-53e7-45c8-834c-5884b2c0f124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\GameMode">
+      <UniqueIdentifier>{136ef907-778e-48ed-b1d8-642664c9d8ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Slot">
+      <UniqueIdentifier>{eee0c67b-1111-4dcd-9018-c134c660a9c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Panel">
+      <UniqueIdentifier>{df6866a3-9107-4166-885a-56d2b54fe7cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Slot\Canvas">
+      <UniqueIdentifier>{9a326a99-165a-44dd-9998-77783f537845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Pawn">
+      <UniqueIdentifier>{fab375a6-d045-414e-a7c5-5c7948b79d99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Panel\Canvas">
+      <UniqueIdentifier>{5e09b9a2-2e88-4895-a377-59d285b25673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Vertexes">
+      <UniqueIdentifier>{774e721a-3f47-41f3-90a0-75be34381e57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Vertexes\Particle">
+      <UniqueIdentifier>{44b80feb-958c-47ee-b12d-4d4f3b465b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Image\Button">
+      <UniqueIdentifier>{84eb812d-d6db-43c6-afa5-cc63278ec5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Image\GIF">
+      <UniqueIdentifier>{f781ad63-7176-4e2d-bf8d-f0f06324fb4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Image\Slider">
+      <UniqueIdentifier>{adae2252-7969-4947-ad2b-c282b766710a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Image\Button\Checkbox">
+      <UniqueIdentifier>{1ca8a67c-151f-4b98-b739-9b12d5992894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Image\ProgressBar">
+      <UniqueIdentifier>{f214b1ca-12e0-4436-af2e-5708d510ac49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Panel\Boxes">
+      <UniqueIdentifier>{ae05cca8-3b5b-4405-ba24-9a5e1c7eaba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Panel\Boxes\VerticalBox">
+      <UniqueIdentifier>{b8ba5c8c-f38a-433c-85ef-85fd1bb99526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Actors\Widget\Panel\Boxes\HorizontalBox">
+      <UniqueIdentifier>{570ffbba-dfda-4d03-8e64-25574deaf76a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Core\Components\VertexComponent">
+      <UniqueIdentifier>{e6c12bcf-3d4b-4a4f-b03f-0b62d93671b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\Collision">
+      <UniqueIdentifier>{0599b04a-b439-412c-a199-c4828e490c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Managers\File">
+      <UniqueIdentifier>{f7f5dcea-2b94-499f-9d63-c81eae1037b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Objects\TransformableObjects">
+      <UniqueIdentifier>{b8521ceb-f141-4841-b881-846555bf9b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Objects\TransformableObjects\ShapeObjects">
+      <UniqueIdentifier>{943a71c5-b6a5-4c5d-8ec2-9099e960f252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Objects\TransformableObjects\TextObjects">
+      <UniqueIdentifier>{c2bec6b1-550c-4e1c-b537-729c8bf2369d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Engine\Objects\VertexObjects">
+      <UniqueIdentifier>{18a438b7-4390-40e2-b34f-0936b0cc3d3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Exemple">
+      <UniqueIdentifier>{99834452-2f85-4f0e-b583-8cd78dd98466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Exemple\CustomLevel">
+      <UniqueIdentifier>{a4f8d6d1-cf96-413d-b3c9-2954b6b87a7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Exemple\CustomPawn">
+      <UniqueIdentifier>{80fb63fa-f963-4536-83a3-70050839a3be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Exemple\CustomHUD">
+      <UniqueIdentifier>{ed64abf8-971a-4dbf-83e2-98bc299f28bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Exemple\CustomGameMode">
+      <UniqueIdentifier>{b36e7283-33ac-4a8b-a9be-3b3a7c605eae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Exemple\CustomMesh">
+      <UniqueIdentifier>{a9935f29-0430-417e-a094-86c741874bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Exemple\CustomPlayerController">
+      <UniqueIdentifier>{7f0cd0ff-6e2c-457b-81b1-a9d77f70ad2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Exemple\CustomActor">
+      <UniqueIdentifier>{70c804c7-a26c-4245-9e66-0ffeaa0a833f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Actor">
+      <UniqueIdentifier>{831952d8-c53b-4b09-be68-ec7c19d9ee70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Actor\Note">
+      <UniqueIdentifier>{bf9aed3a-040f-49f5-b4a8-b9e1f354fd96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Actor\Note\Mouvement">
+      <UniqueIdentifier>{f1eec3c8-2154-4681-a54f-7946ca955e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Actor\DetectorNote">
+      <UniqueIdentifier>{26499f09-c5b1-4d24-9675-a926d8766b0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Actor\NoteSpawner">
+      <UniqueIdentifier>{f8896044-107a-41fb-b085-55335776dbfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Level">
+      <UniqueIdentifier>{318ae405-ce8c-46d3-bd67-622180a14f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Level\MainMenuLevel">
+      <UniqueIdentifier>{eaa99e06-819e-4fdf-8f58-920926ad6983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MargeuRythme\Level\GameplayLevel">
+      <UniqueIdentifier>{03cb582b-5099-449e-8a4b-53753f07c351}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextObject.cpp">
-      <Filter>Scripts\Objects\TextObjects</Filter>
+      <Filter>Scripts\Engine\Objects\TransformableObjects\TextObjects</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
-      <Filter>Scripts\Managers\Texture</Filter>
+      <Filter>Scripts\Engine\Managers\Texture</Filter>
     </ClCompile>
     <ClCompile Include="ShapeObject.cpp">
-      <Filter>Scripts\Objects\ShapeObjects</Filter>
+      <Filter>Scripts\Engine\Objects\TransformableObjects\ShapeObjects</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Scripts\Objects</Filter>
+      <Filter>Scripts\Engine\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
-      <Filter>Scripts\Core\Actors</Filter>
+      <Filter>Scripts\Engine\Core\Actors</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>Scripts\Core\Components</Filter>
+      <Filter>Scripts\Engine\Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp">
-      <Filter>Scripts\Core</Filter>
+      <Filter>Scripts\Engine\Core</Filter>
     </ClCompile>
     <ClCompile Include="ActorManager.cpp">
-      <Filter>Scripts\Managers\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scripts\Engine\Managers\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
-      <Filter>Scripts\Resource Files\Logger</Filter>
+      <Filter>Scripts\Engine\Resource Files\Logger</Filter>
     </ClCompile>
     <ClCompile Include="SoundSample.cpp">
-      <Filter>Scripts\Managers\Audio\Samples\Sound</Filter>
+      <Filter>Scripts\Engine\Managers\Audio\Samples\Sound</Filter>
     </ClCompile>
     <ClCompile Include="MeshActor.cpp">
-      <Filter>Scripts\Core\Actors\Shapes</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="Utilities.cpp">
-      <Filter>Scripts\Resource Files\Utility</Filter>
+      <Filter>Scripts\Engine\Resource Files\Utility</Filter>
     </ClCompile>
     <ClCompile Include="CustomException.cpp">
-      <Filter>Scripts\Resource Files\Exception</Filter>
+      <Filter>Scripts\Engine\Resource Files\Exception</Filter>
     </ClCompile>
     <ClCompile Include="Color.cpp">
-      <Filter>Scripts\Resource Files\Color</Filter>
+      <Filter>Scripts\Engine\Resource Files\Color</Filter>
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
-      <Filter>Scripts\Core\Components\Collision</Filter>
+      <Filter>Scripts\Engine\Core\Components\Collision</Filter>
     </ClCompile>
     <ClCompile Include="RootComponent.cpp">
-      <Filter>Scripts\Core\Components\Root</Filter>
+      <Filter>Scripts\Engine\Core\Components\Root</Filter>
     </ClCompile>
     <ClCompile Include="MeshComponent.cpp">
-      <Filter>Scripts\Core\Components\Mesh</Filter>
+      <Filter>Scripts\Engine\Core\Components\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
-      <Filter>Scripts\Managers\Font</Filter>
+      <Filter>Scripts\Engine\Managers\Font</Filter>
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
-      <Filter>Scripts\Managers\Audio</Filter>
+      <Filter>Scripts\Engine\Managers\Audio</Filter>
     </ClCompile>
     <ClCompile Include="Sample.cpp">
-      <Filter>Scripts\Managers\Audio\Samples</Filter>
+      <Filter>Scripts\Engine\Managers\Audio\Samples</Filter>
     </ClCompile>
     <ClCompile Include="MusicSample.cpp">
-      <Filter>Scripts\Managers\Audio\Samples\Music</Filter>
+      <Filter>Scripts\Engine\Managers\Audio\Samples\Music</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>Scripts\Core\Components\Animation</Filter>
+      <Filter>Scripts\Engine\Core\Components\Animation</Filter>
     </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
-      <Filter>Scripts\Core\Components\Animation</Filter>
+      <Filter>Scripts\Engine\Core\Components\Animation</Filter>
     </ClCompile>
     <ClCompile Include="CircleActor.cpp">
-      <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes\Primitives</Filter>
     </ClCompile>
     <ClCompile Include="RectangleActor.cpp">
-      <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes\Primitives</Filter>
     </ClCompile>
     <ClCompile Include="SquareActor.cpp">
-      <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes\Primitives</Filter>
     </ClCompile>
     <ClCompile Include="TriangleActor.cpp">
-      <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes\Primitives</Filter>
     </ClCompile>
     <ClCompile Include="CameraActor.cpp">
-      <Filter>Scripts\Core\Actors\Camera</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
-      <Filter>Scripts\Core\Components\Camera</Filter>
+      <Filter>Scripts\Engine\Core\Components\Camera</Filter>
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
-      <Filter>Scripts\Managers\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Scripts\GameLoop</Filter>
+      <Filter>Scripts\Engine\Managers\Camera</Filter>
     </ClCompile>
     <ClCompile Include="ScoreLabel.cpp">
       <Filter>MargeuRythme</Filter>
     </ClCompile>
     <ClCompile Include="HUD.cpp">
-      <Filter>Scripts\Managers\HUD</Filter>
+      <Filter>Scripts\Engine\Managers\HUD</Filter>
     </ClCompile>
     <ClCompile Include="Widget.cpp">
-      <Filter>Scripts\Core\Actors\Widget</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Scripts\Managers\InputManager</Filter>
-    </ClCompile>
-    <ClCompile Include="BeatMapLevel.cpp">
-      <Filter>MargeuRythme</Filter>
-    </ClCompile>
-    <ClCompile Include="NoteDetector.cpp">
-      <Filter>MargeuRythme\Note</Filter>
+      <Filter>Scripts\Engine\Managers\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="Note.cpp">
-      <Filter>MargeuRythme\Note</Filter>
+      <Filter>MargeuRythme\Actor\Note</Filter>
     </ClCompile>
     <ClCompile Include="BeatMap.cpp">
       <Filter>MargeuRythme\Track\BeatMap</Filter>
     </ClCompile>
-    <ClCompile Include="SelectLevel.cpp">
-      <Filter>MargeuRythme</Filter>
-    </ClCompile>
     <ClCompile Include="NoteMouvementComponent.cpp">
-      <Filter>MargeuRythme\Note\Mouvement</Filter>
+      <Filter>MargeuRythme\Actor\Note\Mouvement</Filter>
     </ClCompile>
     <ClCompile Include="Track.cpp">
       <Filter>MargeuRythme\Track</Filter>
     </ClCompile>
-    <ClCompile Include="NoteSpawner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LevelManager.cpp">
-      <Filter>Scripts\Managers\Level</Filter>
+      <Filter>Scripts\Engine\Managers\Level</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
-      <Filter>Scripts\Managers\InputManager</Filter>
+      <Filter>Scripts\Engine\Managers\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="ActionMap.cpp">
-      <Filter>Scripts\Managers\InputManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode.cpp">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Engine\Managers\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="Kismet.cpp">
-      <Filter>Scripts\Resource Files\Kismet</Filter>
+      <Filter>Scripts\Engine\Resource Files\Kismet</Filter>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
-      <Filter>Scripts\Core\Actors\Player</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Player</Filter>
     </ClCompile>
     <ClCompile Include="LabelWidget.cpp">
-      <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget\Texts</Filter>
     </ClCompile>
-    <ClCompile Include="Slot.cpp">
-      <Filter>Scripts\Core\Actors\Widget</Filter>
-    </ClCompile>
-    <ClCompile Include="Box.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CanvasSlot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CanvasWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CheckBoxWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DetectNoteComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FileManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HorizontalBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PanelWidget.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GameMode.cpp">
+      <Filter>Scripts\Engine\Core\Actors\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="ProgressBarWidget.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\ProgressBar</Filter>
     </ClCompile>
-    <ClCompile Include="SliderWidget.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CanvasSlot.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Slot\Canvas</Filter>
     </ClCompile>
-    <ClCompile Include="TransformableObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Slot.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="CanvasWidget.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel\Canvas</Filter>
     </ClCompile>
     <ClCompile Include="VertexActor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Vertexes</Filter>
     </ClCompile>
-    <ClCompile Include="VertexComponent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Vertexes\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="VertexObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ButtonWidget.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckBoxWidget.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\Button\Checkbox</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageWidget.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelWidget.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="SliderWidget.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="GIFWidget.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\GIF</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel\Boxes</Filter>
     </ClCompile>
     <ClCompile Include="VerticalBox.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel\Boxes\VerticalBox</Filter>
+    </ClCompile>
+    <ClCompile Include="HorizontalBox.cpp">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel\Boxes\HorizontalBox</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexComponent.cpp">
+      <Filter>Scripts\Engine\Core\Components\VertexComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Scripts\Engine\Managers\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Scripts\Engine\Managers\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Scripts\Engine\Managers\File</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformableObject.cpp">
+      <Filter>Scripts\Engine\Objects\TransformableObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexObject.cpp">
+      <Filter>Scripts\Engine\Objects\VertexObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Scripts\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="CUSTOMLevel.cpp">
+      <Filter>Scripts\Exemple\CustomLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="CUSTOMPlayerController.cpp">
+      <Filter>Scripts\Exemple\CustomPlayerController</Filter>
+    </ClCompile>
+    <ClCompile Include="CUSTOMPawn.cpp">
+      <Filter>Scripts\Exemple\CustomPawn</Filter>
+    </ClCompile>
+    <ClCompile Include="CUSTOMMesh.cpp">
+      <Filter>Scripts\Exemple\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CUSTOMHUD.cpp">
+      <Filter>Scripts\Exemple\CustomHUD</Filter>
+    </ClCompile>
+    <ClCompile Include="CUSTOMGameMode.cpp">
+      <Filter>Scripts\Exemple\CustomGameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomActor.cpp">
+      <Filter>Scripts\Exemple\CustomActor</Filter>
+    </ClCompile>
+    <ClCompile Include="Bounds.cpp">
+      <Filter>Scripts\Engine\Core\Components\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Scripts\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteDetector.cpp">
+      <Filter>MargeuRythme\Actor\DetectorNote</Filter>
+    </ClCompile>
+    <ClCompile Include="DetectNoteComponent.cpp">
+      <Filter>MargeuRythme\Actor\DetectorNote</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteSpawner.cpp">
+      <Filter>MargeuRythme\Actor\NoteSpawner</Filter>
+    </ClCompile>
+    <ClCompile Include="BeatMapLevel.cpp">
+      <Filter>MargeuRythme\Level\GameplayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectLevel.cpp">
+      <Filter>MargeuRythme\Level\MainMenuLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
-      <Filter>Scripts\Managers</Filter>
+      <Filter>Scripts\Engine\Managers</Filter>
     </ClInclude>
     <ClInclude Include="CoreMinimal.h">
-      <Filter>Scripts\Resource Files</Filter>
+      <Filter>Scripts\Engine\Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="TextObject.h">
-      <Filter>Scripts\Objects\TextObjects</Filter>
+      <Filter>Scripts\Engine\Objects\TransformableObjects\TextObjects</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
-      <Filter>Scripts\Managers\Texture</Filter>
+      <Filter>Scripts\Engine\Managers\Texture</Filter>
     </ClInclude>
     <ClInclude Include="ShapeObject.h">
-      <Filter>Scripts\Objects\ShapeObjects</Filter>
+      <Filter>Scripts\Engine\Objects\TransformableObjects\ShapeObjects</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Scripts\Objects</Filter>
+      <Filter>Scripts\Engine\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
-      <Filter>Scripts\Core\Actors</Filter>
+      <Filter>Scripts\Engine\Core\Actors</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Scripts\Core\Components</Filter>
+      <Filter>Scripts\Engine\Core\Components</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
-      <Filter>Scripts\Core</Filter>
+      <Filter>Scripts\Engine\Core</Filter>
     </ClInclude>
     <ClInclude Include="ActorManager.h">
-      <Filter>Scripts\Managers\Actor</Filter>
+      <Filter>Scripts\Engine\Managers\Actor</Filter>
     </ClInclude>
     <ClInclude Include="TimerManager.h">
-      <Filter>Scripts\Managers\Timer</Filter>
+      <Filter>Scripts\Engine\Managers\Timer</Filter>
     </ClInclude>
     <ClInclude Include="Logger.h">
-      <Filter>Scripts\Resource Files\Logger</Filter>
+      <Filter>Scripts\Engine\Resource Files\Logger</Filter>
     </ClInclude>
     <ClInclude Include="SoundSample.h">
-      <Filter>Scripts\Managers\Audio\Samples\Sound</Filter>
+      <Filter>Scripts\Engine\Managers\Audio\Samples\Sound</Filter>
     </ClInclude>
     <ClInclude Include="Macro.h">
-      <Filter>Scripts\Resource Files</Filter>
+      <Filter>Scripts\Engine\Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="MeshActor.h">
-      <Filter>Scripts\Core\Actors\Shapes</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="Utilities.h">
-      <Filter>Scripts\Resource Files\Utility</Filter>
+      <Filter>Scripts\Engine\Resource Files\Utility</Filter>
     </ClInclude>
     <ClInclude Include="CustomException.h">
-      <Filter>Scripts\Resource Files\Exception</Filter>
+      <Filter>Scripts\Engine\Resource Files\Exception</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>Scripts\Resource Files\Color</Filter>
+      <Filter>Scripts\Engine\Resource Files\Color</Filter>
     </ClInclude>
     <ClInclude Include="CollisionComponent.h">
-      <Filter>Scripts\Core\Components\Collision</Filter>
+      <Filter>Scripts\Engine\Core\Components\Collision</Filter>
     </ClInclude>
     <ClInclude Include="RootComponent.h">
-      <Filter>Scripts\Core\Components\Root</Filter>
+      <Filter>Scripts\Engine\Core\Components\Root</Filter>
     </ClInclude>
     <ClInclude Include="MeshComponent.h">
-      <Filter>Scripts\Core\Components\Mesh</Filter>
+      <Filter>Scripts\Engine\Core\Components\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="FontManager.h">
-      <Filter>Scripts\Managers\Font</Filter>
+      <Filter>Scripts\Engine\Managers\Font</Filter>
     </ClInclude>
     <ClInclude Include="AudioManager.h">
-      <Filter>Scripts\Managers\Audio</Filter>
+      <Filter>Scripts\Engine\Managers\Audio</Filter>
     </ClInclude>
     <ClInclude Include="Sample.h">
-      <Filter>Scripts\Managers\Audio\Samples</Filter>
+      <Filter>Scripts\Engine\Managers\Audio\Samples</Filter>
     </ClInclude>
     <ClInclude Include="MusicSample.h">
-      <Filter>Scripts\Managers\Audio\Samples\Music</Filter>
+      <Filter>Scripts\Engine\Managers\Audio\Samples\Music</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>Scripts\Core\Components\Animation</Filter>
+      <Filter>Scripts\Engine\Core\Components\Animation</Filter>
     </ClInclude>
     <ClInclude Include="AnimationComponent.h">
-      <Filter>Scripts\Core\Components\Animation</Filter>
+      <Filter>Scripts\Engine\Core\Components\Animation</Filter>
     </ClInclude>
     <ClInclude Include="TransformableModifier.h">
-      <Filter>Scripts\Core\Components\Root\Transform</Filter>
+      <Filter>Scripts\Engine\Core\Components\Root\Transform</Filter>
     </ClInclude>
     <ClInclude Include="TransformableViewer.h">
-      <Filter>Scripts\Core\Components\Root\Transform</Filter>
+      <Filter>Scripts\Engine\Core\Components\Root\Transform</Filter>
     </ClInclude>
     <ClInclude Include="TransformData.h">
-      <Filter>Scripts\Core\Components\Root\Transform</Filter>
+      <Filter>Scripts\Engine\Core\Components\Root\Transform</Filter>
     </ClInclude>
     <ClInclude Include="CircleActor.h">
-      <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes\Primitives</Filter>
     </ClInclude>
     <ClInclude Include="RectangleActor.h">
-      <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes\Primitives</Filter>
     </ClInclude>
     <ClInclude Include="SquareActor.h">
-      <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes\Primitives</Filter>
     </ClInclude>
     <ClInclude Include="TriangleActor.h">
-      <Filter>Scripts\Core\Actors\Shapes\Primitives</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Scripts\GameLoop</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Shapes\Primitives</Filter>
     </ClInclude>
     <ClInclude Include="SubclassOf.h">
-      <Filter>Scripts\Resource Files</Filter>
+      <Filter>Scripts\Engine\Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="CameraActor.h">
-      <Filter>Scripts\Core\Actors\Camera</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CameraComponent.h">
-      <Filter>Scripts\Core\Components\Camera</Filter>
+      <Filter>Scripts\Engine\Core\Components\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Spawner.h">
-      <Filter>Scripts\Core\Actors\Spawner</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Spawner</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
-      <Filter>Scripts\Managers\Camera</Filter>
+      <Filter>Scripts\Engine\Managers\Camera</Filter>
     </ClInclude>
     <ClInclude Include="ScoreLabel.h">
       <Filter>MargeuRythme</Filter>
     </ClInclude>
     <ClInclude Include="HUD.h">
-      <Filter>Scripts\Managers\HUD</Filter>
+      <Filter>Scripts\Engine\Managers\HUD</Filter>
     </ClInclude>
     <ClInclude Include="Widget.h">
-      <Filter>Scripts\Core\Actors\Widget</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Scripts\Managers\InputManager</Filter>
+      <Filter>Scripts\Engine\Managers\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="RenderType.h">
-      <Filter>Scripts\Core\Actors\Widget</Filter>
-    </ClInclude>
-    <ClInclude Include="NoteDetector.h">
-      <Filter>MargeuRythme\Note</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget</Filter>
     </ClInclude>
     <ClInclude Include="Note.h">
-      <Filter>MargeuRythme\Note</Filter>
+      <Filter>MargeuRythme\Actor\Note</Filter>
     </ClInclude>
     <ClInclude Include="NoteMouvementComponent.h">
-      <Filter>MargeuRythme\Note\Mouvement</Filter>
-    </ClInclude>
-    <ClInclude Include="BeatMapLevel.h">
-      <Filter>MargeuRythme</Filter>
+      <Filter>MargeuRythme\Actor\Note\Mouvement</Filter>
     </ClInclude>
     <ClInclude Include="BeatMap.h">
       <Filter>MargeuRythme\Track\BeatMap</Filter>
     </ClInclude>
-    <ClInclude Include="SelectLevel.h">
-      <Filter>MargeuRythme</Filter>
-    </ClInclude>
-    <ClInclude Include="FileManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Track.h">
       <Filter>MargeuRythme\Track</Filter>
     </ClInclude>
-    <ClInclude Include="NoteSpawner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LevelManager.h">
-      <Filter>Scripts\Managers\Level</Filter>
+      <Filter>Scripts\Engine\Managers\Level</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
-      <Filter>Scripts\Managers\InputManager</Filter>
+      <Filter>Scripts\Engine\Managers\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="ActionMap.h">
-      <Filter>Scripts\Managers\InputManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode.h">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\Engine\Managers\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="Kismet.h">
-      <Filter>Scripts\Resource Files\Kismet</Filter>
+      <Filter>Scripts\Engine\Resource Files\Kismet</Filter>
     </ClInclude>
     <ClInclude Include="PlayerController.h">
-      <Filter>Scripts\Core\Actors\Player</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Player</Filter>
     </ClInclude>
     <ClInclude Include="LabelWidget.h">
-      <Filter>Scripts\Core\Actors\Widget\Texts</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget\Texts</Filter>
     </ClInclude>
-    <ClInclude Include="Slot.h">
-      <Filter>Scripts\Core\Actors\Widget</Filter>
-    </ClInclude>
-    <ClInclude Include="Box.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CanvasSlot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CanvasWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckBoxWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HorizontalBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageWidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PanelWidget.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameMode.h">
+      <Filter>Scripts\Engine\Core\Actors\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="ProgressBarWidget.h">
-      <Filter>Header Files</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\ProgressBar</Filter>
     </ClInclude>
-    <ClInclude Include="SliderWidget.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Slot.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Slot</Filter>
     </ClInclude>
-    <ClInclude Include="TransformableObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Pawn.h">
+      <Filter>Scripts\Engine\Core\Actors\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="CanvasWidget.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Slot\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="CanvasSlot.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel\Canvas</Filter>
     </ClInclude>
     <ClInclude Include="VertexActor.h">
-      <Filter>Header Files</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Vertexes</Filter>
     </ClInclude>
-    <ClInclude Include="VertexComponent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Particle.h">
+      <Filter>Scripts\Engine\Core\Actors\Vertexes\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="VertexObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ImageWidget.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonWidget.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckBoxWidget.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\Button\Checkbox</Filter>
+    </ClInclude>
+    <ClInclude Include="GIFWidget.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\GIF</Filter>
+    </ClInclude>
+    <ClInclude Include="SliderWidget.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Image\Slider</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelWidget.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel\Boxes</Filter>
     </ClInclude>
     <ClInclude Include="VerticalBox.h">
-      <Filter>Header Files</Filter>
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel\Boxes\VerticalBox</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalBox.h">
+      <Filter>Scripts\Engine\Core\Actors\Widget\Panel\Boxes\HorizontalBox</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexComponent.h">
+      <Filter>Scripts\Engine\Core\Components\VertexComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Scripts\Engine\Managers\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Scripts\Engine\Managers\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Scripts\Engine\Managers\File</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformableObject.h">
+      <Filter>Scripts\Engine\Objects\TransformableObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexObject.h">
+      <Filter>Scripts\Engine\Objects\VertexObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Scripts\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="CUSTOMLevel.h">
+      <Filter>Scripts\Exemple\CustomLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="CUSTOMPlayerController.h">
+      <Filter>Scripts\Exemple\CustomPlayerController</Filter>
+    </ClInclude>
+    <ClInclude Include="CUSTOMPawn.h">
+      <Filter>Scripts\Exemple\CustomPawn</Filter>
+    </ClInclude>
+    <ClInclude Include="CUSTOMMesh.h">
+      <Filter>Scripts\Exemple\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CUSTOMHUD.h">
+      <Filter>Scripts\Exemple\CustomHUD</Filter>
+    </ClInclude>
+    <ClInclude Include="CUSTOMGameMode.h">
+      <Filter>Scripts\Exemple\CustomGameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomActor.h">
+      <Filter>Scripts\Exemple\CustomActor</Filter>
+    </ClInclude>
+    <ClInclude Include="Bounds.h">
+      <Filter>Scripts\Engine\Core\Components\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Scripts\Engine\Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="DetectNoteComponent.h">
-      <Filter>MargeuRythme\Note\Mouvement</Filter>
+      <Filter>MargeuRythme\Actor\DetectorNote</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteDetector.h">
+      <Filter>MargeuRythme\Actor\DetectorNote</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteSpawner.h">
+      <Filter>MargeuRythme\Actor\NoteSpawner</Filter>
+    </ClInclude>
+    <ClInclude Include="BeatMapLevel.h">
+      <Filter>MargeuRythme\Level\GameplayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectLevel.h">
+      <Filter>MargeuRythme\Level\MainMenuLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

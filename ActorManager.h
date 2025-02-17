@@ -12,13 +12,11 @@ public:
 	{
 		allActors.insert(_actor);
 		AddActorName(_actor);
-		_actor->BeginPlay();
 	}
 	FORCEINLINE void RemoveActor(Actor* _actor)
 	{
 		allActors.erase(_actor);
 		RemoveActorName(_actor);
-		_actor->BeginDestroy();
 	}
 	FORCEINLINE set<Actor*> GetAllActors() const
 	{
@@ -83,5 +81,8 @@ public:
 
 public:
 	~ActorManager();
+
+	void BeginPlay();
 	void Update(const float _deltaTime);
+	void BeginDestroy();
 };

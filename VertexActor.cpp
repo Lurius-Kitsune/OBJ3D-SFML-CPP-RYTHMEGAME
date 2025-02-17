@@ -11,7 +11,7 @@ VertexActor::VertexActor(Level* _level, const u_int& _count, const PrimitiveType
 
 VertexActor::VertexActor(const VertexActor& _other) : Actor(_other)
 {
-	vertex = CreateComponent<VertexComponent>(_other.vertex);
+	vertex = CreateComponent<VertexComponent>(*_other.vertex);
 	renderMeshToken = _other.renderMeshToken;
 }
 

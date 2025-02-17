@@ -2,7 +2,7 @@
 #include "Singleton.h"
 #include "CollisionComponent.h"
 
-class CollisionManager : public Singleton<CollisionManager>
+class CollisionManager
 {
 	set<CollisionComponent*> allCollisionComponents;
 	set<pair<Actor*, Actor*>> hasCollision;
@@ -18,14 +18,14 @@ public:
 	}
 	FORCEINLINE void AddCollisionPair(Actor* _owner, Actor* _other)
 	{
-		if (!ContainPair(_owner, _other)) return;
+		if (!ContainsPair(_owner, _other)) return;
 		hasCollision.insert({ _owner , _other });
 	}
 	FORCEINLINE void ResetCollisionPair()
 	{
 		hasCollision.clear();
 	}
-	FORCEINLINE bool ContainPair(Actor* _owner, Actor* _other)
+	FORCEINLINE bool ContainsPair(Actor* _owner, Actor* _other)
 	{
 		if (hasCollision.contains({ _owner ,_other }) || hasCollision.contains({ _other ,_owner }))
 		{

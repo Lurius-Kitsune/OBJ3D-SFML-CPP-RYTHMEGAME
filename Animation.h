@@ -34,8 +34,6 @@ struct LinkedAnimation
     {
         return !transition || transition();
     }
-
-    bool TryToChange();
 };
 
 struct AnimationData
@@ -53,8 +51,7 @@ struct AnimationData
     AnimationData() = default;
     AnimationData(const int _count, const float _duration, const SpriteData& _spriteData,
                   const bool _hasExitTime = true, const bool _canLoop = true,
-                  const ReadDirection& _direction = RD_ROW, const bool _isReversed = false,
-                  const vector<LinkedAnimation>& _linkedAnimations = {})
+                  const ReadDirection& _direction = RD_ROW, const bool _isReversed = false)
     {
         canLoop = _canLoop;
         hasExitTime = _hasExitTime;
@@ -62,8 +59,7 @@ struct AnimationData
         count = _count;
         duration = _duration;
         notifies = map<u_int, function<void()>>();
-        direction = _direction;
-        linkedAnimations = _linkedAnimations;
+        linkedAnimations = vector<LinkedAnimation>();
 
         const function<Vector2i(const int _index)> _computeStart[] =
         {
@@ -106,15 +102,14 @@ struct AnimationData
 
         for (int _index = 0; _index < _count; _index++)
         {
-            const SpriteData& _data = SpriteData(_computeStart[direction](_index), _spriteData.size, _spriteData.factor);
+            const SpriteData& _data = SpriteData(_computeStart[_direction](_index), _spriteData.size, _spriteData.factor);
             sprites.push_back(_data);
         }
     }
 
     AnimationData(const float _duration, const vector<SpriteData>& _spritesData,
                   const bool _hasExitTime = true, const bool _canLoop = true,
-                  const ReadDirection& _direction = RD_ROW, const bool _isReversed = false,
-                  const vector<LinkedAnimation>& _linkedAnimations = {})
+                  const bool _isReversed = false)
     {
         canLoop = _canLoop;
         hasExitTime = _hasExitTime;
@@ -123,8 +118,7 @@ struct AnimationData
         duration = _duration;
         sprites = _spritesData;
         notifies = map<u_int, function<void()>>();
-        direction = _direction;
-        linkedAnimations = _linkedAnimations;
+        linkedAnimations = vector<LinkedAnimation>();
     }
 };
 
@@ -135,16 +129,51 @@ class Animation
     AnimationData data;
     ShapeObject* shape;
     Timer<Seconds>* timer;
+    function<void()> onAnimationEnded;
 
 private:
     FORCEINLINE bool IsValidIndex() const
     {
         return currentIndex < data.count;
     }
+    FORCEINLINE float ComputeDuration()
+    {
+        return ComputeDuration(*GetSpriteData());
+    }
+    FORCEINLINE float ComputeDuration(const SpriteData& _spriteData) const
+    {
+        return data.duration / data.count * _spriteData.factor;
+    }
+    FORCEINLINE SpriteData* GetSpriteData()
+    {
+        if (data.sprites.empty()) return nullptr;
+
+        const int _index = currentIndex == 0 ? 0 : currentIndex - 1;
+        return &data.sprites[_index];
+    }
+    
 public:
+    FORCEINLINE void AddLinkedAnimation(const function<bool()>& _transition, Animation* animation)
+    {
+        const LinkedAnimation& _linkedAnim = LinkedAnimation(_transition, animation);
+        data.linkedAnimations.push_back(_linkedAnim);
+    }
     FORCEINLINE string GetName() const
     {
         return name;
+    }
+    FORCEINLINE function<void()>& GetOnAnimationEnded()
+    {
+        return onAnimationEnded;
+    }
+    FORCEINLINE Animation* GetNextAnimation() const
+    {
+        for (const LinkedAnimation& _linkedAnim : data.linkedAnimations)
+        {
+            if (_linkedAnim.IsValid()) return _linkedAnim.animation;
+        }
+
+        return nullptr;
     }
 
 public:
@@ -154,7 +183,7 @@ public:
 
 private:
     void Update();
-    void UpdateTimer(const float _duration);
+    void UpdateTimer(const SpriteData& _spriteData);
     void Reset();
 
 public:

@@ -1,5 +1,6 @@
 #pragma once
 #include "TransformableObject.h"
+#include "Bounds.h"
 
 enum TextureExtensionType
 {
@@ -24,7 +25,7 @@ struct CircleShapeData
 	IntRect rect;
 	size_t pointCount;
 
-	CircleShapeData(const float _radius, const string& _path = "", const IntRect& _rect = IntRect(),
+	CircleShapeData(const float _radius, const string& _path = "Default", const IntRect& _rect = IntRect(),
 					const size_t& _pointCount = 30)
 	{
 		radius = _radius;
@@ -35,6 +36,7 @@ struct CircleShapeData
 
 	CircleShapeData& operator = (CircleShapeData _other)
 	{
+
 		radius = _other.radius;
 		path = _other.path;
 		rect = _other.rect;
@@ -52,7 +54,7 @@ struct RectangleShapeData
 	TextureExtensionType textureType;
 	bool isRepeated;
 
-	RectangleShapeData(const Vector2f& _size, const string& _path = "", const TextureExtensionType& _textureType = PNG,
+	RectangleShapeData(const Vector2f& _size, const string& _path = "Default", const TextureExtensionType& _textureType = PNG,
 					   const bool _isRepeated = false, const IntRect& _rect = IntRect())
 	{
 		size = _size;
@@ -133,7 +135,7 @@ public:
 	{
 		return texture;
 	}
-	FORCEINLINE ShapeObjectData GetData() const
+	FORCEINLINE ShapeObjectData& GetData()
 	{
 		return objectData;
 	}
