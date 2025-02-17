@@ -129,7 +129,7 @@ public:
 		const Time& _time = Time(), const Time& _duration = Time())
 	{
 		const string& _finalPath = _path + audioManager.GetExtension(_type);
-		Sample* _sample = audioManager.GetAvailable(_finalPath);
+		Type* _sample = Cast<Type>(audioManager.GetAvailable(_finalPath));
 
 		if (_sample)
 		{

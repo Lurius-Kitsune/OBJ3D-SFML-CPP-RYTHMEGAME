@@ -20,7 +20,7 @@ struct ComboData
 	ComboData(Level* _level)
 	{
 		count = 0;
-		label = _level->SpawnWidget<LabelWidget>("X " + to_string(count), "ComboCount");
+		label = _level->GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("X " + to_string(count), "ComboCount");
 		label->SetVisibility(Hidden);
 		timer = new Timer<Seconds>([&]() {Animate(); }, seconds(0.0001f), false, true);
 		finishedAnimation = false;

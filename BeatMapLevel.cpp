@@ -95,7 +95,7 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 	}
 
 
-	LabelWidget* _noteResultLabel = SpawnWidget<LabelWidget>(_text, "NoteResultLabel");
+	LabelWidget* _noteResultLabel = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>(_text, "NoteResultLabel");
 	_noteResultLabel->SetFont("Pixel", TTF);
 	_noteResultLabel->SetOriginAtMiddle();
 	_noteResultLabel->SetPosition(_textPosition);
@@ -104,7 +104,7 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 	_noteResultLabel->SetFillColor(_color);
 	new Timer([_noteResultLabel, this]()
 		{ 
-			GetHUD()->RemoveFromViewport(_noteResultLabel);
+			GetGameMode()->GetHUD()->RemoveFromViewport(_noteResultLabel);
 		}, seconds(1), true, false);
 
 }
@@ -112,7 +112,7 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 void BeatMapLevel::InitLevelAspect()
 {
 	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "Background"));
-	background->SetOriginAtMiddle();
+	//background->SetOriginAtMiddle();
 	background->SetPosition(windowSize / 2.0f);
 	background->SetScale({ 2.0f, 2.0f });
 	background->SetRotation(degrees(90));
@@ -155,31 +155,31 @@ void BeatMapLevel::InitLevelAspect()
 	_separatorBottomNote->SetFillColor(Color(255, 255, 255, 150));
 	_separatorBottomNote->SetPosition(Vector2f(_separatorLeft->GetPosition().x, 560.0f));
 
-	LabelWidget* _scoreText = SpawnWidget<LabelWidget>("Score :", "Score Text");
+	LabelWidget* _scoreText = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("Score :", "Score Text");
 	_scoreText->SetFont("Pixel", TTF);
 	_scoreText->SetPosition(Vector2f((_separatorLeft->GetPosition().x - _scoreText->GetSize().x) / 2.0f, windowSize.y * 0.25));
 	_scoreText->SetCharacterSize(25);
 	_scoreText->SetZOrder(3);
 
-	score = SpawnWidget<ScoreLabel>("Score"); 
+	score = GetGameMode()->GetHUD()->SpawnWidget<ScoreLabel>("Score");
 	score->SetFont("Pixel", TTF);
 	score->SetPosition(Vector2f((_separatorLeft->GetPosition().x - score->GetSize().x) / 2.0f, _scoreText->GetPosition().y + _scoreText->GetSize().y + 10.0f));
 	score->SetCharacterSize(25);
 	score->SetZOrder(1);
 
-	LabelWidget* _rankText= SpawnWidget<LabelWidget>("Rang :", "RankLabelInfo");
+	LabelWidget* _rankText= GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("Rang :", "RankLabelInfo");
 	_rankText->SetFont("Pixel", TTF);
 	_rankText->SetPosition(Vector2f((_separatorLeft->GetPosition().x - _rankText->GetSize().x) / 2.0f, windowSize.y * 0.6));
 	_rankText->SetCharacterSize(25);
 	_rankText->SetZOrder(3);
 
-	LabelWidget* _rang = SpawnWidget<LabelWidget>("F", "Rank"); //TODO Implement Rang
+	LabelWidget* _rang = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("F", "Rank"); //TODO Implement Rang
 	_rang->SetFont("Pixel", TTF);
 	_rang->SetPosition(Vector2f(windowSize.x * 0.1f, windowSize.y * 0.625));
 	_rang->SetCharacterSize(100);
 	_rang->SetZOrder(3);
 
-	time = SpawnWidget<LabelWidget>("0:00 / 0:00", "TimeLabel");
+	time = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("0:00 / 0:00", "TimeLabel");
 	time->SetFont("Pixel", TTF);
 	time->SetPosition(Vector2f((_separatorRight->GetPosition().x + (windowSize.x - _separatorRight->GetPosition().x) / 2.0f) - time->GetSize().x / 2.0f, windowSize.y * 0.8f));
 	time->SetCharacterSize(25);
@@ -197,13 +197,13 @@ void BeatMapLevel::InitTopBar()
 	_separation->SetFillColor(Color(255, 255, 255, 150));
 	_separation->SetPosition(Vector2f(0.0f, 60.0f));
 
-	LabelWidget* _levelDifficulty = SpawnWidget<LabelWidget>("Difficulty: " + difficulty, "DifficultyInfoLabel"); 
+	LabelWidget* _levelDifficulty = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("Difficulty: " + difficulty, "DifficultyInfoLabel");
 	_levelDifficulty->SetFont("Pixel", TTF);
 	_levelDifficulty->SetPosition(Vector2f(10.0f, 15.0f));
 	_levelDifficulty->SetCharacterSize(25);
 	_levelDifficulty->SetZOrder(2);
 
-	LabelWidget* _levelName = SpawnWidget<LabelWidget>("Title:" +trackInfo.title, "TrackInfoLabel"); 
+	LabelWidget* _levelName = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("Title:" +trackInfo.title, "TrackInfoLabel");
 	_levelName->SetFont("Pixel", TTF);
 	_levelName->SetPosition(Vector2f(((windowSize.x - _levelName->GetSize().x) / 2.0f), 15.0f));
 	_levelName->SetCharacterSize(25);
@@ -225,7 +225,7 @@ void BeatMapLevel::InitNoteTriggerAndSpawner()
 		NoteDetector* _noteDetect = SpawnActor<NoteDetector>(NoteType(_i));
 		triggers[NoteType(_i)] = _noteDetect;
 		triggers[NoteType(_i)]->SetPosition(Vector2f(windowSize.x / 3 + 120.0f * _i, 500));
-		triggers[NoteType(_i)]->SetOriginAtMiddle();
+		//triggers[NoteType(_i)]->SetOriginAtMiddle();
 		pair<string, Keyboard::Key> _key = GetKey(NoteType(_i));
 		ActionData _actData = ActionData(KeyPressed, _key.second);
 		_actMap->AddAction(_key.first, _actData, [_noteDetect]() {_noteDetect->GetDetectComponent()->DetectNote(); });

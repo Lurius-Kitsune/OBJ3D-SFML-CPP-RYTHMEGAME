@@ -4,6 +4,7 @@
 Component::Component(Actor* _owner)
 {
 	owner = _owner;
+	SetActive(true);
 }
 
 Component::Component(Actor* _owner, const Component& _other)

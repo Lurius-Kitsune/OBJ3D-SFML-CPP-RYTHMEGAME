@@ -41,11 +41,11 @@ void Camera::CameraManager::RenderAllCameras(RenderWindow& _window, const int _i
 	for (const pair<string, CameraComponent*>& _pair : _allCameras)
 	{
 		//TODO Sachaaaaaaaaaaaaaaaaaaaaaaaaaaa
-		//if (!SetRenderView(_pair.second, _window))
-		//{
-		//	//_pair.second->SetViewport(FloatRect(Vector2f(), Vector2f()));
-		//	continue;
-		//}
+		if (!SetRenderView(_pair.second, _window))
+		{
+			_pair.second->SetViewport(FloatRect(Vector2f(), Vector2f()));
+			continue;
+		}
 
 		RenderAllElements(_window, _results, _isFirst, _renderWidgets);
 		RenderAllWidgets(_window, _renderWidgets);

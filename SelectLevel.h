@@ -15,7 +15,7 @@ enum TrackInfo
 
 class SelectLevel : public Level
 {
-	using Iterator = unordered_map<Track*, CanvasWidget*>::iterator;
+	using Iterator = unordered_map<Track*, ImageWidget*>::iterator;
 
 	MeshActor* background;
 	Vector2f windowSize;
@@ -23,9 +23,10 @@ class SelectLevel : public Level
 	vector<Track*> allTracks;
 
 	// Description
-	unordered_map<Track*, CanvasWidget*> allTracksCanvas;
+	unordered_map<Track*, ImageWidget*> allTracksCanvas;
 	Iterator musicIterator; 
 
+	map<string, CanvasWidget*> allCanvas;
 
 	// Right Info
 	CanvasWidget* description;

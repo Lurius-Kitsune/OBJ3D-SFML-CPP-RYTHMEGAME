@@ -35,26 +35,32 @@ void SelectLevel::InitSeparator()
 {
 	ImageWidget* _topSeparation = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background")); //TODO implemant Font
 	//_topSeparation->SetFillColor(Color(255, 255, 255, 150));
+	allCanvas["SelectLevel"]->AddChild(_topSeparation);
 	_topSeparation->SetPosition(Vector2f(0.0f, 60.0f));
 
 	ImageWidget* _levelSeparation = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(5.0f, windowSize.y - 120.0f), "background")); //TODO implemant Font
 	//_levelSeparation->SetFillColor(Color(255, 255, 255, 150));
+	allCanvas["SelectLevel"]->AddChild(_levelSeparation);
 	_levelSeparation->SetPosition(Vector2f(windowSize.x * 0.6f, _topSeparation->GetPosition().y));
 
 	ImageWidget* _bottomSeparation = SpawnActor<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x, 5.0f), "background")); //TODO implemant Font
 	//_bottomSeparation->SetFillColor(Color(255, 255, 255, 150));
+	allCanvas["SelectLevel"]->AddChild(_bottomSeparation);
 	_bottomSeparation->SetPosition(Vector2f(0.0f, windowSize.y - 60.0f));
+
 }
 
 void SelectLevel::InitLabel()
 {
-	LabelWidget* _label = SpawnWidget<LabelWidget>("Select Level", "SelectLevelLabel"); //TODO implemant Font
+	LabelWidget* _label = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("Select Level", "SelectLevelLabel"); //TODO implemant Font
+	allCanvas["SelectLevel"]->AddChild(_label);
 	_label->SetFont("Pixel", TTF);
 	_label->SetCharacterSize(35);
 	_label->SetZOrder(2);
 	_label->SetPosition(Vector2f(windowSize.x * 0.05f, 10.0f));
 
-	ButtonWidget* _button = SpawnWidget<ButtonWidget>(RectangleShapeData(Vector2f(100.0f, 50.0f), "background"), "PlayButton", Screen);
+	ButtonWidget* _button = GetGameMode()->GetHUD()->SpawnWidget<ButtonWidget>(RectangleShapeData(Vector2f(100.0f, 50.0f), "background"), "PlayButton", Screen);
+	allCanvas["SelectLevel"]->AddChild(_button);
 	_button->SetPosition(Vector2f(windowSize.x * 0.875f, windowSize.y - 45.0f));
 	_button->BindOnClickAction([&]()
 		{
@@ -68,36 +74,42 @@ void SelectLevel::InitLabel()
 		{
 			_button->SetOutline(0.0f, Color(255, 255, 255, 255));
 		});
-	LabelWidget* _play = SpawnWidget<LabelWidget>("PLAY", "PlayLabel"); //TODO implemant Font
+	LabelWidget* _play = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("PLAY", "PlayLabel"); //TODO implemant Font
+	allCanvas["SelectLevel"]->AddChild(_play);
 	_play->SetCharacterSize(30);
 	_play->SetZOrder(2);
 	_play->SetPosition(Vector2f(windowSize.x * 0.875f, windowSize.y - 45.0f));
 	_play->SetFont("Pixel", TTF);
+
 }
 
 void SelectLevel::InitDescription()
 {
-	description = SpawnWidget<CanvasWidget>("Description", Screen);
-	LabelWidget* _title = SpawnWidget<LabelWidget>("TrackTitle","TrackTitleLabel"); //TODO implemant Font
+	description = GetGameMode()->GetHUD()->SpawnWidget<CanvasWidget>("Description", Screen);
+	LabelWidget* _title = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("TrackTitle","TrackTitleLabel"); //TODO implemant Font
+	description->AddChild(_title);
 	_title->SetFont("Pixel", TTF);
 	_title->SetCharacterSize(50);
 	_title->SetZOrder(2);
 	_title->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.2f));
 
-	LabelWidget* _artist = SpawnWidget<LabelWidget>("TrackTitle","TrackTitleLabel2"); //TODO implemant Font
+	LabelWidget* _artist = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("TrackTitle","TrackTitleLabel2"); //TODO implemant Font
+	description->AddChild(_artist);
 	_artist->SetFont("Pixel", TTF);
 	_artist->SetCharacterSize(25);
 	_artist->SetZOrder(2);
 	_artist->SetPosition(Vector2f(windowSize.x * 0.65f, windowSize.y * 0.3f));
 
-	LabelWidget* _duration = SpawnWidget<LabelWidget>("TrackDuration", "TrackDurationLabel"); //TODO implemant Font
+	LabelWidget* _duration = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("TrackDuration", "TrackDurationLabel"); //TODO implemant Font
+	description->AddChild(_duration);
 	_duration->SetFont("Pixel", TTF);
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
 	_duration->SetPosition(Vector2f(windowSize.x * 0.8f, windowSize.y * 0.4f));
 
 	//TODO Dificulty
-	LabelWidget* _easy = SpawnWidget<LabelWidget>("TrackDifficulty", "TrackDifficultyLabel"); //TODO implemant Font
+	LabelWidget* _easy = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("TrackDifficulty", "TrackDifficultyLabel"); //TODO implemant Font
+	description->AddChild(_easy);
 	_easy->SetFont("Pixel", TTF);
 	_easy->SetCharacterSize(20);
 	_easy->SetZOrder(2);
@@ -105,14 +117,10 @@ void SelectLevel::InitDescription()
 	_easy->SetPosition(Vector2f(windowSize.x * 0.65, windowSize.y * 0.5f));
 
 
-	description->AddChild(_title);
 	infoLabel.insert(make_pair(TI_TITLE, _title));
-	description->AddChild(_artist);
 	infoLabel.insert(make_pair(TI_ARTIST, _artist));
-	description->AddChild(_duration);
 	infoLabel.insert(make_pair(TI_DURATION, _duration));
-	description->AddChild(_easy);
-
+	allCanvas["SelectLevel"]->AddChild(description);
 	//M_HUD.AddToViewport(description);
 }
 
@@ -136,37 +144,35 @@ void SelectLevel::InitInput()
 void SelectLevel::InitRectangleTrackInfo(Track* _track)
 {
 	if (allTracksCanvas.contains(_track)) return;
-
-	CanvasWidget* _trackInfo = SpawnWidget<CanvasWidget>("TrackSelection", Screen);
-	ImageWidget* _background = SpawnWidget<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x * 0.58f, 50.0f), "background"),"background", World); //TODO implemant Font
+	ImageWidget* _background = GetGameMode()->GetHUD()->SpawnWidget<ImageWidget>(RectangleShapeData(Vector2f(windowSize.x * 0.58f, 50.0f), "background"),"background", World); 
 	const Vector2f& _backgroundSize = _background->GetSize();
-	_background->SetZOrder(0);
 
-	LabelWidget* _title = SpawnWidget<LabelWidget>(_track->GetTitle(),"TitleLabel"); //TODO implemant Font
+	LabelWidget* _title = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>(_track->GetTitle(),"TitleLabel"); 
+	_background->AddChild(_title, AT_KEEP_RELATIVE);
 	_title->SetFont("Pixel", TTF);
 	_title->SetCharacterSize(20);
 	_title->SetZOrder(2);
 	_title->SetPosition(Vector2f(_backgroundSize.x * 0.01f, 0.0f));
 
-	LabelWidget* _artist = SpawnWidget<LabelWidget>(_track->GetArtist(),"ArtistLabel"); //TODO implemant Font
+	LabelWidget* _artist = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>(_track->GetArtist(),"ArtistLabel"); 
+	_background->AddChild(_artist, AT_KEEP_RELATIVE);
 	_artist->SetFont("Pixel", TTF);
 	_artist->SetCharacterSize(20);
 	_artist->SetZOrder(2);
 	_artist->SetPosition(Vector2f(_backgroundSize.x * 0.01f, _backgroundSize.y * 0.5f));
 
-	LabelWidget* _duration = SpawnWidget<LabelWidget>(_track->GetDurationAsString(), "DurationLabel"); //TODO implemant Font
+	LabelWidget* _duration = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>(_track->GetDurationAsString(), "DurationLabel"); 
+	_background->AddChild(_duration, AT_KEEP_RELATIVE);
 	_duration->SetFont("Pixel", TTF);
 	_duration->SetCharacterSize(20);
 	_duration->SetZOrder(2);
 	_duration->SetPosition(Vector2f(_backgroundSize.x * 0.5f, _backgroundSize.y * 0.25f));
 
-	_trackInfo->AddChild(_background);
-	_trackInfo->AddChild(_title);
-	_trackInfo->AddChild(_artist);
-	_trackInfo->AddChild(_duration);
 
-	_trackInfo->SetVisibility(VisibilityType::Hidden);
-	allTracksCanvas.insert(make_pair(_track, _trackInfo));
+	_background->SetVisibility(VisibilityType::Visible);
+	allTracksCanvas.insert(make_pair(_track, _background));
+	_background->SetZOrder(0);
+	allCanvas["SelectLevel"]->AddChild(_background);
 }
 
 void SelectLevel::SetDescription(Track* _track)
@@ -208,7 +214,7 @@ void SelectLevel::ChangeIterator(bool _isUp)
 
 void SelectLevel::SelectTrack()
 {
-	CanvasWidget* _selectCanvas = (*musicIterator).second;
+	ImageWidget* _selectCanvas = (*musicIterator).second;
 	_selectCanvas->SetVisibility(VisibilityType::Visible);
 	_selectCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 140.0f));
 	//_selectCanvas->GetFirstWidgetOf<UI::ImageWidget>()->SetOutline(2.0f, Color(255, 255, 255)); //TODO trouver solution
@@ -228,7 +234,7 @@ void SelectLevel::WheelCanvas()
 		}
 		if (_current != musicIterator)
 		{
-			CanvasWidget* _currentCanvas = (*_current).second;
+			ImageWidget* _currentCanvas = (*_current).second;
 			_currentCanvas->SetPosition(Vector2f(windowSize.x * 0.01f, 140.0f + 70.0f * _index));
 			_currentCanvas->SetVisibility(VisibilityType::Visible);
 			++_index;
@@ -275,8 +281,9 @@ void SelectLevel::Unload()
 
 void SelectLevel::InitLevel()
 {
+	Super::InitLevel();
 	windowSize = GetWindowSize();
-
+	allCanvas.insert(make_pair("SelectLevel", GetGameMode()->GetHUD()->SpawnWidget<CanvasWidget>("SelectLevel", Screen)));
 	background = SpawnActor<MeshActor>(RectangleShapeData(windowSize, "background")); //TODO implemant Font
 	background->SetOriginAtMiddle();
 	background->SetPosition(windowSize / 2.0f);
@@ -311,9 +318,9 @@ void SelectLevel::InitLevel()
 	}
 
 	musicIterator = allTracksCanvas.begin();
-
 	(*musicIterator).first->PlayExtrait();
 	WheelCanvas();
+	GetGameMode()->GetHUD()->AddToViewport(allCanvas["SelectLevel"]);
 }
 
 //bool SelectLevel::Update()
