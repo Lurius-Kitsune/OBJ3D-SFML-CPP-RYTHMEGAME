@@ -321,6 +321,7 @@ void SelectLevel::InitLevel()
 	(*musicIterator).first->PlayExtrait();
 	WheelCanvas();
 	GetGameMode()->GetHUD()->AddToViewport(allCanvas["SelectLevel"]);
+	GetGameMode()->GetHUD()->RemoveFromViewport(allCanvas["SelectLevel"]);
 }
 
 //bool SelectLevel::Update()
