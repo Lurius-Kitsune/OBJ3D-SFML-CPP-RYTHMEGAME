@@ -303,7 +303,9 @@ void SelectLevel::InitLevel()
 	InitSeparator();
 	InitLabel();
 	InitDescription();
-	if (ActionMap* _input = M_INPUT.GetActionMapByName("SelectLevel"))
+
+	
+	if (ActionMap* _input = GetGameMode()->GetPlayerController()->GetInputManager().GetActionMapByName("SelectLevel"))
 	{
 		_input->Enable();
 	}
@@ -321,7 +323,6 @@ void SelectLevel::InitLevel()
 	(*musicIterator).first->PlayExtrait();
 	WheelCanvas();
 	GetGameMode()->GetHUD()->AddToViewport(allCanvas["SelectLevel"]);
-	GetGameMode()->GetHUD()->RemoveFromViewport(allCanvas["SelectLevel"]);
 }
 
 //bool SelectLevel::Update()

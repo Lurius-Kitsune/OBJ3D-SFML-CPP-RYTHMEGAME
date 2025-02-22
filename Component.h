@@ -18,8 +18,8 @@ public:
 	virtual ~Component() = default;
 
 public:
-	virtual void Construct() override {};
-	virtual void Deconstruct() override {};
+	virtual void Construct() override;
+	virtual void Deconstruct() override;
 	virtual void BeginPlay() override {};
 	virtual void Tick(const float _deltaTime) override {};
 	virtual void BeginDestroy() override {};

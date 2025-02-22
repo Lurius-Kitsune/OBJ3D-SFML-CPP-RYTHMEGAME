@@ -168,7 +168,7 @@ private:
 		};
 
 		const AttachmentType& _type = _child->GetAttachmentType();
-		_child->SetPosition(_computePosition[_type]());
+		_child->SetOrigin(_computePosition[_type]());
 	}
 
 public:
@@ -350,6 +350,17 @@ protected:
 		Type* _component = new Type(this, forward<Args>(_args)...);
 		AddComponent(_component);
 		return _component;
+	}
+
+public:
+	FORCEINLINE virtual void SetActive(const bool _status) override
+	{
+		Super::SetActive(_status);
+
+		for (Component* _component : components)
+		{
+			_component->SetActive(_status);
+		}
 	}
 	#pragma endregion
 

@@ -7,10 +7,41 @@ namespace Input
 	class ActionMap
 	{
 		bool isActive;
+		bool isToDelete;
 		string name;
 		map<string, Action*> actions;
+		class InputManager* inputManager;
+
+	private:
+		FORCEINLINE void RemoveAction(const string& _name)
+		{
+			if (!actions.contains(_name)) return;
+
+			delete actions.at(_name);
+			actions.erase(_name);
+		}
 
 	public:
+#pragma region Delete
+		FORCEINLINE void SetToDelete()
+		{
+			isToDelete = true;
+		}
+		FORCEINLINE bool IsToDelete() const
+		{
+			return isToDelete;
+		}
+#pragma endregion
+		FORCEINLINE void DeleteAction(const string& _name)
+		{
+			if (!actions.contains(_name)) return;
+
+			actions[_name]->SetToDelete();
+		}
+		FORCEINLINE string GetName() const
+		{
+			return name;
+		}
 		FORCEINLINE void Enable()
 		{
 			isActive = true;
@@ -19,7 +50,14 @@ namespace Input
 		{
 			isActive = false;
 		}
-
+		FORCEINLINE InputManager& GetInputManager()
+		{
+			return *inputManager;
+		}
+		FORCEINLINE void SetInputManager(InputManager* _inputManager)
+		{
+			inputManager = _inputManager;
+		}
 	public:
 		ActionMap(const string& _name = "DefaultActionMap");
 		~ActionMap();
@@ -72,9 +110,8 @@ namespace Input
 		/// <param name="_allData">les ActionData dont les ValueType sont Axis</param>
 		/// <param name="_callback"></param>
 		void AddAction(const string& _name, const vector<ActionData>& _allData, const function<void(const float _parameter)>& _callback);
-
 		void AddActions(const vector<Action*>& _actions);
-		void RemoveAction(const string& _name);
 		void Update(const EventInfo& _event);
+	private:
 	};
 }

@@ -1,38 +1,40 @@
 #pragma once
-#include "Singleton.h"
 #include "ActionMap.h"
 
 namespace Input
 {
-	class InputManager : public Singleton<InputManager>
+	class InputManager
 	{
-		bool isKeyHolding;
-		bool isButtonHolding;
-		bool isJoystickButtonHolding;
-		Vector2f mousePosition;
 		map<string, ActionMap*> actionsMaps;
+		set<Key> keysIsHolding;
+		set<Button> mouseButtonsIsHolding;
+		vector<set<int>> joysticksButtonsIsHolding;
 
 	private:
 		FORCEINLINE void AddActionMap(const pair<string, ActionMap*>& _actionMap)
 		{
+			_actionMap.second->SetInputManager(this);
 			actionsMaps.insert(_actionMap);
 		}
+		FORCEINLINE void RemoveActionMap(const string& _name)
+		{
+			if (!actionsMaps.contains(_name)) return;
+
+			delete actionsMaps[_name];
+			actionsMaps.erase(_name);
+		}
 	public:
-		FORCEINLINE bool GetIsKeyHolding() const
+		FORCEINLINE bool GetIsKeyHolding(const Key& _key) const
 		{
-			return isKeyHolding;
+			return keysIsHolding.contains(_key);
 		}
-		FORCEINLINE bool GetIsButtonHolding() const
+		FORCEINLINE bool GetIsMouseButtonHolding(const Button& _mouseButton) const
 		{
-			return isButtonHolding;
+			return mouseButtonsIsHolding.contains(_mouseButton);
 		}
-		FORCEINLINE bool GetIsJoystickButtonHolding() const
+		FORCEINLINE bool GetIsJoystickButtonHolding(const int _joystickId, const int _joystickButton) const
 		{
-			return isJoystickButtonHolding;
-		}
-		FORCEINLINE Vector2f GetMousePosition() const
-		{
-			return mousePosition;
+			return joysticksButtonsIsHolding[_joystickId].contains(_joystickButton);
 		}
 		FORCEINLINE map<string, ActionMap*>& GetActionMaps()
 		{
@@ -43,19 +45,18 @@ namespace Input
 			if (!actionsMaps.contains(_name)) return nullptr;
 			return actionsMaps.at(_name);
 		}
-		FORCEINLINE void RemoveActionMap(const string& _name)
+		FORCEINLINE void DeleteActionMap(const string& _name)
 		{
 			if (!actionsMaps.contains(_name)) return;
 
-			delete actionsMaps[_name];
-			actionsMaps.erase(_name);
+			actionsMaps[_name]->SetToDelete();
 		}
 		FORCEINLINE ActionMap* CreateActionMap(const string& _name)
 		{
 			if (actionsMaps.contains(_name))
 			{
 				LOG(Error, "This ActionMap's name (" + _name + ") already used !");
-				return nullptr;
+				return GetActionMapByName(_name);
 			}
 
 			ActionMap* _actionMap = new ActionMap(_name);

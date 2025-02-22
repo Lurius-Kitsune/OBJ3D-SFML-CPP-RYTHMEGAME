@@ -1,14 +1,17 @@
 #pragma once
 #include "Actor.h"
 #include "InputManager.h"
+#include "CameraManager.h"
 
 class Level;
+class CameraManager;
 class Pawn;
 
 class PlayerController : public Actor
 {
 	Input::InputManager inputManager;
 	RenderWindow* window;
+	Camera::CameraManager* cameraManager;
 	Pawn* pawn;
 
 public:
@@ -60,6 +63,7 @@ public:
 	}
 
 	FORCEINLINE virtual Pawn* GetPawnRef() const;
+	FORCEINLINE Vector2f GetPixelToCoords() const;
 
 	#pragma endregion
 };

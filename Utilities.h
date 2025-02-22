@@ -16,6 +16,8 @@ void Normalize(Vector2f& _vector);
 float Distance(const float _first, const float _second);
 float Distance(const Vector2f& _first, const Vector2f& _second);
 Vector2f ComputeNormal(const FloatRect& _rect);
+Vector2f SmoothDamp(const Vector2f& _current, Vector2f _target, Vector2f& _currentVelocity,
+                    float _smoothTime, const float _deltaTime, const float _maxSpeed = INFINITY);
 vector<string> SplitString(const string& _string, const char _delimiter);
 
 template <typename Type, typename ...Args>

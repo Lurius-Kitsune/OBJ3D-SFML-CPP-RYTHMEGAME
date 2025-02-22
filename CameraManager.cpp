@@ -40,7 +40,6 @@ void Camera::CameraManager::RenderAllCameras(RenderWindow& _window, const int _i
 	// Pour chaque caméra
 	for (const pair<string, CameraComponent*>& _pair : _allCameras)
 	{
-		//TODO Sachaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		if (!SetRenderView(_pair.second, _window))
 		{
 			_pair.second->SetViewport(FloatRect(Vector2f(), Vector2f()));

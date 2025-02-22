@@ -38,7 +38,7 @@ void UI::HUD::RemoveFromViewport(Widget* _widget)
 	{
 		if (Widget* _selectedWidget = Cast<Widget>(_actor))
 		{
-			_selectedWidget->UnbindViewport();
+			RemoveFromViewport(_selectedWidget);
 		}
 	}
 	_widget->UnbindViewport();

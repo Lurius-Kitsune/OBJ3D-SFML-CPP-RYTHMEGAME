@@ -6,7 +6,7 @@ class Core
 	bool isActive = false;
 
 public:
-	FORCEINLINE void SetActive(const bool _active)
+	FORCEINLINE virtual void SetActive(const bool _active)
 	{
 		isActive = _active;
 	}

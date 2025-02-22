@@ -3,10 +3,11 @@
 
 namespace Input
 {
-	#pragma region Typedef & Using
+#pragma region Typedef & Using
 	typedef optional<Event> EventInfo;
 	using TypeIndex = type_index;
 	using Key = Keyboard::Key;
+	using Button = Mouse::Button;
 
 	//Keyboard
 	using PressedKey = Event::KeyPressed;
@@ -19,7 +20,7 @@ namespace Input
 	using ScrolledMouseWheel = Event::MouseWheelScrolled;
 	using MovedMouse = Event::MouseMoved;
 	using MovedRawMouse = Event::MouseMovedRaw;
-	using EnteredMouse= Event::MouseEntered;
+	using EnteredMouse = Event::MouseEntered;
 	using LeftMouse = Event::MouseLeft;
 
 	//Window
@@ -41,7 +42,7 @@ namespace Input
 	using MovedTouch = Event::TouchMoved;
 	using EndedTouch = Event::TouchEnded;
 	using ChangedSensor = Event::SensorChanged;
-	
+
 #pragma endregion
 
 	struct CallBackType
@@ -263,7 +264,7 @@ namespace Input
 		ValueType value;
 		ActionType type;
 		int key;
-		int JoystickId;
+		int joystickId;
 
 		/// <summary>
 		/// Constructeur pour les ActionTypes :
@@ -285,13 +286,13 @@ namespace Input
 		{
 			assert((_type == KeyPressed || _type == KeyHold ||
 				_type == KeyReleased || _type == MouseButtonPressed || _type == MouseButtonHold ||
-				_type == MouseButtonReleased || _type == SensorChanged || _type == MouseWheelScrolled ) &&
+				_type == MouseButtonReleased || _type == SensorChanged || _type == MouseWheelScrolled) &&
 				"Invalid constructor to use this ActionType!");
 
 			value = ComputeValueTypeWithActionType(_type);
 			type = _type;
 			key = CAST(int, _key);
-			JoystickId = -1;
+			joystickId = -1;
 		}
 		/// <summary>
 		/// Constructeur pour l'ActionType :
@@ -308,26 +309,25 @@ namespace Input
 			value = ComputeValueTypeWithActionType(_type);
 			type = _type;
 			key = CAST(int, _key);
-			JoystickId = _joystickID;
+			joystickId = _joystickID;
 		}
 		/// <summary>
 		/// Constructeur pour les ActionTypes :
 		/// JoystickButtonPressed /
 		/// JoystickButtonReleased /
-		/// JoystickConnected /
-		///	JoystickDisconnected 
+		/// JoystickButtonHold
 		/// </summary>
 		/// <param name="_type"></param>
 		/// <param name="_button">Boutton de Joystick</param>
 		ActionData(const ActionType& _type, const int _joystickID, const int _button = -1)
 		{
-			assert((_type == JoystickButtonPressed || _type == JoystickButtonReleased) &&
+			assert((_type == JoystickButtonPressed || _type == JoystickButtonHold || _type == JoystickButtonReleased) &&
 				"Invalid constructor to use this ActionType!");
 
 			value = ComputeValueTypeWithActionType(_type);
 			type = _type;
 			key = _button;
-			JoystickId = _joystickID;
+			joystickId = _joystickID;
 		}
 		/// <summary>
 		/// Constructeur pour les ActionTypes :
@@ -343,6 +343,8 @@ namespace Input
 		///	FocusLost /
 		///	FocusGained /
 		///	TextEntered /
+		/// JoystickConnected /
+		///	JoystickDisconnected /
 		/// TouchBegan /
 		/// TouchMoved /
 		///	TouchEnded /
@@ -386,11 +388,15 @@ namespace Input
 		}
 	};
 
+	class InputManager;
+
 	class Action
 	{
+		bool isToDelete;
 		string name;
 		multimap<TypeIndex, ActionData> allData;
 		CallBackType callback;
+		class ActionMap* actionMap;
 
 	private:
 		template<typename EnumType, typename = enable_if_t<is_enum_v<EnumType>>>
@@ -408,23 +414,25 @@ namespace Input
 			}
 			return false;
 		}
-		FORCEINLINE bool HasJoystickIDInAllData(const TypeIndex& _type, const int _key)
+		FORCEINLINE bool HasJoystickIDInAllData(const TypeIndex& _type, const int _joystickId)
 		{
 			using Iterator = multimap<TypeIndex, ActionData>::iterator;
 			const pair <Iterator, Iterator>& _actionsType = allData.equal_range(_type);
 			for (Iterator _it = _actionsType.first; _it != _actionsType.second; ++_it)
 			{
-				if (_it->second.key == _key) return true;
+				if (_it->second.joystickId == _joystickId) return true;
 			}
 			return false;
 		}
 		void SimpleConstruct(const string& _name, const ActionData& _data)
 		{
+			isToDelete = false;
 			name = _name;
 			AddData(_data);
 		}
 		void MultipleConstruct(const string& _name, const vector<ActionData>& _allData)
 		{
+			isToDelete = false;
 			name = _name;
 			for (const ActionData& _actionData : _allData)
 			{
@@ -433,6 +441,16 @@ namespace Input
 		}
 
 	public:
+#pragma region Delete
+		FORCEINLINE void SetToDelete()
+		{
+			isToDelete = true;
+		}
+		FORCEINLINE bool IsToDelete() const
+		{
+			return isToDelete;
+		}
+#pragma endregion
 		FORCEINLINE string GetName() const
 		{
 			return name;
@@ -441,24 +459,11 @@ namespace Input
 		{
 			allData.insert({ ComputeTypeIndexByActionType(_actionData.type), _actionData });
 		}
-
+		FORCEINLINE void SetActionMap(ActionMap* _actionMap)
+		{
+			actionMap = _actionMap;
+		}
 	public:
-		/// <summary>
-		/// Constructeur d'action dont la ValueType est Digital !
-		/// </summary>
-		/// <param name="_name">nom de l'action</param>
-		/// <param name="_data">ActionData dont la ValueType est Digital</param>
-		/// <param name="_callback"></param>
-		Action(const string& _name, const ActionData& _data, const function<void()>& _callback);
-		
-		/// <summary>
-		/// Constructeur d'action dont la ValueType est Axis !
-		/// </summary>
-		/// <param name="_name">nom de l'action</param>
-		/// <param name="_data">ActionData dont la ValueType est Axis</param>
-		/// <param name="_callback"></param>
-		Action(const string& _name, const ActionData& _data, const function<void(const float _parameter)>& _callback);
-
 		/// <summary>
 		/// Constructeur d'action dont la ValueType est Axis2 !
 		/// </summary>
@@ -467,6 +472,24 @@ namespace Input
 		/// <param name="_callback"></param>
 		Action(const string& _name, const ActionData& _data, const function<void(const Vector2f& _parameter)>& _callback);
 
+
+		/// <summary>
+		/// Constructeur d'action dont la ValueType est Axis !
+		/// </summary>
+		/// <param name="_name">nom de l'action</param>
+		/// <param name="_data">ActionData dont la ValueType est Axis</param>
+		/// <param name="_callback"></param>
+		Action(const string& _name, const ActionData& _data, const function<void(const float _parameter)>& _callback);
+
+
+		/// <summary>
+		/// Constructeur d'action dont la ValueType est Digital !
+		/// </summary>
+		/// <param name="_name">nom de l'action</param>
+		/// <param name="_data">ActionData dont la ValueType est Digital</param>
+		/// <param name="_callback"></param>
+		Action(const string& _name, const ActionData& _data, const function<void()>& _callback);
+
 		/// <summary>
 		/// Constructeur d'actions dont les ValueTypes sont Digital !
 		/// </summary>
@@ -474,14 +497,6 @@ namespace Input
 		/// <param name="_data">ActionData dont la ValueType est Digital</param>
 		/// <param name="_callback"></param>
 		Action(const string& _name, const vector<ActionData>& _allData, const function<void()>& _callback);
-		
-		/// <summary>
-		/// Constructeur d'actions dont les ValueTypes sont Axis !
-		/// </summary>
-		/// <param name="_name">nom de l'action</param>
-		/// <param name="_data">ActionData dont la ValueType est Axis</param>
-		/// <param name="_callback"></param>
-		Action(const string& _name, const vector<ActionData>& _allData, const function<void(const float _parameter)>& _callback);
 
 		/// <summary>
 		/// Constructeur d'actions dont les ValueTypes sont Axis2 !
@@ -490,10 +505,18 @@ namespace Input
 		/// <param name="_data">ActionData dont la ValueType est Axis2</param>
 		/// <param name="_callback"></param>
 		Action(const string& _name, const vector<ActionData>& _allData, const function<void(const Vector2f& _parameter)>& _callback);
-		
+
+		/// <summary>
+		/// Constructeur d'actions dont les ValueTypes sont Axis !
+		/// </summary>
+		/// <param name="_name">nom de l'action</param>
+		/// <param name="_data">ActionData dont la ValueType est Axis</param>
+		/// <param name="_callback"></param>
+		Action(const string& _name, const vector<ActionData>& _allData, const function<void(const float _parameter)>& _callback);
+
 	private:
 		TypeIndex ComputeTypeIndexByActionType(const ActionType& _typeIndex);
-
+		InputManager& GetInputManager();
 	public:
 		void TryToExecute(const EventInfo& _event);
 	};

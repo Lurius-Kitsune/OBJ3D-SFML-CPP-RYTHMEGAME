@@ -45,6 +45,24 @@ void CUSTOMPawn::SetupInputController(Input::InputManager& _inputManager)
 			LOG(Warning, "D");
 			//movement->AddVelocity(Vector2f(1.0f, 0.0f));
 		}),
+		//new Action("Test", ActionData(KeyPressed, T), [&]()
+		//{
+		//	LOG(Warning, "suprr");
+		//	_inputManager.GetActionMapByName("PlayerMovement")->DeleteAction("Up");
+		//	//movement->AddVelocity(Vector2f(1.0f, 0.0f));
+		//}),
+		//new Action("Test25", ActionData(KeyPressed, I), [&]()
+		//{
+		//	LOG(Warning, "suprr25");
+		//	_inputManager.GetActionMapByName("PlayerMovement")->DeleteAction("Down");
+		//	//movement->AddVelocity(Vector2f(1.0f, 0.0f));
+		//}),
+		//	new Action("Test2", ActionData(KeyPressed, P), [&]()
+		//{
+		//	LOG(Warning, "suprr action map !");
+		//	_inputManager.DeleteActionMap("PlayerMovement");
+		//	//movement->AddVelocity(Vector2f(1.0f, 0.0f));
+		//}),
 	});
 
 	_moveInputs->Enable();

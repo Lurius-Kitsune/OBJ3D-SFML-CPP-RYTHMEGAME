@@ -47,10 +47,12 @@ public:
 		Super::SetOrigin(_origin);
 		mesh->GetShape()->SetOrigin(_origin);
 	}
+
 	FORCEINLINE virtual void SetOriginAtMiddle()
 	{
 		mesh->SetOriginAtMiddle();
 	}
+
 	FORCEINLINE virtual void Move(const Vector2f& _offset) override
 	{
 		Super::Move(_offset);

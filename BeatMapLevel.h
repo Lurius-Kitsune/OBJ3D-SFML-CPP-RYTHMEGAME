@@ -7,6 +7,7 @@
 #include "NoteDetector.h"
 #include "NoteSpawner.h"
 #include "MeshActor.h"
+#include "CanvasWidget.h"
 
 
 struct ComboData
@@ -151,6 +152,7 @@ class BeatMapLevel : public Level
 	
 	bool finishedBackgroundAnimation;
 	Timer<Seconds>* updateTimeTimer;
+	CanvasWidget* canvas;
 	//float advancementPercent;
 
 public:

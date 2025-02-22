@@ -21,15 +21,3 @@ void UI::CanvasWidget::Render(RenderWindow& _window)
 	Super::Render(_window);
 }
 
-void UI::CanvasWidget::BindViewport()
-{
-	Super::BindViewport();
-
-	for (Actor* _actor : GetChildren())
-	{
-		if (Widget* _widget = Cast<Widget>(_actor))
-		{
-			_widget->BindViewport();
-		}
-	}
-}

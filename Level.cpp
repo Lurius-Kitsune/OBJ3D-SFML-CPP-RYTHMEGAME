@@ -11,7 +11,7 @@ Level::Level(const string& _name)
 	isLoaded = false;
 	name = _name;
 	actorManager = ActorManager();
-	cameraManager = CameraManager();
+	cameraManager = Camera::CameraManager();
 	collisionManager = CollisionManager();
 	audioManager = AudioManager();
 	gameMode = nullptr;
@@ -23,21 +23,28 @@ Level::Level(const string& _name)
 }
 
 
-void Level::Update(const float _deltaTime)
-{
-	actorManager.Update(_deltaTime);
-	
-	if (!window.isOpen())
-	{
-		M_LEVEL.SetLevel(nullptr);
-	}
-}
-
 void Level::UpdateWindow()
 {
 	window.clear();
 	cameraManager.Render(window, GetGameMode()->IsSplitScreen());
 	window.display();
+}
+
+void Level::InitLevel()
+{
+	CameraActor* _camera = SpawnActor<CameraActor>("DefaultCamera");
+	cameraManager.Register(_camera->GetCamera());
+}
+
+void Level::Update(const float _deltaTime)
+{
+	UpdateWindow();
+	actorManager.Update(_deltaTime);
+
+	if (!window.isOpen())
+	{
+		M_LEVEL.SetLevel(nullptr);
+	}
 }
 
 void Level::Load()
@@ -57,10 +64,4 @@ void Level::Unload()
 	window.setVisible(false);
 	window.clear();
 	actorManager.BeginDestroy();
-}
-
-void Level::InitLevel()
-{
-	CameraActor* _camera = SpawnActor<CameraActor>("DefaultCamera");
-	cameraManager.Register(_camera->GetCamera());
 }

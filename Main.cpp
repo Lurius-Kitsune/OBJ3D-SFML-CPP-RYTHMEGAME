@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "LevelManager.h"
+#include "CUSTOMLevel.h"
 #include "SelectLevel.h"
 
 void InitConfig()
@@ -16,7 +17,8 @@ int main()
 	SelectLevel* _level = new SelectLevel();
 	M_LEVEL.SetLevel(_level);
 
-	Engine::GetInstance().Start();
+	Engine _engine;
+	_engine.Start();
 
 	return EXIT_SUCCESS;
 }

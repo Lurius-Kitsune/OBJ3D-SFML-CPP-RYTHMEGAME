@@ -77,6 +77,64 @@ Vector2f ComputeNormal(const FloatRect& _rect)
     return _normal / _norme;
 }
 
+Vector2f SmoothDamp(const Vector2f& _current, Vector2f _target, Vector2f& _currentVelocity, float _smoothTime, const float _deltaTime, const float _maxSpeed)
+{
+    float _outputX = 0.0f;
+    float _outputY = 0.0f;
+
+    // Based on Game Programming Gems 4 Chapter 1.10
+    _smoothTime = max(0.0001f, _smoothTime);
+    const float _omega = 2.0f / _smoothTime;
+
+    float _x = _omega * _deltaTime;
+    float _exp = 1.0f / (1.0f + _x + 0.48F * _x * _x + 0.235F * _x * _x * _x);
+
+    float _changeX = _current.x - _target.x;
+    float _changeY = _current.y - _target.y;
+    const Vector2f& _originalTo = _target;
+
+    // Clamp maximum speed
+    float _maxChange = _maxSpeed * _smoothTime;
+
+    float _maxChangeSq = _maxChange * _maxChange;
+    float _sqrmag = _changeX * _changeX + _changeY * _changeY;
+    if (_sqrmag > _maxChangeSq)
+    {
+        float mag = sqrtf(_sqrmag);
+        _changeX = _changeX / mag * _maxChange;
+        _changeY = _changeY / mag * _maxChange;
+    }
+
+    _target.x = _current.x - _changeX;
+    _target.y = _current.y - _changeY;
+
+    float temp_x = (_currentVelocity.x + _omega * _changeX) * _deltaTime;
+    float temp_y = (_currentVelocity.y + _omega * _changeY) * _deltaTime;
+
+    _currentVelocity.x = (_currentVelocity.x - _omega * temp_x) * _exp;
+    _currentVelocity.y = (_currentVelocity.y - _omega * temp_y) * _exp;
+
+    _outputX = _target.x + (_changeX + temp_x) * _exp;
+    _outputY = _target.y + (_changeY + temp_y) * _exp;
+
+    // Prevent overshooting
+    float _origMinusCurrentX = _originalTo.x - _current.x;
+    float _origMinusCurrentY = _originalTo.y - _current.y;
+    float _outMinusOrigX = _outputX - _originalTo.x;
+    float _outMinusOrigY = _outputY - _originalTo.y;
+
+    if (_origMinusCurrentX * _outMinusOrigX + _origMinusCurrentY * _outMinusOrigY > 0)
+    {
+        _outputX = _originalTo.x;
+        _outputY = _originalTo.y;
+
+        _currentVelocity.x = (_outputX - _originalTo.x) / _deltaTime;
+        _currentVelocity.y = (_outputY - _originalTo.y) / _deltaTime;
+    }
+
+    return { _outputX, _outputY };
+}
+
 vector<string> SplitString(const string& _string, const char _delimiter)
 {
     vector<string> _result;

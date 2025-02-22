@@ -50,6 +50,7 @@ public:
 	FORCEINLINE void SetBoundsData(BoundsData* _data)
 	{
 		delete data;
+		data = nullptr;
 		data = _data;
 	}
 

@@ -20,7 +20,6 @@ MeshComponent::MeshComponent(Actor* _owner, const MeshComponent& _other) : Compo
 	shape = new ShapeObject(*_other.shape);
 }
 
-
 MeshComponent::~MeshComponent()
 {
 	delete shape;
@@ -31,8 +30,7 @@ void MeshComponent::Construct()
 {
 	Super::Construct();
 
-	if (Widget* _widget = Cast<Widget>(owner)) return;
-	
+	if (Cast<Widget>(owner)) return;
 	const RenderData& _data = RenderData(bind(&MeshComponent::RenderMesh, this, _1));
 	renderMeshToken = owner->GetLevel()->GetCameraManager().BindOnRenderWindow(_data);
 }
@@ -41,8 +39,7 @@ void MeshComponent::Deconstruct()
 {
 	Super::Deconstruct();
 
-	if (Widget* _widget = Cast<Widget>(owner)) return;
-
+	if (Cast<Widget>(owner)) return;
 	owner->GetLevel()->GetCameraManager().UnbindOnRenderWindow(renderMeshToken);
 }
 
@@ -54,5 +51,6 @@ void MeshComponent::SetOriginAtMiddle()
 
 void MeshComponent::RenderMesh(RenderWindow& _window)
 {
+	if (!IsActive()) return;
 	_window.draw(*shape->GetDrawable());
 }

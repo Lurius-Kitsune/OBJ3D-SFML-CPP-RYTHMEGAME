@@ -32,8 +32,6 @@ void UI::Widget::Construct()
 
 void UI::Widget::BindViewport()
 {
-	const RenderData& _data = RenderData(bind(&Widget::Render, this, _1), type);
-	renderToken = level->GetCameraManager().BindOnRenderWindow(_data, zOrder);
 	for (Actor* _actor : GetChildren())
 	{
 		if (Widget* _widget = Cast<Widget>(_actor))
@@ -41,18 +39,13 @@ void UI::Widget::BindViewport()
 			_widget->BindViewport();
 		}
 	}
+	const RenderData& _data = RenderData(bind(&Widget::Render, this, _1), type);
+	renderToken = level->GetCameraManager().BindOnRenderWindow(_data, zOrder);
 }
 
 void UI::Widget::UnbindViewport()
 {
 	level->GetCameraManager().UnbindOnRenderWindow(renderToken);
-	for (Actor* _actor : GetChildren())
-	{
-		if (Widget* _selectedWidget = Cast<Widget>(_actor))
-		{
-			_selectedWidget->UnbindViewport();
-		}
-	}
 }
 
 void UI::Widget::SetZOrder(const int _zOrder)

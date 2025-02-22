@@ -125,7 +125,7 @@ public:
 		}
 	}
 
-	void Update()
+	float Update()
 	{
 		lastTime = time;
 		time = GetTime(clock.getElapsedTime());
@@ -137,7 +137,6 @@ public:
 		{
 			lastFrameTime = time;
 			framesCount = 0;
-			Engine::GetInstance().UpdateWindow();
 		}
 		
 		using Iterator = set<T*>::iterator;
@@ -155,6 +154,8 @@ public:
 
 			++_iterator;
 		}
+
+		return GetDeltaTime().asSeconds();
 	}
 	void Pause()
 	{

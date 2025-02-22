@@ -29,7 +29,6 @@ namespace UI
 	public:
 		virtual void Construct() override;
 		virtual void Render(RenderWindow& _window) override;
-		virtual void BindViewport() override;
 	};
 }
 
