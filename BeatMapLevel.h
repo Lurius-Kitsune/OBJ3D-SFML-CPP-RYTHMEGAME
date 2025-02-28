@@ -86,6 +86,26 @@ struct ComboData
 	}
 };
 
+struct StatsData
+{
+	int perfectCount;
+	int goodCount;
+	int tooLateCount;
+	int tooEarlyCount;
+	int missCount;
+
+	StatsData() = default;
+
+	void Reset()
+	{
+		perfectCount = 0;
+		goodCount = 0;
+		tooLateCount = 0;
+		tooEarlyCount = 0;
+		missCount = 0;
+	};
+};
+
 enum RankType
 {
 	F,
@@ -149,6 +169,7 @@ class BeatMapLevel : public Level
 	Track* track;
 	TrackData trackInfo;
 	string difficulty;
+	unique_ptr<StatsData> stats;
 	
 	ProgressBarWidget* progressBar;
 

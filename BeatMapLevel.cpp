@@ -53,8 +53,8 @@ void BeatMapLevel::Unload()
 	track = nullptr;
 	score->SetScore(0);
 	comboData->SetCount(0);
+	stats->Reset();
 	updateTimeTimer->Pause();
-	//M_LEVEL.SetLevel("SelectLevel");
 }
 
 void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector* _noteDetector)
@@ -77,27 +77,32 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 		_text = "PERFECT";
 		_color = Color::Yellow;
 		AddLife(5);
+		stats->perfectCount++;
 	}
 	else if(_noteResult == NR_GOOD)
 	{
 		_text = "GOOD";
 		_color = Color::Green;
 		AddLife(2);
+		stats->goodCount++;
 	}
 	else if(_noteResult == NR_TOOEARLY)
 	{
 		_text = "TOO EARLY";
 		_color = Color::Red;
+		stats->tooEarlyCount++;
 	}
 	else if(_noteResult == NR_TOOLATE)
 	{
 		_text = "TOO LATE";
 		_color = Color::Red;
+		stats->tooLateCount++;
 	}
 	else if(_noteResult == NR_MISS)
 	{
 		_text = "MISS";
 		_color = Color::Magenta;
+		stats->missCount++;
 		RemoveLife();
 	}
 
