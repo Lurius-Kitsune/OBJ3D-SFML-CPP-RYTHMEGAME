@@ -5,6 +5,7 @@
 #include "MeshActor.h"
 #include "RectangleActor.h"
 #include "ImageWidget.h"
+#include "ProgressBarWidget.h"
 #include "CameraManager.h"
 #include "FileManager.h"
 #include "DetectNoteComponent.h"
@@ -232,9 +233,10 @@ void BeatMapLevel::InitTopBar()
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
 
-	//ProgressBar* _progressBar = M_HUD.CreateWidget<ProgressBar>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), "Test", 100.0f, Screen); 
-	//_progressBar->SetFillColor(Color(0, 255, 0, 255));
-	//_progressBar->ChangeValue(50.0f);
+	ProgressBarWidget* _progressBar = GetGameMode()->GetHUD()->SpawnWidget<ProgressBarWidget>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), 100.0f, "Test",  Screen);
+	canvas->AddChild(_progressBar);
+	_progressBar->SetFillColor(Color(0, 255, 0, 255));
+	_progressBar->ChangeValue(100.0f);
 }
 
 void BeatMapLevel::InitNoteTriggerAndSpawner()
