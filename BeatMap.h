@@ -29,6 +29,11 @@ public:
 		return difficulty;
 	}
 
+	FORCEINLINE int GetMissDamage()
+	{
+		return missDamage;
+	}
+
 public:
 	BeatMap() = default;
 	BeatMap(const string& _path);

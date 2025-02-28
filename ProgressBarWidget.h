@@ -98,6 +98,15 @@ namespace UI
 			currentValue = maxValue;
 			Update();
 		}
+		FORCEINLINE void SetMaxValue(const float _newMaxValue)
+		{
+			maxValue = _newMaxValue;
+			if(currentValue > maxValue)
+			{
+				currentValue = maxValue;
+			}
+			Update();
+		}
 		FORCEINLINE void ChangeMaxValue(const float _factor)
 		{
 			maxValue += _factor;

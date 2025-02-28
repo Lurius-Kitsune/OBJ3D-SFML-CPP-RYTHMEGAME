@@ -54,7 +54,7 @@ namespace UI
 		}
 		FORCEINLINE virtual void SetOriginAtMiddle()
 		{
-			image->GetShape()->SetOrigin(image->GetShape()->GetDrawable()->getGeometricCenter());
+			image->SetOriginAtMiddle();
 		}
 		FORCEINLINE virtual void Move(const Vector2f& _offset) override
 		{

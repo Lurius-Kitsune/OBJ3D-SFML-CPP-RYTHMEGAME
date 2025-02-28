@@ -8,7 +8,7 @@
 #include "NoteSpawner.h"
 #include "MeshActor.h"
 #include "CanvasWidget.h"
-
+#include "ProgressBarWidget.h"
 
 struct ComboData
 {
@@ -150,6 +150,8 @@ class BeatMapLevel : public Level
 	TrackData trackInfo;
 	string difficulty;
 	
+	ProgressBarWidget* progressBar;
+
 	bool finishedBackgroundAnimation;
 	Timer<Seconds>* updateTimeTimer;
 	int timeElapsed;

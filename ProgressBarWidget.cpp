@@ -10,6 +10,8 @@ UI::ProgressBarWidget::ProgressBarWidget(Level* _level, const ProgressType& _typ
     size = _data.size;
     type = _type;
     foreground = hud->SpawnWidget<ImageWidget>(_data, _name + "_Foreground", _renderType);
+    foreground->SetZOrder(zOrder + 1);
+    AddChild(foreground, AT_KEEP_RELATIVE);
     UpdateOriginAndPosition(size);
 }
 
@@ -44,8 +46,8 @@ void UI::ProgressBarWidget::UpdateOriginAndPosition(const Vector2f& _size)
 
     if (type == PT_LEFT)
     {
-        _fgShape->setOrigin(_fgShape->getOrigin() - Vector2f(_size.x / 2.0f, 0.0f) - _originOffset);
-        _fgShape->setPosition(_barPosition - Vector2f(_size.x / 2.0f, 0.0f));
+        //_fgShape->setOrigin(_fgShape->getOrigin() - Vector2f(_size.x / 2.0f, 0.0f) - _originOffset);
+        //_fgShape->setPosition(_barPosition - Vector2f(_size.x / 2.0f, 0.0f));
     }
 
     else if (type == PT_RIGHT)

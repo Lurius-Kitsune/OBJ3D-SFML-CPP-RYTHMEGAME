@@ -96,6 +96,7 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 	{
 		_text = "MISS";
 		_color = Color::Magenta;
+		progressBar->SetValue(progressBar->GetCurrentValue() - track->GetCurrentBeatMap()->GetMissDamage());
 	}
 
 
@@ -233,10 +234,15 @@ void BeatMapLevel::InitTopBar()
 	_levelName->SetCharacterSize(25);
 	_levelName->SetZOrder(3);
 
-	ProgressBarWidget* _progressBar = GetGameMode()->GetHUD()->SpawnWidget<ProgressBarWidget>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), 100.0f, "Test",  Screen);
-	canvas->AddChild(_progressBar);
-	_progressBar->SetFillColor(Color(0, 255, 0, 255));
-	_progressBar->ChangeValue(100.0f);
+	progressBar = GetGameMode()->GetHUD()->SpawnWidget<ProgressBarWidget>(PT_LEFT, RectangleShapeData(Vector2f(200.0f, 20.0f), ""), 100.0f, "Test",  Screen);
+	canvas->AddChild(progressBar);
+	progressBar->SetZOrder(3);
+	progressBar->SetFillColor(Color(0, 255, 0, 255));
+	progressBar->GetForeground()->SetTexture("lifeBar");
+	progressBar->ChangeValue(100.0f);
+	progressBar->SetTexture("White", PNG);
+	progressBar->SetFillColor(Color(255, 0, 0, 100));
+	progressBar->SetPosition(_layerDark->GetSize() - Vector2f(210.0f, 30.0f));
 }
 
 void BeatMapLevel::InitNoteTriggerAndSpawner()
