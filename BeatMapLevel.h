@@ -210,6 +210,7 @@ private:
 	void UpdateTime();
 
 	void RemoveLife();
+	void AddLife(const int _value = 1);
 
 	void IncrementCombo();
 	void ResetCombo();

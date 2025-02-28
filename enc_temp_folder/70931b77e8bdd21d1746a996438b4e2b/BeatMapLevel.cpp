@@ -76,13 +76,13 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 	{
 		_text = "PERFECT";
 		_color = Color::Yellow;
-		AddLife(5);
+		AddLife(10);
 	}
 	else if(_noteResult == NR_GOOD)
 	{
 		_text = "GOOD";
 		_color = Color::Green;
-		AddLife(2);
+		AddLife(5);
 	}
 	else if(_noteResult == NR_TOOEARLY)
 	{
