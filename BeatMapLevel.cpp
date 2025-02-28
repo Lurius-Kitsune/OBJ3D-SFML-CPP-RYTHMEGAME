@@ -27,7 +27,7 @@ BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 	trackInfo = track->GetInfo();
 	difficulty = _difficulty;
 	finishedBackgroundAnimation = true;
-
+	timeElapsed = 0;
 	notes = queue<Note*>();
 }
 
@@ -38,6 +38,7 @@ void BeatMapLevel::Load()
 	track->SetActive(true);
 	updateTimeTimer->Reset();
 	updateTimeTimer->Start();
+	timeElapsed = 0;
 }
 
 void BeatMapLevel::Unload()
@@ -108,7 +109,9 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 	new Timer([_noteResultLabel, this]()
 		{ 
 			canvas->RemoveChild(_noteResultLabel);
+			GetGameMode()->GetHUD()->RemoveFromViewport(_noteResultLabel);
 		}, seconds(1), true, false);
+	GetGameMode()->GetHUD()->AddToViewport(canvas);
 
 }
 
@@ -293,28 +296,34 @@ void BeatMapLevel::AnimateBackground()
 
 
 
-string BeatMapLevel::GetTime()
+string BeatMapLevel::GetTimeInString()
 {
 	string _timeString;
-	static int _time = 0;
-	_time++;
-	int _minute = _time / 60;
+	timeElapsed++;
+	int _minute = timeElapsed / 60;
 	_timeString += to_string(_minute);
 
 	_timeString += ":";
 
-	if (_time < 10)
+	if (timeElapsed < 10)
 	{
 		_timeString += "0";
 	}
-	_timeString += to_string(_time - (_minute * 60));
+	_timeString += to_string(timeElapsed - (_minute * 60));
 
 	return _timeString + " / " + track->GetDurationAsString();
 }
 
 void BeatMapLevel::UpdateTime()
 {
-	time->SetText(GetTime());
+	time->SetText(GetTimeInString());
+	if (!track) return;
+	if (timeElapsed >= track->GetDuration().asSeconds())
+	{
+		track->Stop();
+		track->SetActive(false);
+		M_LEVEL.SetLevel("SelectLevel");
+	}
 }
 
 pair<string, Keyboard::Key> BeatMapLevel::GetKey(const NoteType& _noteType)

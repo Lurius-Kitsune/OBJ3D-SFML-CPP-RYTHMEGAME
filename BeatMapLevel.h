@@ -152,6 +152,7 @@ class BeatMapLevel : public Level
 	
 	bool finishedBackgroundAnimation;
 	Timer<Seconds>* updateTimeTimer;
+	int timeElapsed;
 	CanvasWidget* canvas;
 	//float advancementPercent;
 
@@ -203,7 +204,7 @@ private:
 	void InitTopBar();
 	void InitNoteTriggerAndSpawner();
 	void AnimateBackground();
-	string GetTime();
+	string GetTimeInString();
 	void UpdateTime();
 
 	void IncrementCombo();

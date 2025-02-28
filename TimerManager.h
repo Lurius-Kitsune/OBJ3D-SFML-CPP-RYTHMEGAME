@@ -43,7 +43,7 @@ private:
 	{
 		return durations.at(typeid(DurationType));
 	}
-	FORCEINLINE DurationType GetTime(const Time& _time) const
+	FORCEINLINE DurationType GetTimeInString(const Time& _time) const
 	{
 		map<type_index, function<DurationType()>> _durationCallback =
 		{
@@ -128,7 +128,7 @@ public:
 	float Update()
 	{
 		lastTime = time;
-		time = GetTime(clock.getElapsedTime());
+		time = GetTimeInString(clock.getElapsedTime());
 		elapsedTime = time - lastTime;
 		deltaTime = elapsedTime * timeScale;
 		framesCount++;
@@ -228,7 +228,7 @@ public:
 		isRunning = _startRunning;
 		isLoop = _isLoop;
 		currentTime = 0.0;
-		duration = _manager.GetTime(_time);
+		duration = _manager.GetTimeInString(_time);
 		callback = _callback;
 
 		_manager.AddTimer(this); //TODO check
