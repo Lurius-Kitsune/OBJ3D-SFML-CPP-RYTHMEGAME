@@ -209,6 +209,8 @@ private:
 	string GetTimeInString();
 	void UpdateTime();
 
+	void RemoveLife();
+
 	void IncrementCombo();
 	void ResetCombo();
 	void AddScore(const NoteResult& _noteResult);

@@ -96,7 +96,7 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 	{
 		_text = "MISS";
 		_color = Color::Magenta;
-		progressBar->SetValue(progressBar->GetCurrentValue() - track->GetCurrentBeatMap()->GetMissDamage());
+		RemoveLife();
 	}
 
 
@@ -330,6 +330,15 @@ void BeatMapLevel::UpdateTime()
 	{
 		track->Stop();
 		track->SetActive(false);
+		M_LEVEL.SetLevel("SelectLevel");
+	}
+}
+
+void BeatMapLevel::RemoveLife()
+{
+	progressBar->SetValue(progressBar->GetCurrentValue() - track->GetCurrentBeatMap()->GetMissDamage());
+	if (progressBar->GetCurrentValue() <= 0)
+	{
 		M_LEVEL.SetLevel("SelectLevel");
 	}
 }
