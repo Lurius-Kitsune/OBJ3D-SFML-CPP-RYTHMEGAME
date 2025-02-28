@@ -108,17 +108,18 @@ struct StatsData
 
 enum RankType
 {
-	F,
-	B = 60,
-	A = 70,
-	S = 80,
-	SS = 90,
-	SSS = 100,
+	RT_F,
+	RT_B = 60,
+	RT_A = 70,
+	RT_S = 80,
+	RT_SS = 90,
+	RT_SSS = 100,
 };
 
 struct Rank
 {
-	vector<RankType> rankType = { RankType::F, RankType::B , RankType::A , RankType::S , RankType::SS , RankType::SSS };
+	LabelWidget* rankLabel;
+	vector<RankType> rankType = { RankType::RT_F, RankType::RT_B , RankType::RT_A , RankType::RT_S , RankType::RT_SS , RankType::RT_SSS };
 	size_t size = rankType.size();
 
 	string ComputeCurrentRank(ScoreLabel* _scoreLabel, const int _maxScore)
@@ -136,17 +137,17 @@ struct Rank
 	{
 		switch (_rank)
 		{
-		case  RankType::F:
+		case  RankType::RT_F:
 			return "F";
-		case RankType::B:
+		case RankType::RT_B:
 			return "B";
-		case  RankType::A:
+		case  RankType::RT_A:
 			return "A";
-		case RankType::S:
+		case RankType::RT_S:
 			return "S";
-		case RankType::SS:
+		case RankType::RT_SS:
 			return "SS";
-		case RankType::SSS:
+		case RankType::RT_SSS:
 			return "SSS";
 		default:
 			break;
@@ -161,6 +162,7 @@ class BeatMapLevel : public Level
 	MeshActor* background;
 	LabelWidget* time;
 	unique_ptr<ComboData> comboData;
+	unique_ptr<Rank> rank;
 	Vector2f windowSize;
 	map<NoteType, NoteDetector*> triggers;
 	map<NoteType, NoteSpawner*> noteSpawners;

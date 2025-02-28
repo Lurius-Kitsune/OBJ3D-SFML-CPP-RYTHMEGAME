@@ -20,6 +20,8 @@ BeatMapLevel::BeatMapLevel(Track* _track, const string& _difficulty)
 {
 	score = nullptr;
 	comboData = make_unique<ComboData>(this);
+	rank = make_unique<Rank>();
+	stats = make_unique<StatsData>();
 	canvas = GetGameMode()->GetHUD()->SpawnWidget<CanvasWidget>("BeatMapLevel", Screen);
 	canvas->AddChild(comboData->label);
 	comboData->label->SetOriginAtMiddle();
@@ -199,12 +201,12 @@ void BeatMapLevel::InitLevelAspect()
 	_rankText->SetCharacterSize(25);
 	_rankText->SetZOrder(3);
 
-	LabelWidget* _rang = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("F", "Rank"); //TODO Implement Rang
-	canvas->AddChild(_rang);
-	_rang->SetFont("Pixel", TTF);
-	_rang->SetPosition(Vector2f(windowSize.x * 0.1f, windowSize.y * 0.625));
-	_rang->SetCharacterSize(100);
-	_rang->SetZOrder(3);
+	rank->rankLabel = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("F", "Rank"); //TODO Implement Rang
+	canvas->AddChild(rank->rankLabel);
+	rank->rankLabel->SetFont("Pixel", TTF);
+	rank->rankLabel->SetPosition(Vector2f(windowSize.x * 0.1f, windowSize.y * 0.625));
+	rank->rankLabel->SetCharacterSize(100);
+	rank->rankLabel->SetZOrder(3);
 
 	time = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>("0:00 / 0:00", "TimeLabel");
 	canvas->AddChild(time);
@@ -302,6 +304,7 @@ void BeatMapLevel::ResetCombo()
 void BeatMapLevel::AddScore(const NoteResult& _noteResult)
 {
 	score->AddScore(_noteResult);
+	rank->rankLabel->SetText(rank->ComputeCurrentRank(score, track->GetCurrentBeatMap()->GetPerfectScoreMin()));
 }
 
 void BeatMapLevel::AnimateBackground()
