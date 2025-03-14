@@ -1,13 +1,13 @@
 #include "Sample.h"
 
-Sample::Sample(const string& _path)
+Sample::Sample(Level* _level, const string& _path) : Actor(_level)
 {
 	volume = 50.0f;
 	path = _path;
 }
 
 
-void Sample::Play(const Time& _offSet, const Time& _duration)
+void Sample::Play(const Time& _time, const Time& _duration)
 {
 	if (IsStatusByIndex(1))
 	{

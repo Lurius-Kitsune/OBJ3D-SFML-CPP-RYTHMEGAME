@@ -21,6 +21,8 @@ NoteMouvementComponent::NoteMouvementComponent(Actor* _owner, const NoteMouvemen
 	triggerNote = _other.triggerNote;
 	triggerRect = _other.triggerRect;
 	direction = _other.direction;
+	isInteractable = _other.isInteractable;
+	isFollowingTarget = _other.isFollowingTarget;
 }
 
 void NoteMouvementComponent::Tick(const float _deltaTime)
@@ -28,8 +30,14 @@ void NoteMouvementComponent::Tick(const float _deltaTime)
 	Move(_deltaTime);
 }
 
+Component* NoteMouvementComponent::Clone(Actor* _owner) const
+{
+	return new NoteMouvementComponent(_owner, *this);
+}
+
 void NoteMouvementComponent::Move(const float _deltaTime)
 {
+	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
 	const FloatRect& _ownerRect = Cast<Note>(owner)->GetMesh()->GetShape()->GetDrawable()->getGlobalBounds();
 	if (isFollowingTarget)
 	{
@@ -42,9 +50,9 @@ void NoteMouvementComponent::Move(const float _deltaTime)
 	}
 	else if (isInteractable && !triggerRect.contains(owner->GetPosition()))
 	{
-		Note* _note = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNote();
-		_note->SetLifeSpan(1.0f);
-		Cast<BeatMapLevel>(M_GAME.GetCurrent())->ResetCombo();
+		Note* _note = _level->GetNote();
+		new Timer(bind(&Actor::Destroy, _note), seconds(1.0f), true);
+		_level->ComputeNoteResult(NR_MISS, triggerNote);
 		isInteractable = false;
 	}
 	owner->Move(direction* speed * _deltaTime * 400.0f);

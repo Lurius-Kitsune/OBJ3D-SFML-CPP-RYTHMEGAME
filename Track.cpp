@@ -4,14 +4,26 @@
 
 using namespace File;
 
-Track::Track(const string& _path)
+Track::Track(Level* _level, const string& _path)
+	: Actor(_level, _path)
 {
 	path = _path;
-	music = new MusicSample(_path + "\\music.mp3");
+	music = new MusicSample(_level,"..\\..\\" + _path + "\\music.mp3");
 	music->Stop();
 	currentBeatMap = nullptr;
 	info = TrackData();
 	Init();
+}
+
+Track::Track(const Track& _other)
+	: Actor(_other)
+{
+	path = _other.path;
+	info = _other.info;
+	music = new MusicSample(*_other.music);
+	currentBeatMap = _other.currentBeatMap;
+	beatMaps = _other.beatMaps;
+	info = _other.info;
 }
 
 Track::~Track()
@@ -20,7 +32,11 @@ Track::~Track()
 
 void Track::PlayExtrait() const
 {
-	M_AUDIO.PlaySample<SoundSample>(music->GetPath(), MP3, music->GetDuration() / 2.0f, seconds(10.0f));
+	const string& _path = music->GetPath();
+	const string& _finalPath = _path.substr(0, _path.size() - 4);
+	SoundSample* _sound = level->SpawnSample<SoundSample>(_finalPath, MP3);
+	_sound->Pause();
+	_sound->Play(music->GetDuration() / 2.0f, seconds(10.0f));
 }
 
 void Track::Start(const string& _difficulty)
@@ -30,6 +46,7 @@ void Track::Start(const string& _difficulty)
 		currentBeatMap = &beatMaps[_difficulty];
 		currentBeatMap->Start();
 		music->Play();
+		
 	}
 	else
 	{
@@ -37,20 +54,26 @@ void Track::Start(const string& _difficulty)
 	}
 }
 
-void Track::Update()
+void Track::Tick(const float _deltaTime)
 {
+	Super::Tick(_deltaTime);
+	if (!currentBeatMap) return;
 	currentBeatMap->Update();
 }
 
 void Track::Stop()
 {
-	currentBeatMap->Stop();
+	if (currentBeatMap)
+	{
+		currentBeatMap->Stop();
+	}
 	music->Stop();
+	currentBeatMap = nullptr;
 }
 
 void Track::Init()
 {
-	vector<string> _info = M_FILE.ReadFile<string>(string(path + "\\info").c_str());
+	vector<string> _info = M_FILE.ReadFile(string(path + "\\info").c_str());
 	if (_info.size() < 3)
 	{
 		LOG(Error, "Missing Information" + path);

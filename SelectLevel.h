@@ -1,9 +1,8 @@
 #pragma once
-#include "Game.h"
 #include "BeatMapLevel.h"
 #include "MeshActor.h"
-#include "Button.h"
-#include "Canvas.h"
+#include "ButtonWidget.h"
+#include "CanvasWidget.h"
 
 enum TrackInfo
 {
@@ -14,24 +13,25 @@ enum TrackInfo
 	TI_COUNT,
 };
 
-class SelectLevel : public Game
+class SelectLevel : public Level
 {
-	using Iterator = unordered_map<Track*, Canvas*>::iterator;
+	using Iterator = unordered_map<Track*, ImageWidget*>::iterator;
 
 	MeshActor* background;
 	Vector2f windowSize;
-	vector<Button*> allButtons;
+	vector<ButtonWidget*> allButtons;
 	vector<Track*> allTracks;
 
 	// Description
-	unordered_map<Track*,Canvas*> allTracksCanvas;
+	unordered_map<Track*, ImageWidget*> allTracksCanvas;
 	Iterator musicIterator; 
 
+	map<string, CanvasWidget*> allCanvas;
 
 	// Right Info
-	Canvas* description; 
-	map<TrackInfo, Label*> infoLabel;
-	u_int trackIndex;
+	CanvasWidget* description;
+	map<TrackInfo, LabelWidget*> infoLabel;
+	u_int trackIndex; //. TODO Remove
 
 public:
 	SelectLevel();
@@ -42,6 +42,7 @@ private:
 	void InitSeparator();
 	void InitLabel();
 	void InitDescription();
+	void InitInput();
 	void InitRectangleTrackInfo(Track* _track);
 
 	// SetLabel
@@ -53,7 +54,13 @@ private:
 
 	bool CrampIterator(Iterator& _current);
 public:
-	virtual void Start() override;
-	virtual bool Update() override;
-	virtual void Stop() override;
+	virtual void Load() override;
+	virtual void Unload() override;
+
+protected:
+	virtual void InitLevel() override;
+
+	//virtual void Start() override;
+	//virtual bool Update() override;
+	//virtual void Stop() override;
 };

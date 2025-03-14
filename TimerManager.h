@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-#include "GameManager.h" 
+#include "Engine.h"
 
 using Seconds = float;
 using MilliSec = int32_t;
@@ -43,7 +43,7 @@ private:
 	{
 		return durations.at(typeid(DurationType));
 	}
-	FORCEINLINE DurationType GetTime(const Time& _time) const
+	FORCEINLINE DurationType GetTimeInString(const Time& _time) const
 	{
 		map<type_index, function<DurationType()>> _durationCallback =
 		{
@@ -54,6 +54,11 @@ private:
 
 		return _durationCallback.at(typeid(DurationType))();
 	}
+	FORCEINLINE string ComputeTime(const int _value) const
+	{
+		if (_value >= 10) return to_string(_value);
+		return "0" + to_string(_value);
+	}
 public:
 	FORCEINLINE string GetCurrentRealTime() const
 	{
@@ -62,8 +67,8 @@ public:
 		tm _ltm;
 		localtime_s(&_ltm, &_now);
 
-		const string& _date = to_string(_ltm.tm_mday) + "/" + to_string(1 + _ltm.tm_mon) + "/" + to_string(1900 + _ltm.tm_year);
-		const string& _time = to_string(_ltm.tm_hour) + ":" + to_string(_ltm.tm_min) + ":" + to_string(_ltm.tm_sec);
+		const string& _date = ComputeTime(_ltm.tm_mday) + "/" + ComputeTime(1 + _ltm.tm_mon) + "/" + ComputeTime(1900 + _ltm.tm_year);
+		const string& _time = ComputeTime(_ltm.tm_hour) + ":" + ComputeTime(_ltm.tm_min) + ":" + ComputeTime(_ltm.tm_sec);
 
 		return _date + " " + _time;
 	}
@@ -120,10 +125,10 @@ public:
 		}
 	}
 
-	void Update()
+	float Update()
 	{
 		lastTime = time;
-		time = GetTime(clock.getElapsedTime());
+		time = GetTimeInString(clock.getElapsedTime());
 		elapsedTime = time - lastTime;
 		deltaTime = elapsedTime * timeScale;
 		framesCount++;
@@ -132,7 +137,6 @@ public:
 		{
 			lastFrameTime = time;
 			framesCount = 0;
-			M_GAME.GetCurrent()->UpdateWindow();
 		}
 		
 		using Iterator = set<T*>::iterator;
@@ -150,6 +154,8 @@ public:
 
 			++_iterator;
 		}
+
+		return GetDeltaTime().asSeconds();
 	}
 	void Pause()
 	{
@@ -191,6 +197,10 @@ class Timer
 	function<void()> callback;
 
 public:
+	FORCEINLINE void SetDuration(const DurationType& _duration)
+	{
+		duration = _duration;
+	}
 	FORCEINLINE bool IsToDelete() const
 	{
 		return isToDelete;
@@ -218,7 +228,7 @@ public:
 		isRunning = _startRunning;
 		isLoop = _isLoop;
 		currentTime = 0.0;
-		duration = _manager.GetTime(_time);
+		duration = _manager.GetTimeInString(_time);
 		callback = _callback;
 
 		_manager.AddTimer(this); //TODO check

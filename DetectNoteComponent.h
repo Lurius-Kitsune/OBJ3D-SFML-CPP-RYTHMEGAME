@@ -13,7 +13,8 @@ public:
 public:
 	virtual void Tick(const float _deltaTime) override;
 	void DetectNote();
+	virtual Component* Clone(Actor* _owner) const override;
 private:
-	void GiveScore(const float _precision, const bool _isAfter);
+	void InterpretResult(const float _precision, const bool _isAfter);
 };
 

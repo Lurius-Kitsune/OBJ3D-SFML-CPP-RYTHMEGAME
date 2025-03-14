@@ -8,7 +8,7 @@ class NoteSpawner : public Spawner<Note>
 	NoteType noteType;
 
 public:
-	NoteSpawner(const NoteType& _noteType, NoteDetector* _detector);
+	NoteSpawner(Level* _level, const NoteType& _noteType, NoteDetector* _detector);
 	NoteSpawner(const NoteSpawner& _other);
 
 public : 

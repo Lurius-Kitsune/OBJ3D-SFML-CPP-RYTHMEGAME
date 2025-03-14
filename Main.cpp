@@ -1,30 +1,24 @@
-#include "Game.h"
-#include "GameManager.h"
-#include "MargeurythmeGame.h"
-#include "BeatMapLevel.h"
+#include "Engine.h"
+#include "LevelManager.h"
+#include "CUSTOMLevel.h"
 #include "SelectLevel.h"
-#include "FileManager.h"
-
-using namespace File;
 
 void InitConfig()
 {
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    Logger::Reset();
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	Logger::Reset();
+	system("cls");
 }
 
 int main()
 {
-    InitConfig();
+	InitConfig();
 
-    vector<Track*> allTracks = FileManager::GetInstance().ReadFolder<Track>("Assets\\Tracks");
-    //new BeatMapLevel(*allTracks.begin[0], "Medium")
-    M_GAME.Launch(new BeatMapLevel(allTracks[0], "Medium"));
+	SelectLevel* _level = new SelectLevel();
+	M_LEVEL.SetLevel(_level);
 
-    for (Track* _track : allTracks)
-	{
-		delete _track;
-	}
+	Engine _engine;
+	_engine.Start();
 
 	return EXIT_SUCCESS;
 }

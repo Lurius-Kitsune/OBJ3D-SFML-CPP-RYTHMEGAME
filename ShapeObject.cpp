@@ -1,21 +1,23 @@
 #include "ShapeObject.h"
 #include "TextureManager.h"
 
-ShapeObject::ShapeObject(const float _radius, const string& _path, const IntRect& _rect,
-						 const size_t& _pointCount)
+ShapeObject::ShapeObject(const CircleShapeData& _data)
 {
-	objectData = ShapeObjectData(SOT_CIRCLE, CircleShapeData(_radius, _path, _rect, _pointCount));
-	InitCircle(*objectData.data.circleData);
+	texture = Texture();
+	objectData = ShapeObjectData(SOT_CIRCLE, _data);
+	InitCircle(*objectData.data.circleData);	
 }
 
 ShapeObject::ShapeObject(const RectangleShapeData& _data)
 {
+	texture = Texture();
 	objectData = ShapeObjectData(SOT_RECTANGLE, _data);
 	InitRectangle(*objectData.data.rectangleData);
 }
 
 ShapeObject::ShapeObject(const ShapeObject& _other)
 {
+	texture = _other.texture;
 	objectData = _other.objectData;
 
 	if (objectData.type == SOT_CIRCLE)

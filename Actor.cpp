@@ -1,23 +1,46 @@
 #include "Actor.h"
 #include "ActorManager.h"
 #include "TimerManager.h"
+#include "Level.h"
 
-Actor::Actor(const string& _name, const TransformData& _transform)
+Actor::Actor(Level* _level, const string& _name, const TransformData& _transform)
 {
-	name = _name;
-	displayName = "Unknown";
+	level = _level; // Setup level in first
+
 	isToDelete = false;
+	id = 0;
 	lifeSpan = 0.0f;
+	name = _name;
+	zOrder = 0;
+	displayName = "Unknown";
+	components = set<Component*>();
 	root = CreateComponent<RootComponent>(_transform);
+	parent = nullptr;
+	attachment = AT_NONE;
+	children = set<Actor*>();
 }
 
-Actor::Actor(const Actor& _actor)
+Actor::Actor(const Actor& _other)
 {
-	name = _actor.name;
-	displayName = _actor.displayName;
-	isToDelete = _actor.isToDelete;
-	lifeSpan = _actor.lifeSpan;
-	root = CreateComponent<RootComponent>(_actor.root);
+	isToDelete = _other.isToDelete;
+	id = _other.id;
+	lifeSpan = _other.lifeSpan;
+	name = _other.name;
+	displayName = _other.displayName;
+	zOrder = _other.zOrder;
+	for (Component* _component : _other.components)
+	{
+		AddComponent(_component->Clone(this));
+	}
+
+	root = GetComponent<RootComponent>();
+	parent = _other.parent;
+	attachment = _other.attachment;
+	for (Actor* _child : _other.children)
+	{
+		children.insert(new Actor(*_child));
+	}
+	level = _other.level;
 }
 
 Actor::~Actor()
@@ -31,14 +54,31 @@ Actor::~Actor()
 
 void Actor::Construct()
 {
+	if (!level)
+	{
+		LOG(Fatal, "Tried to construct an actor (\"" + name + "\") with no level associated !");
+		return;
+	}
+
 	id = GetUniqueID();
-	//displayName = M_ACTOR.GetAvailableName(name);
-	M_ACTOR.AddActor(this);
-}
+	displayName = level->GetActorManager().GetAvailableName(name);
+	SetActive(true);
+
+	for (Component* _component : components)
+	{
+		_component->Construct();
+	}
+ }
 
 void Actor::Deconstruct()
 {
-	M_ACTOR.RemoveActor(this);
+	for (Component* _component : components)
+	{
+		_component->Deconstruct();
+	}
+
+	SetActive(false);
+	Unregister();
 }
 
 void Actor::BeginPlay()
@@ -70,11 +110,35 @@ void Actor::BeginDestroy()
 	}
 }
 
+
+void Actor::Register()
+{
+	level->GetActorManager().AddActor(this);
+}
+
+void Actor::Unregister()
+{
+	level->GetActorManager().RemoveActor(this);
+}
+
+void Actor::SetName(const string& _name)
+{
+	if (name == _name) return;
+
+	name = _name;
+	displayName = level->GetActorManager().GetDisplayName(this);
+}
+
+void Actor::CreateSocket(const string& _name, const TransformData& _transform, const AttachmentType& _type)
+{
+	Actor* _socket = level->SpawnActor<Actor>(_name, _transform);
+	AddChild(_socket, _type);
+}
+
 void Actor::Destroy()
 {
 	SetToDelete();
 }
-
 
 void Actor::AddComponent(Component* _component)
 {
@@ -83,5 +147,5 @@ void Actor::AddComponent(Component* _component)
 
 void Actor::RemoveComponent(Component* _component)
 {
-	components.erase(_component);
+	components.erase(components.find(_component));
 }

@@ -1,37 +1,38 @@
 #include "HorizontalBox.h"
-#include "Level.h"
 
-HorizontalBox::HorizontalBox(float _posX, const float _posY, const u_int& _marging, const u_int& _count, const string& _path, const Vector2f& _size)
+UI::HorizontalBox::HorizontalBox(Level* _level, const BoxData& _data) : Box(_level, _data)
 {
-	spacing = 0;
-	CreateHorizontalBox(_posX, _posY, _marging, _count, _path, _size, spacing);
+	if (data.spaceBetween == -1.0f)
+	{
+		data.spaceBetween = _data.size.x * 0.05f;
+	}
 }
 
-u_int HorizontalBox::ComputeSpacing(float _sizeX, const u_int& _count, const Vector2f& _size)
-{
-	float _totalSpace = _size.x - _sizeX * _count;
-	const u_int _numbreOfSpacing = _count - 1;
-	float _finalSpacing;
-	if (_numbreOfSpacing == 0)
-	{
-		_finalSpacing = _totalSpace;
-	}
-	else
-	{
-		_finalSpacing = _totalSpace / _numbreOfSpacing;
-	}
-	return _finalSpacing;
-}
 
-void HorizontalBox::CreateHorizontalBox(float _posX, const float _posY, const u_int& _marging, const u_int& _count, const string& _path, const Vector2f& _size, float _spacing)
+void UI::HorizontalBox::Update()
 {
-	float _sizeX = _size.x / _count - _marging;
-	_spacing = ComputeSpacing(_sizeX, _count, _size);
+	const Vector2f& _totalSize = GetSize();
+	const u_int& _totalElement = GetElementCount();
+	const float _spaceX = (_totalSize.x - data.spaceBetween * (_totalElement - 1)) / _totalElement;
+	float _allElementsSize = 0.0f;
 
-	for (u_int _index = 0; _index < _count; _index++)
+	for (Widget* _widget : widgets)
 	{
-		MeshActor* _boxes = Level::SpawnActor(MeshActor(RectangleShapeData(Vector2f(_sizeX, _size.y), _path)));
-		_boxes->SetPosition(Vector2f(_posX, _posY));
-		_posX += _sizeX + _spacing;
+		const Vector2f& _size = _widget->GetSize();
+		const float _newScaleX = _spaceX / _size.x;
+		const float _newScaleY = _totalSize.y / _size.y;
+		const float _newScale = min(_newScaleX, _newScaleY);
+		_widget->SetScale(Vector2f(_newScale, _newScale));
+		_allElementsSize += _size.x * _newScale;
+	}
+
+	_allElementsSize += data.spaceBetween * (_totalElement - 1);
+	float _currentX = (_totalSize.x - _allElementsSize) / 2.0f;
+
+	for (Widget* _widget : widgets)
+	{
+		const float _computeSizeX = _widget->GetSize().x * _widget->GetScale().x;
+		_widget->SetPosition(Vector2f(_currentX, _widget->GetPosition().y));
+		_currentX += _computeSizeX + data.spaceBetween;
 	}
 }
