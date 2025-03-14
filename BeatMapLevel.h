@@ -245,7 +245,7 @@ private:
 
 	void InitLevelAspect(CanvasWidget* _canvas);
 	void InitTopBar(CanvasWidget* _canvas);
-	void InitNoteTriggerAndSpawner(CanvasWidget* _canvas);
+	void InitNoteTriggerAndSpawner();
 
 	void AnimateBackground();
 

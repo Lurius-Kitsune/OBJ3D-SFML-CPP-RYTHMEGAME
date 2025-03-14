@@ -142,9 +142,9 @@ void BeatMapLevel::InitLevel()
 	allCanvas[CUI_Game] = InitGameCanvas();
 	allCanvas[CUI_Result] = InitResultCanvas();
 	track->Start(difficulty);
+	InitNoteTriggerAndSpawner();
 	GetGameMode()->GetHUD()->AddToViewport(allCanvas[CUI_Game]);
-	progressBar->SetValue(0);
-	RemoveLife();
+
 	updateTimeTimer = new Timer<Seconds>([&]() 
 		{ 
 			UpdateTime(); 
@@ -198,8 +198,6 @@ CanvasWidget* BeatMapLevel::InitGameCanvas()
 	CanvasWidget* _gameCanvas = GetGameMode()->GetHUD()->SpawnWidget<CanvasWidget>("GameCanvas", Screen);
 	InitLevelAspect(_gameCanvas);
 	InitTopBar(_gameCanvas);
-	InitNoteTriggerAndSpawner(_gameCanvas);
-	InitNoteTriggerAndSpawner(_gameCanvas);
 	_gameCanvas->AddChild(comboData->label);
 	return _gameCanvas;
 }
@@ -335,7 +333,7 @@ void BeatMapLevel::InitTopBar(CanvasWidget* _canvas)
 	_lifeLabel->SetZOrder(3);
 }
 
-void BeatMapLevel::InitNoteTriggerAndSpawner(CanvasWidget* _canvas)
+void BeatMapLevel::InitNoteTriggerAndSpawner()
 {
 	ActionMap* _actMap = GetGameMode()->GetPlayerController()->GetInputManager().CreateActionMap("NoteTrigger");
 	for (u_int _i = 0; _i < 4; _i++)
@@ -343,11 +341,9 @@ void BeatMapLevel::InitNoteTriggerAndSpawner(CanvasWidget* _canvas)
 		/*Note* _note = Level::SpawnActor(Note(NoteType(_i)));
 
 		_note->SetPosition(Vector2f(400.0f + 120.0f * _i, 0));*/
-		NoteDetector* _noteDetect = SpawnActor<NoteDetector>(NoteType(_i));
-		triggers[NoteType(_i)] = _noteDetect;
+		triggers[NoteType(_i)] = SpawnActor<NoteDetector>(NoteType(_i));
 		triggers[NoteType(_i)]->SetPosition(Vector2f(windowSize.x / 3 + 120.0f * _i, 500));
 		triggers[NoteType(_i)]->SetOriginAtMiddle();
-		triggers[NoteType(_i)]->SetActive(false);
 		pair<string, Keyboard::Key> _key = GetKey(NoteType(_i));
 		ActionData _actData = ActionData(KeyPressed, _key.second);
 		_actMap->AddAction(_key.first, _actData, [_i, this]() {triggers[NoteType(_i)]->GetDetectComponent()->DetectNote(); });
