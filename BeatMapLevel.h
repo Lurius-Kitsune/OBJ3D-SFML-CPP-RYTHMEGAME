@@ -109,8 +109,8 @@ struct StatsData
 enum RankType
 {
 	RT_F,
-	RT_B = 60,
-	RT_A = 70,
+	RT_B = 50,
+	RT_A = 60,
 	RT_S = 80,
 	RT_SS = 90,
 	RT_SSS = 100,
@@ -124,14 +124,16 @@ struct Rank
 
 	string ComputeCurrentRank(ScoreLabel* _scoreLabel, const int _maxScore)
 	{
+		const float& _percent = static_cast<float>(_scoreLabel->GetScore()  * 100) / _maxScore;
 		for (size_t _i = 0; _i < size - 1; _i++)
 		{
-			if ((_scoreLabel->GetScore() / _maxScore) * 100 > rankType[_i]
-				&& (_scoreLabel->GetScore() / _maxScore) * 100 < rankType[_i + 1])
+			if (_percent > rankType[_i] && _percent <= rankType[_i + 1])
 			{
 				return GetRankString(rankType[_i]);
 			}
 		}
+		if (_percent >= rankType[size - 1]) return GetRankString(rankType[size - 1]);
+		return "F";
 	}
 	string GetRankString(RankType _rank)
 	{
@@ -156,6 +158,11 @@ struct Rank
 
 };
 
+enum ECanvasUI
+{
+	CUI_Game,
+	CUI_Result,
+};
 class BeatMapLevel : public Level
 {
 	ScoreLabel* score;
@@ -178,7 +185,7 @@ class BeatMapLevel : public Level
 	bool finishedBackgroundAnimation;
 	Timer<Seconds>* updateTimeTimer;
 	int timeElapsed;
-	CanvasWidget* canvas;
+	map<ECanvasUI, CanvasWidget*> allCanvas;
 	//float advancementPercent;
 
 public:
@@ -214,7 +221,10 @@ public:
 		return _note;
 	}
 
-
+	FORCEINLINE bool IsDead()const
+	{
+		return progressBar->GetCurrentValue() <= 0;
+	}
 public:
 	BeatMapLevel(Track* _track, const string& _difficulty);
 public:
@@ -225,10 +235,22 @@ public:
 	void ComputeNoteResult(const NoteResult& _noteResult, NoteDetector* _noteDetector);
 
 private:
-	void InitLevelAspect(); //TODO change name Methode
-	void InitTopBar();
-	void InitNoteTriggerAndSpawner();
+	virtual void InitLevel() override;
+	MeshActor* InitBackground();
+	CanvasWidget* InitResultCanvas();
+
+	void InitResultAspect(CanvasWidget* _canvas);
+
+	CanvasWidget* InitGameCanvas();
+
+	void InitLevelAspect(CanvasWidget* _canvas);
+	void InitTopBar(CanvasWidget* _canvas);
+	void InitNoteTriggerAndSpawner(CanvasWidget* _canvas);
+
 	void AnimateBackground();
+
+
+
 	string GetTimeInString();
 	void UpdateTime();
 
@@ -241,6 +263,5 @@ private:
 
 	pair<string, Keyboard::Key> GetKey(const NoteType& _noteType);
 
-	virtual void InitLevel() override;
 };
 

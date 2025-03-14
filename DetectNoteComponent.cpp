@@ -57,11 +57,11 @@ void DetectNoteComponent::InterpretResult(const float _precision, const bool _is
 {
 	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
 	NoteDetector* _detector = Cast<NoteDetector>(owner);
-	if (_precision >= 0.0f && _precision <= 0.1f)
+	if (_precision >= 0.0f && _precision <= 0.3f)
 	{
 		_level->ComputeNoteResult(NR_PERFECT, _detector);
 	}
-	else if (_precision > 0.1f && _precision <= 0.2f)
+	else if (_precision > 0.1f && _precision <= 0.4f)
 	{
 		_level->ComputeNoteResult(NR_GOOD, _detector);
 	}
