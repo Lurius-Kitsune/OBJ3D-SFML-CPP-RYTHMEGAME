@@ -20,6 +20,7 @@ void DetectNoteComponent::Tick(const float _deltaTime)
 
 void DetectNoteComponent::DetectNote()
 {
+	if (!IsActive()) return;
 	//Savoir ou est la flêche
 	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
 	Note* _note = _level->GetNote();
@@ -55,6 +56,7 @@ Component* DetectNoteComponent::Clone(Actor* _owner) const
 
 void DetectNoteComponent::InterpretResult(const float _precision, const bool _isAfter)
 {
+	if(!IsActive()) return;
 	BeatMapLevel* _level = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel());
 	NoteDetector* _detector = Cast<NoteDetector>(owner);
 	if (_precision >= 0.0f && _precision <= 0.3f)

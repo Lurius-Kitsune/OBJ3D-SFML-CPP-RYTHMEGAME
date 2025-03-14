@@ -41,7 +41,7 @@ void BeatMapLevel::Load()
 	track->SetActive(true);
 	for (pair<NoteType, NoteDetector*> _trigger : triggers)
 	{
-		_trigger.second->SetActive(true);
+		//_trigger.second->SetActive(true);
 	}
 	updateTimeTimer->Reset();
 	updateTimeTimer->Start();
