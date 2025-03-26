@@ -7,39 +7,8 @@ class MeshActor : public Actor
 {
 protected:
 	MeshComponent* mesh;
-	u_int renderMeshToken;
 
 public:
-	FORCEINLINE Vector2f GetForwardVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(cos(_radians), sin(_radians));
-	}
-	FORCEINLINE Vector2f GetDownVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(sin(_radians), -cos(_radians));
-	}
-	FORCEINLINE Vector2f GetRightVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(cos(_radians), -sin(_radians));
-	}
-	FORCEINLINE Vector2f GetLeftVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(-cos(_radians), sin(_radians));
-	}
-	FORCEINLINE Vector2f GetBackVector() const
-	{
-		const Angle& _angle = GetRotation();
-		const float _radians = _angle.asRadians();
-		return Vector2f(-cos(_radians), -sin(_radians));
-	}
 	FORCEINLINE MeshComponent* GetMesh() const
 	{
 		return mesh;
@@ -47,15 +16,7 @@ public:
 	FORCEINLINE FloatRect GetHitbox() const
 	{
 		return mesh->GetShape()->GetDrawable()->getGlobalBounds();
-	}
-	FORCEINLINE void SetFillColor(const Color& _color)
-	{
-		mesh->GetShape()->GetDrawable()->setFillColor(_color);
-	}
-	FORCEINLINE void SetOutlineColor(const Color& _color)
-	{
-		mesh->GetShape()->GetDrawable()->setOutlineColor(_color);
-	}
+	}  
 	FORCEINLINE void SetTextureRect(const Vector2i& _start, const Vector2i& _size)
 	{
 		SetTextureRect(IntRect(_start, _size));
@@ -66,7 +27,6 @@ public:
 	}
 
 	#pragma region Modifier
-
 	FORCEINLINE virtual void SetPosition(const Vector2f& _position) override
 	{
 		Super::SetPosition(_position);
@@ -87,10 +47,12 @@ public:
 		Super::SetOrigin(_origin);
 		mesh->GetShape()->SetOrigin(_origin);
 	}
-	FORCEINLINE void SetOriginAtMiddle()
+
+	FORCEINLINE virtual void SetOriginAtMiddle()
 	{
-		SetOrigin(mesh->GetShape()->GetDrawable()->getGeometricCenter());
+		mesh->SetOriginAtMiddle();
 	}
+
 	FORCEINLINE virtual void Move(const Vector2f& _offset) override
 	{
 		Super::Move(_offset);
@@ -106,19 +68,14 @@ public:
 		Super::Scale(_factor);
 		mesh->GetShape()->Scale(_factor);
 	}
-
 	#pragma endregion
 
 public:
 	MeshActor() = default;
-	MeshActor(const float _radius, const size_t& _pointCount = 30, const string& _path = "", const IntRect& _rect = {}, const string& _name = "MeshActor");
-	MeshActor(const RectangleShapeData& _data, const string& _name = "MeshActor");
+	MeshActor(Level* _level, const CircleShapeData& _data, const string& _name = "MeshActor");
+	MeshActor(Level* _level, const RectangleShapeData& _data, const string& _name = "MeshActor");
 	MeshActor(const MeshActor& _other);
 
-protected:
-	virtual void RenderMesh(RenderWindow& _window);
-
 public:
-	virtual void Construct() override;
-	virtual void Deconstruct() override;
+	virtual void SetZOrder(const int _zOrder) override;
 };

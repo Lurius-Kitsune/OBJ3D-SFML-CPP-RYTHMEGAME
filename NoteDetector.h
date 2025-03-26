@@ -14,7 +14,7 @@ public:
 	}
 public:
 	NoteDetector() = default;
-	NoteDetector(const NoteType _type);
+	NoteDetector(Level* _level, const NoteType _type);
 	NoteDetector(const NoteDetector& _other);
 };
 

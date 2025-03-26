@@ -7,14 +7,6 @@ AudioManager::AudioManager()
 	allSamples = multimap<string, Sample*>();
 }
 
-AudioManager::~AudioManager()
-{
-	for (pair<string, Sample*> _samplePair : allSamples)
-	{
-		delete _samplePair.second;
-	}
-}
-
 
 void AudioManager::ToggleMute()
 {
@@ -26,10 +18,8 @@ void AudioManager::ToggleMute()
 	}
 }
 
-void AudioManager::Stop()
+void AudioManager::PlaySample(Sample* _sample, const Time& _time, const Time& _duration)
 {
-	for (pair<string, Sample*> _samplePair : allSamples)
-	{
-		_samplePair.second->Stop();
-	}
+	if (!_sample) return;
+	_sample->Play(_time, _duration);
 }

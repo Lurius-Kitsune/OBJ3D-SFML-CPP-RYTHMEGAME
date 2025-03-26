@@ -1,29 +1,18 @@
 #include "Animation.h"
 #include "TextureManager.h"
 
-bool LinkedAnimation::TryToChange()
-{
-	if (!IsValid()) return false;
-
-	animation->Start(); // TODO implement
-	return true;
-}
-
-
 Animation::Animation(const string& _name, ShapeObject* _shape, const AnimationData& _data)
 {
 	currentIndex = 0;
 	name = _name;
 	data = _data;
 	shape = _shape;
-
-	timer = new Timer([&]()
-		{
-			Update(); },
-		seconds(data.sprites[currentIndex].timeBetween * data.count / data.duration),
+	timer = new Timer(
+		[&]() { Update(); },
+		seconds(ComputeDuration()),
 		false,
 		true
-	); //TODO change
+	);
 }
 
 Animation::Animation(const Animation& _other)
@@ -32,14 +21,7 @@ Animation::Animation(const Animation& _other)
 	name = _other.name;
 	data = _other.data;
 	shape = _other.shape;
-	
-	timer = new Timer([&]()
-		{ 
-			Update(); },
-		seconds(data.sprites[currentIndex].timeBetween * data.count / data.duration),
-		false,
-		true
-	);
+	timer = _other.timer;
 }
 
 Animation::~Animation()
@@ -47,18 +29,20 @@ Animation::~Animation()
 	timer->Stop();
 }
 
+
 void Animation::Update()
 {
 	if (!IsValidIndex())
 	{
 		if (!data.canLoop)
 		{
-			// transition
-
+			onAnimationEnded();
 			Stop();
 			return;
 		}
 
+		//TODO remove
+		onAnimationEnded();
 		Reset();
 	}
 
@@ -74,8 +58,17 @@ void Animation::Update()
 	{
 		_notifies[currentIndex]();
 	}
-	const SpriteData& _spriteData = data.sprites[currentIndex - 1];
+
+	const SpriteData& _spriteData = *GetSpriteData();
+	UpdateTimer(_spriteData);
 	M_TEXTURE.SetTextureRect(shape->GetDrawable(), _spriteData.start, _spriteData.size);
+}
+
+void Animation::UpdateTimer(const SpriteData& _spriteData)
+{
+	const float _duration = ComputeDuration(_spriteData);
+	timer->SetDuration(_duration);
+	timer->Reset();
 }
 
 void Animation::Reset()

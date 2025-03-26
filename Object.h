@@ -1,7 +1,7 @@
 #pragma once
 #include "TransformableModifier.h"
 
-class Object : public ITransformableModifier
+class Object
 {
 
 public:

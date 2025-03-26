@@ -22,7 +22,7 @@ enum NoteType
 enum NoteResult
 {
 	NR_MISS = 0,
-	NR_TOOEARLY = 50,
+	NR_TOOEARLY = 49,
 	NR_GOOD = 100,
 	NR_PERFECT = 250,
 	NR_TOOLATE = 50,
@@ -41,9 +41,13 @@ public:
 	{
 		return type;
 	}
+	FORCEINLINE NoteMouvementComponent* GetMouvementComponent() const
+	{
+		return mouvementComponent;
+	}
 public:
 	Note() = default;
-	Note(const NoteType _type, NoteDetector* _actor = nullptr);
+	Note(Level* _level, const NoteType _type, NoteDetector* _actor = nullptr);
 	Note(const Note& _other);
 
 };

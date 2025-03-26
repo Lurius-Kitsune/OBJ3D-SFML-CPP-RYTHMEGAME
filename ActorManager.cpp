@@ -1,11 +1,5 @@
 #include "ActorManager.h"
 
-ActorManager::ActorManager()
-{
-	actorsID = multimap<string, Actor*>();
-	allActors = set<Actor*>();
-}
-
 ActorManager::~ActorManager()
 {
 	for (Actor* _actor : allActors)
@@ -23,13 +17,16 @@ void ActorManager::BeginPlay()
 	}
 }
 
-void ActorManager::Tick(const float _deltaTime)
+void ActorManager::Update(const float _deltaTime)
 {
 	vector<Actor*> _garbage;
 
 	for (Actor* _actor : allActors)
 	{
-		_actor->Tick(_deltaTime);
+		if (_actor->IsActive())
+		{
+			_actor->Tick(_deltaTime);
+		}
 
 		if (_actor->IsToDelete())
 		{

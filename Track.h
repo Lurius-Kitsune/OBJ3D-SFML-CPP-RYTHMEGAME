@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "BeatMap.h"
 #include "MusicSample.h"
+#include "Level.h"
 
 
 struct TrackData
@@ -21,7 +22,7 @@ struct TrackData
 };
 
 
-class Track
+class Track : public Actor
 {
 	string path;
 	TrackData info;
@@ -76,14 +77,15 @@ public:
 	}
 
 public:
-	Track(const string& _path = "default");
+	Track(Level* _level, const string& _path = "default");
+	Track(const Track& _other);
 	~Track();
 
 public:
 	void PlayExtrait() const;
 
 	void Start(const string& _difficulty);
-	void Update();
+	virtual void Tick(const float _deltaTime) override;
 	void Stop();
 private:
 	void Init();

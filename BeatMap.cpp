@@ -1,8 +1,8 @@
 #include "BeatMap.h"
 #include "Level.h"
-#include "GameManager.h"
 #include "BeatMapLevel.h"
 #include "FileManager.h"
+#include "LevelManager.h"
 
 using namespace File;
 
@@ -11,7 +11,7 @@ BeatMap::BeatMap(const string& _path)
 	path = _path;
 	isLoaded = false;
 
-	vector<string> _contentFile = M_FILE.ReadFile<string>(string(path).c_str());
+	vector<string> _contentFile = M_FILE.ReadFile(string(path).c_str());
 	vector<string> _content = SplitString(_contentFile[0], '|');
 	missDamage = stoi(_content[1]);
 	difficulty = _content[0];
@@ -49,8 +49,8 @@ void BeatMap::Update()
 			pair<NoteType, bool>& _noteType = notes[_time];
 			if (!_noteType.second)
 			{
-				NoteDetector* _triggerNote = Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteDetector(_noteType.first);
-				Cast<BeatMapLevel>(M_GAME.GetCurrent())->GetNoteSpawner(_noteType.first)->Spawn();
+				NoteDetector* _triggerNote = Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel())->GetNoteDetector(_noteType.first);
+				Cast<BeatMapLevel>(M_LEVEL.GetCurrentLevel())->GetNoteSpawner(_noteType.first)->Spawn();
 				_noteType.second = true;
 			}
 		}
@@ -77,7 +77,7 @@ void BeatMap::LoadBeatMap()
 {
 	if (!isLoaded)
 	{
-		vector<string> _contentFile = M_FILE.ReadFile<string>(string(path).c_str());
+		vector<string> _contentFile = M_FILE.ReadFile(string(path).c_str());
 		
 		//Nombre de ligne total
 		const u_int _totalLine = CAST(u_int, _contentFile.size() - 1);

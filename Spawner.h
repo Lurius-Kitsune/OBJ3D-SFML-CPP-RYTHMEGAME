@@ -1,7 +1,8 @@
 #pragma once
 #include "Actor.h"
 #include "MeshActor.h"
-#include "Level.h"
+#include "LevelManager.h"
+#include "TimerManager.h"
 
 template<typename T>
 class Spawner : public Actor
@@ -10,17 +11,17 @@ class Spawner : public Actor
 	float spawnRange;
 
 protected:
-	SubclassOf<T>* ref;
+	T* ref;
 
 public:
-	Spawner(SubclassOf<T>* _ref) : Actor("Spawner")
+	Spawner(Level* _level, T* _ref) : Actor(_level, "Spawner")
 	{
 		spawnRate = 1.0f;
 		spawnRange = 200.0f;
 		ref = _ref;
 	}
 
-	Spawner(const Spawner<T>& _other) : Actor(_other)
+	Spawner(Level* _level, const Spawner<T>& _other) : Actor(_level, _other)
 	{
 		spawnRate = _other.spawnRate;
 		spawnRange = _other.spawnRange;
@@ -40,13 +41,13 @@ private:
 
 	virtual void Spawn()
 	{
-		const Vector2f& _spawnPosition =
+		/*const Vector2f& _spawnPosition =
 		{
 			GetRandomNumberInRange(0.0f, spawnRange),
 			GetRandomNumberInRange(0.0f, spawnRange),
 		};
 		ref->GetObject().SetPosition(_spawnPosition);
 
-		Level::SpawnActor<T>(*ref);
+		M_LEVEL.GetCurrentLevel()->SpawnActor<T>(*ref);*/
 	}
 };

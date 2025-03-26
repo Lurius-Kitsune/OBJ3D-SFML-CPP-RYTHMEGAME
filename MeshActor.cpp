@@ -1,42 +1,27 @@
 #include "MeshActor.h"
 #include "CameraManager.h"
+#include "CollisionManager.h"
+#include "Level.h"
 
-using namespace Camera;
-
-MeshActor::MeshActor(const float _radius, const size_t& _pointCount, const string& _path,
-					 const IntRect& _rect, const string& _name) : Actor(_name)
-{
-	mesh = CreateComponent<MeshComponent>(_radius, _pointCount, _path, _rect);
-	renderMeshToken = -1;
-}
-
-MeshActor::MeshActor(const RectangleShapeData& _data, const string& _name) : Actor(_name)
+MeshActor::MeshActor(Level* _level, const CircleShapeData& _data, const string& _name) : Actor(_level, _name)
 {
 	mesh = CreateComponent<MeshComponent>(_data);
-	renderMeshToken = -1;
+}
+
+MeshActor::MeshActor(Level* _level, const RectangleShapeData& _data, const string& _name) : Actor(_level, _name)
+{
+	mesh = CreateComponent<MeshComponent>(_data);
 }
 
 MeshActor::MeshActor(const MeshActor& _other) : Actor(_other)
 {
-	mesh = CreateComponent<MeshComponent>(_other.mesh);
-	renderMeshToken = _other.renderMeshToken;
+	mesh = CreateComponent<MeshComponent>(*_other.mesh);
 }
 
-void MeshActor::Construct()
-{
-	Super::Construct();
 
-	const RenderData& _data = RenderData(bind(&MeshActor::RenderMesh, this, placeholders::_1));
-	renderMeshToken = M_CAMERA.BindOnRenderWindow(_data);
-}
-
-void MeshActor::Deconstruct()
+void MeshActor::SetZOrder(const int _zOrder)
 {
-	Super::Deconstruct();
-	M_CAMERA.UnbindOnRenderWindow(renderMeshToken);
-}
+	Super::SetZOrder(_zOrder);
 
-void MeshActor::RenderMesh(RenderWindow& _window)
-{
-	_window.draw(*mesh->GetShape()->GetDrawable());
+	GetLevel()->GetCameraManager().SetZOrder(mesh->GetRenderMeshToken(), zOrder);
 }

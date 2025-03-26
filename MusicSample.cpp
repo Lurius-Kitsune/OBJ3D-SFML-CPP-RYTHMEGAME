@@ -2,9 +2,9 @@
 #include "AudioManager.h"
 #include "TimerManager.h"
 
-MusicSample::MusicSample(const string& _path) : Sample(_path)
+MusicSample::MusicSample(Level* _level, const string& _path) : Sample(_level, _path)
 {
-	const string& _finalPath = _path;
+	const string& _finalPath = "Assets/Musics/" + _path;
 	music = new Music();
 
 	if (!music->openFromFile(_finalPath))
@@ -14,8 +14,6 @@ MusicSample::MusicSample(const string& _path) : Sample(_path)
 		music = nullptr;
 		return;
 	}
-
-	M_AUDIO.RegisterSample(this);
 }
 
 MusicSample::~MusicSample()
@@ -24,15 +22,17 @@ MusicSample::~MusicSample()
 }
 
 
-void MusicSample::Play(const Time& _offset, const Time& _duration)
+void MusicSample::Play(const Time& _time, const Time& _duration)
 {
 	if (!music) return;
-	Super::Play(_offset);
+
+	Super::Play(_time);
 	music->play();
-	music->setPlayingOffset(_offset);
+	music->setPlayingOffset(_time);
+
 	if (_duration != Time())
 	{
-		new Timer([&]() {music->stop(); }, seconds(_duration.asSeconds()), true, false);
+		new Timer([&]() { music->stop(); }, seconds(_duration.asSeconds()), true, false);
 	}
 }
 

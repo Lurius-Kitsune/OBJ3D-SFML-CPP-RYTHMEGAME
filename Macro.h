@@ -12,8 +12,8 @@
 #include <typeinfo>
 #include <exception>
 #include <random>
-#include <fstream>
 #include <filesystem>
+#include <any>
 
 // OLD
 #include <math.h>
@@ -57,12 +57,11 @@
 #define TYPE_NAME(_type) CAST(string, TYPE_ID(_type).name())
 #define TYPE_INDEX_NAME(_typeIndex) CAST(string, _typeIndex.name())
 
-
 using namespace std;
 using namespace sf;
-using namespace filesystem;
 using namespace priv;
 using namespace placeholders;
+using namespace filesystem;
 
 typedef unsigned short u_short;
 typedef unsigned int u_int;

@@ -8,6 +8,7 @@ enum AttachmentType
 	AT_KEEP_RELATIVE,
 	AT_KEEP_WORLD,
 	AT_SNAP_TO_TARGET,
+	AT_NONE,
 };
 
 class RootComponent : public Component, public ITransformableModifier, public ITransformableViewer
@@ -77,7 +78,12 @@ public:
 
 	#pragma endregion
 
+	FORCEINLINE virtual Component* Clone(Actor* _owner) const override
+	{
+		return new RootComponent(_owner, *this);
+	}
+
 public:
 	RootComponent(Actor* _owner, const TransformData& _transform = {});
-	RootComponent(Actor* _owner, const RootComponent* _other);
+	RootComponent(Actor* _owner, const RootComponent& _other);
 };
