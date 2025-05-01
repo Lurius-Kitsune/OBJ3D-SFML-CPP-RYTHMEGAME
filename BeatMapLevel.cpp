@@ -9,6 +9,7 @@
 #include "CameraManager.h"
 #include "FileManager.h"
 #include "DetectNoteComponent.h"
+#include "FloatingLabelWidget.h"
 
 using namespace File;
 using namespace Camera;
@@ -115,7 +116,7 @@ void BeatMapLevel::ComputeNoteResult(const NoteResult& _noteResult, NoteDetector
 
 	if (!allCanvas.contains(CUI_Game))return;
 
-	LabelWidget* _noteResultLabel = GetGameMode()->GetHUD()->SpawnWidget<LabelWidget>(_text, "NoteResultLabel");
+	FloatingLabelWidget* _noteResultLabel = GetGameMode()->GetHUD()->SpawnWidget<FloatingLabelWidget>(_text, "NoteResultLabel");
 	allCanvas[CUI_Game]->AddChild(_noteResultLabel);
 	_noteResultLabel->SetFont("Pixel", TTF);
 	_noteResultLabel->SetOriginAtMiddle();

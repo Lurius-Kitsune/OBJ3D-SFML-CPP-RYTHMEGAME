@@ -16,6 +16,7 @@ UI::Widget::Widget(Level* _level, const string& _name, const RenderType& _type) 
 
 UI::Widget::~Widget()
 {
+	if (!slot) return;
 	delete slot;
 }
 

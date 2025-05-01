@@ -152,6 +152,7 @@ struct Rank
 		case RankType::RT_SSS:
 			return "SSS";
 		default:
+			return "?";
 			break;
 		}
 	}

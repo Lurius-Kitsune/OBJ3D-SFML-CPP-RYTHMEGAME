@@ -253,6 +253,9 @@
     <Filter Include="MargeuRythme\Level\GameplayLevel">
       <UniqueIdentifier>{03cb582b-5099-449e-8a4b-53753f07c351}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MargeuRythme\Widget">
+      <UniqueIdentifier>{74573fcd-52a8-43f6-bde1-00b9d2aafd30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextObject.cpp">
@@ -500,6 +503,9 @@
     </ClCompile>
     <ClCompile Include="SelectLevel.cpp">
       <Filter>MargeuRythme\Level\MainMenuLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingLabelWidget.cpp">
+      <Filter>MargeuRythme\Widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -778,6 +784,9 @@
     </ClInclude>
     <ClInclude Include="SelectLevel.h">
       <Filter>MargeuRythme\Level\MainMenuLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingLabelWidget.h">
+      <Filter>MargeuRythme\Widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
